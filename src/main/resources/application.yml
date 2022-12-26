@@ -1,0 +1,10 @@
+server:
+  port: 8012
+
+spring:
+  datasource:
+    url: jdbc:log4jdbc:oracle:thin:@localhost:1521:xe
+    # db_log
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    username:
+    password:

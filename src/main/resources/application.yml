@@ -6,5 +6,5 @@ spring:
     url: jdbc:log4jdbc:oracle:thin:@localhost:1521:xe
     # db_log
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-    username:
-    password:
+    username: semi
+    password: semi

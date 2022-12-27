@@ -1,4 +1,4 @@
-package com.team.semitravelrecomand.domain;
+package com.team.semiTravelRecomend.domain;
 
 
 import lombok.AllArgsConstructor;

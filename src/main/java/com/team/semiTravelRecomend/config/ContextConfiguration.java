@@ -17,5 +17,4 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan(basePackages = {"com.team.semiTravelRecomend"})
 public class ContextConfiguration {
 
-
 }

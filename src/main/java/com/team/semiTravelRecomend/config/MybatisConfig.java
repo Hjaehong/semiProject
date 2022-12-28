@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @Configuration
 @EnableTransactionManagement
-@MapperScan(basePackages = {"com.team.semitravelrecomand"}, annotationClass = Mapper.class)
+@MapperScan(basePackages = {"com.team.semiTravelRecomend"}, annotationClass = Mapper.class)
 public class MybatisConfig {
 
 }

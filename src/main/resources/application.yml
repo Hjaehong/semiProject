@@ -6,9 +6,8 @@ spring:
     url: jdbc:log4jdbc:oracle:thin:@localhost:1521:xe
     # db_log
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-    username: Semi
+    username: semi
     password: semi
-  servlet:
-      multipart:
-        max-file-size: 10MB
-        max-request-size: 10MB
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml

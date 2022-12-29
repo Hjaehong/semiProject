@@ -1,6 +1,5 @@
-package com.team.semiTravelRecomend.model.dao;
+package com.team.semiTravelRecommend.model.dao;
 
-import com.team.semiTravelRecomend.service.RecordService;
 import org.apache.ibatis.annotations.Mapper;
  /**
     * Version : 1.0

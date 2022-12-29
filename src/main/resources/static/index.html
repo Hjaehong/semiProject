@@ -1,11 +1,13 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Main</title>
 </head>
 <body>
+<div th:replace="common/header.html"> 서버렌더링을 거쳐야 헤더가 정상적으로 불러와짐 </div>
     <h1>세미 프로젝트!!</h1>
-<p>세미프로젝트를 위한 기본 작업</p>
+    <p>세미프로젝트를 위한 기본 작업</p>
 </body>
 </html>

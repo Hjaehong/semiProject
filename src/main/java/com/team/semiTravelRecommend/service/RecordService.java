@@ -1,8 +1,8 @@
-package com.team.semiTravelRecomend.service;
+package com.team.semiTravelRecommend.service;
 
-import com.team.semiTravelRecomend.model.dto.record.RecordDTO;
-import org.springframework.stereotype.Service;
- /**
+import com.team.semiTravelRecommend.model.dto.record.RecordDTO;
+
+/**
     * Version : 1.0
    * 클래스명: RecordService
    * 작성일자 : 2022/12/27

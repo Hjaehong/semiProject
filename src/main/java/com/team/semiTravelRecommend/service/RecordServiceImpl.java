@@ -1,6 +1,6 @@
-package com.team.semiTravelRecomend.service;
+package com.team.semiTravelRecommend.service;
 
-import com.team.semiTravelRecomend.model.dto.record.RecordDTO;
+import com.team.semiTravelRecommend.model.dto.record.RecordDTO;
 import org.springframework.stereotype.Service;
  /**
     * Version : 1.0

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>여행기록하기</title>
+    <script src="../travelRecord.js"></script>
+    <style>
+      .recordWriteForm{
+        margin: 0 18rem;
+      }
+
+      form > div {
+        border: 1px solid red;
+        border-top: none;
+      }
+
+      label {
+        display: inline-block;
+        width: 10rem;
+        text-align: center;
+        border-right: 1px solid black;
+        padding: 2rem;
+      }
+
+      .content {
+        display: flex;
+        align-items: center;
+      }
+
+      .title {
+        border-top: 1px solid red;
+      }
+
+      #title-name {
+        border: none;
+        width: 30rem;
+        height: 4rem;
+        font-size: 20px;
+      }
+
+      .content label{
+        border-right: none;
+      }
+      textarea {
+        border: none;
+        border-left: 1px solid blue;
+        width: 72%;
+        height: 30rem;
+      }
+
+
+      button{
+        border: none;
+        background: #656565;
+        /*width: 50px;*/
+        height: 40px;
+        border-radius: 10px;
+        color: #fff;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 24px;
+        transform: translateX(8px);
+      }
+    </style>
+</head>
+
+<body>
+  <div th:replace="common/header.html"> 서버렌더링을 거쳐야 헤더가 정상적으로 불러와짐 </div>
+  <div class="recordWriteForm">
+    <h2> 여행기록하기 </h2>
+    <form method="post">
+      <div class="title">
+        <label for="title-name"> 제목 </label>
+        <input type="text" id="title-name">
+      </div>
+
+      <div class="local">
+<!-- DB 연결해서는 선택한 로컬코드에 따라서 두번째 선택 태그 내용이 나올 수 있도록 => th:each 돌면서 table 생성한 예제에 적용해보기-->
+        <label> 여행지 </label>
+        <select name="local-code">
+          <option value="SE">서울</option>
+          <option value="IC">인천</option>
+          <option value="DJ">대전</option>
+          <option value="DG">대구</option>
+          <option value="BS">부산</option>
+          <option value="US">울산</option>
+          <option value="GJ">광주</option>
+          <option value="SJ">세종</option>
+          <option selected>---</option>
+          <!-- selected : 초기에 선택되어있는 값 -->
+        </select>
+      </div>
+
+      <div class="date">
+        <label for = "dateIn"> 여행 날짜 (시작일 - 종료일) </label>
+        <span>
+          시작일 : <input type = "date" name="startDateInput" id="dateIn">
+          종료일 : <input type = "date" name="endDateInput">
+        </span>
+      </div>
+
+      <div class="tag">
+        <label> 태그 </label>
+        <select name="tag-code">
+          <option value="T1">국공립공원</option>
+          <option value="T2">산</option>
+          <option value="T3">휴양림</option>
+          <option value="T4">폭포/계곡</option>
+          <option value="T5">바다</option>
+          <option value="T6">섬</option>
+          <option value="T7">유적지</option>
+          <option value="T8">테마공원</option>
+          <option selected>---</option>
+          <!-- selected : 초기에 선택되어있는 값 -->
+        </select>
+      </div>
+
+      <div class="content">
+        <label> 내용 </label>
+        <textarea></textarea>
+      </div>
+
+      <button> 작성하기 </button>
+    </form>
+  </div>
+</body>
+</html>

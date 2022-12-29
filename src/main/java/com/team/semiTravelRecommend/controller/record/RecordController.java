@@ -1,4 +1,4 @@
-package com.team.semiTravelRecomend.controller.record;
+package com.team.semiTravelRecommend.controller.record;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
    * 수정내역 :
  */
 @Controller
+
+
 @RequestMapping("/record")
 public class RecordController {
 

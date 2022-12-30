@@ -22,13 +22,20 @@
         /*}*/
 
         .text-info {
-            /*display: flex;*/
+            display: inline-block;
+        }
+
+        .info img {
+            width: 30px;
+            height: 30px;
+            margin: auto 3px;
         }
 
     </style>
 </head>
 <body>
   <div th:replace="common/header.html"> 서버렌더링을 거쳐야 헤더가 정상적으로 불러와짐 </div>
+
   <div class="main">
       <img src="record/IMG_0415.JPG" alt="메인화면이미지">
 
@@ -41,7 +48,7 @@
                       <div class="local"> 지역명 </div>
                       <div class="place-info"> 장소정보 </div>
                   </div>
-                  <img src="record/IMG_0415.JPG" alt="북마크아이콘"/>
+                  <img src="record/제주도.png" alt="북마크아이콘"/>
               </div>
           </div>
       </div>

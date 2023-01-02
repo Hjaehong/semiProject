@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.team.semiTravelRecommend.model.dao.RecordMapper"><!-- 메퍼위치하고  동일하게 네임스페이스 작성-->
+
+    <resultMap type="com.team.semiTravelRecommend.model.dto.record.RecordDTO" id="recordResultMap">
+        <id property="recordNo" column="RECORD_NO"/>
+        <result property="userNo" column="USER_NO"/>
+        <result property="fileNo" column="IMG_FILE_NO"/>
+        <result property="rcTitle" column="RC_TITLE"/>
+        <result property="rcDetail" column="RECORD_DETAIL"/>
+        <result property="travelStartDate" column="TRAVEL_START_DATE"/>
+        <result property="travelEndDate" column="TRAVEL_END_DATE"/>
+        <association property="cityDTO" column="CITY_CODE" resultMap="cityResultMap"/>
+    </resultMap>
+
+    <resultMap type="com.team.semiTravelRecommend.model.dto.record.CityDTO" id="cityResultMap">
+        <id property="cityCode" column="CITY_CODE"/>
+        <result property="cityName" column="CITY_NAME"/>
+        <result property="badgeImg" column="BADGE_IMG"/>
+        <association property="locationDTO" column="LOC_CODE" resultMap="locationResultMap"/>
+    </resultMap>
+
+    <resultMap type="com.team.semiTravelRecommend.model.dto.record.LocationDTO" id="locationResultMap">
+        <id property="locCode" column="LOC_CODE"/>
+        <result property="locName" column="LOC_NAME"/>
+    </resultMap>
+
+    <select id="readRecordOne" resultMap="recordResultMap"><!-- 메소드명하고 동일하게-->
+        SELECT
+            A.RECORD_NO ,
+            A.USER_NO ,
+            A.IMG_FILE_NO ,
+            A.RC_TITLE ,
+            A.RECORD_DETAIL ,
+            A.TRAVEL_START_DATE ,
+            A.TRAVEL_END_DATE ,
+            C.LOC_NAME ,
+            B.CITY_NAME ,
+            B.BADGE_IMG
+        FROM OH_RECORD A
+        JOIN CITY B ON A.CITY_CODE = B.CITY_CODE
+        JOIN LOCATION C ON B.LOC_CODE = C.LOC_CODE;
+    </select>
+
+<!--    <select id="findMenuByCode" resultMap="menuResultMap">&lt;!&ndash; 메소드명하고 동일하게&ndash;&gt;-->
+<!--        SELECT-->
+<!--            A.MENU_CODE-->
+<!--             , A.MENU_NAME-->
+<!--             , A.MENU_PRICE-->
+<!--             , A.CATEGORY_CODE-->
+<!--             , A.ORDERABLE_STATUS-->
+<!--        FROM TBL_MENU A-->
+<!--        WHERE A.MENU_CODE = #{code}-->
+<!--    </select>-->
+
+<!--    <select id="findAllCategory" resultMap="categoryResultMap">-->
+<!--        SELECT-->
+<!--            A.CATEGORY_CODE-->
+<!--             , A.CATEGORY_NAME-->
+<!--             , A.REF_CATEGORY_CODE-->
+<!--        FROM TBL_CATEGORY A-->
+<!--        WHERE A.REF_CATEGORY_CODE IS NOT NULL-->
+
+<!--    </select>-->
+
+<!--    <insert id = "registMenu">-->
+<!--        INSERT-->
+<!--        INTO TBL_MENU A-->
+<!--            (-->
+<!--               A.MENU_CODE-->
+<!--             , A.MENU_NAME-->
+<!--             , A.MENU_PRICE-->
+<!--             , A.CATEGORY_CODE-->
+<!--             , A.ORDERABLE_STATUS-->
+<!--        )-->
+<!--        VALUES-->
+<!--            (-->
+<!--            SEQ_MENU_CODE.NEXTVAL-->
+<!--                , #{ name }-->
+<!--                , #{ price }-->
+<!--                , #{ categoryCode }-->
+<!--                , #{ orderableStatus }-->
+<!--            )-->
+
+
+<!--    </insert>-->
+
+</mapper>

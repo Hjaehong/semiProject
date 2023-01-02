@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.semiTravelRecomend.model.dao.UserMapper">
+    <insert id="saveUser" parameterType="com.team.semiTravelRecomend.model.dto.User">
+        INSERT INTO OH_USER
+        (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, NICKNAME, ROLE)
+        VALUES(SEQ_USER_NO.NEXTVAL,#{userId},#{userPwd},#{userName},#{nickname},#{role});
+    </insert>
+</mapper>

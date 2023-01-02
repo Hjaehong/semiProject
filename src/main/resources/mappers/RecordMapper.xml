@@ -28,6 +28,16 @@
         <result property="locName" column="LOC_NAME"/>
     </resultMap>
 
+    <resultMap id="tagResultMap" type="com.team.semiTravelRecommend.model.dto.record.TagDTO">
+        <id property="tagCode" column="TAG_CODE"/>
+        <result property="tagName" column="TAG_NAME"/>
+    </resultMap>
+
+    <resultMap id="RecordTagResultMap" type="com.team.semiTravelRecommend.model.dto.record.RecordTagDTO">
+        <association property="recordNo" column="RECORD_NO" resultMap="recordResultMap"/>
+        <association property="tagCode" column="TAG_CODE" resultMap="tagResultMap"/>
+    </resultMap>
+
     <select id="readRecordOne" resultMap="recordResultMap"><!-- 메소드명하고 동일하게-->
         SELECT
             A.RECORD_NO ,

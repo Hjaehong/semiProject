@@ -19,7 +19,7 @@
     <select id="delete" parameterType="com.team.semiTravelRecomend.model.dto.User">
         DELETE *
         FROM OH_USER
-        WHERE userNo=#{userNo}
+        WHERE USER_NO=#{userNo}
     </select>
 
     <select id="findAll" parameterType="com.team.semiTravelRecomend.model.dto.User">
@@ -27,10 +27,10 @@
         FROM OH_USER
     </select>
 
-    <select id="findByUserId" parameterType="com.team.semiTravelRecomend.model.dto.User">
+    <select id="findById" parameterType="com.team.semiTravelRecomend.model.dto.User">
         SELECT *
         FROM OH_USER
-        WHERE userId = #{userId}
+        WHERE USER_NO = #{userNo}
     </select>
 
     <select id="findByUserIdLike" parameterType="com.team.semiTravelRecomend.model.dto.User">
@@ -42,9 +42,9 @@
     <select id="login" parameterType="com.team.semiTravelRecomend.model.dto.User">
         SELECT DISTINCT
         *
-        FROM MEMBER
+        FROM OH_USER
         WHERE USER_ID = #{userID}
-        AND USER_PWD =#{user_Pwd}
+        AND USER_PWD =#{userPwd}
     </select>
 
 

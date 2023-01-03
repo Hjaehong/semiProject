@@ -18,7 +18,7 @@ import java.util.List;
    * 클래스명: RecommendController
    * 작성일자 : 2023/01/02
  * 작성자 : heojaehong
-   * 설명 : 컨트롤러
+   * 설명 : 추천여행지 컨트롤러
    * 수정일자 :
    * 수정자 :
    * 수정내역 :
@@ -54,12 +54,12 @@ public class RecommendController {
 
         model.addAttribute("travelList", travelList);
         model.addAttribute("tagList", tagList);
-        System.out.println("tag_code = " + tag_code);
     }
 
     // 여행지 클릭시 디테일 보여주는 메소드
     @GetMapping("/placeDetail")
-    public void detail(){
+    public void detail(@RequestParam(value = "placeDetail", required = false) String detail){
 
+        System.out.println("detail = " + detail);
     }
 }

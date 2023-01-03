@@ -1,25 +1,132 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
+<style>
+    .modalView {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        height: 100%;
+
+        display: none;
+
+        background-color: rgba(0, 0, 0, 0.4);
+
+    }
+
+
+    .modalMain {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+
+        width: 600px;
+        height: 700px;
+
+        padding: 30px;
+
+        text-align: center;
+
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+
+        transform: translateX(-50%) translateY(-50%);
+    }
+
+    img {
+        width: 230px;
+        height: 240px;
+        /*가로세로 비율은 유지하면서 컨테이너에 꽉 차도록 설정*/
+        object-fit: cover;
+        padding: 10px;
+
+    }
+
+    tr,td {
+        border: 1px solid black;
+    }
+    /* tr를 옆으로 이동 */
+    .tagTable {
+        display: inline-flex;
+    }
+
+
+</style>
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-    <div name="showUserTag">
+    <div id="showUserTag" name="showUserTag">
         <form  method="post">
-            <tr th:each="tagList : ${ tagList }">
-                <td><input type="checkbox" name="tag" th:text="${tagList.tag_name}" th:value="${tagList.tag_code}"></td>
-            </tr>
-            <button type="submit" onclick="location.href='/recommend/travelRecommend'">변경하기</button>
+            <div class="tagTable">
+                <div th:each="tagList : ${ tagList }">
+                    <div>
+                        <button type="submit" name="tag" th:text="${tagList.tag_name}" th:value="${tagList.tag_code}"
+                                onclick="location.href='/recommend/travelRecommend'"/>
+                    </div>
+                </div>
+            </div>
+
         </form>
 
     </div>
     <div name="showRecommendPlace">
-        <tr th:each="travelList : ${ travelList }">
-            <td th:text="${travelList.place_name}"><br></td>
-            <td><img onclick="location.href='/recommend/placeDetail'" th:src="${travelList.pl_img_path}"/><br> </td>
-        </tr>
+        <table>
+            <tr th:each="travelList : ${ travelList }">
+                        <td>
+                            <img  th:src="${travelList.pl_img_path}" class="modalClick"/>
+                        </td>
+                        <td>
+                            <span th:text="${travelList.place_name}"/>
+
+                        </td>
+                        <td class="modalView">
+                            <span class="modalMain" th:utext="${travelList.content_detail}"/>
+
+                        </td>
+            </tr>
+        </table>
     </div>
+    <script>
+        // const body = document.querySelector('body')
+        const modals = document.getElementsByClassName('modalClick')
+        const modalView = document.getElementsByClassName('modalView')
+        let func = []
+
+        // Modal 띄우는 함수
+        function Modal(num) {
+            return function() {
+                // 그림 클릭시 modal창 띄우는 함수
+                modals[num].onclick = function(){
+                    modalView[num].style.display = 'block';
+                    console.log(num);
+                };
+            }
+
+        }
+        // 원하는 Modal 수만큼 Modal 함수를 호출해서 funcs 함수에 정의
+        for(let i = 0; i < modalView.length; i++){
+            func[i] = Modal(i);
+            console.log('Modal함수 호출 후 함수에 정의' + func[i])
+        }
+        // 원하는 Modal 수만큼 funcs 함수를 호출한다.
+        for(let j = 0; j < modalView.length; j++){
+            func[j]();
+            console.log('func 함수 호출' + func[j])
+        }
+
+        // Modal영역 밖에서 클릭시 Modal를 닫는다.
+        window.onclick = function (event){
+            if(event.target.className == "modalView"){
+                event.target.style.display = "none";
+            }
+        }
+
+
+    </script>
 </body>
 </html>

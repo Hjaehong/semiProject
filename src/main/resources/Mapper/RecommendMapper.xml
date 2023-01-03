@@ -6,7 +6,7 @@
 <mapper namespace="com.team.semiTravelRecomend.model.dao.RecommendMapper"><!-- 메퍼위치하고  동일하게 네임스페이스 작성-->
 
     <resultMap type="com.team.semiTravelRecomend.model.dto.PlaceDTO" id="placeResultMap">
-        <id property="place_no" column="PLACE_NO"/>
+        <id property="place_id" column="PLACE_ID"/>
         <result property="place_name" column="PLACE_NAME"/>
         <result property="address" column="ADDRESS"/>
         <result property="tel" column="TEL"/>

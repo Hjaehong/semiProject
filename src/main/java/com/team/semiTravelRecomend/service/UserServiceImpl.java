@@ -41,6 +41,7 @@ public class UserServiceImpl implements UserService{
         User savedUser = userRepository.save(user);
 
         SaveUserResponse saveUserResponse = new SaveUserResponse(savedUser);
+
         return saveUserResponse;
     }
 
@@ -90,7 +91,7 @@ public class UserServiceImpl implements UserService{
 
 
     public LoginUserResponse login(LoginUserRequest loginUserRequest) {
-        User user = userRepository.findByUserId(loginUserRequest.getUserId()).orElseThrow(() -> new IllegalArgumentException("아이디 또는 비밀번호를 확인해주세요."));
+        User user = userRepository.login(loginUserRequest.getUserId()).orElseThrow(() -> new IllegalArgumentException("아이디 또는 비밀번호를 확인해주세요."));
 
         if (!BCrypt.checkpw(loginUserRequest.getPassword(), user.getUserPwd())) {
             throw new IllegalArgumentException("아이디 또는 비밀번호를 확인해주세요.");

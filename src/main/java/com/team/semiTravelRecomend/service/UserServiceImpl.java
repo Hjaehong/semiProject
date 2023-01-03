@@ -80,7 +80,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public SaveUserResponse getUser(Long userNo) {
+    public SaveUserResponse findById(Long userNo) {
         User user = userRepository.findById(userNo).orElseThrow(IllegalArgumentException::new);
 
         SaveUserResponse saveUserResponse = new SaveUserResponse(user);

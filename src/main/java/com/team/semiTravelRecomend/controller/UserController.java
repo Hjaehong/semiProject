@@ -20,7 +20,6 @@ import javax.validation.Valid;
 import java.util.List;
 
 
-@Slf4j
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/users")
@@ -48,14 +47,14 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<List<SaveUserResponse>> getAll() {
+    public ResponseEntity<List<SaveUserResponse>> findUsers() {
         List<SaveUserResponse> users = userService.findUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     @GetMapping("/{userNo}")
-    public ResponseEntity<SaveUserResponse> getUser(@PathVariable Long userNo) {
-        SaveUserResponse saveUserResponse = userService.getUser(userNo);
+    public ResponseEntity<SaveUserResponse> findById(@PathVariable Long userNo) {
+        SaveUserResponse saveUserResponse = userService.findById(userNo);
         return new ResponseEntity<>(saveUserResponse, HttpStatus.OK);
     }
 

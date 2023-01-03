@@ -1,4 +1,4 @@
-package com.team.semitravelrecomand;
+package com.team.semiTravelRecomend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

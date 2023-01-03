@@ -1,4 +1,4 @@
-package com.team.semitravelrecomand;
+package com.team.semiTravelRecomend.config;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

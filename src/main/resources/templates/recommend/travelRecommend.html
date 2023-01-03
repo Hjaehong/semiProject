@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div name="showUserTag">
+        <form  method="post">
+            <tr th:each="tagList : ${ tagList }">
+                <td><input type="checkbox" name="tag" th:text="${tagList.tag_name}" th:value="${tagList.tag_code}"></td>
+            </tr>
+            <button type="submit" onclick="location.href='/recommend/travelRecommend'">변경하기</button>
+        </form>
+
+    </div>
+    <div name="showRecommendPlace">
+        <tr th:each="travelList : ${ travelList }">
+            <td th:text="${travelList.place_name}"><br></td>
+            <td><img onclick="location.href='/recommend/placeDetail'" th:src="${travelList.pl_img_path}"/><br> </td>
+        </tr>
+    </div>
+</body>
+</html>

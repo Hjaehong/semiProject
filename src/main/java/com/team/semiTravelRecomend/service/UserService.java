@@ -25,7 +25,7 @@ public interface UserService {
 
     List<SaveUserResponse> findUsers();
 
-    SaveUserResponse findById(Long userNo);
+    SaveUserResponse findUser(Long userNo);
 
     LoginUserResponse login(LoginUserRequest loginUserRequest);
 }

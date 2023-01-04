@@ -9,13 +9,21 @@ server:
 #    username: semi
 #    password: semi
 
+#spring:
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:8012/OH_USER?serverTimezone=Asia/Seoul
+#    username: root
+#    password: qjaqja201@
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:8012/OH_USER?serverTimezone=Asia/Seoul
     username: root
-    password: qjaqja201@
-
+    password: rkdcks12!
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml

@@ -12,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -63,7 +62,7 @@ public class UserController {
     //회원id조회
     @GetMapping("/{userNo}")
     public ResponseEntity<SaveUserResponse> findById(@PathVariable Long userNo) {
-        SaveUserResponse saveUserResponse = userService.findById(userNo);
+        SaveUserResponse saveUserResponse = userService.findUser(userNo);
 
         return new ResponseEntity<>(saveUserResponse, HttpStatus.OK);
     }

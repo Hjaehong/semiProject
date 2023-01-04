@@ -1,7 +1,7 @@
 package com.team.semiTravelRecomend.service;
 
 
-import com.team.semiTravelRecomend.model.dao.UserRepository;
+import com.team.semiTravelRecomend.model.dao.UserMapper;
 import com.team.semiTravelRecomend.model.dto.User;
 import com.team.semiTravelRecomend.model.dto.UserRole;
 import com.team.semiTravelRecomend.model.dto.requset.LoginUserRequest;
@@ -12,7 +12,8 @@ import com.team.semiTravelRecomend.model.dto.response.LoginUserResponse;
 import com.team.semiTravelRecomend.model.dto.response.SaveUserResponse;
 import com.team.semiTravelRecomend.model.dto.response.UpdateUserResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCrypt;
+
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,9 +23,9 @@ import java.util.List;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
-    private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
 
     @Override
@@ -38,7 +39,7 @@ public class UserServiceImpl implements UserService{
                 .role(UserRole.USER)
                 .build();
 
-        User savedUser = userRepository.save(user);
+        User savedUser = userMapper.save(user);
 
         SaveUserResponse saveUserResponse = new SaveUserResponse(savedUser);
 
@@ -48,9 +49,9 @@ public class UserServiceImpl implements UserService{
     @Override
     @Transactional
     public UpdateUserResponse update(Long userNo, UpdateUserRequest updateUserRequest) {
-        User updatedUser = userRepository.findById(userNo).orElseThrow(IllegalArgumentException::new);
-
-        updatedUser.updateUser(updateUserRequest.getUserName(),updateUserRequest.getEmail(),updateUserRequest.getUserPwd());
+        User updatedUser = userMapper.findById(userNo).orElseThrow(IllegalArgumentException::new);
+        updatedUser.updateUser(updateUserRequest.getUserName(), updateUserRequest.getEmail(), updateUserRequest.getUserPwd());
+        userMapper.update(updatedUser);
 
         return new UpdateUserResponse(updatedUser);
     }
@@ -58,16 +59,14 @@ public class UserServiceImpl implements UserService{
     @Override
     @Transactional
     public DeleteUserResponse delete(Long userNo) {
-        User deletedUser = userRepository.findById(userNo).orElseThrow(IllegalArgumentException::new);
-
-        userRepository.deleteById(deletedUser.getUserNo());
-
+        User deletedUser = userMapper.findById(userNo).orElseThrow(IllegalArgumentException::new);
+        userMapper.delete(deletedUser.getUserNo());
         return new DeleteUserResponse(deletedUser);
     }
 
     @Override
     public List<SaveUserResponse> findUsers() {
-        List<User> Users = userRepository.findAll();
+        List<User> Users = userMapper.findAll();
 
         List<SaveUserResponse> list = new ArrayList<>();
 
@@ -81,8 +80,8 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public SaveUserResponse findById(Long userNo) {
-        User user = userRepository.findById(userNo).orElseThrow(IllegalArgumentException::new);
+    public SaveUserResponse findUser(Long userNo) {
+        User user = userMapper.findById(userNo).orElseThrow(IllegalArgumentException::new);
 
         SaveUserResponse saveUserResponse = new SaveUserResponse(user);
 
@@ -91,7 +90,7 @@ public class UserServiceImpl implements UserService{
 
 
     public LoginUserResponse login(LoginUserRequest loginUserRequest) {
-        User user = userRepository.login(loginUserRequest.getUserId()).orElseThrow(() -> new IllegalArgumentException("아이디 또는 비밀번호를 확인해주세요."));
+        User user = userMapper.login(loginUserRequest.getUserId()).orElseThrow(() -> new IllegalArgumentException("아이디 또는 비밀번호를 확인해주세요."));
 
         if (!BCrypt.checkpw(loginUserRequest.getPassword(), user.getUserPwd())) {
             throw new IllegalArgumentException("아이디 또는 비밀번호를 확인해주세요.");

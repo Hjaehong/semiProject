@@ -1,40 +1,36 @@
 package com.team.semiTravelRecomend.model.dto;
 
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
+import lombok.*;
 
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@Entity
+@Setter
+//@Entity
 public class User{
 
-    @Id
-    @GeneratedValue
+//    @Id
+//    @GeneratedValue
     private Long userNo;
 
 
-    @Column(name = "S_user_id", nullable = false, unique = true)
+//    @Column(name = "S_user_id", nullable = false, unique = true)
     private String userId;
 
 
-    @Column(name = "S_user_name", nullable = false)
+//    @Column(name = "S_user_name", nullable = false)
     private String userName;
 
 
-    @Column(name = "S_user_pwd", nullable = false)
+//    @Column(name = "S_user_pwd", nullable = false)
     private String userPwd;
 
-    @Column(name = "S_email", nullable = false, unique = true)
+//    @Column(name = "S_email", nullable = false, unique = true)
     private String email;
 
-    @Enumerated(value = EnumType.STRING)
-    @Column(name = "S_role", nullable = false)
+//    @Enumerated(value = EnumType.STRING)
+//    @Column(name = "S_role", nullable = false)
     private UserRole role;
 
 

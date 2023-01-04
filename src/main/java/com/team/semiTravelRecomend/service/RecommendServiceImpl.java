@@ -3,6 +3,7 @@ package com.team.semiTravelRecomend.service;
 import com.team.semiTravelRecomend.model.dao.RecommendMapper;
 import com.team.semiTravelRecomend.model.dto.PlaceDTO;
 import com.team.semiTravelRecomend.model.dto.TagDTO;
+import com.team.semiTravelRecomend.paging.SelectCriteria;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,4 +29,15 @@ public class RecommendServiceImpl implements RecommendService{
     public List<TagDTO> showTag() {
         return recommendMapper.showTag();
     }
+
+    // 총 여행지 갯수 출력
+    @Override
+    public int findAllCnt() { return recommendMapper.countTravel(); }
+
+    @Override
+    public List<PlaceDTO> listPaging(SelectCriteria selectCriteria) {
+        return null;
+    }
+
+
 }

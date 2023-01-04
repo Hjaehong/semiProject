@@ -15,14 +15,19 @@
         <result property="tag_code" column="TAG_CODE"/>
         <result property="content_detail" column="CONTENT_DETAIL"/>
 
-        <association property="cityDTO" column="cityResultMap"/>
+        <collection property="cityDTO" column="CITY_CODE" resultMap="cityResultMap"/>
     </resultMap>
     <resultMap type="com.team.semiTravelRecomend.model.dto.CityDTO" id="cityResultMap">
         <id property="city_code" column="CITY_CODE"/>
-        <result property="loc_code" column="LOC_CODE"/>
         <result property="city_name" column="CITY_NAME"/>
         <result property="badge_img" column="BADGE_IMG"/>
-        <result property="local_code" column="LOCAL_CODE"/>
+        
+        <association property="locationDTO" column="LOC_CODE" resultMap="locResultMap"/>
+
+    </resultMap>
+    <resultMap type="com.team.semiTravelRecomend.model.dto.LocationDTO" id="locResultMap">
+        <id property="loc_code" column="LOC_CODE"/>
+        <result property="loc_name" column="LOC_NAME"/>
 
     </resultMap>
     <resultMap type="com.team.semiTravelRecomend.model.dto.TagDTO" id="tagResultMap">
@@ -31,25 +36,49 @@
 
 
     </resultMap>
+    <!-- 태그를 보여주는 여행지 -->
     <select id="showTag" resultMap="tagResultMap">
         select
             *
         from TAG
     </select>
+    <!-- 맨 처음 보여주는 여행지들 -->
     <select id="showRecommendTravel" resultMap="placeResultMap">
         select
             *
-        from PLACE
-        where TAG_CODE = 'T3' AND CITY_CODE = 'C70'
+        from PLACE p
+        join CITY c on p.CITY_CODE = c.CITY_CODE
+        join LOCATION l on c.LOC_CODE = l.LOC_CODE
+        where p.TAG_CODE = 'T3' AND p.CITY_CODE = 'C70'
 
     </select>
+    <!-- 태그에 맞는 여행지 선정 -->
     <select id="tagRecommendTravel" resultMap="placeResultMap">
         select
             *
-        from PLACE
-        where TAG_CODE = '${tag_code}'
+        from PLACE p
+        join CITY c on p.CITY_CODE = c.CITY_CODE
+        join LOCATION l on c.LOC_CODE = l.LOC_CODE
+        where p.TAG_CODE = '${tag_code}'
 
     </select>
-
+    <!-- 총 여행지 갯수 -->
+    <select id="countTravel" resultMap="placeResultMap">
+        select count(*) from place;
+    </select>
+    <!-- 페이징 리스트 -->
+    <select id="listPaging" parameterType="com.team.semiTravelRecomend.paging.Pagination" resultMap="placeResultMap">
+        select *
+        from(
+            select rownum as rnum, a.*
+            from(
+                select *
+                from PLACE
+                order by PLACE_ID desc
+                )a
+                where rownum <![CDATA[<=]]> #{startList}+#{sizePerPage}
+            )
+            where rnum <![CDATA[>=]]> #{startList}
+    </select>
 
 </mapper>

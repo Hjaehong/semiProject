@@ -20,5 +20,5 @@ public class CityDTO {
      private String loc_code;
      private String city_name;
      private String badge_img;
-     private String local_code;
+     LocationDTO locationDTO;
 }

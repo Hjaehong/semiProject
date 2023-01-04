@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.team.semiTravelRecommend.model.dao.PlannerMapper">
+
+
+    <resultMap type="com.team.semiTravelRecommend.model.dto.PlannerDTO" id="plannerResultMap">
+        <id property="plan_no" column="PLAN_NO"/>
+        <result property="user_no" column="USER_NO"/>
+        <result property="travel_place" column="TRAVEL_PLACE"/>
+        <result property="start_due_date" column="START_DUE_DATE"/>
+        <result property="end_due_date" column="END_DUE_DATE"/>
+        <result property="lodging_info" column="LODGING_INFO"/>
+        <result property="transportation" column="TRANSPORTATION"/>
+        <result property="checklist" column="CHECKLIST"/>
+        <result property="pl_detail" column="PL_DETAIL"/>
+    </resultMap>
+
+
+
+   <!-- <select id="findAllPlanner" resultMap="plannerResultMap">
+        SELECT
+            A.PLAN_NO
+             , A.USER_NO
+             , A.TRAVEL_PLACE
+             , A.START_DUE_DATE
+             , A.END_DUE_DATE
+             , A.LODGING_INFO
+             , A.TRANSPORTATION
+             , A.CHECKLIST
+             , A.PL_DETAIL
+        FROM PLANNER A
+        ORDER BY A.PLAN_NO
+    </select>
+
+    <select id="findPlannerByCode" resultMap="plannerResultMap">
+        SELECT
+            A.MENU_CODE
+             , A.MENU_NAME
+             , A.MENU_PRICE
+             , A.CATEGORY_CODE
+             , A.ORDERABLE_STATUS
+        FROM PLANNER A
+        WHERE A.MENU_CODE = #{code}
+    </select>-->
+
+
+    <insert id = "registPlanner">
+        INSERT
+        INTO Planner A
+            (
+               A.PLAN_NO
+             , A.USER_NO
+             , A.TRAVEL_PLACE
+             , A.START_DUE_DATE
+             , A.END_DUE_DATE
+             , A.LODGING_INFO
+             , A.TRANSPORTATION
+             , A.CHECKLIST
+             , A.PL_DETAIL
+        )
+        VALUES
+            (
+            SEQ_PLAN_NO.NEXTVAL
+                , #{ user_no }
+                , #{ travel_place }
+                , #{ start_due_date }
+                , #{ end_due_date }
+                , #{ lodging_info }
+                , #{ transportation }
+                , #{ checklist }
+                , #{ pl_detail }
+            )
+
+    </insert>
+
+
+
+
+</mapper>

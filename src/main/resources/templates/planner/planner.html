@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>여행플래너</title>
+
+</head>
+<body>
+    <header>
+      로고 <b>여행플래너</b> 여행지추천 여행공유 마이페이지 로그아웃
+    </header>
+    <hr>
+    <br>
+    플래너 작성하기
+    <br><br>
+    <form method="get"> <!-- form action="/planner/writepro" method="post" 데이터들을 플래너/라이트두로 보내준다 -->
+      <table border="1px">
+        <tr>
+          <td class="place">여행지</td>
+          <td class="placeContent">
+            <input type="text">
+          </td>
+          <!-- 케밥 케이스(Kebab Case)
+          하이픈으로 단어를 연결하는 방식이며 HTML태그의 id, class 값으로 흔히 쓰인다. -->
+        </tr>
+        <tr>
+          <td class="date">여행일자</td>
+          <td class="dateContent">
+            <input type="text">
+          </td>
+        </tr>
+        <tr>
+          <td class="lodging">숙소정보</td>
+          <td class="lodging-contents">
+            <input type="text">
+          </td>
+        </tr>
+        <tr>
+          <td class="transportation">이동수단</td>
+          <td class="transportation-contents">
+            <input type="text">
+          </td>
+        </tr>
+      </table>
+      <br>
+      <table border="1px">
+        <tr>
+          <td class="checklist">체크리스트</td>
+          <td class="detail">세부일정</td>
+        </tr>
+        <tr>
+          <td>
+            <input type="checkbox" id="first-check" name="list" value="first-check">
+          </td>
+          <td>
+            <textarea rows="5" cols="40"></textarea>
+          </td>
+        </tr>
+      </table>
+      <br>
+      <input type="submit" value="등록">
+    </form>
+</body>
+</html>

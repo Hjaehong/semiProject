@@ -1,6 +1,11 @@
 package com.team.semiTravelRecommend.service;
 
+import com.team.semiTravelRecommend.model.dto.record.CityDTO;
+import com.team.semiTravelRecommend.model.dto.record.LocationDTO;
 import com.team.semiTravelRecommend.model.dto.record.RecordDTO;
+import com.team.semiTravelRecommend.model.dto.record.TagDTO;
+
+import java.util.List;
 
 /**
     * Version : 1.0
@@ -15,4 +20,14 @@ import com.team.semiTravelRecommend.model.dto.record.RecordDTO;
 public interface RecordService {
 
      int insertRecord(RecordDTO recordDTO);
+
+    RecordDTO readRecordOne();
+
+    List<RecordDTO> recordList();
+
+    List<LocationDTO> readLocation();
+
+    List<TagDTO> readTag();
+
+    List<CityDTO> readCity(String locCode);
 }

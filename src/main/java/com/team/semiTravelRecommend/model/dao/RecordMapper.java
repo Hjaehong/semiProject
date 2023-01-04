@@ -1,7 +1,14 @@
 package com.team.semiTravelRecommend.model.dao;
 
+import com.team.semiTravelRecommend.model.dto.record.CityDTO;
+import com.team.semiTravelRecommend.model.dto.record.LocationDTO;
+import com.team.semiTravelRecommend.model.dto.record.RecordDTO;
+import com.team.semiTravelRecommend.model.dto.record.TagDTO;
 import org.apache.ibatis.annotations.Mapper;
- /**
+
+import java.util.List;
+
+/**
     * Version : 1.0
    * 클래스명: RecordMapper
    * 작성일자 : 2022/12/27
@@ -14,7 +21,12 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface RecordMapper {
 
-    // DML은 결과값을 행의 갯수로 출력
-    // 기록물 등록
+    RecordDTO readRecordOne();
+    List<RecordDTO> recordList();
 
-}
+    List<LocationDTO> readLocation();
+
+    List<TagDTO> readTag();
+
+    List<CityDTO> readCity(String locCode);
+ }

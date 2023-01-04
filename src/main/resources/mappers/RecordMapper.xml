@@ -5,7 +5,7 @@
 
 <mapper namespace="com.team.semiTravelRecommend.model.dao.RecordMapper"><!-- 메퍼위치하고  동일하게 네임스페이스 작성-->
 
-    <resultMap type="com.team.semiTravelRecommend.model.dto.record.RecordDTO" id="recordResultMap">
+    <resultMap id="recordResultMap" type="com.team.semiTravelRecommend.model.dto.record.RecordDTO">
         <id property="recordNo" column="RECORD_NO"/>
         <result property="userNo" column="USER_NO"/>
         <result property="fileNo" column="IMG_FILE_NO"/>
@@ -14,18 +14,32 @@
         <result property="travelStartDate" column="TRAVEL_START_DATE"/>
         <result property="travelEndDate" column="TRAVEL_END_DATE"/>
         <association property="cityDTO" column="CITY_CODE" resultMap="cityResultMap"/>
+        <association property="userDTO" column="USER_NO" resultMap="userResultMap"/>
     </resultMap>
 
-    <resultMap type="com.team.semiTravelRecommend.model.dto.record.CityDTO" id="cityResultMap">
+    <resultMap id="cityResultMap" type="com.team.semiTravelRecommend.model.dto.record.CityDTO">
         <id property="cityCode" column="CITY_CODE"/>
         <result property="cityName" column="CITY_NAME"/>
         <result property="badgeImg" column="BADGE_IMG"/>
         <association property="locationDTO" column="LOC_CODE" resultMap="locationResultMap"/>
     </resultMap>
 
-    <resultMap type="com.team.semiTravelRecommend.model.dto.record.LocationDTO" id="locationResultMap">
+    <resultMap id="locationResultMap" type="com.team.semiTravelRecommend.model.dto.record.LocationDTO" >
         <id property="locCode" column="LOC_CODE"/>
         <result property="locName" column="LOC_NAME"/>
+    </resultMap>
+
+    <resultMap id="userResultMap" type="com.team.semiTravelRecommend.model.dto.record.UserDTO">
+        <id property="userNo" column="USER_NO"/>
+        <result property="userId" column="USER_ID"/>
+        <result property="userPwd" column="USER_PWD"/>
+        <result property="userName" column="USER_NAME"/>
+        <result property="Email" column="EMAIL"/>
+        <result property="nickname" column="NICKNAME"/>
+        <result property="status" column="STATUS"/>
+        <result property="intro" column="INTRO"/>
+        <result property="profileImg" column="PROFILE_IMG"/>
+        <!-- 나중에 file 테이블과 join 해야하니까 association 으로 변경해야함 -->
     </resultMap>
 
     <resultMap id="tagResultMap" type="com.team.semiTravelRecommend.model.dto.record.TagDTO">
@@ -38,43 +52,54 @@
         <association property="tagCode" column="TAG_CODE" resultMap="tagResultMap"/>
     </resultMap>
 
-    <select id="readRecordOne" resultMap="recordResultMap"><!-- 메소드명하고 동일하게-->
+    <select id="readRecordOne" resultMap="recordResultMap">
         SELECT
             A.RECORD_NO ,
-            A.USER_NO ,
+            D.NICKNAME ,
             A.IMG_FILE_NO ,
             A.RC_TITLE ,
             A.RECORD_DETAIL ,
             A.TRAVEL_START_DATE ,
             A.TRAVEL_END_DATE ,
             C.LOC_NAME ,
-            B.CITY_NAME ,
-            B.BADGE_IMG
+            B.CITY_NAME
         FROM OH_RECORD A
         JOIN CITY B ON A.CITY_CODE = B.CITY_CODE
-        JOIN LOCATION C ON B.LOC_CODE = C.LOC_CODE;
+        JOIN LOCATION C ON B.LOC_CODE = C.LOC_CODE
+        JOIN OH_USER D ON A.USER_NO = D.USER_NO
+        WHERE A.RECORD_NO = 2 <!-- 나중엔 WEHRE 절에 RECORD_NO 걸어줘야함 -->
     </select>
 
-<!--    <select id="findMenuByCode" resultMap="menuResultMap">&lt;!&ndash; 메소드명하고 동일하게&ndash;&gt;-->
-<!--        SELECT-->
-<!--            A.MENU_CODE-->
-<!--             , A.MENU_NAME-->
-<!--             , A.MENU_PRICE-->
-<!--             , A.CATEGORY_CODE-->
-<!--             , A.ORDERABLE_STATUS-->
-<!--        FROM TBL_MENU A-->
-<!--        WHERE A.MENU_CODE = #{code}-->
-<!--    </select>-->
+    <select id="recordList" resultMap="recordResultMap">
+        SELECT
+            A.RC_TITLE ,
+            D.NICKNAME ,
+            C.LOC_NAME ,
+            B.CITY_NAME
+        FROM OH_RECORD A
+        JOIN CITY B ON A.CITY_CODE = B.CITY_CODE
+        JOIN LOCATION C ON B.LOC_CODE = C.LOC_CODE
+        JOIN OH_USER D ON A.USER_NO = D.USER_NO
+    </select>
 
-<!--    <select id="findAllCategory" resultMap="categoryResultMap">-->
-<!--        SELECT-->
-<!--            A.CATEGORY_CODE-->
-<!--             , A.CATEGORY_NAME-->
-<!--             , A.REF_CATEGORY_CODE-->
-<!--        FROM TBL_CATEGORY A-->
-<!--        WHERE A.REF_CATEGORY_CODE IS NOT NULL-->
+    <select id="readLocation" resultMap="locationResultMap">
+        SELECT
+            *
+        FROM LOCATION
+    </select>
 
-<!--    </select>-->
+    <select id="readCity" resultMap="cityResultMap">
+        SELECT
+            *
+        FROM CITY
+        WHERE LOC_CODE = #{ locCode }
+    </select>
+
+    <select id="readTag" resultMap="tagResultMap">
+        SELECT
+            *
+        FROM TAG
+    </select>
 
 <!--    <insert id = "registMenu">-->
 <!--        INSERT-->

@@ -7,8 +7,8 @@ import java.sql.Date;
     * Version : 1.0
    * 클래스명: RecordDTO
    * 작성일자 : 2022/12/27
- * 작성자 : heojaehong
-   * 설명 : 기록DTO
+   * 작성자 : heojaehong
+   * 설명 : 여행기록DTO
    * 수정일자 :
    * 수정자 :
    * 수정내역 :
@@ -16,13 +16,14 @@ import java.sql.Date;
 @Data
 public class RecordDTO {
 
-    private int record_no;
-    private int city_code;
-    private int user_no;
-    private int file_no;
-    private String rc_title;
-    private String recode_detail;
-    private Date travel_start_date;
-    private Date travel_end_date;
+    private int recordNo;
+    private int fileNo;
+    private String rcTitle;
+    private String rcDetail;
+    private Date travelStartDate;
+    private Date travelEndDate;
+    private String cityCode;
+    private CityDTO cityDTO;
+    private UserDTO userDTO;
 
 }

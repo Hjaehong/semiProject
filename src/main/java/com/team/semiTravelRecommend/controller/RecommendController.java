@@ -40,9 +40,10 @@ public class RecommendController {
     // 추천 여행장소 리스트 보여주는 메소드
     // currPageNo 현재 페이지 번호, range 페이지 범위 -
     @GetMapping("/travelRecommend")
-    public Model recommendList(HttpServletRequest request,Model model){
+    public Model recommendList(@RequestParam(value = "tag", required = false) String tag_code,  HttpServletRequest request,Model model){
         // paging.html에서 currentPage인 name을 가져온다.
         String currentPage = request.getParameter("currentPage");
+
         int pageNo = 1;
         System.out.println("currentPage = " + currentPage);
         if(currentPage != null && !"".equals(currentPage)) {
@@ -69,26 +70,28 @@ public class RecommendController {
         List<PlaceDTO> travelList = recommendService.listPaging(selectCriteria);
         // 여행지 태그 조회
         List<TagDTO> tagList = recommendService.showTag();
+        // 선택한 태그 여행지 조회
+        List<PlaceDTO> tagchooselList = recommendService.tagRecommendTravel(tag_code);
 
-        model.addAttribute("travelList", travelList);
         model.addAttribute("selectCriteria", selectCriteria);
         model.addAttribute("tagList", tagList);
+        if( tag_code != null){
+            model.addAttribute("travelList", tagchooselList);
+        } else {
+            model.addAttribute("travelList", travelList);
+        }
+
 
         return model;
     }
-    @GetMapping("/paging")
-    public void page(HttpServletRequest request, Model model){
-
-    }
+//    @GetMapping("/paging")
+//    public void page(HttpServletRequest request, Model model){
+//
+//    }
     // 취향에 맞춰 여행지를 보여주는 메소드
     @PostMapping("/travelRecommend")
     public void checkTag(@RequestParam(value = "tag", required = false) String tag_code,Model model){
 
-        List<PlaceDTO> travelList = recommendService.tagRecommendTravel(tag_code);
-        List<TagDTO> tagList = recommendService.showTag();
-
-        model.addAttribute("travelList", travelList);
-        model.addAttribute("tagList", tagList);
     }
 
     // 여행지 클릭시 디테일 보여주는 메소드

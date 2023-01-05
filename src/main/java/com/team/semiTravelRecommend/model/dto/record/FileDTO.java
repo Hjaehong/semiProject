@@ -6,7 +6,7 @@ import lombok.Data;
 public class FileDTO {
 
     private int fileNo;
-    private int fileSize;
+    private long fileSize;
     private String originName;
     private String changeName;
     private String imgPath;

@@ -1,9 +1,6 @@
 package com.team.semiTravelRecommend.controller.record;
 
-import com.team.semiTravelRecommend.model.dto.record.CityDTO;
-import com.team.semiTravelRecommend.model.dto.record.LocationDTO;
-import com.team.semiTravelRecommend.model.dto.record.RecordDTO;
-import com.team.semiTravelRecommend.model.dto.record.TagDTO;
+import com.team.semiTravelRecommend.model.dto.record.*;
 import com.team.semiTravelRecommend.service.RecordService;
 import net.bytebuddy.description.type.RecordComponentList;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +9,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -48,12 +50,10 @@ public class RecordController {
         return mv;
     }
 
-    @GetMapping("RecordDetail")
-    public ModelAndView readRecordOne(ModelAndView mv){
+    @GetMapping("RecordDetail/{recordNo}")
+    public ModelAndView readRecordOne(ModelAndView mv, @PathVariable("recordNo") int recordNo){
 
-        // Detail을 보고자하는 게시물의 no을 받아와야함
-
-        RecordDTO record = recordService.readRecordOne();
+        RecordDTO record = recordService.readRecordOne(recordNo);
 
         mv.addObject("RecordOne", record);
         mv.setViewName("record/RecordDetail");
@@ -86,10 +86,42 @@ public class RecordController {
 //    }
 
     @PostMapping("travelRecordWrite")
-    public void writeRecord(RecordDTO record, @RequestParam(name="file", required = false) MultipartFile file){
+    public void writeRecord(RecordDTO record, @RequestParam(name="file", required = false) MultipartFile file, HttpServletRequest request){
 
-        if (!file.)
+        if (!file.getOriginalFilename().equals("")){
+            int fileNo = saveFile(file, request);
+        }
 
+    }
+
+    private int saveFile(MultipartFile file, HttpServletRequest request){
+
+        String resources = request.getSession().getServletContext().getRealPath("resources");
+        String savePath = resources + "/upload_file";
+
+        String originName = file.getOriginalFilename();
+        String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+
+        String onlyName = originName.substring(originName.lastIndexOf("."));
+
+        String changeName = currentTime + onlyName;
+
+        try {
+            file.transferTo(new File(savePath+changeName));
+        } catch (IllegalStateException | IOException e) {
+            e.printStackTrace();
+        }
+
+        FileDTO uploadFile = new FileDTO();
+        uploadFile.setFileSize(file.getSize());
+        uploadFile.setChangeName(changeName);
+        uploadFile.setOriginName(originName);
+        uploadFile.setImgPath(savePath+changeName);
+
+//        recordService.uploadFile(uploadFile);
+
+
+        return 1;
     }
 
 }

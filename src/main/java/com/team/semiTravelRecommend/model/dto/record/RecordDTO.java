@@ -17,13 +17,14 @@ import java.sql.Date;
 public class RecordDTO {
 
     private int recordNo;
-    private int fileNo;
     private String rcTitle;
     private String rcDetail;
     private Date travelStartDate;
     private Date travelEndDate;
+    private String recordTag;
     private String cityCode;
     private CityDTO cityDTO;
     private UserDTO userDTO;
+    private TagDTO tagDTO;
 
 }

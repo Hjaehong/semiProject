@@ -21,7 +21,7 @@ import java.util.List;
 @Mapper
 public interface RecordMapper {
 
-    RecordDTO readRecordOne();
+    RecordDTO readRecordOne(int recordNo);
     List<RecordDTO> recordList();
 
     List<LocationDTO> readLocation();

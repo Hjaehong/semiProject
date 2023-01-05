@@ -34,8 +34,8 @@ public class RecordServiceImpl implements RecordService{
      }
 
      @Override
-     public RecordDTO readRecordOne(){
-         return recordMapper.readRecordOne();
+     public RecordDTO readRecordOne(int recordNo){
+         return recordMapper.readRecordOne(recordNo);
      }
 
      @Override
@@ -48,5 +48,5 @@ public class RecordServiceImpl implements RecordService{
     public List<TagDTO> readTag(){ return recordMapper.readTag(); }
 
     @Override
-    public List<CityDTO> readCity(String locCode) { return recordMapper.readCity(locCode); }
+    public List<CityDTO> readCity(String locCode) { return recordMapper.readCity(locCode);}
  }

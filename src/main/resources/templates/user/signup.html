@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<form method="post" action="/user/signup">
+    <div class="container">
+        <h1>회원가입</h1>
+        <div class="form-group">
+            <label for="inputId">userId</label>
+            <input type="text" class="form-control" id="inputId" name="userId" placeholder="사용자 아이디">
+        </div>
+        <div class="form-group">
+            <label for="inputName">userName</label>
+            <input type="text" class="form-control" id="inputName" name="userName" placeholder="사용자 이름">
+        </div>
+        <div class="form-group">
+            <label for="inputPassword">password</label>
+            <input type="password" class="form-control" id="inputPassword" name="userPw" placeholder="사용자 비밀번호">
+        </div>
+        <div class="form-group">
+            <label for="inputEmail">email</label>
+            <input type="email" class="form-control" id="inputEmail" name="userPw" placeholder="사용자 이메일">
+        </div>
+
+        <button type="submit" class="btn btn-primary">회원가입</button>
+        <button onclick="location.href='/user/login'">회원가입</button>
+        <button onclick="location.href='/user-login'">회원가입</button>
+    </div>
+</form>
+</body>
+</html>

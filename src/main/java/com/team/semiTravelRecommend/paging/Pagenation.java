@@ -1,4 +1,4 @@
-package com.team.semiTravelRecomend.paging;
+package com.team.semiTravelRecommend.paging;
  /**
     * Version : 1.0
    * 클래스명: pagenation

@@ -1,12 +1,10 @@
-package com.team.semiTravelRecomend.controller;
+package com.team.semiTravelRecommend.controller;
 
-import com.team.semiTravelRecomend.model.dto.PlaceDTO;
-import com.team.semiTravelRecomend.model.dto.TagDTO;
-import com.team.semiTravelRecomend.paging.Pagenation;
-import com.team.semiTravelRecomend.paging.SelectCriteria;
-import com.team.semiTravelRecomend.service.RecommendService;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.relational.core.sql.In;
+import com.team.semiTravelRecommend.model.dto.PlaceDTO;
+import com.team.semiTravelRecommend.model.dto.TagDTO;
+import com.team.semiTravelRecommend.paging.Pagenation;
+import com.team.semiTravelRecommend.paging.SelectCriteria;
+import com.team.semiTravelRecommend.service.RecommendService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

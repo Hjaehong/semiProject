@@ -1,13 +1,13 @@
-package com.team.semiTravelRecomend.config;
+package com.team.semiTravelRecommend.config;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SemiTravelRecomandApplication {
+public class SemiTravelRecommendApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SemiTravelRecomandApplication.class, args);
+		SpringApplication.run(SemiTravelRecommendApplication.class, args);
 	}
 
 }

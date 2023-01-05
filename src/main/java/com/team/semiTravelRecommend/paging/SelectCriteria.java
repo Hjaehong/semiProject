@@ -1,4 +1,4 @@
-package com.team.semiTravelRecomend.paging;
+package com.team.semiTravelRecommend.paging;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

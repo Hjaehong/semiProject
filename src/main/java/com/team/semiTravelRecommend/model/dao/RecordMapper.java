@@ -27,4 +27,6 @@ public interface RecordMapper {
 
     List<CityDTO> readCity(String locCode);
     int saveFile(FileDTO imgFile);
+
+    int insertRecord(RecordDTO recordDTO);
  }

@@ -105,30 +105,50 @@
     </select>
 
     <insert id="saveFile">
-        INSERT INTO
+        INSERT INTO OH_FILE
+            (
+                FILE_NO,
+                FILE_SIZE,
+                ORIGINNAME,
+                CHANGENAME,
+                OH_PATH,
+                RECORD_NO
+            )
+            VALUES
+            (
+                SEQ_FILE_NO.NEXTVAL,
+                #{ fileSize },
+                #{ originName },
+                #{ changeName },
+                #{ imgPath },
+                #{ recordNo }
+            )
 
     </insert>
 
-<!--    <insert id = "registMenu">-->
-<!--        INSERT-->
-<!--        INTO TBL_MENU A-->
-<!--            (-->
-<!--               A.MENU_CODE-->
-<!--             , A.MENU_NAME-->
-<!--             , A.MENU_PRICE-->
-<!--             , A.CATEGORY_CODE-->
-<!--             , A.ORDERABLE_STATUS-->
-<!--        )-->
-<!--        VALUES-->
-<!--            (-->
-<!--            SEQ_MENU_CODE.NEXTVAL-->
-<!--                , #{ name }-->
-<!--                , #{ price }-->
-<!--                , #{ categoryCode }-->
-<!--                , #{ orderableStatus }-->
-<!--            )-->
+    <insert id="insertRecord">
+        INSERT INTO OH_RECORD
+        (
+            RECORD_NO,
+            USER_NO,
+            RC_TITLE,
+            RECORD_TAG,
+            RECORD_DETAIL,
+            TRAVEL_START_DATE,
+            TRAVEL_END_DATE
+        )
+        VALUES
+            (
+                SEQ_RECORD_NO.NEXTVAL,
+                #{userNo},
+                #{rcTitle },
+                #{recordTag},
+                #{rcDetail},
+                #{travelStartDate},
+                #{travelEndDate}
+            )
 
+    </insert>
 
-<!--    </insert>-->
 
 </mapper>

@@ -42,7 +42,7 @@
 
       <div class="tag">
         <label> 태그 </label>
-        <select name="tag-code">
+        <select name="recordTag">
           <option th:each="tag : ${ Tag }"
                   th:value="${ tag.tagCode}"
                   th:text="${tag.tagName}">

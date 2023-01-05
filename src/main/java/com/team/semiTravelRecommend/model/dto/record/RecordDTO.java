@@ -17,6 +17,7 @@ import java.sql.Date;
 public class RecordDTO {
 
     private int recordNo;
+    private int userNo;
     private String rcTitle;
     private String rcDetail;
     private Date travelStartDate;

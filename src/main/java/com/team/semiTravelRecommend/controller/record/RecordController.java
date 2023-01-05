@@ -89,9 +89,21 @@ public class RecordController {
     @PostMapping("travelRecordWrite")
     public void writeRecord(RecordDTO record, @RequestParam(name="file", required = false) MultipartFile file, HttpServletRequest request){
 
-        if (!file.getOriginalFilename().equals("")){
+        System.out.println(record.getRecordTag());
+        System.out.println(record.getRcTitle());
+        System.out.println(record.getRcDetail());
+        System.out.println(record.getTravelEndDate());
+        System.out.println(record.getTravelStartDate());
+
+        int result = recordService.insertRecord(record);
+
+        System.out.println(result);
+
+        if ((!file.getOriginalFilename().equals("")) && result == 1){
             int fileNo = saveFile(file);
+            System.out.println(fileNo);
         }
+
 
     }
 
@@ -110,6 +122,7 @@ public class RecordController {
             imgFile.setOriginName(file.getOriginalFilename());
             imgFile.setChangeName(changeName);
             imgFile.setImgPath("/uploadImgs/"+changeName);
+            imgFile.setRecordNo(1);
 
             recordService.saveFile(imgFile);
 
@@ -117,8 +130,6 @@ public class RecordController {
 
         } catch (Exception e) {
         }
-
-
 
         return 1;
     }

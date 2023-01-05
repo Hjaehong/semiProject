@@ -29,7 +29,12 @@ public class RecordServiceImpl implements RecordService{
 
      @Override
      public int insertRecord(RecordDTO recordDTO) {
-         return 0;
+         int result = recordMapper.insertRecord(recordDTO);
+
+         if(result <= 0) {
+             System.out.println("여행기록작성실패");
+         }
+         return result > 0 ? 1 : 0;
      }
 
      @Override
@@ -50,12 +55,12 @@ public class RecordServiceImpl implements RecordService{
     public List<CityDTO> readCity(String locCode) { return recordMapper.readCity(locCode); }
 
     @Override
-    public boolean saveFile(FileDTO imgFile) throws Exception {
+    public int saveFile(FileDTO imgFile) throws Exception {
          int result = recordMapper.saveFile(imgFile);
 
          if(result <= 0) {
              throw new Exception("이미지 저장 실패");
          }
-         return result > 0 ? true : false;
+         return result > 0 ? 1 : 0;
      }
  }

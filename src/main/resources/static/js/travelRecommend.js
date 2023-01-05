@@ -1,4 +1,3 @@
-// const body = document.querySelector('body')
 const modals = document.getElementsByClassName('modalClick')
 const modalView = document.getElementsByClassName('modalView')
 let func = []
@@ -32,3 +31,7 @@ window.onclick = function (event){
     }
 }
 
+// 다음페이지로 이동하는 함수
+function nextPage(text) {
+    location.href = "/recommend/travelRecommend" + "?currentPage=" + text;
+}

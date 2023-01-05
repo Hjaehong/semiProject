@@ -1,6 +1,7 @@
 package com.team.semiTravelRecomend.service;
 
 
+import com.team.semiTravelRecomend.model.dto.User;
 import com.team.semiTravelRecomend.model.dto.requset.LoginUserRequest;
 import com.team.semiTravelRecomend.model.dto.requset.SaveUserRequest;
 import com.team.semiTravelRecomend.model.dto.requset.UpdateUserRequest;
@@ -15,7 +16,7 @@ import java.util.List;
 public interface UserService {
 
     @Transactional
-    SaveUserResponse save(SaveUserRequest saveUserRequest);
+    void save(User user);
 
     @Transactional
     UpdateUserResponse update(Long userNo, UpdateUserRequest updateUserRequest);

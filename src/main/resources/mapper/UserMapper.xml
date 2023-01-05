@@ -32,24 +32,14 @@
         WHERE USER_NO=#{userNo}
     </delete>
 
-    <select id="findAll" resultMap="UserResultMap" >
-        SELECT *
-        FROM OH_USER
-    </select>
-
-    <select id="findById" parameterType="com.team.semiTravelRecomend.model.dto.User">
+    <select id="findById" parameterType="com.team.semiTravelRecomend.model.dto.User" resultType="UserResultMap">
         SELECT *
         FROM OH_USER
         WHERE USER_NO = #{userNo}
     </select>
 
-    <select id="findByUserIdLike" parameterType="com.team.semiTravelRecomend.model.dto.User">
-        SELECT *
-        FROM OH_USER
-        WHERE userId like CONCAT('%', #{user})
-    </select>
 
-    <select id="login" parameterType="com.team.semiTravelRecomend.model.dto.User">
+    <select id="login" parameterType="com.team.semiTravelRecomend.model.dto.User" resultType="UserResultMap">
         SELECT DISTINCT
         *
         FROM OH_USER

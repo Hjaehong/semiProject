@@ -1,5 +1,8 @@
 package com.team.semiTravelRecomend.controller;
 
+import com.team.semiTravelRecomend.model.dto.User;
+import com.team.semiTravelRecomend.service.UserService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import oracle.jdbc.proxy.annotation.Post;
 import org.springframework.stereotype.Controller;
@@ -9,28 +12,42 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Slf4j
+@RequiredArgsConstructor
 @Controller
 public class HelloController {
+
+    private final UserService userService;
 
     @GetMapping("/travel-record")
     public String hello() {
         log.info(">>>>>>>>>>>> 진입 ");
 
-
         return "recode/travelRecord";
-
-        //서버 사이드 렌더링 공부. JSP, thymeleaf, -- SSR 백엔드서버와 html 템플릿 엔진으로 화면 구성.
-
-
-        //클라이언트 사이드 렌더링 -> 리액트, 앵귤러, 뷰 프론트엔드 기술 CSR -> 프론트엔드 백엔드 서버가 각각 띄어짐.
     }
 
-    @GetMapping("itemForm")
-
-    @PostMapping("/basic/items/add")
-    public String addItem(@ModelAttribute Model model) {
-        return "redirect:/";
+    @GetMapping("/user-signup")
+    public String signUpForm() {
+        return "user/signup";
     }
+
+    //여기로 타지지를 않음
+    @PostMapping("/user-signup")
+    public String signUp(User user) {
+        userService.save(user);
+        log.info(">>>>>>>>>>>> 진입 ");
+        return "user/login"; //로그인 구현 예정
+    }
+
+
+//    @GetMapping("itemForm")
+//
+//    @PostMapping("/basic/items/add")
+//    public String addItem(@ModelAttribute Model model) {
+//        return "redirect:/";
+//    }
+
+
+
 
 
 

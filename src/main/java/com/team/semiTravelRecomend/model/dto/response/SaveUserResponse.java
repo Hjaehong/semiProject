@@ -2,7 +2,6 @@ package com.team.semiTravelRecomend.model.dto.response;
 
 
 import com.team.semiTravelRecomend.model.dto.User;
-import com.team.semiTravelRecomend.model.dto.UserRole;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,7 +14,7 @@ public class SaveUserResponse {
     private String userPwd;
     private String userName;
     private String email;
-    private UserRole role;
+    private String role;
 
     public SaveUserResponse(User savedUser) {
         this.userNo = savedUser.getUserNo();

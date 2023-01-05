@@ -2,7 +2,6 @@ package com.team.semiTravelRecomend.model.dto.response;
 
 
 import com.team.semiTravelRecomend.model.dto.User;
-import com.team.semiTravelRecomend.model.dto.UserRole;
 import lombok.Data;
 
 @Data
@@ -13,7 +12,7 @@ public class UpdateUserResponse {
     private String userPwd;
     private String userName;
     private String email;
-    private UserRole role;
+    private String role;
 
     public UpdateUserResponse(User updatedUser) {
         this.userPwd = updatedUser.getUserPwd();

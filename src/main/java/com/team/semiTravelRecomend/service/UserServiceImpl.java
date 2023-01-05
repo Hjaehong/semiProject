@@ -3,7 +3,6 @@ package com.team.semiTravelRecomend.service;
 
 import com.team.semiTravelRecomend.model.dao.UserMapper;
 import com.team.semiTravelRecomend.model.dto.User;
-import com.team.semiTravelRecomend.model.dto.UserRole;
 import com.team.semiTravelRecomend.model.dto.requset.LoginUserRequest;
 import com.team.semiTravelRecomend.model.dto.requset.SaveUserRequest;
 import com.team.semiTravelRecomend.model.dto.requset.UpdateUserRequest;
@@ -29,21 +28,14 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    @Transactional
-    public SaveUserResponse save(SaveUserRequest saveUserRequest) {
-        User user = User.builder()
-                .userId(saveUserRequest.getUserId())
-                .userPwd(BCrypt.hashpw(saveUserRequest.getUserPwd(), BCrypt.gensalt()))
-                .email(saveUserRequest.getEmail())
-                .userName(saveUserRequest.getUserName())
-                .role(UserRole.USER)
-                .build();
-
-        User savedUser = userMapper.save(user);
-
-        SaveUserResponse saveUserResponse = new SaveUserResponse(savedUser);
-
-        return saveUserResponse;
+    public void save(User user) {
+        user.setUserNo(user.getUserNo());
+        user.setUserId(user.getUserId());
+        user.setUserPwd(BCrypt.hashpw(user.getUserPwd(), BCrypt.gensalt()));
+        user.setUserName(user.getUserName());
+        user.setEmail(user.getEmail());
+        user.setRole("USER");
+        userMapper.save(user);
     }
 
     @Override

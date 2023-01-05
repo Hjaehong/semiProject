@@ -1,11 +1,9 @@
 package com.team.semiTravelRecommend.service;
 
 import com.team.semiTravelRecommend.model.dao.RecordMapper;
-import com.team.semiTravelRecommend.model.dto.record.CityDTO;
-import com.team.semiTravelRecommend.model.dto.record.LocationDTO;
-import com.team.semiTravelRecommend.model.dto.record.RecordDTO;
-import com.team.semiTravelRecommend.model.dto.record.TagDTO;
+import com.team.semiTravelRecommend.model.dto.record.*;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,6 +18,7 @@ import java.util.List;
    * 수정내역 :
  */
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class RecordServiceImpl implements RecordService{
 
     private final RecordMapper recordMapper;
@@ -48,5 +47,15 @@ public class RecordServiceImpl implements RecordService{
     public List<TagDTO> readTag(){ return recordMapper.readTag(); }
 
     @Override
-    public List<CityDTO> readCity(String locCode) { return recordMapper.readCity(locCode);}
+    public List<CityDTO> readCity(String locCode) { return recordMapper.readCity(locCode); }
+
+    @Override
+    public boolean saveFile(FileDTO imgFile) throws Exception {
+         int result = recordMapper.saveFile(imgFile);
+
+         if(result <= 0) {
+             throw new Exception("이미지 저장 실패");
+         }
+         return result > 0 ? true : false;
+     }
  }

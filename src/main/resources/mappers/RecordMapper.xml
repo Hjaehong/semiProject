@@ -104,6 +104,11 @@
         FROM TAG
     </select>
 
+    <insert id="saveFile">
+        INSERT INTO
+
+    </insert>
+
 <!--    <insert id = "registMenu">-->
 <!--        INSERT-->
 <!--        INTO TBL_MENU A-->

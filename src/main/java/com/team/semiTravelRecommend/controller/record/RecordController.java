@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
     * Version : 1.0
@@ -89,36 +90,34 @@ public class RecordController {
     public void writeRecord(RecordDTO record, @RequestParam(name="file", required = false) MultipartFile file, HttpServletRequest request){
 
         if (!file.getOriginalFilename().equals("")){
-            int fileNo = saveFile(file, request);
+            int fileNo = saveFile(file);
         }
 
     }
 
-    private int saveFile(MultipartFile file, HttpServletRequest request){
+    private int saveFile(MultipartFile file){
 
-        String resources = request.getSession().getServletContext().getRealPath("resources");
-        String savePath = resources + "/upload_file";
-
-        String originName = file.getOriginalFilename();
-        String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-
-        String onlyName = originName.substring(originName.lastIndexOf("."));
-
-        String changeName = currentTime + onlyName;
+        String projectPath = System.getProperty("user.dir")+"/src/main/resources/static/uploadImgs";
+        UUID uuid = UUID.randomUUID();
+        String changeName = uuid+"_"+file.getOriginalFilename();
+        File saveFile = new File(projectPath, changeName);
 
         try {
-            file.transferTo(new File(savePath+changeName));
-        } catch (IllegalStateException | IOException e) {
-            e.printStackTrace();
+            file.transferTo(saveFile);
+
+            FileDTO imgFile = new FileDTO();
+            imgFile.setFileSize(file.getSize());
+            imgFile.setOriginName(file.getOriginalFilename());
+            imgFile.setChangeName(changeName);
+            imgFile.setImgPath("/uploadImgs/"+changeName);
+
+            recordService.saveFile(imgFile);
+
+            System.out.println("이미지저장성공");
+
+        } catch (Exception e) {
         }
 
-        FileDTO uploadFile = new FileDTO();
-        uploadFile.setFileSize(file.getSize());
-        uploadFile.setChangeName(changeName);
-        uploadFile.setOriginName(originName);
-        uploadFile.setImgPath(savePath+changeName);
-
-//        recordService.uploadFile(uploadFile);
 
 
         return 1;

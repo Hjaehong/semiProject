@@ -1,9 +1,6 @@
 package com.team.semiTravelRecommend.service;
 
-import com.team.semiTravelRecommend.model.dto.record.CityDTO;
-import com.team.semiTravelRecommend.model.dto.record.LocationDTO;
-import com.team.semiTravelRecommend.model.dto.record.RecordDTO;
-import com.team.semiTravelRecommend.model.dto.record.TagDTO;
+import com.team.semiTravelRecommend.model.dto.record.*;
 
 import java.util.List;
 
@@ -30,4 +27,6 @@ public interface RecordService {
     List<TagDTO> readTag();
 
     List<CityDTO> readCity(String locCode);
+
+    boolean saveFile(FileDTO imgFile) throws Exception;
 }

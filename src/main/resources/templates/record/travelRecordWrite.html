@@ -10,7 +10,7 @@
   <div th:replace="common/header.html"></div>
   <div class="recordWriteForm">
     <h2> 여행기록하기 </h2>
-    <form action="/record/travelRecordWrite" method="post">
+    <form action="/record/travelRecordWrite" method="post" enctype="multipart/form-data">
       <div class="title">
         <label for="title-name"> 제목 </label>
         <input type="text" id="title-name" name="rcTitle">

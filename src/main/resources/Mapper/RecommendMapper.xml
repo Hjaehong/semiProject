@@ -64,10 +64,10 @@
     </select>
     <!-- 총 여행지 갯수 -->
     <select id="countTravel" resultMap="placeResultMap">
-        select count(*) from place;
+        select count(*) from PLACE;
     </select>
     <!-- 페이징 리스트 -->
-    <select id="listPaging" parameterType="com.team.semiTravelRecomend.paging.Pagination" resultMap="placeResultMap">
+    <select id="listPaging"  resultMap="placeResultMap">
         select *
         from(
             select rownum as rnum, a.*
@@ -75,10 +75,10 @@
                 select *
                 from PLACE
                 order by PLACE_ID desc
-                )a
-                where rownum <![CDATA[<=]]> #{startList}+#{sizePerPage}
-            )
-            where rnum <![CDATA[>=]]> #{startList}
+                )
+                <![CDATA[where ROWNUM <= #{ endRow }]]>
+            )a
+            where rnum <![CDATA[>= #{ startRow }]]>
     </select>
 
 </mapper>

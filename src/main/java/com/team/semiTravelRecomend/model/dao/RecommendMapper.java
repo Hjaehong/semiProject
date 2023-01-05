@@ -33,5 +33,6 @@ public interface RecommendMapper {
     // 총 개시물 수
     int countTravel();
     // 페이징 리스트
+    List<PlaceDTO> listPaging();
 
  }

@@ -2,6 +2,7 @@ package com.team.semiTravelRecomend.model.dao;
 
 import com.team.semiTravelRecomend.model.dto.PlaceDTO;
 import com.team.semiTravelRecomend.model.dto.TagDTO;
+import com.team.semiTravelRecomend.paging.SelectCriteria;
 import org.apache.ibatis.annotations.Mapper;
  /**
     * Version : 1.0
@@ -33,6 +34,6 @@ public interface RecommendMapper {
     // 총 개시물 수
     int countTravel();
     // 페이징 리스트
-    List<PlaceDTO> listPaging();
+    List<PlaceDTO> listPaging(SelectCriteria selectCriteria);
 
  }

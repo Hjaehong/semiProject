@@ -35,7 +35,11 @@ public class RecommendServiceImpl implements RecommendService{
     public int findAllCnt() { return recommendMapper.countTravel(); }
 
     @Override
-    public List<PlaceDTO> listPaging(SelectCriteria selectCriteria) { return recommendMapper.listPaging(); }
+    public List<PlaceDTO> listPaging(SelectCriteria selectCriteria) {
+
+        List<PlaceDTO> pagingList = recommendMapper.listPaging(selectCriteria);
+        return pagingList;
+    }
 
 
 }

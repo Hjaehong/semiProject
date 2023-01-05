@@ -42,25 +42,11 @@ public class RecommendController {
     // 추천 여행장소 리스트 보여주는 메소드
     // currPageNo 현재 페이지 번호, range 페이지 범위 -
     @GetMapping("/travelRecommend")
-    public Model recommendList(Model model){
-
-
-        // 여행지 전체 조회
-        List<PlaceDTO> travelList = recommendService.showRecommend();
-        // 여행지 태그 조회
-        List<TagDTO> tagList = recommendService.showTag();
-
-        model.addAttribute("travelList", travelList);
-        model.addAttribute("tagList", tagList);
-
-        return model;
-    }
-    @GetMapping("/paging")
-    public void page(HttpServletRequest request, Model model){
+    public Model recommendList(HttpServletRequest request,Model model){
         // paging.html에서 currentPage인 name을 가져온다.
         String currentPage = request.getParameter("currentPage");
         int pageNo = 1;
-
+        System.out.println("currentPage = " + currentPage);
         if(currentPage != null && !"".equals(currentPage)) {
             // 파라미터로 전달 받은 값이 있을떄 그 값을 페이지 번호에
             pageNo =  Integer.parseInt(currentPage);
@@ -82,9 +68,19 @@ public class RecommendController {
         System.out.println("selectCriteria = " + selectCriteria);
 
         // 조회
-        List<PlaceDTO> pagePlace = recommendService.listPaging(selectCriteria);
+        List<PlaceDTO> travelList = recommendService.listPaging(selectCriteria);
+        // 여행지 태그 조회
+        List<TagDTO> tagList = recommendService.showTag();
 
-        model.addAttribute("pagePlace", pagePlace);
+        model.addAttribute("travelList", travelList);
+        model.addAttribute("selectCriteria", selectCriteria);
+        model.addAttribute("tagList", tagList);
+
+        return model;
+    }
+    @GetMapping("/paging")
+    public void page(HttpServletRequest request, Model model){
+
     }
     // 취향에 맞춰 여행지를 보여주는 메소드
     @PostMapping("/travelRecommend")

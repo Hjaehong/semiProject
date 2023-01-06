@@ -15,6 +15,7 @@
         <association property="cityDTO" column="CITY_CODE" resultMap="cityResultMap"/>
         <association property="userDTO" column="USER_NO" resultMap="userResultMap"/>
         <association property="tagDTO" column="RECORD_TAG" resultMap="tagResultMap"/>
+        <association property="fileDTO" column="IMG_FILE_NO" resultMap="fileResultMap"/>
     </resultMap>
 
     <resultMap id="cityResultMap" type="com.team.semiTravelRecommend.model.dto.record.CityDTO">
@@ -38,13 +39,19 @@
         <result property="nickname" column="NICKNAME"/>
         <result property="status" column="STATUS"/>
         <result property="intro" column="INTRO"/>
-        <result property="profileImg" column="PROFILE_IMG"/>
-        <!-- 나중에 file 테이블과 join 해야하니까 association 으로 변경해야함 -->
     </resultMap>
 
     <resultMap id="tagResultMap" type="com.team.semiTravelRecommend.model.dto.record.TagDTO">
         <id property="tagCode" column="TAG_CODE"/>
         <result property="tagName" column="TAG_NAME"/>
+    </resultMap>
+
+    <resultMap id="fileResultMap" type="com.team.semiTravelRecommend.model.dto.record.FileDTO">
+        <id property="fileNo" column="FILE_NO"/>
+        <result property="fileSize" column="FILE_SIZE"/>
+        <result property="originName" column="ORIGINNAME"/>
+        <result property="changeName" column="CHANGENAME"/>
+        <result property="imgPath" column="OH_PATH"/>
     </resultMap>
 
 <!--    <resultMap id="RecordTagResultMap" type="com.team.semiTravelRecommend.model.dto.record.RecordTagDTO">-->
@@ -62,12 +69,15 @@
             A.TRAVEL_START_DATE ,
             A.TRAVEL_END_DATE ,
             C.LOC_NAME ,
-            B.CITY_NAME
+            B.CITY_NAME ,
+            F.OH_PATH ,
+            B.BADGE_IMG
         FROM OH_RECORD A
         JOIN CITY B ON A.CITY_CODE = B.CITY_CODE
         JOIN LOCATION C ON B.LOC_CODE = C.LOC_CODE
         JOIN OH_USER D ON A.USER_NO = D.USER_NO
         JOIN TAG E ON A.RECORD_TAG = E.TAG_CODE
+        JOIN OH_FILE F ON A.IMG_FILE_NO = F.FILE_NO
         WHERE A.RECORD_NO = #{ recordNo }
     </select>
 
@@ -75,13 +85,18 @@
         SELECT
             A.RECORD_NO ,
             A.RC_TITLE ,
-            D.NICKNAME ,
+            B.CITY_NAME ,
             C.LOC_NAME ,
-            B.CITY_NAME
+            D.NICKNAME ,
+            E.TAG_NAME ,
+            F.OH_PATH,
+            B.BADGE_IMG
         FROM OH_RECORD A
         JOIN CITY B ON A.CITY_CODE = B.CITY_CODE
         JOIN LOCATION C ON B.LOC_CODE = C.LOC_CODE
         JOIN OH_USER D ON A.USER_NO = D.USER_NO
+        JOIN TAG E ON A.RECORD_TAG = E.TAG_CODE
+        JOIN OH_FILE F ON A.IMG_FILE_NO = F.FILE_NO
         ORDER BY RECORD_NO DESC
     </select>
 
@@ -104,6 +119,13 @@
         FROM TAG
     </select>
 
+    <select id="returnFileNo" resultMap="fileResultMap">
+        SELECT
+            FILE_NO
+        FROM OH_FILE
+        WHERE CHANGENAME = #{ changeName }
+    </select>
+
     <insert id="saveFile">
         INSERT INTO OH_FILE
             (
@@ -111,8 +133,7 @@
                 FILE_SIZE,
                 ORIGINNAME,
                 CHANGENAME,
-                OH_PATH,
-                RECORD_NO
+                OH_PATH
             )
             VALUES
             (
@@ -120,8 +141,7 @@
                 #{ fileSize },
                 #{ originName },
                 #{ changeName },
-                #{ imgPath },
-                #{ recordNo }
+                #{ imgPath }
             )
 
     </insert>
@@ -134,18 +154,22 @@
             RC_TITLE,
             RECORD_TAG,
             RECORD_DETAIL,
+            CITY_CODE,
             TRAVEL_START_DATE,
-            TRAVEL_END_DATE
+            TRAVEL_END_DATE,
+            IMG_FILE_NO
         )
         VALUES
             (
                 SEQ_RECORD_NO.NEXTVAL,
-                #{userNo},
+                1,
                 #{rcTitle },
                 #{recordTag},
                 #{rcDetail},
+                #{cityCode},
                 #{travelStartDate},
-                #{travelEndDate}
+                #{travelEndDate},
+                #{imgFileNo}
             )
 
     </insert>

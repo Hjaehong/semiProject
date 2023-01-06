@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>RecordDetail</title>
-    <link th:href="@{/css/RecordDetail.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/recordDetail.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
-<div th:replace="common/header.html"> 서버렌더링을 거쳐야 헤더가 정상적으로 불러와짐 </div>
+<div th:replace="common/header.html"></div>
     <div class="posting">
         <div class="head">
             <h6 th:text="${RecordOne.cityDTO.locationDTO.locName}" class="localName"></h6>
@@ -14,16 +14,17 @@
             <h2 th:text="${RecordOne.rcTitle}"></h2>
             <div class="profile">
                 <div class="profile-img">
-                    <img th:src="${RecordOne.userDTO}" alt="프로필이미지"/>
+                    <img th:src="@{${RecordOne.cityDTO.badgeImg}}" alt="마스코트이미지"/>
                 </div>
                 <span class="writer" th:text="${RecordOne.userDTO.nickname}"></span>
             </div>
+            <span> 여행일자 : </span>
             <span class="date" th:text="${RecordOne.travelStartDate}"></span>
             <span> ~ </span>
             <span class="date" th:text="${RecordOne.travelEndDate}" ></span>
         </div>
 
-        <img  th:src="@{제주도.png}" alt="여행지사진"/>
+        <img  th:src="@{${RecordOne.fileDTO.imgPath}}" alt="여행지사진"/>
         <div class="content">
             <pre th:text="${RecordOne.rcDetail}"></pre>
             <div class="tag">

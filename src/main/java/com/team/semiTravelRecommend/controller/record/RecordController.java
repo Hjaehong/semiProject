@@ -39,25 +39,25 @@ public class RecordController {
         this.recordService = recordService;
     }
 
-    @GetMapping("RecordList")
+    @GetMapping("recordList")
     public ModelAndView recordList(ModelAndView mv){
 
         List<RecordDTO> recordList = recordService.recordList();
 
         mv.addObject("RecordList", recordList);
-        mv.setViewName("record/RecordList");
+        mv.setViewName("record/recordList");
 
 
         return mv;
     }
 
-    @GetMapping("RecordDetail/{recordNo}")
+    @GetMapping("recordDetail/{recordNo}")
     public ModelAndView readRecordOne(ModelAndView mv, @PathVariable("recordNo") int recordNo){
 
         RecordDTO record = recordService.readRecordOne(recordNo);
 
         mv.addObject("RecordOne", record);
-        mv.setViewName("record/RecordDetail");
+        mv.setViewName("record/recordDetail");
 
         return mv;
     }
@@ -89,21 +89,20 @@ public class RecordController {
     @PostMapping("travelRecordWrite")
     public void writeRecord(RecordDTO record, @RequestParam(name="file", required = false) MultipartFile file, HttpServletRequest request){
 
-        System.out.println(record.getRecordTag());
-        System.out.println(record.getRcTitle());
-        System.out.println(record.getRcDetail());
-        System.out.println(record.getTravelEndDate());
-        System.out.println(record.getTravelStartDate());
+//        System.out.println(record.getRecordTag());
+//        System.out.println(record.getRcTitle());
+//        System.out.println(record.getRcDetail());
+//        System.out.println(record.getTravelEndDate());
+//        System.out.println(record.getTravelStartDate());
 
-        int result = recordService.insertRecord(record);
-
-        System.out.println(result);
-
-        if ((!file.getOriginalFilename().equals("")) && result == 1){
+        if ((!file.getOriginalFilename().equals(""))){
             int fileNo = saveFile(file);
-            System.out.println(fileNo);
+
+            record.setImgFileNo(fileNo);
+            record.setCityCode("C24");
         }
 
+        int result = recordService.insertRecord(record);
 
     }
 
@@ -122,16 +121,22 @@ public class RecordController {
             imgFile.setOriginName(file.getOriginalFilename());
             imgFile.setChangeName(changeName);
             imgFile.setImgPath("/uploadImgs/"+changeName);
-            imgFile.setRecordNo(1);
 
             recordService.saveFile(imgFile);
 
             System.out.println("이미지저장성공");
 
+            int fileNo = recordService.returnFileNo(changeName);
+            System.out.println(fileNo);
+
+            return fileNo;
+
         } catch (Exception e) {
+
+            return 1;
         }
 
-        return 1;
+
     }
 
 }

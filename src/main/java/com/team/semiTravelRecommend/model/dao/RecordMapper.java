@@ -29,4 +29,6 @@ public interface RecordMapper {
     int saveFile(FileDTO imgFile);
 
     int insertRecord(RecordDTO recordDTO);
+
+    int returnFileNo(String changeName);
  }

@@ -10,5 +10,4 @@ public class FileDTO {
     private String originName;
     private String changeName;
     private String imgPath;
-    private int recordNo;
 }

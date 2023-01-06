@@ -24,8 +24,10 @@ public class RecordDTO {
     private Date travelEndDate;
     private String recordTag;
     private String cityCode;
-    private CityDTO cityDTO;
+    private int imgFileNo;
     private UserDTO userDTO;
     private TagDTO tagDTO;
+    private CityDTO cityDTO;
+    private FileDTO fileDTO;
 
 }

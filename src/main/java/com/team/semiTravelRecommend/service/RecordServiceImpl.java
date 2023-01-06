@@ -63,4 +63,7 @@ public class RecordServiceImpl implements RecordService{
          }
          return result > 0 ? 1 : 0;
      }
+
+     @Override
+    public int returnFileNo(String changeName) { return recordMapper.returnFileNo(changeName); }
  }

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>RecordList</title>
-    <link th:href="@{/css/RecordList.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/recordList.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
   <div th:replace="common/header.html"></div>
@@ -11,20 +11,18 @@
         <div th:each=" recordList : ${ RecordList }" class="recordOne">
             <div th:text="${recordList.userDTO.nickname}" class="nickname"></div>
             <a href="RecordDetail/" th:attrappend="href=${recordList.recordNo}">
-                <img class="record-img" src="IMG_0415.JPG" alt="여행기록사진"/>
+                <img class="record-img" th:src="@{${recordList.fileDTO.imgPath}}" alt="여행기록사진"/>
             </a>
             <div class="info">
                 <div class="local">
                     <div class="mascot-img">
-                        <img  src="IMG_0415.JPG" alt="유저프로필사진"/>
+                        <img  th:src="@{${recordList.cityDTO.badgeImg}}" alt="마스코트사진"/>
                     </div>
                     <span th:text="${recordList.cityDTO.locationDTO.locName}" class="localName"></span>
                     <span th:text="${recordList.cityDTO.cityName}"></span>
                 </div>
                 <div class="tag">
-                    <span th:text="${recordList.recordNo}"> </span>
-                    <span> 태그2 </span>
-                    <span> 태그3 </span>
+                    <span th:text="${recordList.tagDTO.tagName}"> </span>
                 </div>
             </div>
         </div>

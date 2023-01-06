@@ -29,4 +29,6 @@ public interface RecordService {
     List<CityDTO> readCity(String locCode);
 
     int saveFile(FileDTO imgFile) throws Exception;
+
+    int returnFileNo(String changeName);
 }

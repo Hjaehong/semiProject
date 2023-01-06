@@ -59,7 +59,7 @@
 <!--        <association property="tagCode" column="TAG_CODE" resultMap="tagResultMap"/>-->
 <!--    </resultMap>-->
 
-    <select id="readRecordOne" resultMap="recordResultMap">
+    <select id="recordOne" resultMap="recordResultMap">
         SELECT
             A.RECORD_NO ,
             D.NICKNAME ,

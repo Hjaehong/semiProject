@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>여행기록하기</title>
+    <link th:href="@{/css/travelRecordWrite.css}" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <div th:replace="common/header.html"></div>
+  <div class="recordWriteForm">
+    <h2> 여행기록하기 </h2>
+    <form action="/record/travelRecordWrite" method="post" enctype="multipart/form-data">
+      <div class="title">
+        <label for="title-name"> 제목 </label>
+        <input type="text" id="title-name" name="rcTitle">
+      </div>
+
+      <div class="local">
+        <label> 여행지 </label>
+        <select name="local-code"> <!-- onchange="readCity(local-code.value, city-code)"-->
+          <option th:each="location : ${ Location }"
+                  th:value="${ location.locCode}"
+                  th:text="${location.locName}">
+          </option>
+          <option selected>--- 지역선택 ---</option>
+          <!-- selected : 초기에 선택되어있는 값 -->
+        </select>
+
+        <select id="city-code" name="cityCode">
+          <option selected>--- 도시선택 ---</option>
+        </select>
+      </div>
+
+      <div class="date">
+        <label for = "dateIn"> 여행 날짜 (시작일 - 종료일) </label>
+        <span>
+          시작일 : <input type = "date" name="travelStartDate" id="dateIn">
+          종료일 : <input type = "date" name="travelEndDate">
+        </span>
+      </div>
+
+      <div class="tag">
+        <label> 태그 </label>
+        <select name="recordTag">
+          <option th:each="tag : ${ Tag }"
+                  th:value="${ tag.tagCode}"
+                  th:text="${tag.tagName}">
+          </option>
+          <option selected>--- 태그선택 ---</option>
+        </select>
+      </div>
+
+      <div class="content">
+        <label> 내용 </label>
+        <textarea name="rcDetail"></textarea>
+      </div>
+
+      <div class="imgFile">
+        <input type="file" name="file" class="imgFile"/>
+      </div>
+
+      <button type="submit"> 작성하기 </button>
+    </form>
+  </div>
+
+
+
+<!-- <script>-->
+<!--   function readCity(locCode, city) {-->
+<!--     $.ajax({-->
+<!--       url:"/record/city",-->
+
+<!--       success: function (result) {-->
+<!--         console.log(result)-->
+<!--         for (let i = 0; i < result.length; i++) {-->
+<!--           city.options[i] = new Option(result[i], );-->
+<!--         }-->
+<!--       }-->
+<!--     }).fail(function (error) {-->
+<!--       alert(JSON.stringify(error));-->
+<!--     })-->
+<!--   }-->
+<!-- </script>-->
+
+</body>
+</html>

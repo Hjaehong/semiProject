@@ -2,29 +2,38 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>RecordDetail</title>
+    <title>recordDetail</title>
     <link th:href="@{/css/recordDetail.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
 <div th:replace="common/header.html"></div>
     <div class="posting">
         <div class="head">
-            <h6 th:text="${RecordOne.cityDTO.locationDTO.locName}" class="localName"></h6>
-            <h6 th:text="${RecordOne.cityDTO.cityName}"></h6>
-            <h2 th:text="${RecordOne.rcTitle}"></h2>
-            <div class="profile">
-                <div class="profile-img">
+            <div class="mascot">
+                <div class="mascot-img">
                     <img th:src="@{${RecordOne.cityDTO.badgeImg}}" alt="마스코트이미지"/>
                 </div>
-                <span class="writer" th:text="${RecordOne.userDTO.nickname}"></span>
+                <h6 th:text="${RecordOne.cityDTO.locationDTO.locName}" class="localName"></h6>
+                <h6 th:text="${RecordOne.cityDTO.cityName}"></h6>
             </div>
-            <span> 여행일자 : </span>
-            <span class="date" th:text="${RecordOne.travelStartDate}"></span>
-            <span> ~ </span>
-            <span class="date" th:text="${RecordOne.travelEndDate}" ></span>
+
+            <h2 th:text="${RecordOne.rcTitle}"></h2>
+
+            <div class="writer">
+                <span> 작성자 : </span>
+                <span th:text="${RecordOne.userDTO.nickname}"></span>
+            </div>
+
+            <div class="travelDate">
+                <span> 여행일자 : </span>
+                <span class="date" th:text="${RecordOne.travelStartDate}"></span>
+                <span> ~ </span>
+                <span class="date" th:text="${RecordOne.travelEndDate}" ></span>
+            </div>
         </div>
 
-        <img  th:src="@{${RecordOne.fileDTO.imgPath}}" alt="여행지사진"/>
+        <img  th:src="@{${RecordOne.fileDTO.imgPath}}" alt="여행지사진" class="travelImg" th:name="imgFile"/>
+
         <div class="content">
             <pre th:text="${RecordOne.rcDetail}"></pre>
             <div class="tag">
@@ -43,13 +52,21 @@
 <!--            사이즈 조정하기~-->
             <div class="profile">
                 <div class="profile-img">
-                    <img src="제주도.png" alt="프로필이미지"/>
+<!--                    <img src="/image/profile.png" alt="프로필이미지"/>-->
                 </div>
                 <span class="writer"> 작성자 </span>
             </div>
             <textarea></textarea>
             <button>등록</button>
         </form>
+    </div>
+    <div class="button">
+        <form class="edit" action="/record/travelRecordEdit" method="post" enctype="multipart/form-data">
+            <button type="submit"> 수정하기 </button>
+        </form>
+<!--        <form class="delete" action="/record/travelRecordEdit" method="get" enctype="multipart/form-data">-->
+<!--            <button type="submit"> 삭제하기 </button>-->
+<!--        </form>-->
     </div>
 
 </body>

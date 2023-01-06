@@ -52,9 +52,9 @@ public class RecordController {
     }
 
     @GetMapping("recordDetail/{recordNo}")
-    public ModelAndView readRecordOne(ModelAndView mv, @PathVariable("recordNo") int recordNo){
+    public ModelAndView recordOne(ModelAndView mv, @PathVariable("recordNo") int recordNo){
 
-        RecordDTO record = recordService.readRecordOne(recordNo);
+        RecordDTO record = recordService.recordOne(recordNo);
 
         mv.addObject("RecordOne", record);
         mv.setViewName("record/recordDetail");
@@ -135,8 +135,15 @@ public class RecordController {
 
             return 1;
         }
-
-
     }
 
+
+    @PostMapping("recordDetail")
+    public ModelAndView readRecord(ModelAndView mv, RecordDTO record, @RequestParam(name="imgFile", required = false) MultipartFile file){
+
+        mv.addObject("RecordOne", record);
+        mv.setViewName("record/travelRecordEdit");
+
+        return mv;
+    }
 }

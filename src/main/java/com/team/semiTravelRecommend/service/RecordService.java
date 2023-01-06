@@ -18,7 +18,7 @@ public interface RecordService {
 
      int insertRecord(RecordDTO recordDTO);
 
-    RecordDTO readRecordOne(int recordNo);
+    RecordDTO recordOne(int recordNo);
 
     List<RecordDTO> recordList();
 

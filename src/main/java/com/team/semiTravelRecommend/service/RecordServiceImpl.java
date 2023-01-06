@@ -38,8 +38,8 @@ public class RecordServiceImpl implements RecordService{
      }
 
      @Override
-     public RecordDTO readRecordOne(int recordNo){
-         return recordMapper.readRecordOne(recordNo);
+     public RecordDTO recordOne(int recordNo){
+         return recordMapper.recordOne(recordNo);
      }
 
      @Override

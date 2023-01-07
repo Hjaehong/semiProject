@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>여행기록하기</title>
     <link th:href="@{/css/travelRecordWrite.css}" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
 <body>
@@ -18,7 +19,8 @@
 
       <div class="local">
         <label> 여행지 </label>
-        <select name="local-code"> <!-- onchange="readCity(local-code.value, city-code)"-->
+        <select id="location" name="locCode" onchange="readCity(this.value)">
+<!-- 매개변수 제대로 안보내지면 locCode.value 로 넘겨보기-->
           <option th:each="location : ${ Location }"
                   th:value="${ location.locCode}"
                   th:text="${location.locName}">
@@ -28,6 +30,10 @@
         </select>
 
         <select id="city-code" name="cityCode">
+          <option th:each="city : ${ City }"
+                  th:value="${ city.cityCode}"
+                  th:text="${city.cityName}">
+          </option>
           <option selected>--- 도시선택 ---</option>
         </select>
       </div>
@@ -63,25 +69,33 @@
       <button type="submit"> 작성하기 </button>
     </form>
   </div>
-
-
-
-<!-- <script>-->
-<!--   function readCity(locCode, city) {-->
-<!--     $.ajax({-->
-<!--       url:"/record/city",-->
-
-<!--       success: function (result) {-->
-<!--         console.log(result)-->
-<!--         for (let i = 0; i < result.length; i++) {-->
-<!--           city.options[i] = new Option(result[i], );-->
-<!--         }-->
-<!--       }-->
-<!--     }).fail(function (error) {-->
-<!--       alert(JSON.stringify(error));-->
-<!--     })-->
-<!--   }-->
-<!-- </script>-->
-
+<!--  <script type="text/javascript" th:src="@{/js/travelRecordWirte.js}"></script>-->
 </body>
+    <script th:inline="javascript">
+        function readCity(locCode) {
+
+            $.ajax({
+                type: "POST",
+                url: "/record/city",
+                data: {'locCode': locCode},
+                dataType: "json",
+                success: function (cityDTO) {
+
+                    let city = document.getElementById("city-code");
+
+                    for (let i = 0; i < cityDTO.length; i++) {
+                        city.options[i] = new Option(cityDTO[i].cityName, cityDTO[i].cityCode);
+                    }
+
+                    city.innerHTML += '<option selected>--- 도시선택 ---</option>';
+
+                }, error: function (e) {
+                    alert("발생한 에러 확인" + e);
+                }
+            })
+        };
+
+        /*]]*/
+    </script>
+
 </html>

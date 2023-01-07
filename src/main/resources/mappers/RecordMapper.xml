@@ -60,17 +60,12 @@
 
     <select id="recordOne" resultMap="recordResultMap">
         SELECT
-            A.RECORD_NO ,
-            D.NICKNAME ,
-            A.RC_TITLE ,
-            A.RECORD_DETAIL ,
-            E.TAG_NAME ,
-            A.TRAVEL_START_DATE ,
-            A.TRAVEL_END_DATE ,
-            C.LOC_NAME ,
-            B.CITY_NAME ,
-            F.OH_PATH ,
-            B.BADGE_IMG
+            A.* ,
+            B.* ,
+            C.* ,
+            D.* ,
+            E.* ,
+            F.*
         FROM OH_RECORD A
         JOIN CITY B ON A.CITY_CODE = B.CITY_CODE
         JOIN LOCATION C ON B.LOC_CODE = C.LOC_CODE

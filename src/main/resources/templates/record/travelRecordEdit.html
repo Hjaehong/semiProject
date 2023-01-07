@@ -16,20 +16,28 @@
         <input type="text" id="title-name" name="rcTitle" th:field="${RecordOne.rcTitle}">
       </div>
 
-<!--      <div class="local">-->
-<!--        <label> 여행지 </label>-->
-<!--        <select name="local-code">-->
-<!--          <option selected  th:value="${RecordOne.cityDTO.locationDTO.locCode}"-->
-<!--                            th:text="${RecordOne.cityDTO.locationDTO.locName}"> </option>-->
-<!--          &lt;!&ndash; selected : 초기에 선택되어있는 값 &ndash;&gt;-->
-<!--        </select>-->
+      <div class="local">
+        <label> 여행지 </label>
+        <select name="locCode">
+            <option th:each="location : ${ Location }"
+                    th:value="${ location.locCode}"
+                    th:text="${location.locName}">
+            </option>
+          <option selected th:utext="${RecordOne.cityDTO.locationDTO.locName}"
+                           th:value="${RecordOne.cityDTO.locationDTO.locCode}"> </option>
+          <!-- selected : 초기에 선택되어있는 값 -->
+        </select>
 
-<!--        <select id="city-code" name="cityCode">-->
-<!--          <option selected th:text="${RecordOne.cityDTO.cityName}"-->
-<!--                           th:value="${RecordOne.cityDTO.cityCode}">-->
-<!--          </option>-->
-<!--        </select>-->
-<!--      </div>-->
+        <select id="city-code" name="cityCode">
+            <option th:each="city : ${ City }"
+                    th:value="${ city.cityCode}"
+                    th:text="${city.cityName}">
+            </option>
+          <option selected th:utext="${RecordOne.cityDTO.cityName}"
+                           th:value="${RecordOne.cityDTO.cityCode}">
+          </option>
+        </select>
+      </div>
 
       <div class="date">
         <label for = "dateIn"> 여행 날짜 (시작일 - 종료일) </label>
@@ -39,18 +47,19 @@
         </span>
       </div>
 
-<!--      <div class="tag">-->
-<!--        <label> 태그 </label>-->
-<!--        <select name="recordTag">-->
+      <div class="tag">
+        <label> 태그 </label>
+        <select name="recordTag">
 <!--          <option th:each="tag : ${ Tag }"-->
 <!--                  th:value="${ tag.tagCode}"-->
 <!--                  th:text="${tag.tagName}">-->
 <!--          </option>-->
-<!--          <option selected th:text="${RecordOne.tagDTO.tagName}"-->
-<!--                           th:value="${RecordOne.tagDTO.tagCode}">-->
-<!--          </option>-->
-<!--        </select>-->
-<!--      </div>-->
+          <option value="tagTest"> 태그 테스트 </option>
+          <option selected th:utext="${RecordOne.tagDTO.tagName}"
+                           th:value="${RecordOne.tagDTO.tagCode}">
+          </option>
+        </select>
+      </div>
 
       <div class="content">
         <label> 내용 </label>

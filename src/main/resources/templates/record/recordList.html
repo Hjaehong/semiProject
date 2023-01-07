@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <title>recordList</title>
     <link th:href="@{/css/recordList.css}" rel="stylesheet" type="text/css">
+    <script>
+        const successMessage = "[[${ successMessage}]]";
+        if (successMessage){
+            alert(successMessage);
+        }
+    </script>
 </head>
 <body>
   <div th:replace="common/header.html"></div>
@@ -32,7 +38,7 @@
       <ul th:each="recordList : ${ RecordList }" class="wrapper">
           <li class="list-item">
               <!-- 여행기록물 이미지 영역 -->
-              <div class="record-img">
+              <div>
                   <a href="recordDetail/" th:attrappend="href=${recordList.recordNo}">
                       <img class="record-img" th:src="@{${recordList.fileDTO.imgPath}}" alt="여행기록사진"/>
                   </a>
@@ -41,7 +47,7 @@
                   <!-- 유저 정보 영역 -->
                   <div class="img-text-container">
                       <div class="profile-img">
-                          <img th:src="@{/image/profile.png}" alt="프로필이미지">
+                          <img class="profile-img" th:src="@{/image/profile.png}" alt="프로필이미지">
                       </div>
                       <span th:text="${recordList.userDTO.nickname}"></span>
                   </div>

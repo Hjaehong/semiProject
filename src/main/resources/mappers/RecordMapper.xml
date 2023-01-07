@@ -7,7 +7,6 @@
 
     <resultMap id="recordResultMap" type="com.team.semiTravelRecommend.model.dto.record.RecordDTO">
         <id property="recordNo" column="RECORD_NO"/>
-<!--        <result property="userNo" column="USER_NO"/>-->
         <result property="rcTitle" column="RC_TITLE"/>
         <result property="rcDetail" column="RECORD_DETAIL"/>
         <result property="travelStartDate" column="TRAVEL_START_DATE"/>
@@ -119,7 +118,7 @@
         FROM TAG
     </select>
 
-    <select id="returnFileNo" resultMap="fileResultMap">
+    <select id="returnFileNo" resultType="_int">
         SELECT
             FILE_NO
         FROM OH_FILE
@@ -174,5 +173,23 @@
 
     </insert>
 
+
+    <update id="editRecord">
+        UPDATE OH_RECORD
+        SET RC_TITLE=#{rcTitle},
+            CITY_CODE=#{cityCode},
+            TRAVEL_START_DATE=#{travelStartDate},
+            TRAVEL_END_DATE=#{travelEndDate},
+            RECORD_TAG=#{recordTag},
+            RECORD_DETAIL=#{rcDetail},
+            IMG_FILE_NO=#{imgFileNo}
+        WHERE RECORD_NO=#{recordNo}
+    </update>
+
+
+    <delete id="deleteRecord" parameterType="_int">
+        DELETE FROM OH_RECORD
+        WHERE RECORD_NO = #{recordNo}
+    </delete>
 
 </mapper>

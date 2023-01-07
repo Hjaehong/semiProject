@@ -56,23 +56,23 @@ ul {
 .wrapper {
     margin: 1rem 18rem;
     /*padding: 20px;*/
+    border-bottom: 1px dashed black;
 }
 
 .list-item {
-    /* 아이템 하나하나 내부 간격 조정하는 거 알지요? 알아서 하도록! */
     padding: 20px;
     display: flex;
 }
 
 .record-img {
     border: 1px solid black;
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
     border-radius: 16px;
 }
 
 .right-container {
-    margin-top: 20px;
+    margin-top: 4px;
     margin-left: 50px;
 }
 .img-text-container {
@@ -80,19 +80,19 @@ ul {
     align-items: center;
 }
 
-.img-text-container img{
-    width:24px;
-    height: 24px;
+.img-text-container span{
+    font-size: 14px;
 }
+
 .profile-img {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
     margin-right: 12px;
 }
 
 .text-container {
-    margin-top: 8px;
+    margin-top: 4px;
 }
 
 h2 {
@@ -101,7 +101,7 @@ h2 {
 }
 
 .tag-list {
-    margin-top: 40px;
+    margin-top: 30px;
 }
 
 .tag-item {

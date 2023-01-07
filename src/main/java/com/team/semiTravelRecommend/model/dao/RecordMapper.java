@@ -31,4 +31,8 @@ public interface RecordMapper {
     int insertRecord(RecordDTO recordDTO);
 
     int returnFileNo(String changeName);
+
+    int editRecord(RecordDTO recorddTO);
+
+    int deleteRecord(int recordNo);
  }

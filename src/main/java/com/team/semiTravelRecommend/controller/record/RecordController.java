@@ -6,8 +6,10 @@ import net.bytebuddy.description.type.RecordComponentList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
@@ -87,22 +89,21 @@ public class RecordController {
 //    }
 
     @PostMapping("travelRecordWrite")
-    public void writeRecord(RecordDTO record, @RequestParam(name="file", required = false) MultipartFile file, HttpServletRequest request){
-
-//        System.out.println(record.getRecordTag());
-//        System.out.println(record.getRcTitle());
-//        System.out.println(record.getRcDetail());
-//        System.out.println(record.getTravelEndDate());
-//        System.out.println(record.getTravelStartDate());
+    public ModelAndView writeRecord(ModelAndView mv, RecordDTO record, @RequestParam(name="file", required = false) MultipartFile file, RedirectAttributes rttr){
 
         if ((!file.getOriginalFilename().equals(""))){
             int fileNo = saveFile(file);
 
             record.setImgFileNo(fileNo);
-            record.setCityCode("C24");
+            record.setCityCode("C105");
         }
 
-        int result = recordService.insertRecord(record);
+        recordService.insertRecord(record);
+
+        mv.setViewName("redirect:/record/recordList");
+        rttr.addFlashAttribute("successMessage", "작성 완료!");
+
+        return mv;
 
     }
 
@@ -124,26 +125,64 @@ public class RecordController {
 
             recordService.saveFile(imgFile);
 
-            System.out.println("이미지저장성공");
-
+            System.out.println("에러 지점 확인용 출력");
             int fileNo = recordService.returnFileNo(changeName);
-            System.out.println(fileNo);
+            System.out.println("fileNo" + fileNo);
 
             return fileNo;
 
         } catch (Exception e) {
-
-            return 1;
+            System.out.println("Exception" + e);
+            throw new RuntimeException(e);
         }
+
     }
 
 
-    @PostMapping("recordDetail")
-    public ModelAndView readRecord(ModelAndView mv, RecordDTO record, @RequestParam(name="imgFile", required = false) MultipartFile file){
+    @PostMapping("editRecord")
+    public ModelAndView readRecord(ModelAndView mv, int recordNo, @RequestParam(name="file", required = false) MultipartFile file){
+
+//        int recordNo = recordDTO.getRecordNo();
+
+        RecordDTO record = recordService.recordOne(recordNo);
 
         mv.addObject("RecordOne", record);
         mv.setViewName("record/travelRecordEdit");
 
         return mv;
     }
+
+    @PostMapping("travelRecordEdit")
+    public ModelAndView editRecord(ModelAndView mv, RecordDTO record, @RequestParam(name="file", required = false) MultipartFile file
+                                    ,  RedirectAttributes rttr) throws Exception {
+
+        System.out.println(record.getRecordNo());
+
+        record.setCityCode("C55");
+        record.setRecordTag("T29");
+        record.setImgFileNo(3);
+
+        System.out.println("수정테스트 서비스 호출 전");
+        recordService.editRecord(record);
+        System.out.println("수정테스트 서비스 호출 후");
+
+        mv.addObject("recordNo", record.getRecordNo());
+        mv.setViewName("redirect:/record/recordDetail/{recordNo}");
+
+        return mv;
+    }
+
+    @PostMapping("deleteRecord")
+    public ModelAndView deleteRecord(ModelAndView mv, int recordNo, RedirectAttributes rttr){
+
+        recordService.deleteRecord(recordNo);
+
+        mv.setViewName("redirect:/record/recordList");
+        rttr.addFlashAttribute("successMessage", "삭제 완료!");
+
+        return  mv;
+
+    }
+
+
 }

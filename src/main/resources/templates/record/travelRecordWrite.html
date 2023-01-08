@@ -73,6 +73,11 @@
 </body>
     <script th:inline="javascript">
         function readCity(locCode) {
+            // console.log(locCode);
+
+            // let location = document.getElementById("location");
+            let city = document.getElementById("city-code");
+            city.options.length = null;
 
             $.ajax({
                 type: "POST",
@@ -80,8 +85,9 @@
                 data: {'locCode': locCode},
                 dataType: "json",
                 success: function (cityDTO) {
+                    console.log(cityDTO[0]);
 
-                    let city = document.getElementById("city-code");
+                    // let city = document.getElementById("city-code");
 
                     for (let i = 0; i < cityDTO.length; i++) {
                         city.options[i] = new Option(cityDTO[i].cityName, cityDTO[i].cityCode);
@@ -95,7 +101,6 @@
             })
         };
 
-        /*]]*/
     </script>
 
 </html>

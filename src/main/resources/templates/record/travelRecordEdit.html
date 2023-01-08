@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>여행기록하기</title>
     <link th:href="@{/css/travelRecordWrite.css}" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
 <body>
@@ -18,7 +19,7 @@
 
       <div class="local">
         <label> 여행지 </label>
-        <select name="locCode">
+        <select id="location" name="locCode" onchange="readCity(this.value)">
             <option th:each="location : ${ Location }"
                     th:value="${ location.locCode}"
                     th:text="${location.locName}">
@@ -50,11 +51,10 @@
       <div class="tag">
         <label> 태그 </label>
         <select name="recordTag">
-<!--          <option th:each="tag : ${ Tag }"-->
-<!--                  th:value="${ tag.tagCode}"-->
-<!--                  th:text="${tag.tagName}">-->
-<!--          </option>-->
-          <option value="tagTest"> 태그 테스트 </option>
+          <option th:each="tag : ${ Tag }"
+                  th:value="${ tag.tagCode}"
+                  th:text="${tag.tagName}">
+          </option>
           <option selected th:utext="${RecordOne.tagDTO.tagName}"
                            th:value="${RecordOne.tagDTO.tagCode}">
           </option>
@@ -79,22 +79,36 @@
 
 
 
-<!-- <script>-->
-<!--   function readCity(locCode, city) {-->
-<!--     $.ajax({-->
-<!--       url:"/record/city",-->
+ <script>
+     function readCity(locCode) {
+         // console.log(locCode);
 
-<!--       success: function (result) {-->
-<!--         console.log(result)-->
-<!--         for (let i = 0; i < result.length; i++) {-->
-<!--           city.options[i] = new Option(result[i], );-->
-<!--         }-->
-<!--       }-->
-<!--     }).fail(function (error) {-->
-<!--       alert(JSON.stringify(error));-->
-<!--     })-->
-<!--   }-->
-<!-- </script>-->
+         // let location = document.getElementById("location");
+         let city = document.getElementById("city-code");
+         city.options.length = null;
+
+         $.ajax({
+             type: "POST",
+             url: "/record/city",
+             data: {'locCode': locCode},
+             dataType: "json",
+             success: function (cityDTO) {
+                 console.log(cityDTO[0]);
+
+                 // let city = document.getElementById("city-code");
+
+                 for (let i = 0; i < cityDTO.length; i++) {
+                     city.options[i] = new Option(cityDTO[i].cityName, cityDTO[i].cityCode);
+                 }
+
+                 city.innerHTML += '<option selected>--- 도시선택 ---</option>';
+
+             }, error: function (e) {
+                 alert("발생한 에러 확인" + e);
+             }
+         })
+     };
+ </script>
 
 </body>
 </html>

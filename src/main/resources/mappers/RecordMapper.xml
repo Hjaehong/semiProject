@@ -102,9 +102,12 @@
 
     <select id="readCity" resultMap="cityResultMap">
         SELECT
-            *
-        FROM CITY
-        WHERE LOC_CODE = #{ locCode }
+            A.CITY_CODE,
+            A.CITY_NAME,
+            B.LOC_NAME
+        FROM CITY A
+        JOIN LOCATION B ON A.LOC_CODE = B.LOC_CODE
+        WHERE A.LOC_CODE = #{ locCode }
     </select>
 
     <select id="readTag" resultMap="tagResultMap">

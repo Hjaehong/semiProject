@@ -58,6 +58,17 @@ public class RecordController {
 
         RecordDTO record = recordService.recordOne(recordNo);
 
+//        if (record.getCityDTO().getCityCode() == "C26" || record.getCityDTO().getCityCode() == "C27" ||
+//            record.getCityDTO().getCityCode() == "C28" || record.getCityDTO().getCityCode() == "C29" ||
+//            record.getCityDTO().getCityCode() == "C30" || record.getCityDTO().getCityCode() == "C31" ||
+//            record.getCityDTO().getCityCode() == "C32" || record.getCityDTO().getCityCode() == "C111") {
+//
+//            System.out.println("if문 작동확인");
+//            record.getCityDTO().setCityName(" ");
+//        }
+//
+//        System.out.println(record.getCityDTO().getCityName());
+
         mv.addObject("RecordOne", record);
         mv.setViewName("record/recordDetail");
 
@@ -65,7 +76,7 @@ public class RecordController {
     }
 
     @GetMapping(value="travelRecordWrite", produces = "application/json; charset=UTF-8")
-    public ModelAndView readCityAndLocation(ModelAndView mv){
+    public ModelAndView readTagAndLocation(ModelAndView mv){
 
         List<LocationDTO> locationList = readLocation();
 
@@ -95,6 +106,7 @@ public class RecordController {
     @RequestMapping(value="city", produces = "application/json; charset=UTF-8")
     @ResponseBody
     public List<CityDTO> readCity(String locCode){
+
         System.out.println("컨트롤러 동작 확인");
         System.out.println(locCode);
 
@@ -105,11 +117,12 @@ public class RecordController {
     @PostMapping("travelRecordWrite")
     public ModelAndView writeRecord(ModelAndView mv, RecordDTO record, @RequestParam(name="file", required = false) MultipartFile file, RedirectAttributes rttr){
 
+        System.out.println(record.getCityCode());
+
         if ((!file.getOriginalFilename().equals(""))){
             int fileNo = saveFile(file);
 
             record.setImgFileNo(fileNo);
-            record.setCityCode("C105");
         }
 
         recordService.insertRecord(record);
@@ -158,36 +171,24 @@ public class RecordController {
 
         RecordDTO record = recordService.recordOne(recordNo);
 
+        List<LocationDTO> locationList = readLocation();
+
+        List<TagDTO> tagList = readTag();
+
+        mv.addObject("Location", locationList);
+        mv.addObject("Tag", tagList);
         mv.addObject("RecordOne", record);
         mv.setViewName("record/travelRecordEdit");
 
         return mv;
     }
 
-//    @GetMapping(value="travelRecordEdit", produces = "application/json; charset=UTF-8")
-//    public ModelAndView readLocationForEdit(ModelAndView mv){
-//
-//        List<LocationDTO> locationList = recordService.readLocation();
-//
-//        List<TagDTO> tagList = recordService.readTag();
-//
-//        mv.addObject("Location", locationList);
-//        mv.addObject("Tag", tagList);
-//
-//        mv.setViewName("record/travelRecordWrite");
-//
-//        return getModelAndView(mv);
-//    }
 
     @PostMapping("travelRecordEdit")
     public ModelAndView editRecord(ModelAndView mv, RecordDTO record, @RequestParam(name="file", required = false) MultipartFile file
-                                    ,  RedirectAttributes rttr) throws Exception {
+                                    ,RedirectAttributes rttr) throws Exception {
 
         System.out.println(record.getRecordNo());
-
-        record.setCityCode("C55");
-        record.setRecordTag("T29");
-        record.setImgFileNo(3);
 
         recordService.editRecord(record);
 

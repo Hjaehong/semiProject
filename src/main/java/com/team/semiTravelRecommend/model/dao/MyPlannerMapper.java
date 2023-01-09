@@ -6,11 +6,12 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 
 @Mapper
-public interface PlannerMapper {
+public interface MyPlannerMapper {
 
-    int insertPlanner(PlannerDTO plannerDTO);
+    //String findPlannerByCode();
 
-    List<PlannerDTO> findAllPlanner();
+    List<PlannerDTO> findPlannerByCode(int code);
 
-    int deletePlanner(PlannerDTO plannerDTO);
+    List<PlannerDTO> findPlannerTitle(int userCode);
+
 }

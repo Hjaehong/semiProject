@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>플래너작성</title>
+
+    <!--<script>
+      const successMessage = "[[${ successMessage }]]";
+      console.log(successMessage);
+      if (successMessage){
+        alert(successMessage);
+      }
+    </script>-->
+
+</head>
+<body>
+<header>
+    로고 <b>여행플래너</b> 여행지추천 여행공유 마이페이지 로그아웃
+</header>
+<hr>
+<br>
+플래너
+<br><br>
+    <li><a href="myPlannerDetail.html">포항일출여행</a></li>
+<br>
+    <button onclick="location.href='/mypage/myPlanner/{code}'">아무거나</button>
+    <table border="1px">
+        <tr>
+            <td th:text="${ planner.travel_place }"></td>
+        </tr>
+    </table>
+
+
+
+</body>
+</html>

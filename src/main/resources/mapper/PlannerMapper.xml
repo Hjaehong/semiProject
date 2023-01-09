@@ -5,7 +5,6 @@
 
 <mapper namespace="com.team.semiTravelRecommend.model.dao.PlannerMapper">
 
-
     <resultMap type="com.team.semiTravelRecommend.model.dto.PlannerDTO" id="plannerResultMap">
         <id property="plan_no" column="PLAN_NO"/>
         <result property="user_no" column="USER_NO"/>
@@ -18,9 +17,7 @@
         <result property="pl_detail" column="PL_DETAIL"/>
     </resultMap>
 
-
-
-   <!-- <select id="findAllPlanner" resultMap="plannerResultMap">
+   <select id="findAllPlanner" resultMap="plannerResultMap">
         SELECT
             A.PLAN_NO
              , A.USER_NO
@@ -35,7 +32,7 @@
         ORDER BY A.PLAN_NO
     </select>
 
-    <select id="findPlannerByCode" resultMap="plannerResultMap">
+    <!-- <select id="findPlannerByCode" resultMap="plannerResultMap">
         SELECT
             A.MENU_CODE
              , A.MENU_NAME
@@ -46,8 +43,7 @@
         WHERE A.MENU_CODE = #{code}
     </select>-->
 
-
-    <insert id = "registPlanner">
+    <insert id="insertPlanner">
         INSERT
         INTO Planner A
             (
@@ -64,7 +60,8 @@
         VALUES
             (
             SEQ_PLAN_NO.NEXTVAL
-                , #{ user_no }
+                , 9999 <!-- 임시로 유저번호 넣어서 되는지 확인-->
+                <!-- , #{ user_no } --> <!-- /**/ 별표 주석으로 하니깐 값이 나와서 오류났음 -->
                 , #{ travel_place }
                 , #{ start_due_date }
                 , #{ end_due_date }
@@ -76,7 +73,13 @@
 
     </insert>
 
+    <delete id="deletePlanner">
+        DELETE FROM PLANNER
+         WHERE PLAN_NO = #{ plan_no }
+
+<!-- 추가하면서 알아봐야할듯-->
 
 
+    </delete>
 
 </mapper>

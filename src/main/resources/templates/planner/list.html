@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>플래너리스트확인용</title>
+</head>
+<body>
+
+<table align="center" border="1">
+    <tr>
+        <th>플래너번호</th>
+        <th>유저번호</th>
+        <th>예쌍여행지</th>
+        <th>여행시작예쩡일</th>
+        <th>여행종료예정일</th>
+        <th>숙소정보</th>
+        <th>이동수단</th>
+        <th>체크리스트</th>
+        <th>세부일정</th>
+    </tr>
+
+    <tr th:each="planner : ${ plannerList }">
+        <td th:text="${ planner.plan_no }"></td><!--dto의 필드명호출, getter없으면 에러남 내부에서 getter호출 -->
+        <td th:text="${ planner.user_no }"></td>
+        <td th:text="${ planner.travel_place }"></td>
+        <td th:text="${ planner.start_due_date }"></td>
+        <td th:text="${ planner.end_due_date }"></td>
+        <td th:text="${ planner.lodging_info }"></td>
+        <td th:text="${ planner.transportation }"></td>
+        <td th:text="${ planner.checklist }"></td>
+        <td th:text="${ planner.pl_detail }"></td>
+    </tr>
+</table>
+
+</body>
+</html>

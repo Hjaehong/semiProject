@@ -2,7 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>여행플래너</title>
+    <title>플래너작성</title>
+
+    <!--<script>
+      const successMessage = "[[${ successMessage }]]";
+      console.log(successMessage);
+      if (successMessage){
+        alert(successMessage);
+      }
+    </script>-->
 
 </head>
 <body>
@@ -13,32 +21,35 @@
     <br>
     플래너 작성하기
     <br><br>
-    <form method="get"> <!-- form action="/planner/writepro" method="post" 데이터들을 플래너/라이트두로 보내준다 -->
+    <form action="/planner/planner" method="post"> <!-- form action="/planner/writepro" method="post" 데이터들을 플래너/라이트두로 보내준다 -->
       <table border="1px">
         <tr>
-          <td class="place">여행지</td>
+          <td>여행지</td>
           <td class="placeContent">
-            <input type="text">
+            <input type="text" name="travel_place">
           </td>
           <!-- 케밥 케이스(Kebab Case)
           하이픈으로 단어를 연결하는 방식이며 HTML태그의 id, class 값으로 흔히 쓰인다. -->
         </tr>
         <tr>
-          <td class="date">여행일자</td>
-          <td class="dateContent">
-            <input type="text">
+          <td>여행일자</td>
+          <td class="startDateContent">
+            시작일:<input type="date" name="start_due_date" value="startdate">
+          </td>
+          <td class="endDateContent">
+            종료일:<input type="date" name="end_due_date" value="enddate">
           </td>
         </tr>
         <tr>
-          <td class="lodging">숙소정보</td>
-          <td class="lodging-contents">
-            <input type="text">
+          <td>숙소정보</td>
+          <td class="lodgingContent">
+            <input type="text" name="lodging_info">
           </td>
         </tr>
         <tr>
-          <td class="transportation">이동수단</td>
-          <td class="transportation-contents">
-            <input type="text">
+          <td>이동수단</td>
+          <td class="transportationContent">
+            <input type="text" name="transportation">
           </td>
         </tr>
       </table>
@@ -50,15 +61,18 @@
         </tr>
         <tr>
           <td>
-            <input type="checkbox" id="first-check" name="list" value="first-check">
+            <!--<input type="checkbox" id="check" name="checklist" value="check">-->
+            <input type="text" name="checklist">
           </td>
           <td>
-            <textarea rows="5" cols="40"></textarea>
+            <textarea rows="5" cols="40" name="pl_detail"></textarea>
           </td>
         </tr>
       </table>
       <br>
       <input type="submit" value="등록">
     </form>
+    <button onclick="location.href='/planner/list'">전체조회</button>
+
 </body>
 </html>

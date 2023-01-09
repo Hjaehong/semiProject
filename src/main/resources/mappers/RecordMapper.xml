@@ -75,23 +75,37 @@
         WHERE A.RECORD_NO = #{ recordNo }
     </select>
 
-    <select id="recordList" resultMap="recordResultMap">
-        SELECT
-            A.RECORD_NO ,
-            A.RC_TITLE ,
-            B.CITY_NAME ,
-            C.LOC_NAME ,
-            D.NICKNAME ,
-            E.TAG_NAME ,
-            F.OH_PATH,
-            B.BADGE_IMG
-        FROM OH_RECORD A
-        JOIN CITY B ON A.CITY_CODE = B.CITY_CODE
-        JOIN LOCATION C ON B.LOC_CODE = C.LOC_CODE
-        JOIN OH_USER D ON A.USER_NO = D.USER_NO
-        JOIN TAG E ON A.RECORD_TAG = E.TAG_CODE
-        JOIN OH_FILE F ON A.IMG_FILE_NO = F.FILE_NO
-        ORDER BY RECORD_NO DESC
+    <select id="recordListPaging" resultMap="recordResultMap">
+        SELECT *
+            FROM (
+                SELECT
+                ROWNUM AS RNUM,
+                ALLRECORD.*
+                    FROM (
+                        SELECT
+                        A.RECORD_NO ,
+                        A.RC_TITLE ,
+                        B.CITY_NAME ,
+                        C.LOC_NAME ,
+                        D.NICKNAME ,
+                        E.TAG_NAME ,
+                        F.OH_PATH ,
+                        B.BADGE_IMG
+                        FROM OH_RECORD A
+                        JOIN CITY B ON A.CITY_CODE = B.CITY_CODE
+                        JOIN LOCATION C ON B.LOC_CODE = C.LOC_CODE
+                        JOIN OH_USER D ON A.USER_NO = D.USER_NO
+                        JOIN TAG E ON A.RECORD_TAG = E.TAG_CODE
+                        JOIN OH_FILE F ON A.IMG_FILE_NO = F.FILE_NO
+                        ORDER BY RECORD_NO DESC
+                    ) ALLRECORD
+                 WHERE ROWNUM<![CDATA[ <= #{ endRow }]]>
+            ) WHERE RNUM<![CDATA[>= #{ startRow }]]>
+    </select>
+
+    <select id="findAllCnt" resultType="_int">
+        SELECT COUNT(*)
+        FROM OH_RECORD
     </select>
 
     <select id="readLocation" resultMap="locationResultMap">
@@ -159,7 +173,7 @@
         VALUES
             (
                 SEQ_RECORD_NO.NEXTVAL,
-                1,
+                2,
                 #{rcTitle },
                 #{recordTag},
                 #{rcDetail},

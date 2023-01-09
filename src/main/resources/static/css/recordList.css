@@ -47,6 +47,10 @@
 /*    margin: 0 3px;*/
 /*}*/
 
+.record {
+    margin-top: 5rem;
+}
+
 ul {
     list-style-type: none;
     /* 기본으로 있는 margin, padding 없애고 해야합니다요  */
@@ -54,13 +58,13 @@ ul {
     padding: 0;
 }
 .wrapper {
-    margin: 1rem 18rem;
-    /*padding: 20px;*/
+    margin: 0 18rem;
+    padding: 20px;
     border-bottom: 1px dashed black;
 }
 
 .list-item {
-    padding: 20px;
+    /*padding: 20px;*/
     display: flex;
 }
 

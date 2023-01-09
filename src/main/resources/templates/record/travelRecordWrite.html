@@ -20,7 +20,6 @@
       <div class="local">
         <label> 여행지 </label>
         <select id="location" name="locCode" onchange="readCity(this.value)">
-<!-- 매개변수 제대로 안보내지면 locCode.value 로 넘겨보기-->
           <option th:each="location : ${ Location }"
                   th:value="${ location.locCode}"
                   th:text="${location.locName}">
@@ -31,7 +30,7 @@
 
         <select id="city-code" name="cityCode">
           <option th:each="city : ${ City }"
-                  th:value="${ city.cityCode}"
+                  th:value="${city.cityCode}"
                   th:text="${city.cityName}">
           </option>
           <option selected>--- 도시선택 ---</option>

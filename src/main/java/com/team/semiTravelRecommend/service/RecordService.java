@@ -1,6 +1,7 @@
 package com.team.semiTravelRecommend.service;
 
 import com.team.semiTravelRecommend.model.dto.record.*;
+import com.team.semiTravelRecommend.paging.SelectCriteria;
 
 import java.util.List;
 
@@ -20,7 +21,9 @@ public interface RecordService {
 
     RecordDTO recordOne(int recordNo);
 
-    List<RecordDTO> recordList();
+    List<RecordDTO> recordListPaging(SelectCriteria selectCriteria);
+
+    int findAllCnt();
 
     List<LocationDTO> readLocation();
 

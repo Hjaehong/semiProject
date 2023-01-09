@@ -1,6 +1,7 @@
 package com.team.semiTravelRecommend.model.dao;
 
 import com.team.semiTravelRecommend.model.dto.record.*;
+import com.team.semiTravelRecommend.paging.SelectCriteria;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -19,7 +20,9 @@ import java.util.List;
 public interface RecordMapper {
 
     RecordDTO recordOne(int recordNo);
-    List<RecordDTO> recordList();
+    List<RecordDTO> recordListPaging(SelectCriteria selectCriteria);
+
+    int findAllCnt();
 
     List<LocationDTO> readLocation();
 

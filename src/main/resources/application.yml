@@ -8,3 +8,7 @@ spring:
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
     username: Semi
     password: semi
+  servlet:
+      multipart:
+        max-file-size: 10MB
+        max-request-size: 10MB

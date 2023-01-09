@@ -2,6 +2,7 @@ package com.team.semiTravelRecommend.service;
 
 import com.team.semiTravelRecommend.model.dao.RecordMapper;
 import com.team.semiTravelRecommend.model.dto.record.*;
+import com.team.semiTravelRecommend.paging.SelectCriteria;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,7 +44,10 @@ public class RecordServiceImpl implements RecordService{
      }
 
      @Override
-     public List<RecordDTO> recordList(){ return recordMapper.recordList(); }
+     public List<RecordDTO> recordListPaging(SelectCriteria selectCriteria){ return recordMapper.recordListPaging(selectCriteria); }
+
+    @Override
+    public int findAllCnt(){ return recordMapper.findAllCnt(); }
 
     @Override
     public List<LocationDTO> readLocation(){ return recordMapper.readLocation(); }

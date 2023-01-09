@@ -1,10 +1,13 @@
 package com.team.semiTravelRecommend.controller.record;
 
 import com.team.semiTravelRecommend.model.dto.record.*;
+import com.team.semiTravelRecommend.paging.Pagenation;
+import com.team.semiTravelRecommend.paging.SelectCriteria;
 import com.team.semiTravelRecommend.service.RecordService;
 import net.bytebuddy.description.type.RecordComponentList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
@@ -42,32 +45,39 @@ public class RecordController {
     }
 
     @GetMapping("recordList")
-    public ModelAndView recordList(ModelAndView mv){
+    public Model recordList(Model model, HttpServletRequest request){
 
-        List<RecordDTO> recordList = recordService.recordList();
+        String currentPage = request.getParameter("currentPage");
 
-        mv.addObject("RecordList", recordList);
-        mv.setViewName("record/recordList");
+        int pageNo = 1;
 
+        if(currentPage != null && !"".equals(currentPage)){
+            pageNo = Integer.parseInt(currentPage);
+        }
 
-        return mv;
+        if(pageNo <=0){
+            pageNo = 1;
+        }
+
+        int totalCount = recordService.findAllCnt();
+        int limit = 8;
+        int buttonAmount = 5;
+
+        SelectCriteria selectCriteria = null;
+        selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount);
+
+        List<RecordDTO> recordList = recordService.recordListPaging(selectCriteria);
+
+        model.addAttribute("selectCriteria", selectCriteria);
+        model.addAttribute("RecordList", recordList);
+
+        return model;
     }
 
     @GetMapping("recordDetail/{recordNo}")
     public ModelAndView recordOne(ModelAndView mv, @PathVariable("recordNo") int recordNo){
 
         RecordDTO record = recordService.recordOne(recordNo);
-
-//        if (record.getCityDTO().getCityCode() == "C26" || record.getCityDTO().getCityCode() == "C27" ||
-//            record.getCityDTO().getCityCode() == "C28" || record.getCityDTO().getCityCode() == "C29" ||
-//            record.getCityDTO().getCityCode() == "C30" || record.getCityDTO().getCityCode() == "C31" ||
-//            record.getCityDTO().getCityCode() == "C32" || record.getCityDTO().getCityCode() == "C111") {
-//
-//            System.out.println("if문 작동확인");
-//            record.getCityDTO().setCityName(" ");
-//        }
-//
-//        System.out.println(record.getCityDTO().getCityName());
 
         mv.addObject("RecordOne", record);
         mv.setViewName("record/recordDetail");
@@ -107,11 +117,7 @@ public class RecordController {
     @ResponseBody
     public List<CityDTO> readCity(String locCode){
 
-        System.out.println("컨트롤러 동작 확인");
-        System.out.println(locCode);
-
         return recordService.readCity(locCode);
-
     }
 
     @PostMapping("travelRecordWrite")

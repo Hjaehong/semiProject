@@ -1,7 +1,6 @@
 package com.team.semiTravelRecomend.model.dto.response;
 
-
-import com.team.semiTravelRecomend.model.dto.User;
+import com.team.semiTravelRecomend.model.dto.UserVO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,7 +10,7 @@ public class DeleteUserResponse {
 
     private String deleteUserName;
 
-    public DeleteUserResponse(User deletedUser) {
-        this.deleteUserName = deleteUserName;
+    public DeleteUserResponse(UserVO deletedUser) {
+        this.deleteUserName = deletedUser.getUserName();
     }
 }

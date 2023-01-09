@@ -1,7 +1,7 @@
 package com.team.semiTravelRecomend.model.dto.response;
 
 
-import com.team.semiTravelRecomend.model.dto.User;
+import com.team.semiTravelRecomend.model.dto.UserVO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,7 +12,7 @@ public class LoginUserResponse {
     private Long userNo;
     private String userId;
 
-    public LoginUserResponse(User user) {
+    public LoginUserResponse(UserVO user) {
         this.userNo = user.getUserNo();
         this.userId = user.getUserId();
     }

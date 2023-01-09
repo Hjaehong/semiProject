@@ -1,111 +1,41 @@
 package com.team.semiTravelRecomend.service;
 
-
 import com.team.semiTravelRecomend.model.dao.UserMapper;
-import com.team.semiTravelRecomend.model.dto.User;
+import com.team.semiTravelRecomend.model.dto.UserVO;
 import com.team.semiTravelRecomend.model.dto.requset.LoginUserRequest;
 import com.team.semiTravelRecomend.model.dto.requset.SaveUserRequest;
-import com.team.semiTravelRecomend.model.dto.requset.UpdateUserRequest;
-import com.team.semiTravelRecomend.model.dto.response.DeleteUserResponse;
 import com.team.semiTravelRecomend.model.dto.response.LoginUserResponse;
-import com.team.semiTravelRecomend.model.dto.response.SaveUserResponse;
-import com.team.semiTravelRecomend.model.dto.response.UpdateUserResponse;
 import lombok.RequiredArgsConstructor;
-
-import org.mindrot.jbcrypt.BCrypt;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-
-@Transactional(readOnly = true)
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class UserServiceImpl implements UserService {
 
     private final UserMapper userMapper;
 
-
     @Override
-    public void save(User user) {
-        user.setUserNo(user.getUserNo());
-        user.setUserId(user.getUserId());
-        user.setUserPwd(BCrypt.hashpw(user.getUserPwd(), BCrypt.gensalt()));
-        user.setUserName(user.getUserName());
-        user.setEmail(user.getEmail());
-        user.setRole("USER");
-        userMapper.save(user);
+    public void save(SaveUserRequest request) {
+
+        UserVO userVO = new UserVO();
+        userVO.setUserId(request.getUserId());
+        userVO.setUserPwd(request.getUserPwd());
+        userVO.setUserName(request.getUserName());
+        userVO.setEmail(request.getEmail());
+        userVO.setRole("USER");
+
+        userMapper.save(userVO);
     }
 
-    @Override
-    @Transactional
-    public UpdateUserResponse update(Long userNo, UpdateUserRequest updateUserRequest) {
-        User updatedUser = userMapper.findById(userNo).orElseThrow(IllegalArgumentException::new);
-        updatedUser.updateUser(updateUserRequest.getUserName(), updateUserRequest.getEmail(), updateUserRequest.getUserPwd());
-        userMapper.update(updatedUser);
+    public LoginUserResponse login(LoginUserRequest request) {
+        UserVO userVO = userMapper.findByUserId(request.getUserId())
+                .filter(u -> u.getUserPwd().equals(request.getUserPwd()))
+                .orElse(null);
 
-        return new UpdateUserResponse(updatedUser);
-    }
+        log.info("DB에서 찾아온 데이터 = {}", userVO);
 
-    @Override
-    @Transactional
-    public DeleteUserResponse delete(Long userNo) {
-        User deletedUser = userMapper.findById(userNo).orElseThrow(IllegalArgumentException::new);
-        userMapper.delete(deletedUser.getUserNo());
-        return new DeleteUserResponse(deletedUser);
-    }
-
-    @Override
-    public List<SaveUserResponse> findUsers() {
-        List<User> Users = userMapper.findAll();
-
-        List<SaveUserResponse> list = new ArrayList<>();
-
-        for (User user : Users) {
-            SaveUserResponse saveUserResponse = new SaveUserResponse(user);
-            list.add(saveUserResponse);
-        }
-
-        return list;
-
-    }
-
-    @Override
-    public SaveUserResponse findUser(Long userNo) {
-        User user = userMapper.findById(userNo).orElseThrow(IllegalArgumentException::new);
-
-        SaveUserResponse saveUserResponse = new SaveUserResponse(user);
-
-        return saveUserResponse;
-    }
-
-
-    public LoginUserResponse login(LoginUserRequest loginUserRequest) {
-        User user = userMapper.login(loginUserRequest.getUserId()).orElseThrow(() -> new IllegalArgumentException("아이디 또는 비밀번호를 확인해주세요."));
-
-        if (!BCrypt.checkpw(loginUserRequest.getPassword(), user.getUserPwd())) {
-            throw new IllegalArgumentException("아이디 또는 비밀번호를 확인해주세요.");
-        }
-
-        return new LoginUserResponse(user);
+        return new LoginUserResponse(userVO);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

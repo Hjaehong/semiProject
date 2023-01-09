@@ -1,51 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team.semiTravelRecomend.model.dao.UserMapper">
 
-    <resultMap id="UserResultMap" type="com.team.semiTravelRecomend.model.dto.User" >
-        <id column="USER_UID" property="userNo"/>
-        <result column="USER_ID" property="userId"/>
-        <result column="USER_NAME" property="userName"/>
-        <result column="USER_PWD" property="userPwd"/>
-        <result column="EMAIL" property="email"/>
-        <result column="ROLE" property="role"/>
-    </resultMap>
-
-
-    <insert id="save" parameterType="com.team.semiTravelRecomend.model.dto.User">
-        INSERT INTO OH_USER
-        (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, NICKNAME, ROLE)
-        VALUES(SEQ_USER_NO.NEXTVAL,#{userId},#{userPwd},#{userName},#{nickname},#{role});
+    <insert id="save" useGeneratedKeys="true" keyProperty="userNo" parameterType="com.team.semiTravelRecomend.model.dto.UserVO">
+        INSERT INTO user (USER_ID, USER_PWD, USER_NAME, EMAIL, ROLE)
+        VALUES (#{userId},#{userPwd},#{userName},#{email},#{role});
     </insert>
 
-    <update id="update" parameterType="com.team.semiTravelRecomend.model.dto.User">
-        UPDATE OH_USER
-        set USER_NAME=#{userName}, USER_PWD=#{userPwd}, EMAIL=#{email}
-        WHERE USER_NO=#{userNo}
-    </update>
-
-    <delete id="delete" parameterType="com.team.semiTravelRecomend.model.dto.User">
-        DELETE *
-        FROM OH_USER
-        WHERE USER_NO=#{userNo}
-    </delete>
-
-    <select id="findById" parameterType="com.team.semiTravelRecomend.model.dto.User" resultType="UserResultMap">
-        SELECT *
-        FROM OH_USER
-        WHERE USER_NO = #{userNo}
+    <select id="findByUserId" parameterType="String" resultType="com.team.semiTravelRecomend.model.dto.UserVO">
+        select *
+        from user
+        where USER_ID = #{userId};
     </select>
-
-
-    <select id="login" parameterType="com.team.semiTravelRecomend.model.dto.User" resultType="UserResultMap">
-        SELECT DISTINCT
-        *
-        FROM OH_USER
-        WHERE USER_ID = #{userID}
-        AND USER_PWD =#{userPwd}
-    </select>
-
 
 </mapper>

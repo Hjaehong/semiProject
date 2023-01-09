@@ -1,13 +1,15 @@
 package com.team.semiTravelRecomend.model.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import lombok.*;
-
-
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 @Setter
-public class User{
+@Getter
+public class UserVO {
 
     private Long userNo;
     private String userId;
@@ -16,10 +18,9 @@ public class User{
     private String email;
     private String role;
 
-    public void updateUser(String email, String userName, String userPwd) {
+    public void updateUser(String userName, String email, String userPwd) {
         this.userId = email;
         this.userName = userName;
         this.userPwd = userPwd;
     }
-
 }

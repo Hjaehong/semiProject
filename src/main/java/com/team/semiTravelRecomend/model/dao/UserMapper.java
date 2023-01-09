@@ -1,6 +1,6 @@
 package com.team.semiTravelRecomend.model.dao;
 
-import com.team.semiTravelRecomend.model.dto.User;
+import com.team.semiTravelRecomend.model.dto.UserVO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -9,15 +9,17 @@ import java.util.Optional;
 @Mapper
 public interface UserMapper {
 
-    User save(User user);
+    void save(UserVO userVO);
 
-    User update(User user);
+    UserVO update(UserVO userVO);
 
-    User delete(Long userNo);
+    UserVO delete(Long userNo);
 
-    List<User> findAll();
+    List<UserVO> findAll();
 
-    Optional<User> findById(Long userNo);
+    Optional<UserVO> findById(Long userNo);
 
-    Optional<User> login(String userId);
+    Optional<UserVO> findByUserId(String userId);
+
+    Optional<UserVO> login(String userId);
 }

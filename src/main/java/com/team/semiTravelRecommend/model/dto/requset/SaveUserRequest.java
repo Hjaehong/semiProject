@@ -1,4 +1,4 @@
-package com.team.semiTravelRecomend.model.dto.requset;
+package com.team.semiTravelRecommend.model.dto.requset;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

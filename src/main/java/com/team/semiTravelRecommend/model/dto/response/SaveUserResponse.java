@@ -1,6 +1,6 @@
-package com.team.semiTravelRecomend.model.dto.response;
+package com.team.semiTravelRecommend.model.dto.response;
 
-import com.team.semiTravelRecomend.model.dto.UserVO;
+import com.team.semiTravelRecommend.model.dto.UserVO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

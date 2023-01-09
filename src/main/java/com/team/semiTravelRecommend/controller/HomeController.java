@@ -1,7 +1,7 @@
-package com.team.semiTravelRecomend.controller;
+package com.team.semiTravelRecommend.controller;
 
-import com.team.semiTravelRecomend.model.dto.SessionConst;
-import com.team.semiTravelRecomend.model.dto.response.LoginUserResponse;
+import com.team.semiTravelRecommend.model.dto.SessionConst;
+import com.team.semiTravelRecommend.model.dto.response.LoginUserResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class HomeController {
 
-    //@GetMapping("/")
+    @GetMapping("/")
     public String home() {
         log.info("진입");
         return "home";
@@ -35,7 +35,7 @@ public class HomeController {
         return "메인화면";
     }
 
-    @GetMapping("/")
+//    @GetMapping("/")
     public String homeLoginV3Spring(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember, Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
 

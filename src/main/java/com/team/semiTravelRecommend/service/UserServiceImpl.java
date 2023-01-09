@@ -1,10 +1,10 @@
-package com.team.semiTravelRecomend.service;
+package com.team.semiTravelRecommend.service;
 
-import com.team.semiTravelRecomend.model.dao.UserMapper;
-import com.team.semiTravelRecomend.model.dto.UserVO;
-import com.team.semiTravelRecomend.model.dto.requset.LoginUserRequest;
-import com.team.semiTravelRecomend.model.dto.requset.SaveUserRequest;
-import com.team.semiTravelRecomend.model.dto.response.LoginUserResponse;
+import com.team.semiTravelRecommend.model.dao.UserMapper;
+import com.team.semiTravelRecommend.model.dto.UserVO;
+import com.team.semiTravelRecommend.model.dto.requset.LoginUserRequest;
+import com.team.semiTravelRecommend.model.dto.requset.SaveUserRequest;
+import com.team.semiTravelRecommend.model.dto.response.LoginUserResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

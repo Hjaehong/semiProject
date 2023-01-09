@@ -69,7 +69,7 @@ public class RecordServiceImpl implements RecordService{
      }
 
      @Override
-    public int returnFileNo(String changeName) { return recordMapper.returnFileNo(changeName); }
+    public FileDTO returnFileInfo(String changeName) { return recordMapper.returnFileInfo(changeName); }
 
     @Override
     public int editRecord(RecordDTO record) throws Exception {

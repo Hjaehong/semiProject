@@ -53,11 +53,6 @@
         <result property="imgPath" column="OH_PATH"/>
     </resultMap>
 
-<!--    <resultMap id="RecordTagResultMap" type="com.team.semiTravelRecommend.model.dto.record.RecordTagDTO">-->
-<!--        <association property="recordNo" column="RECORD_NO" resultMap="recordResultMap"/>-->
-<!--        <association property="tagCode" column="TAG_CODE" resultMap="tagResultMap"/>-->
-<!--    </resultMap>-->
-
     <select id="recordOne" resultMap="recordResultMap">
         SELECT
             A.* ,
@@ -130,9 +125,10 @@
         FROM TAG
     </select>
 
-    <select id="returnFileNo" resultType="_int">
+    <select id="returnFileInfo" resultMap="fileResultMap">
         SELECT
-            FILE_NO
+            FILE_NO,
+            CHANGENAME
         FROM OH_FILE
         WHERE CHANGENAME = #{ changeName }
     </select>
@@ -173,7 +169,7 @@
         VALUES
             (
                 SEQ_RECORD_NO.NEXTVAL,
-                2,
+                3,
                 #{rcTitle },
                 #{recordTag},
                 #{rcDetail},

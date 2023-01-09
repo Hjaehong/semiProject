@@ -126,7 +126,8 @@ public class RecordController {
         System.out.println(record.getCityCode());
 
         if ((!file.getOriginalFilename().equals(""))){
-            int fileNo = saveFile(file);
+            FileDTO fileInfo = saveFile(file);
+            int fileNo = fileInfo.getFileNo();
 
             record.setImgFileNo(fileNo);
         }
@@ -140,7 +141,7 @@ public class RecordController {
 
     }
 
-    private int saveFile(MultipartFile file){
+    private FileDTO saveFile(MultipartFile file){
 
         String projectPath = System.getProperty("user.dir")+"/src/main/resources/static/uploadImgs";
         UUID uuid = UUID.randomUUID();
@@ -159,10 +160,11 @@ public class RecordController {
             recordService.saveFile(imgFile);
 
             System.out.println("에러 지점 확인용 출력");
-            int fileNo = recordService.returnFileNo(changeName);
-            System.out.println("fileNo" + fileNo);
+            FileDTO fileInfo = recordService.returnFileInfo(changeName);
+//            int fileNo = fileInfo.getFileNo();
+            System.out.println("fileNo" + fileInfo.getFileNo());
 
-            return fileNo;
+            return fileInfo;
 
         } catch (Exception e) {
             System.out.println("Exception" + e);
@@ -193,8 +195,29 @@ public class RecordController {
     @PostMapping("travelRecordEdit")
     public ModelAndView editRecord(ModelAndView mv, RecordDTO record, @RequestParam(name="file", required = false) MultipartFile file
                                     ,RedirectAttributes rttr) throws Exception {
+        /*
+        * 여행기록 게시물을 작성할 때 이미지 파일을 필수적으로 올려야하기 때문에 아래 두개의 경우만 고려함
+        * 1. 기존의 첨부파일 O, 새로 첨부된 파일 X
+		* 	  --> originName : 기존첨부파일원본명, changeName : 기존첨부파일수정명
+		*
+		* 2. 기존의 첨부파일 O, 새로 첨부된 파일 O
+		* 	  --> 서버에 업로드 후
+		* 	  --> originName : 새로첨부된파일원본명, changeName : 새로첨부된파일수정명
+        */
 
-        System.out.println(record.getRecordNo());
+        System.out.println("값이 잘 넘어오는지 확인 : " + record.getRecordNo());
+        System.out.println("첨부파일 정보 확인 : " + record.getImgFileNo());
+
+
+        // 첨부파일이 수정된 경우 아래 코드 실행 ( 새로운 파일을 저장하고 fileNo을 DTO에 set해준 뒤, 기존의 파일을 삭제)
+        if(!file.getOriginalFilename().equals("")){
+            FileDTO fileInfo = saveFile(file);
+
+            int fileNo = fileInfo.getFileNo();
+            record.setImgFileNo(fileNo);
+
+
+        }
 
         recordService.editRecord(record);
 

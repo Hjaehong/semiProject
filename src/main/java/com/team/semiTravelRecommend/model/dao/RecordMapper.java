@@ -33,7 +33,7 @@ public interface RecordMapper {
 
     int insertRecord(RecordDTO recordDTO);
 
-    int returnFileNo(String changeName);
+    FileDTO returnFileInfo(String changeName);
 
     int editRecord(RecordDTO recorddTO);
 

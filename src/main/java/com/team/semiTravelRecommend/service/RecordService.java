@@ -33,7 +33,7 @@ public interface RecordService {
 
     int saveFile(FileDTO imgFile) throws Exception;
 
-    int returnFileNo(String changeName);
+    FileDTO returnFileInfo(String changeName);
 
     int editRecord(RecordDTO record) throws Exception;
 

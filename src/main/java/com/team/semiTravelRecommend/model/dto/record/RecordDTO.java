@@ -25,6 +25,7 @@ public class RecordDTO {
     private String recordTag;
     private String cityCode;
     private int imgFileNo;
+//    private String originName;
     private UserDTO userDTO;
     private TagDTO tagDTO;
     private CityDTO cityDTO;

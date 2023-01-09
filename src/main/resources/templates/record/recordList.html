@@ -36,12 +36,13 @@
 <!--      </div>-->
     <div class="record">
       <ul th:each="recordList : ${ RecordList }" class="wrapper">
+          <a href="recordDetail/" th:attrappend="href=${recordList.recordNo}">
           <li class="list-item">
               <!-- 여행기록물 이미지 영역 -->
               <div>
-                  <a href="recordDetail/" th:attrappend="href=${recordList.recordNo}">
+<!--                  <a href="recordDetail/" th:attrappend="href=${recordList.recordNo}">-->
                       <img class="record-img" th:src="@{${recordList.fileDTO.imgPath}}" alt="여행기록사진"/>
-                  </a>
+<!--                  </a>-->
               </div>
               <div class="right-container">
                   <!-- 유저 정보 영역 -->
@@ -61,10 +62,11 @@
                   </ul>
               </div>
           </li>
+          </a>
       </ul>
     </div>
 
-  <footer>
+  <div>
       <div th:fragment="paging" align="center">
           <!--            <button id="startPage">맨앞</button>-->
           <ul class="paging" th:each="page : ${ selectCriteria }">
@@ -91,7 +93,13 @@
               </li>
           </ul>
       </div>
-  </footer>
+  </div>
+
+  <div>
+      <ul>
+          <li><a th:href="@{/record/travelRecordWrite}"> 여행 기록</a></li>
+      </ul>
+  </div>
   <script type="text/javascript" th:src="@{/js/travelRecord.js}"></script>
 </body>
 </html>

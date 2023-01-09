@@ -4,10 +4,17 @@
     <meta charset="UTF-8">
     <title>recordDetail</title>
     <link th:href="@{/css/recordDetail.css}" rel="stylesheet" type="text/css">
+    <script>
+        const successMessage = "[[${ successMessage}]]";
+        if (successMessage){
+            alert(successMessage);
+        }
+    </script>
 </head>
 <body>
 <div th:replace="common/header.html"></div>
     <div class="posting">
+        <button type="button" th:onclick="|location.href='@{/record/recordList}'|"> 목록으로 돌아가기 </button>
         <div class="head">
             <div class="mascot">
                 <div class="mascot-img">

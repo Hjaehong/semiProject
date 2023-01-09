@@ -33,9 +33,11 @@ public interface RecordService {
 
     int saveFile(FileDTO imgFile) throws Exception;
 
-    FileDTO returnFileInfo(String changeName);
+    int returnFileNo(String changeName);
 
     int editRecord(RecordDTO record) throws Exception;
+
+    int deleteImgFile(String changeName) throws Exception;
 
     int deleteRecord(int recordNo);
 }

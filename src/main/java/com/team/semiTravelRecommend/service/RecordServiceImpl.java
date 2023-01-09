@@ -69,11 +69,21 @@ public class RecordServiceImpl implements RecordService{
      }
 
      @Override
-    public FileDTO returnFileInfo(String changeName) { return recordMapper.returnFileInfo(changeName); }
+    public int returnFileNo(String changeName) { return recordMapper.returnFileNo(changeName); }
 
     @Override
     public int editRecord(RecordDTO record) throws Exception {
         int result = recordMapper.editRecord(record);
+
+        if(result <= 0) {
+            throw new Exception("수정 실패");
+        }
+        return result > 0 ? 1 : 0;
+    }
+
+    @Override
+    public int deleteImgFile(String changeName) throws Exception {
+         int result = recordMapper.deleteImgFile(changeName);
 
         if(result <= 0) {
             throw new Exception("수정 실패");

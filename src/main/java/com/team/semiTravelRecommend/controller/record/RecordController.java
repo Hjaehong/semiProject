@@ -126,8 +126,7 @@ public class RecordController {
         System.out.println(record.getCityCode());
 
         if ((!file.getOriginalFilename().equals(""))){
-            FileDTO fileInfo = saveFile(file);
-            int fileNo = fileInfo.getFileNo();
+            int fileNo = saveFile(file);
 
             record.setImgFileNo(fileNo);
         }
@@ -141,7 +140,7 @@ public class RecordController {
 
     }
 
-    private FileDTO saveFile(MultipartFile file){
+    private int saveFile(MultipartFile file){
 
         String projectPath = System.getProperty("user.dir")+"/src/main/resources/static/uploadImgs";
         UUID uuid = UUID.randomUUID();
@@ -160,11 +159,9 @@ public class RecordController {
             recordService.saveFile(imgFile);
 
             System.out.println("에러 지점 확인용 출력");
-            FileDTO fileInfo = recordService.returnFileInfo(changeName);
-//            int fileNo = fileInfo.getFileNo();
-            System.out.println("fileNo" + fileInfo.getFileNo());
+            int fileNo = recordService.returnFileNo(changeName);
 
-            return fileInfo;
+            return fileNo;
 
         } catch (Exception e) {
             System.out.println("Exception" + e);
@@ -207,24 +204,38 @@ public class RecordController {
 
         System.out.println("값이 잘 넘어오는지 확인 : " + record.getRecordNo());
         System.out.println("첨부파일 정보 확인 : " + record.getImgFileNo());
+        System.out.println("원본 첨부파일 정보 확인 : " + record.getFileDTO().getChangeName());
 
+        String orgChangeName = record.getFileDTO().getChangeName();
 
         // 첨부파일이 수정된 경우 아래 코드 실행 ( 새로운 파일을 저장하고 fileNo을 DTO에 set해준 뒤, 기존의 파일을 삭제)
         if(!file.getOriginalFilename().equals("")){
-            FileDTO fileInfo = saveFile(file);
-
-            int fileNo = fileInfo.getFileNo();
+            int fileNo = saveFile(file);
             record.setImgFileNo(fileNo);
 
-
+            // 기존파일 삭제 메소드 호출
+            deleteFile(orgChangeName);
         }
 
         recordService.editRecord(record);
 
         mv.addObject("recordNo", record.getRecordNo());
         mv.setViewName("redirect:/record/recordDetail/{recordNo}");
+        rttr.addFlashAttribute("successMessage", "수정 완료!");
 
         return mv;
+    }
+
+    private void deleteFile(String orgChangeName) throws Exception {
+
+        String projectPath = System.getProperty("user.dir")+"/src/main/resources/static/uploadImgs";
+
+        File deleteFile = new File(projectPath + orgChangeName);
+
+        deleteFile.delete();
+
+        int result = recordService.deleteImgFile(orgChangeName);
+        System.out.println(result);
     }
 
     @PostMapping("deleteRecord")

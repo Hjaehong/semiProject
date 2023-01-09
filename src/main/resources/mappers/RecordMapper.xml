@@ -125,10 +125,9 @@
         FROM TAG
     </select>
 
-    <select id="returnFileInfo" resultMap="fileResultMap">
+    <select id="returnFileNo" resultType="_int">
         SELECT
-            FILE_NO,
-            CHANGENAME
+            FILE_NO
         FROM OH_FILE
         WHERE CHANGENAME = #{ changeName }
     </select>
@@ -193,6 +192,11 @@
             IMG_FILE_NO=#{imgFileNo}
         WHERE RECORD_NO=#{recordNo}
     </update>
+
+    <delete id="deleteImgFile" parameterType="String">
+        DELETE FROM OH_FILE
+        WHERE CHANGENAME = #{changeName}
+    </delete>
 
 
     <delete id="deleteRecord" parameterType="_int">

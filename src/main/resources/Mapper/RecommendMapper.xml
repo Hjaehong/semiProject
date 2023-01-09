@@ -6,33 +6,33 @@
 <mapper namespace="com.team.semiTravelRecommend.model.dao.RecommendMapper"><!-- 메퍼위치하고  동일하게 네임스페이스 작성-->
 
     <resultMap type="com.team.semiTravelRecommend.model.dto.PlaceDTO" id="placeResultMap">
-        <id property="place_id" column="PLACE_ID"/>
-        <result property="place_name" column="PLACE_NAME"/>
+        <id property="placeId" column="PLACE_ID"/>
+        <result property="placeName" column="PLACE_NAME"/>
         <result property="address" column="ADDRESS"/>
         <result property="tel" column="TEL"/>
-        <result property="pl_img_path" column="PL_IMG_PATH"/>
-        <result property="content_type" column="CONTENT_TYPE"/>
-        <result property="tag_code" column="TAG_CODE"/>
-        <result property="content_detail" column="CONTENT_DETAIL"/>
+        <result property="plImgPath" column="PL_IMG_PATH"/>
+        <result property="contentType" column="CONTENT_TYPE"/>
+        <result property="tagCode" column="TAG_CODE"/>
+        <result property="contentDetail" column="CONTENT_DETAIL"/>
 
         <collection property="cityDTO" column="CITY_CODE" resultMap="cityResultMap"/>
     </resultMap>
     <resultMap type="com.team.semiTravelRecommend.model.dto.CityDTO" id="cityResultMap">
-        <id property="city_code" column="CITY_CODE"/>
-        <result property="city_name" column="CITY_NAME"/>
-        <result property="badge_img" column="BADGE_IMG"/>
+        <id property="cityCode" column="CITY_CODE"/>
+        <result property="cityName" column="CITY_NAME"/>
+        <result property="badgeImg" column="BADGE_IMG"/>
         
         <association property="locationDTO" column="LOC_CODE" resultMap="locResultMap"/>
 
     </resultMap>
     <resultMap type="com.team.semiTravelRecommend.model.dto.LocationDTO" id="locResultMap">
-        <id property="loc_code" column="LOC_CODE"/>
-        <result property="loc_name" column="LOC_NAME"/>
+        <id property="locCode" column="LOC_CODE"/>
+        <result property="locName" column="LOC_NAME"/>
 
     </resultMap>
     <resultMap type="com.team.semiTravelRecommend.model.dto.TagDTO" id="tagResultMap">
-        <id property="tag_code" column="TAG_CODE"/>
-        <result property="tag_name" column="TAG_NAME"/>
+        <id property="tagCode" column="TAG_CODE"/>
+        <result property="tagName" column="TAG_NAME"/>
 
 
     </resultMap>
@@ -43,24 +43,21 @@
         from TAG
     </select>
     <!-- 맨 처음 보여주는 여행지들 -->
-    <select id="showRecommendTravel" resultMap="placeResultMap">
-        select
-            *
-        from PLACE p
-        join CITY c on p.CITY_CODE = c.CITY_CODE
-        join LOCATION l on c.LOC_CODE = l.LOC_CODE
-        where p.TAG_CODE = 'T3' AND p.CITY_CODE = 'C70'
+    <select id="travelDetail" resultMap="placeResultMap">
+        SELECT *
+        FROM PLACE p
+                 JOIN CITY c ON p.CITY_CODE = c.CITY_CODE
+                 JOIN LOCATION l ON c.LOC_CODE =l.LOC_CODE
+        where p.PLACE_ID = '${travelInfo}'
 
     </select>
     <!-- 태그에 맞는 여행지 선정 -->
     <select id="tagRecommendTravel" resultMap="placeResultMap">
-        select
-            *
-        from PLACE p
-        join CITY c on p.CITY_CODE = c.CITY_CODE
-        join LOCATION l on c.LOC_CODE = l.LOC_CODE
-        where p.TAG_CODE = '${tag_code}'
-
+        SELECT *
+        FROM PLACE p
+        JOIN CITY c ON p.CITY_CODE = c.CITY_CODE
+        JOIN LOCATION l ON c.LOC_CODE =l.LOC_CODE
+        where p.TAG_CODE = '${tagCode}'
     </select>
     <!-- 총 여행지 갯수 -->
     <select id="countTravel" resultType="_int">
@@ -73,10 +70,12 @@
             select rownum as rnum, a.*
             from(
                 select *
-                from PLACE
+                from PLACE p
+                JOIN CITY c ON p.CITY_CODE = c.CITY_CODE
+                JOIN LOCATION l ON c.LOC_CODE =l.LOC_CODE
                 order by PLACE_ID desc
                 )a
-                where ROWNUM<![CDATA[ <= #{ endRow }]]>
+                where ROWNUM<![CDATA[<= #{ endRow }]]>
             )
             where rnum<![CDATA[>= #{ startRow }]]>
     </select>

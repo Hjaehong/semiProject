@@ -14,6 +14,6 @@ import lombok.Data;
 @Data
 public class TagDTO {
 
-    private String tag_code;
-    private String tag_name;
+    private String tagCode;
+    private String tagName;
 }

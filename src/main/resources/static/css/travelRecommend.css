@@ -1,10 +1,28 @@
 /* 페이징 */
 ul{
-    list-style: none;
-    display: inline-flex;
+
+}
+/*이미지*/
+img {
+    width: 376px;
+    height: 271px;
+    /*가로세로 비율은 유지하면서 컨테이너에 꽉 차도록 설정*/
+    object-fit: cover;
+    /*padding: 10px;*/
 }
 
-/* 추천 여행지*/
+/*페이징 위치*/
+footer {
+    bottom: 0;
+}
+
+/*메인 위치*/
+section {
+    min-height: 100%;
+    position: relative;
+}
+
+/* 추천 여행지 모달 뷰*/
 .modalView {
     position: absolute;
     top: 0;
@@ -19,7 +37,7 @@ ul{
 
 }
 
-
+/*모달 뷰*/
 .modalMain {
     position: absolute;
     top: 50%;
@@ -40,23 +58,49 @@ ul{
     transform: translateX(-50%) translateY(-50%);
 }
 
-img {
-    width: 130px;
-    height: 140px;
-    /*가로세로 비율은 유지하면서 컨테이너에 꽉 차도록 설정*/
-    object-fit: cover;
-    padding: 10px;
 
-}
-
-tr,td {
-    border: 1px solid black;
+/* 배치를 옆으로 이동 */
+.travelInfo {
     display: inline-flex;
 }
-/* tr를 옆으로 이동 */
+
 .tagTable {
     display: inline-flex;
 }
+
+.travelText{
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.locName {
+    color: rgba(0,0,0,0.31)
+}
+
+/*상위 뷰 (여행지 추천)*/
+#travelView {
+    width: 90%;
+    padding: 20px;
+    background-color: aliceblue;
+}
+/*최상위 뷰(여행지 추천)*/
+#topView {
+    display: flex;
+    justify-content: center;
+}
+
+#page {
+    list-style: none;
+    display: inline-flex;
+}
+
+
+
+
+
+
+
 
 
 

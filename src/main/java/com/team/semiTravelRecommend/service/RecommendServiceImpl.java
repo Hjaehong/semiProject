@@ -21,9 +21,7 @@ public class RecommendServiceImpl implements RecommendService{
         return recommendMapper.showRecommendTravel();
     }
 
-    public List<PlaceDTO> tagRecommendTravel(String tag_code) {
-        return recommendMapper.tagRecommendTravel(tag_code);
-    }
+    public List<PlaceDTO> tagRecommendTravel(String tagCode) { return recommendMapper.tagRecommendTravel(tagCode); }
 
     @Override
     public List<TagDTO> showTag() {
@@ -39,6 +37,11 @@ public class RecommendServiceImpl implements RecommendService{
 
         List<PlaceDTO> pagingList = recommendMapper.listPaging(selectCriteria);
         return pagingList;
+    }
+
+    @Override
+    public PlaceDTO detailTravelInfo(String travelInfo) {
+        return recommendMapper.travelDetail(travelInfo);
     }
 
 

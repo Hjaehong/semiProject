@@ -15,14 +15,14 @@ import lombok.Data;
  @Data
 public class PlaceDTO {
 
-     private String place_id;
-     private String place_name;
+     private String placeId;
+     private String placeName;
      private String address;
      private String tel;
-     private String pl_img_path;
-     private int content_type;
-     private String tag_code;
-     private String content_detail;
+     private String plImgPath;
+     private int contentType;
+     private String tagCode;
+     private String contentDetail;
      CityDTO cityDTO;
 
 }

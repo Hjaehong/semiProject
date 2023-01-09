@@ -15,6 +15,6 @@ import lombok.Data;
  @Data
 public class LocationDTO {
 
-     private String loc_code;
-     private String loc_name;
+     private String locCode;
+     private String locName;
 }

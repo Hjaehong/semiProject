@@ -16,9 +16,9 @@ import lombok.Data;
  @Data
 public class CityDTO {
 
-     private String city_code;
-     private String loc_code;
-     private String city_name;
-     private String badge_img;
+     private String cityCode;
+     private String locCode;
+     private String cityName;
+     private String badgeImg;
      LocationDTO locationDTO;
 }

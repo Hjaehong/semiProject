@@ -19,7 +19,7 @@ public interface RecommendService {
     // 여행지 추천 리스트 보여주기
     List<PlaceDTO> showRecommend();
     // 여행지 태그에 맞는 여행지 추천
-    List<PlaceDTO> tagRecommendTravel(String tag_code);
+    List<PlaceDTO> tagRecommendTravel(String tagCode);
     // 여행지 태그 보여주기
     List<TagDTO> showTag();
     // 여행지 전체 갯수 카운트
@@ -27,5 +27,6 @@ public interface RecommendService {
     // 페이징 리스트
     List<PlaceDTO> listPaging(SelectCriteria selectCriteria);
 
-     
+    // 여행지의 자세한 정보
+     PlaceDTO detailTravelInfo(String travelInfo);
  }

@@ -1,15 +1,17 @@
 const modals = document.getElementsByClassName('modalClick')
 const modalView = document.getElementsByClassName('modalView')
+const tagButton = document.getElementsByClassName('tagButton')
+
 let func = []
 
 // Modal 띄우는 함수
 function Modal(num) {
     return function() {
         // 그림 클릭시 modal창 띄우는 함수
-        modals[num].onclick = function(){
-            modalView[num].style.display = 'block';
-            console.log(num);
-        };
+        // modals[num].onclick = function(){
+        //     modalView[num].style.display = 'block';
+        //     console.log(num);
+        // };
     }
 
 }
@@ -34,4 +36,12 @@ window.onclick = function (event){
 // 다음페이지로 이동하는 함수
 function nextPage(text) {
     location.href = "/recommend/travelRecommend" + "?currentPage=" + text;
+}
+
+// 페이징 버튼 미표시
+for(let i = 0; i < tagButton.length; i++){
+    tagButton[i].addEventListener('click', function (){
+        document.getElementById('page').style.setProperty('display','none');
+        // document.getElementsByClassName('paging')[i].style.setProperty('display', 'none');
+    })
 }

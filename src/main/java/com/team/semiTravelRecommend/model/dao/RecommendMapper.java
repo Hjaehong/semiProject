@@ -4,7 +4,8 @@ import com.team.semiTravelRecommend.model.dto.PlaceDTO;
 import com.team.semiTravelRecommend.model.dto.TagDTO;
 import com.team.semiTravelRecommend.paging.SelectCriteria;
 import org.apache.ibatis.annotations.Mapper;
- /**
+import org.apache.ibatis.annotations.Param;
+/**
     * Version : 1.0
    * 클래스명: RecommendMapper
    * 작성일자 : 2023/01/03
@@ -29,11 +30,12 @@ import java.util.List;
 public interface RecommendMapper {
 
     List<PlaceDTO> showRecommendTravel();
-    List<PlaceDTO> tagRecommendTravel(String tag_code);
+    List<PlaceDTO> tagRecommendTravel(String tagCode);
     List<TagDTO> showTag();
     // 총 개시물 수
     int countTravel();
     // 페이징 리스트
     List<PlaceDTO> listPaging(SelectCriteria selectCriteria);
-
+    // 여행지의 자세한 내용
+     PlaceDTO travelDetail(String travelInfo);
  }

@@ -3,48 +3,63 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>옷홋</title>
     <link th:href="@{/css/travelRecommend.css}" rel="stylesheet" type="text/css">
 </head>
 
 <body>
-    <div id="showUserTag" name="showUserTag">
-        <form method="post">
+    <nav id="showUserTag" name="showUserTag">
+        <form>
             <div class="tagTable">
                 <div th:each="tagList : ${ tagList }">
                     <div>
-                        <button type="submit" name="tag" th:text="${tagList.tag_name}" th:value="${tagList.tag_code}"
-                                onclick="location.href='/recommend/travelRecommend'"/>
+                        <button type="submit" name="tag" class="tagButton" th:text="${tagList.tagName}" th:value="${tagList.tagCode}"
+                                onclick="location.href='recommend/travelRecommend'"><img th:src="" /></button>
                     </div>
                 </div>
             </div>
         </form>
-    </div>
-    <div name="showRecommendPlace">
-        <table>
-            <tr th:each="travelList : ${ travelList }">
-                <td>
-                    <img  th:src="${travelList.pl_img_path}" class="modalClick"/>
-                </td>
-                <td>
-                    <th:block>
-                        <span th:text="${travelList.place_name}"/>
-                    </th:block>
-                </td>
-                <td>
-                    <span th:text="${travelList.cityDTO.locationDTO?.loc_name}"/>
-                </td>
-                <td class="modalView">
-                    <span class="modalMain" th:utext="${travelList.content_detail}"/>
-                </td>
-            </tr>
-        </table>
-
+    </nav>
+    <section id="topView"name="showRecommendPlace">
+        <div id="travelView">
+            <div class="travelInfo" th:each="travelList : ${ travelList }">
+                <div class="travelDetail">
+                    <div>
+                        <form>
+                            <!-- modal창 접근 시-->
+                            <!--<img th:src="${travelList.pl_img_path}" class="modalClick"/>-->
+                            <!-- 여행지의 자세한 정보페이지 이동 -->
+                            <a href="recommendDetail/"  th:attrappend="href=${travelList.placeId}">
+                                <th:block th:if = "${travelList.plImgPath != null}">
+                                    <img th:src="${travelList.plImgPath}" alt="여행지사진"/>
+                                </th:block>
+                                <th:block th:unless = "${travelList.plImgPath != null}">
+                                    <img th:src="@{/image/noImg.png}" alt="이미지없음"/>
+                                </th:block>
+                            </a>
+                        </form>
+                    </div>
+                    <div>
+                        <!-- 장소명 -->
+                        <th:block>
+                            <span class="travelText" th:text="${travelList.placeName}"/>
+                        </th:block>
+                    </div>
+                    <div>
+                        <!-- 지역명 -->
+                        <span class="locName" th:text="${travelList.cityDTO.locationDTO?.locName}"/>
+                    </div>
+                    <div class="modalView">
+                        <!-- 모달창 -->
+                        <span class="modalMain" th:utext="${travelList.contentDetail}"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
         <footer>
-            <div th:fragment="paging" align="center">
-                <!--            <button id="startPage">맨앞</button>-->
-                <ul class="paging" th:each="page : ${ selectCriteria }">
-                    <!--  -->
+            <div align="center" >
+                <ul id="page" th:each="page : ${ selectCriteria }">
                     <li th:if="${page.pageNo <= 1}">
                         <button disabled><</button>
                     </li>
@@ -68,8 +83,10 @@
                 </ul>
             </div>
         </footer>
+        <script th:inline="javascript">
 
+        </script>
         <script type="text/javascript" th:src="@{/js/travelRecommend.js}"></script>
-    </div>
+
 </body>
 </html>

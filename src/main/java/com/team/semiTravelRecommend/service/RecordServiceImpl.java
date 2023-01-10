@@ -43,6 +43,11 @@ public class RecordServiceImpl implements RecordService{
          return recordMapper.recordOne(recordNo);
      }
 
+     public int heartCheck(int recordNo, int userNo){
+
+         return recordMapper.heartCheck(recordNo, userNo);
+     }
+
      @Override
      public List<RecordDTO> recordListPaging(SelectCriteria selectCriteria){ return recordMapper.recordListPaging(selectCriteria); }
 

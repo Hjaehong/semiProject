@@ -70,14 +70,29 @@ public class RecordController {
     }
 
     @GetMapping("recordDetail/{recordNo}")
-    public ModelAndView recordOne(ModelAndView mv, @PathVariable("recordNo") int recordNo){
+    public Model recordOne(Model model, @PathVariable("recordNo") int recordNo){
 
         RecordDTO record = recordService.recordOne(recordNo);
 
-        mv.addObject("RecordOne", record);
-        mv.setViewName("record/recordDetail");
+        /* 좋아요 기능 구현을 위한 코드 */
+        // 게시글을 작성한 유저의 No
+        int writer = record.getUserDTO().getUserNo();
+        // 로그인한 유저의 No (session에서 정보가져와야함 지금은 임의로 값 설정)
+        int user = 4;
 
-        return mv;
+        if (writer != user) {
+            int heartCheck = recordService.heartCheck(recordNo, user);
+
+            if (heartCheck == 1) {
+                model.addAttribute("heartCheck", 1);
+            } else {
+                model.addAttribute("likeCheck", 0);
+            }
+        }
+
+        model.addAttribute("RecordOne", record);
+
+        return model;
     }
 
     @GetMapping(value="travelRecordWrite", produces = "application/json; charset=UTF-8")

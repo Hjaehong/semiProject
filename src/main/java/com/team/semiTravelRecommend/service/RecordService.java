@@ -21,6 +21,8 @@ public interface RecordService {
 
     RecordDTO recordOne(int recordNo);
 
+    int heartCheck(int recordNo, int userNo);
+
     List<RecordDTO> recordListPaging(SelectCriteria selectCriteria);
 
     int findAllCnt();

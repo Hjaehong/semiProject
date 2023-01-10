@@ -70,6 +70,13 @@
         WHERE A.RECORD_NO = #{ recordNo }
     </select>
 
+    <select id="heartCheck" resultType="_int">
+        SELECT COUNT(*)
+        FROM HEART A
+        WHERE A.RECORD_NO = #{recordNo}
+          AND A.USER_NO = #{userNo}
+    </select>
+
     <select id="recordListPaging" resultMap="recordResultMap">
         SELECT *
             FROM (

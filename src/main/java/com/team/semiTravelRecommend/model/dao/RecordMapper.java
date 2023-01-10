@@ -20,6 +20,9 @@ import java.util.List;
 public interface RecordMapper {
 
     RecordDTO recordOne(int recordNo);
+
+    int heartCheck(int recordNo, int userNo);
+
     List<RecordDTO> recordListPaging(SelectCriteria selectCriteria);
 
     int findAllCnt();

@@ -6,6 +6,7 @@
     <title>옷홋</title>
 </head>
 <body>
+<div th:replace="common/header.html"></div>
     <div th:each="info : ${travelInfo}">
         <div>
             <div>
@@ -18,11 +19,13 @@
                 <button>저장</button>
             </div>
         </div>
-
+        <div>
+            <img id="mainImg" th:src="${info.plImgPath}"/>
+        </div>
         <div>
             <span th:text="${info.cityDTO.locationDTO.locName}"/>
             <span>
-                <img th:src="${info.cityDTO.badgeImg}"/>
+                <img id="tagImg" th:src="${info.cityDTO.badgeImg}"/>
             </span>
         </div>
         <div>

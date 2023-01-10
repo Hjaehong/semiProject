@@ -4,6 +4,8 @@ import com.team.semiTravelRecommend.model.dto.record.*;
 import com.team.semiTravelRecommend.paging.Pagenation;
 import com.team.semiTravelRecommend.paging.SelectCriteria;
 import com.team.semiTravelRecommend.service.RecordService;
+import lombok.extern.log4j.Log4j;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -61,6 +63,7 @@ public class RecordController {
         SelectCriteria selectCriteria = null;
         selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount);
         List<RecordDTO> recordList = recordService.recordListPaging(selectCriteria);
+
         System.out.println("recordList입니다 = " + recordList);
         model.addAttribute("selectCriteria", selectCriteria);
         model.addAttribute("RecordList", recordList);

@@ -8,13 +8,17 @@
 </head>
 
 <body>
+    <div th:replace="common/header.html"></div>
     <nav id="showUserTag" name="showUserTag">
         <form>
             <div class="tagTable">
                 <div th:each="tagList : ${ tagList }">
                     <div>
                         <button type="submit" name="tag" class="tagButton" th:text="${tagList.tagName}" th:value="${tagList.tagCode}"
-                                onclick="location.href='recommend/travelRecommend'"><img th:src="" /></button>
+                                onclick="location.href='recommend/travelRecommend'"><img th:src="${tagList.iconImg}"/></button>
+                    </div>
+                    <div>
+<!--                        <img class="tagImg" th:src="${tagList.iconImg}"/>-->
                     </div>
                 </div>
             </div>
@@ -31,10 +35,10 @@
                             <!-- 여행지의 자세한 정보페이지 이동 -->
                             <a href="recommendDetail/"  th:attrappend="href=${travelList.placeId}">
                                 <th:block th:if = "${travelList.plImgPath != null}">
-                                    <img th:src="${travelList.plImgPath}" alt="여행지사진"/>
+                                    <img class="travelImg" th:src="${travelList.plImgPath}" alt="여행지사진"/>
                                 </th:block>
                                 <th:block th:unless = "${travelList.plImgPath != null}">
-                                    <img th:src="@{/image/noImg.png}" alt="이미지없음"/>
+                                    <img class="travelImg" th:src="@{/image/noImg.png}" alt="이미지없음"/>
                                 </th:block>
                             </a>
                         </form>

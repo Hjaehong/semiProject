@@ -3,7 +3,7 @@ ul{
 
 }
 /*이미지*/
-img {
+.travelImg {
     width: 376px;
     height: 271px;
     /*가로세로 비율은 유지하면서 컨테이너에 꽉 차도록 설정*/

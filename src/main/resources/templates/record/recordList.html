@@ -13,36 +13,13 @@
 </head>
 <body>
   <div th:replace="common/header.html"></div>
-
-<!--      <div class="record">-->
-<!--        <div th:each=" recordList : ${ RecordList }" class="recordOne">-->
-<!--            <div th:text="${recordList.userDTO.nickname}" class="nickname"></div>-->
-<!--            <a href="recordDetail/" th:attrappend="href=${recordList.recordNo}">-->
-<!--                <img class="record-img" th:src="@{${recordList.fileDTO.imgPath}}" alt="여행기록사진"/>-->
-<!--            </a>-->
-<!--            <div class="info">-->
-<!--                <div class="local">-->
-<!--                    <div class="mascot-img">-->
-<!--                        <img  th:src="@{${recordList.cityDTO.badgeImg}}" alt="마스코트사진"/>-->
-<!--                    </div>-->
-<!--                    <span th:text="${recordList.cityDTO.locationDTO.locName}" class="localName"></span>-->
-<!--                    <span th:text="${recordList.cityDTO.cityName}"></span>-->
-<!--                </div>-->
-<!--                <div class="tag">-->
-<!--                    <span th:text="${recordList.tagDTO.tagName}"> </span>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--      </div>-->
     <div class="record">
       <ul th:each="recordList : ${ RecordList }" class="wrapper">
           <a href="recordDetail/" th:attrappend="href=${recordList.recordNo}">
           <li class="list-item">
               <!-- 여행기록물 이미지 영역 -->
               <div>
-<!--                  <a href="recordDetail/" th:attrappend="href=${recordList.recordNo}">-->
-                      <img class="record-img" th:src="@{${recordList.fileDTO.imgPath}}" alt="여행기록사진"/>
-<!--                  </a>-->
+                  <img class="record-img" th:src="@{${recordList.fileDTO.imgPath}}" alt="여행기록사진"/>
               </div>
               <div class="right-container">
                   <!-- 유저 정보 영역 -->

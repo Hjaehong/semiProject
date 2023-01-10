@@ -1,4 +1,4 @@
-package com.team.semiTravelRecommend.model.dto;
+package com.team.semiTravelRecommend.model.dto.recommend;
 
 import lombok.Data;
  /**
@@ -16,4 +16,5 @@ public class TagDTO {
 
     private String tagCode;
     private String tagName;
+     private String iconImg;
 }

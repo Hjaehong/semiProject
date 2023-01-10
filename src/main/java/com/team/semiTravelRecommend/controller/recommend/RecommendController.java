@@ -1,14 +1,13 @@
-package com.team.semiTravelRecommend.controller;
+package com.team.semiTravelRecommend.controller.recommend;
 
-import com.team.semiTravelRecommend.model.dto.PlaceDTO;
-import com.team.semiTravelRecommend.model.dto.TagDTO;
+import com.team.semiTravelRecommend.model.dto.recommend.PlaceDTO;
+import com.team.semiTravelRecommend.model.dto.recommend.TagDTO;
 import com.team.semiTravelRecommend.paging.Pagenation;
 import com.team.semiTravelRecommend.paging.SelectCriteria;
 import com.team.semiTravelRecommend.service.RecommendService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -35,8 +34,7 @@ public class RecommendController {
     }
 
 
-    // 추천 여행장소 리스트 보여주는 메소드
-    // currPageNo 현재 페이지 번호, range 페이지 범위 -
+    // 추천 여행장소 리스트 맨처음에 보여짐
     @GetMapping("travelRecommend")
     public Model recommendList(@RequestParam(value = "tag", required = false) String tagCode,  HttpServletRequest request,Model model){
         // paging.html에서 currentPage인 name을 가져온다.
@@ -61,7 +59,6 @@ public class RecommendController {
         SelectCriteria selectCriteria = null;
         // 페이징 처리에 관한 정보를 담고 있는 인스턴스를 반환
         selectCriteria = Pagenation.getSelectCriteria(pageNo,totalCount, limit, buttonAmount);
-        System.out.println("selectCriteria = " + selectCriteria);
 
         // 조회
         List<PlaceDTO> travelList = recommendService.listPaging(selectCriteria);
@@ -85,7 +82,7 @@ public class RecommendController {
 //    public void page(HttpServletRequest request, Model model){
 //
 //    }
-    // 취향에 맞춰 여행지를 보여주는 메소드
+    // 태그선택시 호출
     @GetMapping("recommendDetail/{placeId}")
     public String travelDetail(Model model, @PathVariable(value = "placeId")String travelInfo){
         // 디테일 정보를 placeId로 찾는다.

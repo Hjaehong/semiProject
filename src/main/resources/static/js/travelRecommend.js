@@ -1,7 +1,7 @@
 const modals = document.getElementsByClassName('modalClick')
 const modalView = document.getElementsByClassName('modalView')
 const tagButton = document.getElementsByClassName('tagButton')
-
+const tagimg = document.getElementsByClassName('tagImg')
 let func = []
 
 // Modal 띄우는 함수
@@ -37,11 +37,13 @@ window.onclick = function (event){
 function nextPage(text) {
     location.href = "/recommend/travelRecommend" + "?currentPage=" + text;
 }
+let z
 
-// 페이징 버튼 미표시
-for(let i = 0; i < tagButton.length; i++){
-    tagButton[i].addEventListener('click', function (){
-        document.getElementById('page').style.setProperty('display','none');
-        // document.getElementsByClassName('paging')[i].style.setProperty('display', 'none');
-    })
-}
+tagimg[0].addEventListener('click', function() {
+    z = tagButton[0].value
+    console.log('이게 뭐임'+z)
+})
+
+
+
+

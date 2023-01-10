@@ -44,7 +44,10 @@ public class RecordServiceImpl implements RecordService{
      }
 
      @Override
-     public List<RecordDTO> recordListPaging(SelectCriteria selectCriteria){ return recordMapper.recordListPaging(selectCriteria); }
+     public List<RecordDTO> recordListPaging(SelectCriteria selectCriteria){
+         List<RecordDTO> recordList = recordMapper.recordListPaging(selectCriteria);
+         System.out.println("recordList입니다 = " + recordList);
+         return recordList;}
 
     @Override
     public int findAllCnt(){ return recordMapper.findAllCnt(); }
@@ -92,4 +95,7 @@ public class RecordServiceImpl implements RecordService{
     }
     @Override
     public int deleteRecord(int recordNo) { return recordMapper.deleteRecord(recordNo); }
+
+
+
 }

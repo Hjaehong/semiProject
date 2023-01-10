@@ -40,4 +40,7 @@ public interface RecordService {
     int deleteImgFile(String changeName) throws Exception;
 
     int deleteRecord(int recordNo);
+
+    //임시
+
 }

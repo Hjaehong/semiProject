@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.semiTravelRecommend.model.dao.CommentMapper">
+
+    <resultMap type="com.team.semiTravelRecommend.model.dto.comment.CommentDTO" id="commentResultMap">
+        <id property="com_no" column="COM_NO"/>
+        <result property="user_no" column="USER_NO"/>
+        <result property="record_no" column="RECORD_NO"/>
+        <result property="com_contain" column="COM_CONTAIN"/>
+    </resultMap>
+
+    <insert id="insertComment">
+            INSERT INTO OH_COMMENT A (
+                A.COM_NO ,
+                A.USER_NO ,
+                A.RECORD_NO ,
+                A.COM_CONTAIN
+            )
+            VALUES (
+                SEQ_COM_NO.NEXTVAL ,
+                #{ user_no } ,
+                #{ record_no } ,
+                #{ com_contain }
+                )
+
+    </insert>
+
+    <select id="viewAllComment" resultMap="commentResultMap">
+        select
+            A.COM_NO ,
+            A.USER_NO ,
+            A.RECORD_NO ,
+            A.COM_CONTAIN
+        from OH_COMMENT A
+    </select>
+</mapper>

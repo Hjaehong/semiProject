@@ -1,7 +1,7 @@
 package com.team.semiTravelRecommend.service;
 
 import com.team.semiTravelRecommend.model.dao.CommentMapper;
-import com.team.semiTravelRecommend.model.dto.CommentDTO;
+import com.team.semiTravelRecommend.model.dto.comment.CommentDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.team.semiTravelRecomend.config;
+package com.team.semiTravelRecommend.config;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
    * 수정내역 :
  */
 @Configuration
-@ComponentScan(basePackages = {"com.team.semiTravelRecomend"})
+@ComponentScan(basePackages = {"com.team.semiTravelRecommend"})
 public class ContextConfiguration {
 
 

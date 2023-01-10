@@ -4,21 +4,16 @@ import com.team.semiTravelRecommend.model.dto.record.*;
 import com.team.semiTravelRecommend.paging.Pagenation;
 import com.team.semiTravelRecommend.paging.SelectCriteria;
 import com.team.semiTravelRecommend.service.RecordService;
-import net.bytebuddy.description.type.RecordComponentList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -102,15 +97,11 @@ public class RecordController {
     }
 
     public List<LocationDTO> readLocation(){
-        List<LocationDTO> locationList = recordService.readLocation();
-
-        return locationList;
+        return recordService.readLocation();
     }
 
     public List<TagDTO> readTag(){
-        List<TagDTO> tagList = recordService.readTag();
-
-        return tagList;
+        return recordService.readTag();
     }
 
     @RequestMapping(value="city", produces = "application/json; charset=UTF-8")
@@ -142,7 +133,7 @@ public class RecordController {
 
     private int saveFile(MultipartFile file){
 
-        String projectPath = System.getProperty("user.dir")+"/src/main/resources/static/uploadImgs";
+        String projectPath = System.getProperty("user.dir")+"/src/main/resources/uploadImgs";
         UUID uuid = UUID.randomUUID();
         String changeName = uuid+"_"+file.getOriginalFilename();
         File saveFile = new File(projectPath, changeName);
@@ -154,14 +145,13 @@ public class RecordController {
             imgFile.setFileSize(file.getSize());
             imgFile.setOriginName(file.getOriginalFilename());
             imgFile.setChangeName(changeName);
-            imgFile.setImgPath("/uploadImgs/"+changeName);
+            imgFile.setImgPath("/resources/uploadImgs/"+changeName);
 
             recordService.saveFile(imgFile);
 
             System.out.println("에러 지점 확인용 출력");
-            int fileNo = recordService.returnFileNo(changeName);
 
-            return fileNo;
+            return recordService.returnFileNo(changeName);
 
         } catch (Exception e) {
             System.out.println("Exception" + e);
@@ -172,7 +162,7 @@ public class RecordController {
 
 
     @PostMapping("editRecord")
-    public ModelAndView readRecord(ModelAndView mv, int recordNo, @RequestParam(name="file", required = false) MultipartFile file){
+    public ModelAndView readRecord(ModelAndView mv, int recordNo){
 
         RecordDTO record = recordService.recordOne(recordNo);
 
@@ -228,7 +218,7 @@ public class RecordController {
 
     private void deleteFile(String orgChangeName) throws Exception {
 
-        String projectPath = System.getProperty("user.dir")+"/src/main/resources/static/uploadImgs";
+        String projectPath = System.getProperty("user.dir")+"/src/main/resources/uploadImgs";
 
         File deleteFile = new File(projectPath + orgChangeName);
 

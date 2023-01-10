@@ -12,5 +12,9 @@ public interface MyPlannerService {
 
     //List<PlannerDTO> findPlannerTitle(int userCode);
 
-    List<PlannerDTO> findPlannerTitle(int userCode);
+/*    List<PlannerDTO> findPlannerTitle(int userCode);*/
+
+    List<PlannerDTO> findPlannerTitle();
+
+    List<PlannerDTO> findPlannerNo();
 }

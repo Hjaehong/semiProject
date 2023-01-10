@@ -15,6 +15,15 @@ public class MyPlannerServiceImpl implements MyPlannerService{
         this.myPlannerMapper = myPlannerMapper;
     }
 
+    @Override
+    public List<PlannerDTO> findPlannerTitle() {
+        return myPlannerMapper.findPlannerTitle();
+    }
+
+    @Override
+    public List<PlannerDTO> findPlannerNo() { return myPlannerMapper.findPlannerNo(); }
+
+
     /*@Override
     public String findPlannerByCode() {
         return myPlannerMapper.findPlannerByCode();
@@ -31,9 +40,9 @@ public class MyPlannerServiceImpl implements MyPlannerService{
     @Override
     public List<PlannerDTO> findPlannerTitle(int userCode) { return myPlannerMapper.findPlannerTitle(userCode); }*/
 
-    @Override
+/*    @Override
     public List<PlannerDTO> findPlannerTitle(int userCode) {
 
         return myPlannerMapper.findPlannerTitle(userCode);
-    }
+    }*/
 }

@@ -21,15 +21,15 @@
     </tr>
 
     <tr th:each="planner : ${ plannerList }">
-        <td th:text="${ planner.plan_no }"></td><!--dto의 필드명호출, getter없으면 에러남 내부에서 getter호출 -->
-        <td th:text="${ planner.user_no }"></td>
-        <td th:text="${ planner.travel_place }"></td>
-        <td th:text="${ planner.start_due_date }"></td>
-        <td th:text="${ planner.end_due_date }"></td>
-        <td th:text="${ planner.lodging_info }"></td>
+        <td th:text="${ planner.planNo }"></td><!--dto의 필드명호출, getter없으면 에러남 내부에서 getter호출 -->
+        <td th:text="${ planner.userNo }"></td>
+        <td th:text="${ planner.travelPlace }"></td>
+        <td th:text="${ planner.startDueDate }"></td>
+        <td th:text="${ planner.endDueDate }"></td>
+        <td th:text="${ planner.lodgingInfo }"></td>
         <td th:text="${ planner.transportation }"></td>
         <td th:text="${ planner.checklist }"></td>
-        <td th:text="${ planner.pl_detail }"></td>
+        <td th:text="${ planner.plDetail }"></td>
     </tr>
 </table>
 

@@ -6,41 +6,53 @@
 <mapper namespace="com.team.semiTravelRecommend.model.dao.MyPlannerMapper">
 
     <resultMap type="com.team.semiTravelRecommend.model.dto.PlannerDTO" id="plannerResultMap">
-        <id property="plan_no" column="PLAN_NO"/>
-        <result property="user_no" column="USER_NO"/>
-        <result property="travel_place" column="TRAVEL_PLACE"/>
-        <result property="start_due_date" column="START_DUE_DATE"/>
-        <result property="end_due_date" column="END_DUE_DATE"/>
-        <result property="lodging_info" column="LODGING_INFO"/>
+        <id property="planNo" column="PLAN_NO"/>
+        <result property="userNo" column="USER_NO"/>
+        <result property="travelPlace" column="TRAVEL_PLACE"/>
+        <result property="startDueDate" column="START_DUE_DATE"/>
+        <result property="endDueDate" column="END_DUE_DATE"/>
+        <result property="lodgingInfo" column="LODGING_INFO"/>
         <result property="transportation" column="TRANSPORTATION"/>
         <result property="checklist" column="CHECKLIST"/>
-        <result property="pl_detail" column="PL_DETAIL"/>
+        <result property="plDetail" column="PL_DETAIL"/>
     </resultMap>
 
-
-    <select id="findPlannerTitle" parameterType="_int" resultMap="plannerResultMap">
+    <select id="findPlannerTitle" resultMap="plannerResultMap">
         SELECT
-            A.TRAVEL_PLACE
-        FROM PLANNER A
-        WHERE A.USER_NO = #{ userCode }
+            *
+          FROM PLANNER
 
     </select>
 
-    <select id="findPlannerByCode" parameterType="_int" resultMap="plannerResultMap">
+    <select id="findPlannerNo" resultMap="plannerResultMap">
+        SELECT
+            *
+          FROM PLANNER
+    </select>
+
+<!--    <select id="findPlannerTitle" parameterType="_int" resultMap="plannerResultMap">
         SELECT
             A.TRAVEL_PLACE
-             <!-- , A.START_DUE_DATE
+        FROM PLANNER A
+        WHERE A.USER_NO = #{userCode}
+
+    </select>-->
+
+<!--    <select id="findPlannerByCode" parameterType="_int" resultMap="plannerResultMap">
+        SELECT
+            A.TRAVEL_PLACE
+             &lt;!&ndash; , A.START_DUE_DATE
              , A.END_DUE_DATE
              , A.LODGING_INFO
              , A.TRANSPORTATION
              , A.CHECKLIST
-             , A.PL_DETAIL -->
+             , A.PL_DETAIL &ndash;&gt;
         FROM PLANNER A
         WHERE A.PLAN_NO = #{ code }
-    </select>
+    </select>-->
 
 
-    <insert id="insertPlanner">
+<!--    <insert id="insertPlanner">
         INSERT
         INTO Planner A
             (
@@ -57,27 +69,27 @@
         VALUES
             (
             SEQ_PLAN_NO.NEXTVAL
-                , 9999 <!-- 임시로 유저번호 넣어서 되는지 확인-->
-                <!-- , #{ user_no } --> <!-- /**/ 별표 주석으로 하니깐 값이 나와서 오류났음 -->
-                , #{ travel_place }
-                , #{ start_due_date }
-                , #{ end_due_date }
-                , #{ lodging_info }
-                , #{ transportation }
-                , #{ checklist }
-                , #{ pl_detail }
+                , 9999 &lt;!&ndash; 임시로 유저번호 넣어서 되는지 확인&ndash;&gt;
+                &lt;!&ndash; , #{ user_no } &ndash;&gt; &lt;!&ndash; /**/ 별표 주석으로 하니깐 값이 나와서 오류났음 &ndash;&gt;
+                , #{travelPlace}
+                , #{startDueDate}
+                , #{endDueDate }
+                , #{lodgingInfo}
+                , #{transportation}
+                , #{checklist}
+                , #{plDetail}
             )
 
-    </insert>
+    </insert>-->
 
-    <delete id="deletePlanner">
+<!--    <delete id="deletePlanner">
         DELETE FROM PLANNER
-         WHERE PLAN_NO = #{ plan_no }
+         WHERE PLAN_NO = #{planNo}
 
-<!-- 추가하면서 알아봐야할듯-->
+&lt;!&ndash; 추가하면서 알아봐야할듯&ndash;&gt;
 
 
-    </delete>
+    </delete>-->
 
 
 

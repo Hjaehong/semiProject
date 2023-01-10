@@ -6,22 +6,20 @@ import org.springframework.format.annotation.DateTimeFormat;
 //import java.sql.Clob;
 //import java.sql.Date;
 import java.sql.Clob;
-import java.util.Date;
+import java.sql.Date;
 
 
 @Data
 public class PlannerDTO {
 
-    private int plan_no; // Integer
-    private int user_no;
-    private String travel_place;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date start_due_date;  /*string -> date로 바꿔야함*/
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date end_due_date;
-    private String lodging_info;
+    private int planNo; // Integer
+    private int userNo;
+    private String travelPlace;
+    private Date startDueDate;  /*string -> date로 바꿔야함*/
+    private Date endDueDate;
+    private String lodgingInfo;
     private String transportation;
     private String checklist;
-    private String pl_detail; /*string -> clob로 바꿔야함*/
+    private String plDetail; /*string -> clob로 바꿔야함*/
 
 }

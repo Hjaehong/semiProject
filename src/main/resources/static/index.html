@@ -1,13 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Main</title>
+    <style>
+        .main {
+            margin: 0 18rem;
+        }
+        img {
+            width: 100%;
+            /* main div에 마진 설정하면 그 값을 따라감. 다른 방법 생각해보기 */
+            height: 400px;
+        }
+
+        /*.best{*/
+        /*    display: grid;*/
+        /*    grid-template-columns: repeat(3, 1fr);*/
+        /*    column-gap: 20px;*/
+        /*    row-gap: 20px;*/
+        /*    padding: 5rem 16rem;*/
+        /*}*/
+
+        .text-info {
+            display: inline-block;
+        }
+
+        .info img {
+            width: 30px;
+            height: 30px;
+            margin: auto 3px;
+        }
+
+    </style>
 </head>
 <body>
+<div th:replace="common/header.html"> 서버렌더링을 거쳐야 헤더가 정상적으로 불러와짐 </div>
     <h1>세미 프로젝트!!</h1>
     <p>세미프로젝트를 위한 기본 작업</p>
-    <button onclick="location.href='/planner/planner'">여행플래너</button>
-    <button onclick="location.href='/mypage/myPlanner'">나의플래너</button>
 </body>
 </html>

@@ -1,87 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>header</title>
-    <style>
-        body{
-            margin:0;
-            padding:0;
-        }
-        ul{
-            list-style-type:none;
-        }
-        .header {
-            padding: 0.6rem 16rem;
-            display: flex;
-            align-items: center;
-            border-bottom: 1px solid #898888;
-        }
-
-        .nav{
-            display: flex;
-            margin-left: 20px;
-        }
-
-        .nav li{
-            padding: 0 15px;
-            margin: 0 5px;
-        }
-
-        .enter{
-            display: flex;
-            margin-left: auto;
-        }
-
-        .enter li{
-            padding: 0 15px;
-            margin-left:5px;
-        }
-
-        /*img {*/
-        /*    float : left;*/
-        /*}*/
-
-        /*.nav {*/
-        /*    display: inline;*/
-        /*}*/
-
-        /*.nav li {*/
-        /*    list-style : none;*/
-        /*    display: inline;*/
-        /*    margin-left: 5%;*/
-        /*    position: relative;*/
-        /*    line-height: 40px;*/
-        /*}*/
-
-        /*.enter {*/
-        /*    display: inline;*/
-        /*}*/
-        /*.enter li {*/
-        /*    float: right;*/
-        /*    list-style: none;*/
-        /*    display: inline-block;*/
-        /*    margin-left: 5%;*/
-        /*    position: relative;*/
-        /*    line-height: 40px;*/
-        /*}*/
-
-        a {
-            color: black;
-            text-decoration: none;
-        }
-
-
-
-    </style>
+    <link th:href="@{/css/header.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <div class="header">
-        <img src = "logo.png" width = "50px" alt = "로고"/>
+    <div th:fragment="header" class="header">
+        <img th:src="@{/image/logo.png}" alt = "로고"/>
         <ul class = "nav">
             <li><a href="#"> 여행 플래너</a></li>
             <li><a href="#"> 여행지 추천</a></li>
-            <li><a href="#"> 여행 기록</a></li>
+            <li><a th:href="@{/record/recordList}"> 여행 기록</a></li>
         </ul>
         <ul class = "enter">
             <li><a href="#"> 회원가입 </a></li>

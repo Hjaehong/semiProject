@@ -1,12 +1,9 @@
 package com.team.semiTravelRecommend.config;
 
-import org.springframework.context.MessageSource;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 
-/**
+ /**
     * Version : 1.0
    * 클래스명: ContextConfiguration
    * 작성일자 : 2022/12/27
@@ -17,7 +14,8 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
    * 수정내역 :
  */
 @Configuration
-@ComponentScan(basePackages = "com.team.semiTravelRecommend")
+@ComponentScan(basePackages = {"com.team.semiTravelRecommend"})
 public class ContextConfiguration {
+
 
 }

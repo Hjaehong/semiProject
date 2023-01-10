@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>recordList</title>
+    <link th:href="@{/css/recordList.css}" rel="stylesheet" type="text/css">
+    <script>
+        const successMessage = "[[${ successMessage}]]";
+        if (successMessage){
+            alert(successMessage);
+        }
+    </script>
+</head>
+<body>
+  <div th:replace="common/header.html"></div>
+
+<!--      <div class="record">-->
+<!--        <div th:each=" recordList : ${ RecordList }" class="recordOne">-->
+<!--            <div th:text="${recordList.userDTO.nickname}" class="nickname"></div>-->
+<!--            <a href="recordDetail/" th:attrappend="href=${recordList.recordNo}">-->
+<!--                <img class="record-img" th:src="@{${recordList.fileDTO.imgPath}}" alt="여행기록사진"/>-->
+<!--            </a>-->
+<!--            <div class="info">-->
+<!--                <div class="local">-->
+<!--                    <div class="mascot-img">-->
+<!--                        <img  th:src="@{${recordList.cityDTO.badgeImg}}" alt="마스코트사진"/>-->
+<!--                    </div>-->
+<!--                    <span th:text="${recordList.cityDTO.locationDTO.locName}" class="localName"></span>-->
+<!--                    <span th:text="${recordList.cityDTO.cityName}"></span>-->
+<!--                </div>-->
+<!--                <div class="tag">-->
+<!--                    <span th:text="${recordList.tagDTO.tagName}"> </span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--      </div>-->
+    <div class="record">
+      <ul th:each="recordList : ${ RecordList }" class="wrapper">
+          <a href="recordDetail/" th:attrappend="href=${recordList.recordNo}">
+          <li class="list-item">
+              <!-- 여행기록물 이미지 영역 -->
+              <div>
+<!--                  <a href="recordDetail/" th:attrappend="href=${recordList.recordNo}">-->
+                      <img class="record-img" th:src="@{${recordList.fileDTO.imgPath}}" alt="여행기록사진"/>
+<!--                  </a>-->
+              </div>
+              <div class="right-container">
+                  <!-- 유저 정보 영역 -->
+                  <div class="img-text-container">
+                      <div class="profile-img">
+                          <img class="profile-img" th:src="@{/image/profile.png}" alt="프로필이미지">
+                      </div>
+                      <span th:text="${recordList.userDTO.nickname}"></span>
+                  </div>
+                  <div class="text-container">
+                      <h2 th:text="${recordList.rcTitle}"></h2>
+                      <span th:text="${recordList.cityDTO.locationDTO.locName}"></span>
+                      <span th:text="${recordList.cityDTO.cityName}"></span>
+                  </div>
+                  <ul class="tag-list">
+                      <li class="tag-item" th:text="${recordList.tagDTO.tagName}"></li>
+                  </ul>
+              </div>
+          </li>
+          </a>
+      </ul>
+    </div>
+
+  <div>
+      <div th:fragment="paging" align="center">
+          <!--            <button id="startPage">맨앞</button>-->
+          <ul class="paging" th:each="page : ${ selectCriteria }">
+              <!--  -->
+              <li th:if="${page.pageNo <= 1}">
+                  <button disabled><</button>
+              </li>
+              <li th:if="${page.pageNo > 1}">
+                  <button th:onclick="|location.href='@{/recommend/travelRecommend(currentPage=${page.pageNo-1})}'|"><</button>
+              <li th:each="num : ${#numbers.sequence(page.startPage,page.endPage)}">
+                  <th:block th:if="${page.pageNo eq num}">
+                      <button disabled th:text="${num}"></button>
+                  </th:block>
+                  <th:block th:if="${page.pageNo ne num}">
+                      <button id="bc" onclick="nextPage(this.innerText)"  th:text="${num}"></button>
+                  </th:block>
+              </li>
+              </li>
+              <li th:if="${page.pageNo >= page.maxPage}">
+                  <button disabled>></button>
+              </li>
+              <li th:if="${page.pageNo < page.maxPage}">
+                  <button th:onclick="|location.href='@{/recommend/travelRecommend(currentPage=${page.pageNo+1})}'|">></button>
+              </li>
+          </ul>
+      </div>
+  </div>
+
+  <div>
+      <ul>
+          <li><a th:href="@{/record/travelRecordWrite}"> 여행 기록</a></li>
+      </ul>
+  </div>
+  <script type="text/javascript" th:src="@{/js/travelRecord.js}"></script>
+</body>
+</html>

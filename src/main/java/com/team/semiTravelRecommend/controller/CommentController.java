@@ -1,7 +1,7 @@
-package com.team.semiTravelRecomend.controller;
+package com.team.semiTravelRecommend.controller;
 
-import com.team.semiTravelRecomend.model.dto.CommentDTO;
-import com.team.semiTravelRecomend.service.CommentService;
+import com.team.semiTravelRecommend.model.dto.CommentDTO;
+import com.team.semiTravelRecommend.service.CommentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

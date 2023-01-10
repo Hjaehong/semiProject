@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.team.semiTravelRecomend.model.dao.CommentMapper">
+<mapper namespace="com.team.semiTravelRecommend.model.dao.CommentMapper">
 
-    <resultMap type="com.team.semiTravelRecomend.model.dto.CommentDTO" id="commentResultMap">
+    <resultMap type="com.team.semiTravelRecommend.model.dto.CommentDTO" id="commentResultMap">
         <id property="com_no" column="COM_NO"/>
         <result property="user_no" column="USER_NO"/>
         <result property="record_no" column="RECORD_NO"/>

@@ -2,6 +2,7 @@ package com.team.semiTravelRecommend.service;
 
 import com.team.semiTravelRecommend.model.dao.CommentMapper;
 import com.team.semiTravelRecommend.model.dto.CommentDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

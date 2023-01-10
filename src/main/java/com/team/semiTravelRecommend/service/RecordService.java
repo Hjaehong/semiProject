@@ -42,5 +42,9 @@ public interface RecordService {
     int deleteRecord(int recordNo);
 
     //임시
+    List<RecordDTO> recordList();
+
+
+
 
 }

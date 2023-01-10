@@ -42,4 +42,5 @@ public interface RecordMapper {
     int deleteRecord(int recordNo);
 
 
+    List<RecordDTO> recordList();
 }

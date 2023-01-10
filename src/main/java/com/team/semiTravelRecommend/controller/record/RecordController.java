@@ -62,8 +62,8 @@ public class RecordController {
 
         SelectCriteria selectCriteria = null;
         selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount);
-        List<RecordDTO> recordList = recordService.recordListPaging(selectCriteria);
-
+//        List<RecordDTO> recordList = recordService.recordListPaging(selectCriteria);
+        List<RecordDTO> recordList = recordService.recordList();
         System.out.println("recordList입니다 = " + recordList);
         model.addAttribute("selectCriteria", selectCriteria);
         model.addAttribute("RecordList", recordList);

@@ -96,6 +96,12 @@ public class RecordServiceImpl implements RecordService{
     @Override
     public int deleteRecord(int recordNo) { return recordMapper.deleteRecord(recordNo); }
 
+    // 임시
+    @Override
+    public List<RecordDTO> recordList() {
+        System.out.println("서비스 구현체 통과");
+        return recordMapper.recordList();
+    }
 
 
 }

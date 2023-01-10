@@ -3,35 +3,33 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>플래너작성</title>
-
-    <!--<script>
-      const successMessage = "[[${ successMessage }]]";
-      console.log(successMessage);
-      if (successMessage){
-        alert(successMessage);
-      }
-    </script>-->
-
+    <title>나의플래너</title>
 </head>
 <body>
-<header>
-    로고 <b>여행플래너</b> 여행지추천 여행공유 마이페이지 로그아웃
-</header>
-<hr>
-<br>
-플래너
-<br><br>
-    <li><a href="myPlannerDetail.html">포항일출여행</a></li>
-<br>
-    <button onclick="location.href='/mypage/myPlanner/{code}'">아무거나</button>
-    <table border="1px">
-        <tr>
-            <td th:text="${ planner.travel_place }"></td>
-        </tr>
-    </table>
+<form>
+<h1>플래너</h1>
 
+<table>
+<tr>
+    <th>예상여행지</th>
+    <th>여행일</th>
+</tr>
+</table>
+    <ul>
+        <li th:each="planner : ${ plannerList }">
+            <a th:href="@{/mypage/myPlanner/myPlannerDetail}">[[${planner.travelPlace}]]</a>
 
+        </li>
 
+    </ul>
+<!--<tr th:each="planner : ${ plannerList }">
+
+    <td th:text="${ planner.travelPlace }">
+        <a th:href="@{/mypage/myPlannerDetail}">[[${plannerList}]]</a>
+    </td>
+    <td th:text="${ planner.startDueDate }"></td>
+</tr>-->
+
+</form>
 </body>
 </html>

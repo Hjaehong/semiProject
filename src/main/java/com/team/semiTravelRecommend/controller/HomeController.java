@@ -5,9 +5,7 @@ import com.team.semiTravelRecommend.model.dto.response.LoginUserResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -16,9 +14,10 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class HomeController {
 
-    @GetMapping("/")
+//    @GetMapping("/")
     public String home() {
         log.info("진입");
+        System.out.println("왔어요");
         return "home";
     }
 
@@ -35,7 +34,7 @@ public class HomeController {
         return "메인화면";
     }
 
-//    @GetMapping("/")
+    @GetMapping("/index")
     public String homeLoginV3Spring(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember, Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
 
@@ -43,11 +42,11 @@ public class HomeController {
 
         //세션에 회원 데이터가 없으면 홈
         if (loginMember == null) {
-            return "home";
+            return "redirect:/index";
         }
         //세션이 유지되면 로그인으로 이동
         model.addAttribute("loginMember", loginMember);
-        return "loginHome";
+        return "redirect:/loginHome";
     }
 
 }

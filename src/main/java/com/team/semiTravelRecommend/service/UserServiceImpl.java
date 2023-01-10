@@ -24,6 +24,7 @@ public class UserServiceImpl implements UserService {
         userVO.setUserPwd(request.getUserPwd());
         userVO.setUserName(request.getUserName());
         userVO.setEmail(request.getEmail());
+        userVO.setNickname(request.getNickname());
         userVO.setRole("USER");
 
         userMapper.save(userVO);

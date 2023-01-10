@@ -27,4 +27,8 @@ public class SaveUserRequest {
     @Email(message = "이메일 형식에 맞지 않습니다.")
     private String email;
 
+    // 추가
+    @NotBlank(message = "닉네임은 필수 값입니다.")
+    private String nickname;
+
 }

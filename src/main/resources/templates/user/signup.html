@@ -25,6 +25,11 @@
             <label for="email">email</label>
             <input type="email" class="form-control" id="email" th:field="*{email}" placeholder="사용자 이메일">
         </div>
+        <!-- 추가 -->
+        <div class="form-group">
+            <label for="nickname">nickname</label>
+            <input type="text" class="form-control" id="nickname" th:field="*{nickname}" placeholder="사용자 닉네임">
+        </div>
 
         <button type="submit" class="btn btn-primary">회원가입</button>
             <button th:onclick="|location.href='@{/}'|" type="button">취소</button>

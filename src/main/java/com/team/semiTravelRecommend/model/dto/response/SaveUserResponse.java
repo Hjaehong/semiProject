@@ -13,6 +13,7 @@ public class SaveUserResponse {
     private String userPwd;
     private String userName;
     private String email;
+    private String nickname;
     private String role;
 
     public SaveUserResponse(UserVO savedUser) {
@@ -21,6 +22,8 @@ public class SaveUserResponse {
         this.userPwd = savedUser.getUserPwd();
         this.userName = savedUser.getUserName();
         this.email = savedUser.getEmail();
+        // 추가
+        this.nickname = savedUser.getNickname();
         this.role = savedUser.getRole();
     }
 }

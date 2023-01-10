@@ -16,6 +16,7 @@ public class UserVO {
     private String userName;
     private String userPwd;
     private String email;
+    private String nickname; // 임시
     private String role;
 
     public void updateUser(String userName, String email, String userPwd) {

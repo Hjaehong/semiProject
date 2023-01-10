@@ -5,35 +5,39 @@ import com.team.semiTravelRecommend.model.dto.requset.LoginUserRequest;
 import com.team.semiTravelRecommend.model.dto.requset.SaveUserRequest;
 import com.team.semiTravelRecommend.model.dto.response.LoginUserResponse;
 import com.team.semiTravelRecommend.service.UserService;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Slf4j
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 @Controller
+@RequestMapping("/user")
 public class UserController {
 
     private final UserService userService;
 
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     /*
         회원 가입
      */
-    @GetMapping("/user-signup")
+    @GetMapping("signup")
     public String signUpForm(@ModelAttribute("saveUserRequest") SaveUserRequest saveUserRequest) {
         return "user/signup";
     }
 
-    @PostMapping("/user-signup")
+    @PostMapping("signup")
     public String signUp(@ModelAttribute @Valid SaveUserRequest saveUserRequest, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             log.info("error = {}", bindingResult.getFieldError().getDefaultMessage());

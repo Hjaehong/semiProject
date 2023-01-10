@@ -1,6 +1,6 @@
-package com.team.semiTravelRecomend.service;
+package com.team.semiTravelRecommend.service;
 
-import com.team.semiTravelRecomend.model.dto.CommentDTO;
+import com.team.semiTravelRecommend.model.dto.CommentDTO;
 
 import java.util.List;
 

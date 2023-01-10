@@ -1,6 +1,6 @@
-package com.team.semiTravelRecomend.model.dao;
+package com.team.semiTravelRecommend.model.dao;
 
-import com.team.semiTravelRecomend.model.dto.CommentDTO;
+import com.team.semiTravelRecommend.model.dto.CommentDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

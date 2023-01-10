@@ -133,7 +133,7 @@ public class RecordController {
 
     private int saveFile(MultipartFile file){
 
-        String projectPath = System.getProperty("user.dir")+"/src/main/resources/uploadImgs";
+        String projectPath = System.getProperty("user.dir")+"/src/main/resources/static/uploadImgs";
         UUID uuid = UUID.randomUUID();
         String changeName = uuid+"_"+file.getOriginalFilename();
         File saveFile = new File(projectPath, changeName);
@@ -145,7 +145,7 @@ public class RecordController {
             imgFile.setFileSize(file.getSize());
             imgFile.setOriginName(file.getOriginalFilename());
             imgFile.setChangeName(changeName);
-            imgFile.setImgPath("/resources/uploadImgs/"+changeName);
+            imgFile.setImgPath("/uploadImgs/"+changeName);
 
             recordService.saveFile(imgFile);
 
@@ -218,7 +218,7 @@ public class RecordController {
 
     private void deleteFile(String orgChangeName) throws Exception {
 
-        String projectPath = System.getProperty("user.dir")+"/src/main/resources/uploadImgs";
+        String projectPath = System.getProperty("user.dir")+"/src/main/resources/static/uploadImgs";
 
         File deleteFile = new File(projectPath + orgChangeName);
 

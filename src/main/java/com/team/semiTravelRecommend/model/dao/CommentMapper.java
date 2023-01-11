@@ -10,5 +10,5 @@ public interface CommentMapper {
 
     int insertComment(CommentDTO commentDTO);
 
-    List<CommentDTO> viewAllComment();
+    List<CommentDTO> viewAllComment(int recordNo);
 }

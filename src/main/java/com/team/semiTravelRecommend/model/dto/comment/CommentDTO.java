@@ -14,8 +14,8 @@ import lombok.Data;
 @Data
 public class CommentDTO {
 
-    private int com_no;
-    private int user_no;
-    private int record_no;
-    private String com_contain;
+    private int comNo;
+    private int userNo;
+    private int recordNo;
+    private String comContain;
 }

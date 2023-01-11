@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>recordDetail</title>
     <link th:href="@{/css/recordDetail.css}" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
         const successMessage = "[[${ successMessage}]]";
         if (successMessage){
@@ -54,22 +55,40 @@
             <span>게시글 저장하기</span>
         </div>
 
-        <div>댓글</div>
-        <form class="comment-form">
-<!--            사이즈 조정하기~-->
+        <div>댓글 : <span id="comCount">0</span></div>
+        <!-- 댓글리스트 -->
+        <div>
+            <div>
+                <form>
+                    <div id="commentListView">
+
+                        <!-- 작성자와 같을 경우 수정 삭제 -->
+                        <button type="submit" name="submit" value="update">수정</button>
+                        <button type="submit" name="submit" value="delete">삭제</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="comment-form"  id="commentArea">
+            <!--            사이즈 조정하기~-->
             <div class="profile">
                 <div class="profile-img">
-<!--                    <img src="/image/profile.png" alt="프로필이미지"/>-->
                 </div>
-                <span class="writer"> 작성자 </span>
+                <span class="writer"> 작성자 :</span>
+                <span></span>
             </div>
-            <textarea></textarea>
-            <button>등록</button>
-        </form>
+            <div>
+                <input type="hidden" id="userId" name="writer" th:value="${RecordOne.userDTO.userNo}"><!-- 나중에 섹션의 유저아이디로 받아와야함 -->
+                <input type="hidden" id="recordNo" name="recordNo" th:value="${RecordOne.recordNo}"/>
+                <textarea name="comContain" id="commentContain"></textarea>
+                <button id="commentSubmit">등록</button>
+            </div>
+        </div>
+
     </div>
     <div class="button">
         <form class="edit" action="/record/editRecord" method="post" enctype="multipart/form-data">
-            <input type="hidden" th:name="recordNo" th:value="${RecordOne.recordNo}"/>
+
             <button type="submit"> 수정하기 </button>
         </form>
         <form class="delete" action="/record/deleteRecord" method="post">
@@ -79,4 +98,66 @@
     </div>
 
 </body>
+<script th:inline="javascript">
+
+
+    $(function (){
+        commentList(); // selectReplyList
+        // 댓글 등록 버튼 클릭시
+        $("#commentSubmit").click(function (){
+
+            const userId = document.getElementById('userId').value;
+            let recordNo = document.getElementById('recordNo').value;
+            // 댓글을 작성하지 않고 버튼 클릭시 작성 안되게
+            if($("#commentContain").val().trim().length != 0){
+
+                $.ajax({
+                    url : "/record/insertComment" ,
+                    type : "post" ,
+                    data:{comContain:$("#commentContain").val() ,
+                          recordNo: recordNo ,
+                          userNo: userId},
+                    success:function (result){
+                        console.log(result);
+                        if(result > 0){
+                            $("#commentContain").val("");
+                            commentList();
+                        }else{
+                            alert("댓글을 등록할 수 없습니다.");
+                        }
+                    },error:function (){
+                        console.log("ajax 실패");
+                    }
+                });
+            }else{
+                alert("댓글을 작성하고 눌러주세요");
+            }
+        });
+    });
+
+    function commentList(){
+        let recordNo = document.getElementById('recordNo').value;
+        $.ajax({
+            url:"/record/listComment" ,
+            data:{'recordNo':recordNo} ,
+            type:"post",
+            dataType: "json",
+            success:function (list){
+                $("#comCount").text(list.length);// 총 댓글수
+
+                let value="";
+                $.each(list, function (i, obj){
+
+                    value += "<span>" + "작성자: "+ obj.userNo + "</span>"
+                            + "<span>" +" | " + obj.comContain + "</span>" + "</br>";
+                console.log(value);
+                });
+                $("#commentListView").html(value);
+            },error:function (){
+                console.log("댓글 리스트 ajax 실패");
+            }
+        });
+
+    }
+</script>
 </html>

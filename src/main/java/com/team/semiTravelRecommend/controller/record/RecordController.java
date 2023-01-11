@@ -1,8 +1,14 @@
 package com.team.semiTravelRecommend.controller.record;
 
+import com.fasterxml.jackson.core.JsonFactoryBuilder;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.team.semiTravelRecommend.model.dto.comment.CommentDTO;
 import com.team.semiTravelRecommend.model.dto.record.*;
 import com.team.semiTravelRecommend.paging.Pagenation;
 import com.team.semiTravelRecommend.paging.SelectCriteria;
+import com.team.semiTravelRecommend.service.CommentService;
 import com.team.semiTravelRecommend.service.RecordService;
 import lombok.extern.log4j.Log4j;
 import org.apache.logging.log4j.Logger;
@@ -17,6 +23,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -34,11 +42,14 @@ import java.util.UUID;
 public class RecordController {
 
     private final RecordService recordService;
+    // 댓글
+    private final CommentService commentService;
 
     @Autowired
-    public RecordController(RecordService recordService) {
+    public RecordController(RecordService recordService, CommentService commentService) {
 
         this.recordService = recordService;
+        this.commentService = commentService;
     }
 
     @GetMapping("recordList")
@@ -62,8 +73,7 @@ public class RecordController {
 
         SelectCriteria selectCriteria = null;
         selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount);
-//        List<RecordDTO> recordList = recordService.recordListPaging(selectCriteria);
-        List<RecordDTO> recordList = recordService.recordList();
+        List<RecordDTO> recordList = recordService.recordListPaging(selectCriteria);
         System.out.println("recordList입니다 = " + recordList);
         model.addAttribute("selectCriteria", selectCriteria);
         model.addAttribute("RecordList", recordList);
@@ -239,7 +249,22 @@ public class RecordController {
         rttr.addFlashAttribute("successMessage", "삭제 완료!");
 
         return  mv;
-
+    }
+    // 댓글입력
+    @ResponseBody
+    @RequestMapping("insertComment")
+    public String insertComment(CommentDTO comment){
+        System.out.println(comment);
+        int result = commentService.registComment(comment);
+        System.out.println("result = " + result);
+        return String.valueOf(result);
+    }
+    //댓글 리스트 출력
+    @ResponseBody
+    @RequestMapping(value = "listComment", produces = "application/json; charset=utf-8")
+    public List<CommentDTO> listComment(int recordNo) {
+        System.out.println("여기까지 넘어오나? = " + recordNo);
+        return commentService.showComment(recordNo);
     }
 
 

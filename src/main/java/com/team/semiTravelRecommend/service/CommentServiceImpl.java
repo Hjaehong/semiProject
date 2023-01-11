@@ -17,16 +17,16 @@ public class CommentServiceImpl implements CommentService{
 
     // 댓글 등록 메소드
     @Override
-    public boolean registComment(CommentDTO comment) {
+    public int registComment(CommentDTO comment) {
         int result = commentMapper.insertComment(comment);
 
         if( result < 1) System.out.println("댓글 등록 실패!");
-        return result > 0 ? true : false;
+        return result;
     }
     // 댓글 조회
     @Override
-    public List<CommentDTO> showComment() {
-        return commentMapper.viewAllComment();
+    public List<CommentDTO> showComment(int recordNo) {
+        return commentMapper.viewAllComment(recordNo);
     }
 
 }

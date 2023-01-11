@@ -21,7 +21,7 @@ import java.util.List;
    * 수정내역 :
  */
 @Controller
-@RequestMapping("/record")
+@RequestMapping("/comment")
 public class CommentController {
 
     private final CommentService commentService;
@@ -30,26 +30,6 @@ public class CommentController {
         this.commentService = commentService;
     }
 
-    @GetMapping ("/comment")
-    public void moveComment(){
-        System.out.println("commentController 작동 중");
-    }
 
-    // 댓글 전체 확인 메소드
-    @GetMapping("/result")
-    public ModelAndView showComment(ModelAndView mv){
-        List<CommentDTO> commentList = commentService.showComment();
-        mv.addObject("commentList", commentList);
-        mv.setViewName("/record/result");
-
-        return mv;
-    }
-    @PostMapping("/comment")
-     public ModelAndView registComment(ModelAndView mv, CommentDTO comment)throws Exception{
-        commentService.registComment(comment);
-        mv.setViewName("redirect:/record/result"); // /record/comment
-
-        return mv;
-    }
 
 }

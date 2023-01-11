@@ -5,7 +5,7 @@ import com.team.semiTravelRecommend.model.dto.comment.CommentDTO;
 import java.util.List;
 
 public interface CommentService {
-    boolean registComment(CommentDTO comment);
+    int registComment(CommentDTO comment);
 
-    List<CommentDTO> showComment();
+    List<CommentDTO> showComment(int recordNo);
 }

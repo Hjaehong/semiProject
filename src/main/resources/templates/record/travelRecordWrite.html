@@ -71,8 +71,7 @@
 <!--  <script type="text/javascript" th:src="@{/js/travelRecordWirte.js}"></script>-->
 </body>
     <script th:inline="javascript">
-
-
+    <!-- 날짜 관련 예외처리 함수 -->
       let startDay = document.getElementById("dateIn");
       let endDay = document.getElementById("dateOut");
 
@@ -93,8 +92,7 @@
           startDay.max = endDay.value;
       })
 
-
-
+        //
         function readCity(locCode) {
             // console.log(locCode);
 

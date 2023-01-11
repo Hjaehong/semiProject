@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>myPage</title>
+    <link th:href="@{/css/myPage.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div th:replace="common/header.html"></div>
+    <div class="myPage">
+
+        <div class="left-area">
+            <div class="profile">
+                <h2 class="nickname" th:text="${UserInfo.userDTO.nickname}"></h2>
+                <div class="userId" th:text="${UserInfo.userDTO.userId}"></div>
+                <div class="userTag">
+                    <span th:each=" userTag : ${UserTag}">
+                        <span th:text="${userTag}"></span>
+                    </span>
+                </div>
+                <div class="intro">
+                  <pre  th:text="${UserInfo.userDTO.intro}"> </pre>
+                </div>
+            </div>
+
+            <div class="menu">
+                <div class="my-menu"> MyMenu</div>
+                <div class="travleMenu">
+                    <ul> 여행정보
+                        <a href="#"> <li> 내 뱃지 </li> </a>
+                        <a href="#"> <li> 플래너 </li> </a>
+                        <a href="#"> <li> 북마크 </li> </a>
+                        <a href="#"> <li> 내 여행기록 </li> </a>
+                        <a href="#"> <li> 좋아요한 여행기록 </li> </a>
+                    </ul>
+                </div>
+                <div class="myInfoMenu">
+                    <ul> 내 정보
+                        <a href="#"> <li> 회원 정보 수정 </li> </a>
+                        <a href="#"> <li> 회원 탈퇴 </li> </a>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <h3> 내 뱃지</h3>
+            <hr>
+            <div class="myBadge">
+                <div class="city">
+                    <div class="city-mascot">
+                        <img src="https://www.seoul.go.kr/res_newseoul/images/seoul/img_symbol2.png" alt="마스코트이미지"/>
+                    </div>
+                    <div class="local-info">
+                        <div class="local-name"> 서울특별시 </div>
+                        <div class="city-name"> 관악구 </div>
+                    </div>
+                </div>
+
+                <div class="city">
+                    <div class="city-mascot">
+                        <img src="https://www.seoul.go.kr/res_newseoul/images/seoul/img_symbol2.png" alt="마스코트이미지"/>
+                    </div>
+                    <div class="local-info">
+                        <div class="local-name"> 서울특별시 </div>
+                        <div class="city-name"> 관악구 </div>
+                    </div>
+                </div>
+
+                <div class="city">
+                    <div class="city-mascot">
+                        <img src="https://www.seoul.go.kr/res_newseoul/images/seoul/img_symbol2.png" alt="마스코트이미지"/>
+                    </div>
+                    <div class="local-info">
+                        <div class="local-name"> 서울특별시 </div>
+                        <div class="city-name"> 관악구 </div>
+                    </div>
+                </div>
+
+                <div class="city">
+                    <div class="city-mascot">
+                        <img src="https://www.seoul.go.kr/res_newseoul/images/seoul/img_symbol2.png" alt="마스코트이미지"/>
+                    </div>
+                    <div class="local-info">
+                        <div class="local-name"> 서울특별시 </div>
+                        <div class="city-name"> 관악구 </div>
+                    </div>
+                </div>
+
+                <div class="city">
+                    <div class="city-mascot">
+                        <img src="https://www.seoul.go.kr/res_newseoul/images/seoul/img_symbol2.png" alt="마스코트이미지"/>
+                    </div>
+                    <div class="local-info">
+                        <div class="local-name"> 서울특별시 </div>
+                        <div class="city-name"> 관악구 </div>
+                    </div>
+                </div>
+
+                <div class="city">
+                    <div class="city-mascot">
+                        <img src="https://www.seoul.go.kr/res_newseoul/images/seoul/img_symbol2.png" alt="마스코트이미지"/>
+                    </div>
+                    <div class="local-info">
+                        <div class="local-name"> 서울특별시 </div>
+                        <div class="city-name"> 관악구 </div>
+                    </div>
+                </div>
+
+                <div class="city">
+                    <div class="city-mascot">
+                        <img src="https://www.seoul.go.kr/res_newseoul/images/seoul/img_symbol2.png" alt="마스코트이미지"/>
+                    </div>
+                    <div class="local-info">
+                        <div class="local-name"> 서울특별시 </div>
+                        <div class="city-name"> 관악구 </div>
+                    </div>
+                </div>
+
+                <div class="city">
+                    <div class="city-mascot">
+                        <img src="https://www.seoul.go.kr/res_newseoul/images/seoul/img_symbol2.png" alt="마스코트이미지"/>
+                    </div>
+                    <div class="local-info">
+                        <div class="local-name"> 서울특별시 </div>
+                        <div class="city-name"> 관악구 </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

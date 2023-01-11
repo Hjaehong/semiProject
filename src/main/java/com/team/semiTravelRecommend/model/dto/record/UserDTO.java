@@ -14,5 +14,6 @@ public class UserDTO {
     private String status;
     private int profileImg;
     private String intro;
+    private TagDTO tagDTO;
 
 }

@@ -16,29 +16,30 @@
     <div class="record">
       <ul th:each="recordList : ${ RecordList }" class="wrapper">
           <a href="recordDetail/" th:attrappend="href=${recordList.recordNo}">
-          <li class="list-item">
-              <!-- 여행기록물 이미지 영역 -->
-              <div>
-                  <img class="record-img" th:src="@{${recordList.fileDTO.imgPath}}" alt="여행기록사진"/>
-              </div>
-              <div class="right-container">
-                  <!-- 유저 정보 영역 -->
-                  <div class="img-text-container">
-                      <div class="profile-img">
-                          <img class="profile-img" th:src="@{/image/profile.png}" alt="프로필이미지">
+              <li class="list-item">
+                  <!-- 여행기록물 이미지 영역 -->
+                  <div>
+                      <img class="record-img" th:src="@{${recordList.fileDTO.imgPath}}" alt="여행기록사진"/>
+                  </div>
+                  <div class="right-container">
+                      <!-- 유저 정보 영역 -->
+                      <div class="img-text-container">
+                          <div class="profile-img">
+                              <img class="profile-img" th:src="@{/image/profile.png}" alt="프로필이미지">
+                          </div>
+                          <span th:text="${recordList.userDTO.nickname}"></span>
                       </div>
-                      <span th:text="${recordList.userDTO.nickname}"></span>
+                      <!-- 지역 정보 영역 -->
+                      <div class="text-container">
+                          <h2 th:text="${recordList.rcTitle}"></h2>
+                          <span th:text="${recordList.cityDTO.locationDTO.locName}"></span>
+                          <span th:text="${recordList.cityDTO.cityName}"></span>
+                      </div>
+                      <ul class="tag-list">
+                          <li class="tag-item" th:text="${recordList.tagDTO.tagName}"></li>
+                      </ul>
                   </div>
-                  <div class="text-container">
-                      <h2 th:text="${recordList.rcTitle}"></h2>
-                      <span th:text="${recordList.cityDTO.locationDTO.locName}"></span>
-                      <span th:text="${recordList.cityDTO.cityName}"></span>
-                  </div>
-                  <ul class="tag-list">
-                      <li class="tag-item" th:text="${recordList.tagDTO.tagName}"></li>
-                  </ul>
-              </div>
-          </li>
+              </li>
           </a>
       </ul>
     </div>

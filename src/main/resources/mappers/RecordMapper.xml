@@ -69,23 +69,28 @@
         JOIN OH_FILE F ON A.IMG_FILE_NO = F.FILE_NO
         WHERE A.RECORD_NO = #{ recordNo }
     </select>
-    <select id="recordList" resultMap="recordResultMap">
-        SELECT
-            A.RECORD_NO ,
-            A.RC_TITLE ,
-            B.CITY_NAME ,
-            C.LOC_NAME ,
-            D.NICKNAME ,
-            E.TAG_NAME ,
-            F.OH_PATH ,
-            B.BADGE_IMG
-        FROM OH_RECORD A
-                 JOIN CITY B ON A.CITY_CODE = B.CITY_CODE
-                 JOIN LOCATION C ON B.LOC_CODE = C.LOC_CODE
-                 JOIN OH_USER D ON A.USER_NO = D.USER_NO
-                 JOIN TAG E ON A.RECORD_TAG = E.TAG_CODE
-                 JOIN OH_FILE F ON A.IMG_FILE_NO = F.FILE_NO
+
+    <select id="heartCheck" resultType="_int">
+        SELECT COUNT(*)
+        FROM HEART A
+        WHERE A.RECORD_NO = #{recordNo}
+          AND A.USER_NO = #{userNo}
     </select>
+
+    <delete id="deleteHeart" parameterType="_int">
+        DELETE FROM HEART
+        WHERE USER_NO = #{userNo}
+          AND RECORD_NO = #{recordNo}
+    </delete>
+
+    <insert id="insertHeart" parameterType="_int">
+        INSERT INTO HEART
+        VALUES (
+                #{userNo},
+                #{recordNo}
+                )
+    </insert>
+
     <select id="recordListPaging" resultMap="recordResultMap">
         SELECT *
             FROM (

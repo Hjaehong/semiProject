@@ -74,7 +74,7 @@ pre{
 
 .tag span {
     display: inline-block;
-    background: #F29494;
+    background: rgb(59, 59, 139);
     margin-right: 8px;
     padding: 7px 10px 5px;
     border-radius: 5px;
@@ -106,4 +106,17 @@ button{
     margin-left: auto;
     margin-top: 10px;
     transform: translateX(8px);
+}
+
+.heart{
+    /* 하트 이미지와 '게시글 저장하기' 텍스트 중앙 정렬 */
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.heart img{
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
 }

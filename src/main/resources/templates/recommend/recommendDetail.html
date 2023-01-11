@@ -17,7 +17,7 @@
                 <span th:text="${travelInfo.address}"/>
                 <span th:text="${travelInfo.tel}"/>
 
-                <div class="heart">
+                <div class="bookmark">
                     <th:block th:if ="${checkBookmark == 0}">
                         <img th:id="btn_bookmark" th:src="@{/image/bookmark_before.png}" alt="빈북마크이미지" onclick="bookmarkChange()"/>
                     </th:block>

@@ -4,10 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <title>옷홋</title>
+
 </head>
 <body>
-<div th:replace="common/header.html"></div>
-    <div th:each="info : ${travelInfo}">
+<div id="mainBox" th:replace="common/header.html">
+    <div id="detailBox" th:each="info : ${travelInfo}">
         <div>
             <div>
                 <h1 th:text="${info.placeName}"/>
@@ -32,6 +33,6 @@
             <span th:utext="${info.contentDetail}"/>
         </div>
     </div>
-
+</div>
 </body>
 </html>

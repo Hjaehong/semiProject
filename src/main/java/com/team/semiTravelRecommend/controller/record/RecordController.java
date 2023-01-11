@@ -90,6 +90,9 @@ public class RecordController {
                 mv.addObject("heartCheck", 0);
             }
         }
+//        else {
+//            mv.addObject("heartCheck", 2);
+//        }
 
         mv.addObject("userNo", userNo);
         mv.addObject("RecordOne", record);

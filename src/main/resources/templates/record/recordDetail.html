@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>recordDetail</title>
     <link th:href="@{/css/recordDetail.css}" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
         const successMessage = "[[${ successMessage}]]";
         if (successMessage){
@@ -14,7 +15,7 @@
 <body>
 <div th:replace="common/header.html"></div>
     <div class="posting">
-        <button type="button" th:onclick="|location.href='@{/record/recordList}'|"> 목록으로 돌아가기 </button>
+        <button class="back-list" type="button" th:onclick="|location.href='@{/record/recordList}'|"> 목록으로 돌아가기 </button>
         <div class="head">
             <div class="mascot">
                 <div class="mascot-img">
@@ -48,9 +49,13 @@
             </div>
         </div>
 
-        <div class="bookmark">
-<!--            좋아요 아이콘-->
-<!--            <img />-->
+        <div class="heart">
+            <th:block th:if ="${heartCheck == 0}">
+                <img th:id="btn_heart" th:src="@{/image/heart_before.png}" alt="빈하트이미지" onclick="changeHeart()"/>
+            </th:block>
+            <th:block th:unless ="${heartCheck == 0}">
+                <img th:id="btn_heart" th:src="@{/image/heart_after.png}" alt="꽉찬하트이미지"/>
+            </th:block>
             <span>게시글 저장하기</span>
         </div>
 
@@ -77,6 +82,31 @@
             <button type="submit"> 삭제하기 </button>
         </form>
     </div>
-
 </body>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+
+        let recordNo = [[${RecordOne.recordNo}]];
+        let userNo = [[${userNo}]];
+        // let heartCheck = [[${heartCheck}]];
+
+        function changeHeart(){
+            $.ajax({
+                type:"POST",
+                url:"/record/clickHeart",
+                data: { 'recordNo' : recordNo,
+                        'userNo' : userNo},
+                dataType: "json",
+                success: function(result){
+                    if (result == 1) {
+                        $("#btn_heart").attr("src", "/image/heart_before.png");
+                    }
+                    else {
+                        $("#btn_heart").attr("src", "/image/heart_after.png");
+                    }
+                }
+            });
+        }
+        /*]]>*/
+    </script>
 </html>

@@ -43,10 +43,31 @@ public class RecordServiceImpl implements RecordService{
          return recordMapper.recordOne(recordNo);
      }
 
-     public int heartCheck(int recordNo, int userNo){
+    @Override
+    public int heartCheck(int recordNo, int userNo){
 
          return recordMapper.heartCheck(recordNo, userNo);
      }
+
+    @Override
+    public int deleteHeart(int recordNo, int userNo){
+        int result = recordMapper.deleteHeart(recordNo, userNo);
+
+        if(result <= 0) {
+            System.out.println("좋아요취소실패");
+        }
+        return result > 0 ? 1 : 0;
+    }
+
+    @Override
+    public int insertHeart(int recordNo, int userNo){
+        int result = recordMapper.insertHeart(recordNo, userNo);
+
+        if(result <= 0) {
+            System.out.println("좋아요실패");
+        }
+        return result > 0 ? 2 : 3;
+    }
 
      @Override
      public List<RecordDTO> recordListPaging(SelectCriteria selectCriteria){ return recordMapper.recordListPaging(selectCriteria); }

@@ -70,29 +70,48 @@ public class RecordController {
     }
 
     @GetMapping("recordDetail/{recordNo}")
-    public Model recordOne(Model model, @PathVariable("recordNo") int recordNo){
+    public ModelAndView recordOne(ModelAndView mv, @PathVariable("recordNo") int recordNo){
 
         RecordDTO record = recordService.recordOne(recordNo);
 
         /* 좋아요 기능 구현을 위한 코드 */
         // 게시글을 작성한 유저의 No
-        int writer = record.getUserDTO().getUserNo();
+        int writerNo = record.getUserDTO().getUserNo();
         // 로그인한 유저의 No (session에서 정보가져와야함 지금은 임의로 값 설정)
-        int user = 4;
+        int userNo = 4;
 
-        if (writer != user) {
-            int heartCheck = recordService.heartCheck(recordNo, user);
+        if (writerNo != userNo) { // 작성자와 로그인한 유저가 같지 않은 경우
+            // 로그인한 유저가 해당 게시물에 좋아요를 눌렀는지 확인
+            int heartCheck = recordService.heartCheck(recordNo, userNo);
 
-            if (heartCheck == 1) {
-                model.addAttribute("heartCheck", 1);
-            } else {
-                model.addAttribute("likeCheck", 0);
+            if (heartCheck == 1) { // 이미 눌려있다면 1을 반환
+                mv.addObject("heartCheck", 1);
+            } else { // 눌려있지 않다면 0을 반환
+                mv.addObject("heartCheck", 0);
             }
         }
 
-        model.addAttribute("RecordOne", record);
+        mv.addObject("userNo", userNo);
+        mv.addObject("RecordOne", record);
+        mv.setViewName("record/recordDetail");
 
-        return model;
+        return mv;
+    }
+
+    @RequestMapping(value="clickHeart", produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public int clickHeart(int recordNo, int userNo /*, int heartCheck */){
+
+        int heartCheck = recordService.heartCheck(recordNo, userNo);
+
+        if (heartCheck == 1) { // 이미 하트가 눌려있는 상태이기 때문에 delete 실행
+            // 정상작동하면 1을 반환
+            return recordService.deleteHeart(recordNo, userNo);
+        } else { // 하트가 눌려있지 않기 때문에 insert 실행
+            // 정상작동하면 2를 반환
+            return recordService.insertHeart(recordNo, userNo);
+        }
+
     }
 
     @GetMapping(value="travelRecordWrite", produces = "application/json; charset=UTF-8")
@@ -252,7 +271,6 @@ public class RecordController {
         rttr.addFlashAttribute("successMessage", "삭제 완료!");
 
         return  mv;
-
     }
 
 

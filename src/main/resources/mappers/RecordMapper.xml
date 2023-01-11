@@ -77,6 +77,20 @@
           AND A.USER_NO = #{userNo}
     </select>
 
+    <delete id="deleteHeart" parameterType="_int">
+        DELETE FROM HEART
+        WHERE USER_NO = #{userNo}
+          AND RECORD_NO = #{recordNo}
+    </delete>
+
+    <insert id="insertHeart" parameterType="_int">
+        INSERT INTO HEART
+        VALUES (
+                #{userNo},
+                #{recordNo}
+                )
+    </insert>
+
     <select id="recordListPaging" resultMap="recordResultMap">
         SELECT *
             FROM (
@@ -161,17 +175,17 @@
 
     <insert id="insertRecord">
         INSERT INTO OH_RECORD
-        (
-            RECORD_NO,
-            USER_NO,
-            RC_TITLE,
-            RECORD_TAG,
-            RECORD_DETAIL,
-            CITY_CODE,
-            TRAVEL_START_DATE,
-            TRAVEL_END_DATE,
-            IMG_FILE_NO
-        )
+            (
+                RECORD_NO,
+                USER_NO,
+                RC_TITLE,
+                RECORD_TAG,
+                RECORD_DETAIL,
+                CITY_CODE,
+                TRAVEL_START_DATE,
+                TRAVEL_END_DATE,
+                IMG_FILE_NO
+            )
         VALUES
             (
                 SEQ_RECORD_NO.NEXTVAL,

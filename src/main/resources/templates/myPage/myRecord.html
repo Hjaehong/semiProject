@@ -4,14 +4,37 @@
     <meta charset="UTF-8">
     <title>myRecord</title>
     <link th:href="@{/css/myRecord.css}" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
   <div th:replace="common/header.html"></div>
   <div class="myPage">
     <div th:replace="common/userProfile.html"> </div>
 
+      <div class="content-area">
+          <h3> 내 여행기록 </h3>
+          <hr>
+          <table class="myRecord">
+              <thead>
+              <tr>
+                  <th> 번호 </th>
+                  <th> 제목 </th>
+                  <th> 여행지 </th>
+                  <th> 여행날짜 </th>
+              </tr>
+              </thead>
 
-
+              <tbody>
+              <tr th:each=" myRecord : ${MyRecord}">
+                  <td th:text="${myRecord.recordNo}"></td>
+                  <td th:text="${myRecord.rcTitle}"></td>
+                  <td th:text="${myRecord.cityDTO.locationDTO.locName} + ' ' + ${myRecord.cityDTO.cityName}"></td>
+                  <td th:text="${myRecord.travelStartDate}+ ' ~ ' + ${myRecord.travelStartDate}"></td>
+              </tr>
+              </tbody>
+          </table>
+      </div>
   </div>
+
 </body>
 </html>

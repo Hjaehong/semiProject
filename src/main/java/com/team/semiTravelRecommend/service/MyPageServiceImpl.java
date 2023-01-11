@@ -30,4 +30,7 @@ public class MyPageServiceImpl implements MyPageService{
         return myPageMapper.readMyBadge(loginUserNo);
     }
 
+    @Override
+    public List<RecordDTO> readMyRecord(int loginUserNo) { return myPageMapper.readMyRecord(loginUserNo); }
+
 }

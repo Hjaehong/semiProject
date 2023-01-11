@@ -13,4 +13,6 @@ public interface MyPageMapper {
     UserTagDTO readUserInfo(int loginUserNo);
 
     List<CityDTO> readMyBadge(int loginUserNo);
+
+    List<RecordDTO> readMyRecord(int loginUserNo);
 }

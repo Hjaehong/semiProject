@@ -89,5 +89,20 @@
         WHERE A.USER_NO = #{loginUserNo}
     </select>
 
+    <select id="readMyRecord" resultMap="recordResultMap">
+        SELECT
+            B.RECORD_NO ,
+            B.RC_TITLE ,
+            B.TRAVEL_START_DATE ,
+            B.TRAVEL_END_DATE ,
+            D.LOC_NAME ,
+            C.CITY_NAME
+        FROM OH_USER A
+                 JOIN OH_RECORD B ON A.USER_NO = B.USER_NO
+                 JOIN CITY C ON B.CITY_CODE = C.CITY_CODE
+                 JOIN LOCATION D ON C.LOC_CODE = D.LOC_CODE
+        WHERE A.USER_NO = #{loginUserNo}
+    </select>
+
 
 </mapper>

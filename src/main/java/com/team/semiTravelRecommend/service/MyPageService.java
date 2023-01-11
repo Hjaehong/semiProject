@@ -12,4 +12,6 @@ public interface MyPageService {
     UserTagDTO readUserInfo(int loginUserNo);
 
     List<CityDTO> readMyBadge(int loginUserNo);
+
+    List<RecordDTO> readMyRecord(int loginUserNo);
 }

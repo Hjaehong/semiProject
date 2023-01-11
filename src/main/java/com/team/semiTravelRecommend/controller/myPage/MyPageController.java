@@ -24,45 +24,20 @@ public class MyPageController {
         this.myPageService = myPageService;
     }
 
-//    public UserTagDTO readUserInfo (int loginUserNo){}
-
     @GetMapping("myPage")
     public Model myPage (Model model){ // 마이페이지에 들어오면 이 메소드가 실행됨
 
         // 로그인 기능 연결 후 session에서 userNo 가져오기 (지금은 임의로 3으로 보냄)
         int loginUserNo = 3;
 
-//        UserTagDTO userInfo = myPageService.readUserInfo(loginUserNo);
+        Model userInfoModel = readUserInfo(model, loginUserNo);
 
-//        String tagName = userInfo.getTagDTO().getTagName();
-//        String[] tagList = tagName.split(",");
-
-        // 확인용 출력
-//        System.out.println(userInfo);
-//        System.out.println(userInfo.getTagDTO().getTagCode());
-//        System.out.println(userInfo.getTagDTO().getTagName());
-//
-//        System.out.println(tagList[0]);
-//        System.out.println(tagList[1]);
-//        System.out.println(tagList[2]);
-
-        // 공통부분을 처리하는 메소드를 실행 후 값을 Map형태로 받아옴
-//        Map<String, Object> userInfoMap = readUserInfo(loginUserNo);
-//
-//        UserTagDTO userInfo = (UserTagDTO) userInfoMap.get("userInfo");
-//        String[] tagList = (String[]) userInfoMap.get("tagList");
-//
-//        System.out.println(userInfo);
-//        System.out.println(tagList[0]);
-
-        model = readUserInfo(model, loginUserNo);
+        model.addAttribute("UserInfo", userInfoModel.getAttribute("UserInfo"));
+        model.addAttribute("UserTag", userInfoModel.getAttribute("UserTag"));
 
         // 지금 이 페이지에서만 필요한 정보를 가져옴
         List<CityDTO> myBadge = myPageService.readMyBadge(loginUserNo);
-        System.out.println(myBadge.get(0));
 
-//        model.addAttribute("UserInfo", userInfo);
-//        model.addAttribute("UserTag", tagList);
         model.addAttribute("UserBadge", myBadge);
 
         return model;
@@ -71,13 +46,17 @@ public class MyPageController {
     @GetMapping("myRecord")
     public Model myRecord(Model model){
 
-        System.out.println("컨트롤러 매핑 동작 확인");
-
+        // 로그인 기능 연결 후 session 에서 받아오기
         int loginUserNo = 3;
 
-        UserTagDTO userInfo = myPageService.readUserInfo(loginUserNo);
+        Model userInfoModel = readUserInfo(model, loginUserNo);
 
-        model.addAttribute("UserInfo", userInfo);
+        model.addAttribute("UserInfo", userInfoModel.getAttribute("UserInfo"));
+        model.addAttribute("UserTag", userInfoModel.getAttribute("UserTag"));
+
+        List<RecordDTO> myRecord = myPageService.readMyRecord(loginUserNo);
+
+        model.addAttribute("MyRecord", myRecord);
 
         return model;
     }

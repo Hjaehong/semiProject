@@ -12,14 +12,14 @@
     <div class="row">
         <div class="col">
             <button class="w-100 btn btn-secondary btn-lg"
-                    onclick="location.href='user/signup'"
-                    th:onclick="|location.href='@{/signup}'|" type="button" >
+                    onclick="location.href='/user-signup'"
+                    th:onclick="|location.href='@{/user-signup}'|" type="button">
                 회원 가입
             </button>
         </div>
         <div class="col">
             <button class="w-100 btn btn-dark btn-lg"
-                    onclick="location.href='user/login'"
+                    onclick="location.href='/login'"
                     th:onclick="|location.href='@{/login}'|" type="button">
                 로그인
             </button>
@@ -27,8 +27,5 @@
     </div>
     <hr class="my-4">
 </div> <!-- /container -->
-<div th:replace="templates/common/header.html"></div>
-    <h1>세미 프로젝트!!</h1>
-    <p>세미프로젝트를 위한 기본 작업</p>
 </body>
 </html>

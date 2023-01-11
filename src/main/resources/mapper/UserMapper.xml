@@ -28,4 +28,23 @@
         where USER_ID = #{userId}
     </select>
 
+    <select id="findById" parameterType="Long" resultType="com.team.semiTravelRecommend.model.dto.UserVO">
+        select *
+        from OH_USER
+        where USER_NO = #{userNo}
+    </select>
+
+    <update id="update">
+        UPDATE user
+        SET
+        USER_NAME=#{userName},
+        USER_PWD=#{userPwd},
+        EMAIL=#{email}
+        WHERE USER_NO=#{userNo}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM user WHERE USER_ID = #{userId}
+    </delete>
+
 </mapper>

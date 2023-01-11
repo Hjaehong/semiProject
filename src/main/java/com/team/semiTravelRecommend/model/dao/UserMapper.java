@@ -21,5 +21,4 @@ public interface UserMapper {
 
     Optional<UserVO> findByUserId(String userId);
 
-    Optional<UserVO> login(String userId);
 }

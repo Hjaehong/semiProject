@@ -34,19 +34,19 @@ public class HomeController {
         return "메인화면";
     }
 
-    @GetMapping("/index")
-    public String homeLoginV3Spring(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember, Model model, HttpServletRequest request) {
+    @GetMapping("/")
+    public String homeLogin(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember, Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
 
         Object attribute = session.getAttribute(SessionConst.LOGIN_USER);
 
         //세션에 회원 데이터가 없으면 홈
         if (loginMember == null) {
-            return "redirect:/index";
+            return "home";
         }
         //세션이 유지되면 로그인으로 이동
         model.addAttribute("loginMember", loginMember);
-        return "redirect:/loginHome";
+        return "loginHome";
     }
 
 }

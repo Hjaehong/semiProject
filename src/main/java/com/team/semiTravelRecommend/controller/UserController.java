@@ -3,7 +3,9 @@ package com.team.semiTravelRecommend.controller;
 import com.team.semiTravelRecommend.model.dto.SessionConst;
 import com.team.semiTravelRecommend.model.dto.requset.LoginUserRequest;
 import com.team.semiTravelRecommend.model.dto.requset.SaveUserRequest;
+import com.team.semiTravelRecommend.model.dto.requset.UpdateUserRequest;
 import com.team.semiTravelRecommend.model.dto.response.LoginUserResponse;
+import com.team.semiTravelRecommend.model.dto.response.UpdateUserResponse;
 import com.team.semiTravelRecommend.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -20,7 +22,6 @@ import javax.validation.Valid;
 @Slf4j
 //@RequiredArgsConstructor
 @Controller
-@RequestMapping("/user")
 public class UserController {
 
     private final UserService userService;
@@ -32,12 +33,12 @@ public class UserController {
     /*
         회원 가입
      */
-    @GetMapping("signup")
+    @GetMapping("/user-signup")
     public String signUpForm(@ModelAttribute("saveUserRequest") SaveUserRequest saveUserRequest) {
         return "user/signup";
     }
 
-    @PostMapping("signup")
+    @PostMapping("/user-signup")
     public String signUp(@ModelAttribute @Valid SaveUserRequest saveUserRequest, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             log.info("error = {}", bindingResult.getFieldError().getDefaultMessage());
@@ -85,6 +86,28 @@ public class UserController {
         if (session != null) {
             session.invalidate();
         }
+        return "redirect:/";
+    }
+
+    @GetMapping("/update")
+    public String updateForm() {
+        return "user/update";
+    }
+
+    @PostMapping("/update")
+    public String update(Long userNo, UpdateUserRequest updateUserRequest) {
+        userService.update(userNo, updateUserRequest);
+        return "redirect:/";
+    }
+
+    @GetMapping("/delete")
+    public String deleteForm() {
+        return "user/delete";
+    }
+
+    @PostMapping("/delete")
+    public String delete(Long userNo) {
+        userService.delete(userNo);
         return "redirect:/";
     }
 }

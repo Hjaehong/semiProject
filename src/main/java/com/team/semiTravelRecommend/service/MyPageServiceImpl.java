@@ -1,9 +1,13 @@
 package com.team.semiTravelRecommend.service;
 
 import com.team.semiTravelRecommend.model.dao.MyPageMapper;
+import com.team.semiTravelRecommend.model.dto.record.CityDTO;
+import com.team.semiTravelRecommend.model.dto.record.RecordDTO;
 import com.team.semiTravelRecommend.model.dto.record.UserTagDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -17,8 +21,13 @@ public class MyPageServiceImpl implements MyPageService{
     }
 
     @Override
-    public UserTagDTO readUserInfo(){
-        return myPageMapper.readUserInfo();
+    public UserTagDTO readUserInfo(int loginUserNo){
+        return myPageMapper.readUserInfo(loginUserNo);
+    }
+
+    @Override
+    public List<CityDTO> readMyBadge(int loginUserNo){
+        return myPageMapper.readMyBadge(loginUserNo);
     }
 
 }

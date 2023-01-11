@@ -44,8 +44,7 @@
       </ul>
     </div>
 
-  <div>
-      <div th:fragment="paging" align="center">
+    <div th:fragment="paging" class="paging-area">
           <!--            <button id="startPage">맨앞</button>-->
           <ul class="paging" th:each="page : ${ selectCriteria }">
               <!--  -->
@@ -71,7 +70,6 @@
               </li>
           </ul>
       </div>
-  </div>
 
   <a id="move-write-page" th:href="@{/record/travelRecordWrite}"> 여행기록<br>작성하기 </a>
 

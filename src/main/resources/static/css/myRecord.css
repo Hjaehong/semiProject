@@ -1,0 +1,6 @@
+.myPage {
+    display: flex;
+    border: 1px solid red;
+    margin: 5rem 14rem;
+    justify-content: center;
+}

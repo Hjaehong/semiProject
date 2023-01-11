@@ -73,7 +73,7 @@ h2 {
 
 #move-write-page{
     position: fixed;
-    bottom: 50px;
+    bottom: 100px;
     right: 200px;
     text-decoration: none;
     background: rgb(59, 59, 139);
@@ -81,4 +81,8 @@ h2 {
     padding: 5px;
     border-radius: 15%;
     font-size: 10px;
+}
+
+.paging button{
+
 }

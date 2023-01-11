@@ -15,7 +15,7 @@ import lombok.Data;
  @Data
 public class PlaceDTO {
 
-     private String placeId;
+     private int placeId;
      private String placeName;
      private String address;
      private String tel;

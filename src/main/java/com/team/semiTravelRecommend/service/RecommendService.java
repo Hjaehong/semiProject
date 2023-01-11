@@ -28,5 +28,12 @@ public interface RecommendService {
     List<PlaceDTO> listPaging(SelectCriteria selectCriteria);
 
     // 여행지의 자세한 정보
-     PlaceDTO detailTravelInfo(String travelInfo);
+     PlaceDTO detailTravelInfo(int travelInfo);
+    // 북마크 관련 서비스
+     // 북마크 확인
+     int checkBookmark(int userNo, int travelInfo);
+    // 북마크 삭제
+     int deleteBookmark(int userNo, int placeId);
+    // 북마크 생성
+     int insertBookmark(int userNo, int placeId);
  }

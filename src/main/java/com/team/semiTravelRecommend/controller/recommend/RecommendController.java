@@ -84,11 +84,18 @@ public class RecommendController {
 //    }
     // 태그선택시 호출
     @GetMapping("recommendDetail/{placeId}")
-    public String travelDetail(Model model, @PathVariable(value = "placeId")String travelInfo){
+    public String travelDetail(Model model, @PathVariable(value = "placeId")int travelInfo){
         // 디테일 정보를 placeId로 찾는다.
         System.out.println("travelInfo = " + travelInfo);
         PlaceDTO travelDetail = recommendService.detailTravelInfo(travelInfo);
-
+        int userNo = 1;
+        int checkBookmark = recommendService.checkBookmark(userNo, travelInfo);
+        System.out.println("checkBookmark = " + checkBookmark);
+        if(checkBookmark == 1){
+            model.addAttribute("checkBookmark", 1);
+        }else{
+            model.addAttribute("checkBookmark", 0);
+        }
         System.out.println("travelDetail = " + travelDetail);
         // 찾은 정보를 모델에 저장하여 뷰에 전달
         model.addAttribute("travelInfo", travelDetail);
@@ -96,5 +103,17 @@ public class RecommendController {
         return "recommend/recommendDetail";
     }
 
+    @RequestMapping(value = "/checkingBookmark", produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public int checkingBookmark(int userNo,int placeId){
+        int checkBookmark = recommendService.checkBookmark(userNo, placeId);
 
+        if(checkBookmark == 1){
+            return recommendService.deleteBookmark(userNo, placeId);
+        }else {
+            return recommendService.insertBookmark(userNo, placeId);
+
+        }
+
+    }
 }

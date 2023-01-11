@@ -80,5 +80,27 @@
             )
             where rnum<![CDATA[>= #{ startRow }]]>
     </select>
+    <!-- 북마크 체크 -->
+    <select id="checkBookmark" resultType="_int">
+        select COUNT(*)
+        from BOOKMARK
+        where USER_NO = #{userNo}
+        and place_ID = #{placeId}
+    </select>
+    <!-- 북마크 제거 -->
+    <delete id="deleteBookmark" parameterType="_int">
+        DELETE FROM BOOKMARK
+        WHERE USER_NO = #{userNo}
+          AND PLACE_ID = #{placeId}
+    </delete>
+    <!-- 북마크 생성 -->
+    <insert id="insertBookmark" parameterType="_int">
+        insert into BOOKMARK
+        values (
+                #{userNo} ,
+                #{placeId}
+               )
+    </insert>
+
 
 </mapper>

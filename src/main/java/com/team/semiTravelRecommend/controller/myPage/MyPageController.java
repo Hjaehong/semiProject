@@ -9,7 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/myPage")
@@ -26,29 +28,41 @@ public class MyPageController {
 
     @GetMapping("myPage")
     public Model myPage (Model model){ // 마이페이지에 들어오면 이 메소드가 실행됨
+
         // 로그인 기능 연결 후 session에서 userNo 가져오기 (지금은 임의로 3으로 보냄)
         int loginUserNo = 3;
 
+//        UserTagDTO userInfo = myPageService.readUserInfo(loginUserNo);
 
-        List<CityDTO> myBadge = myPageService.readMyBadge(loginUserNo);
-        UserTagDTO userInfo = myPageService.readUserInfo(loginUserNo);
-
-        String tagName = userInfo.getTagDTO().getTagName();
-        String[] tagList = tagName.split(",");
+//        String tagName = userInfo.getTagDTO().getTagName();
+//        String[] tagList = tagName.split(",");
 
         // 확인용 출력
-        System.out.println(userInfo);
-        System.out.println(userInfo.getTagDTO().getTagCode());
-        System.out.println(userInfo.getTagDTO().getTagName());
+//        System.out.println(userInfo);
+//        System.out.println(userInfo.getTagDTO().getTagCode());
+//        System.out.println(userInfo.getTagDTO().getTagName());
+//
+//        System.out.println(tagList[0]);
+//        System.out.println(tagList[1]);
+//        System.out.println(tagList[2]);
 
+        // 공통부분을 처리하는 메소드를 실행 후 값을 Map형태로 받아옴
+//        Map<String, Object> userInfoMap = readUserInfo(loginUserNo);
+//
+//        UserTagDTO userInfo = (UserTagDTO) userInfoMap.get("userInfo");
+//        String[] tagList = (String[]) userInfoMap.get("tagList");
+//
+//        System.out.println(userInfo);
+//        System.out.println(tagList[0]);
+
+        model = readUserInfo(model, loginUserNo);
+
+        // 지금 이 페이지에서만 필요한 정보를 가져옴
+        List<CityDTO> myBadge = myPageService.readMyBadge(loginUserNo);
         System.out.println(myBadge.get(0));
 
-        System.out.println(tagList[0]);
-        System.out.println(tagList[1]);
-        System.out.println(tagList[2]);
-
-        model.addAttribute("UserInfo", userInfo);
-        model.addAttribute("UserTag", tagList);
+//        model.addAttribute("UserInfo", userInfo);
+//        model.addAttribute("UserTag", tagList);
         model.addAttribute("UserBadge", myBadge);
 
         return model;
@@ -68,5 +82,18 @@ public class MyPageController {
         return model;
     }
 
+    /* 마이페이지에서 공통적으로 일어나는 로직을 따로 메소드로 만듦 */
+    public Model readUserInfo(Model model, int loginUserNo){
+
+        UserTagDTO userInfo = myPageService.readUserInfo(loginUserNo);
+
+        String tagName = userInfo.getTagDTO().getTagName();
+        String[] tagList = tagName.split(",");
+
+        model.addAttribute("UserInfo", userInfo);
+        model.addAttribute("UserTag", tagList);
+
+        return model;
+    }
 
 }

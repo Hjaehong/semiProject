@@ -1,7 +1,9 @@
 package com.team.semiTravelRecommend.controller.recommend;
 
+import com.team.semiTravelRecommend.model.dto.SessionConst;
 import com.team.semiTravelRecommend.model.dto.recommend.PlaceDTO;
 import com.team.semiTravelRecommend.model.dto.recommend.TagDTO;
+import com.team.semiTravelRecommend.model.dto.response.LoginUserResponse;
 import com.team.semiTravelRecommend.paging.Pagenation;
 import com.team.semiTravelRecommend.paging.SelectCriteria;
 import com.team.semiTravelRecommend.service.RecommendService;
@@ -36,10 +38,10 @@ public class RecommendController {
 
     // 추천 여행장소 리스트 맨처음에 보여짐
     @GetMapping("travelRecommend")
-    public Model recommendList(@RequestParam(value = "tag", required = false) String tagCode,  HttpServletRequest request,Model model){
+    public Model recommendList(@RequestParam(value = "tag", required = false) String tagCode, HttpServletRequest request, Model model){
         // paging.html에서 currentPage인 name을 가져온다.
         String currentPage = request.getParameter("currentPage");
-
+        // session에 저장된 user의 정보 가져오기
         int pageNo = 1;
         if(currentPage != null && !"".equals(currentPage)) {
             // 파라미터로 전달 받은 값이 있을떄 그 값을 페이지 번호에
@@ -84,11 +86,13 @@ public class RecommendController {
 //    }
     // 태그선택시 호출
     @GetMapping("recommendDetail/{placeId}")
-    public String travelDetail(Model model, @PathVariable(value = "placeId")int travelInfo){
+    public String travelDetail(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember,
+                               Model model, @PathVariable(value = "placeId")int travelInfo){
         // 디테일 정보를 placeId로 찾는다.
         System.out.println("travelInfo = " + travelInfo);
+        // session에 저장된 유저번호를 가져온다 Long타입이기 때문에 int형으로 형변환
+        int userNo = loginMember.getUserNo().intValue();
         PlaceDTO travelDetail = recommendService.detailTravelInfo(travelInfo);
-        int userNo = 1;
         int checkBookmark = recommendService.checkBookmark(userNo, travelInfo);
         System.out.println("checkBookmark = " + checkBookmark);
         if(checkBookmark == 1){
@@ -99,6 +103,7 @@ public class RecommendController {
         System.out.println("travelDetail = " + travelDetail);
         // 찾은 정보를 모델에 저장하여 뷰에 전달
         model.addAttribute("travelInfo", travelDetail);
+        model.addAttribute("userNo", userNo);
 
         return "recommend/recommendDetail";
     }

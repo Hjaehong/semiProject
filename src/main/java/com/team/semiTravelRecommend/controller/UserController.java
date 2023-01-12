@@ -73,6 +73,7 @@ public class UserController {
 
         log.info("로그인 성공 ! = {}", loginUser);
 
+        // 세션에 로그인 정보 저장
         HttpSession session = request.getSession();
         session.setAttribute(SessionConst.LOGIN_USER, loginUser);
 

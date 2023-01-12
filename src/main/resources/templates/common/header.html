@@ -14,8 +14,14 @@
             <li><a th:href="@{/record/recordList}"> 여행 기록</a></li>
         </ul>
         <ul class = "enter">
-            <li><a href="#"> 회원가입 </a></li>
-            <li><a href="#"> 로그인 </a></li>
+            <th:block th:if="${session.loginUser.getUserNo() == null}">
+                <li><a th:href="@{/user-signup}"> 회원가입 </a></li>
+                <li><a th:href="@{/login}"> 로그인 </a></li>
+            </th:block>
+            <th:block th:unless="${session.loginUser.getUserNo() == null}">
+                <li><a href="#"> 마이페이지 </a></li>
+                <li><a th:href="@{/login}"> 로그아웃 </a></li>
+            </th:block>
         </ul>
     </div>
 </body>

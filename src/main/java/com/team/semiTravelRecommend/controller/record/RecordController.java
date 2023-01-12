@@ -1,7 +1,9 @@
 package com.team.semiTravelRecommend.controller.record;
 
+import com.team.semiTravelRecommend.model.dto.SessionConst;
 import com.team.semiTravelRecommend.model.dto.comment.CommentDTO;
 import com.team.semiTravelRecommend.model.dto.record.*;
+import com.team.semiTravelRecommend.model.dto.response.LoginUserResponse;
 import com.team.semiTravelRecommend.paging.Pagenation;
 import com.team.semiTravelRecommend.paging.SelectCriteria;
 import com.team.semiTravelRecommend.service.CommentService;
@@ -77,7 +79,8 @@ public class RecordController {
     }
 
     @GetMapping("recordDetail/{recordNo}")
-    public ModelAndView recordOne(ModelAndView mv, @PathVariable("recordNo") int recordNo){
+    public ModelAndView recordOne(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember,
+                                  ModelAndView mv, @PathVariable("recordNo") int recordNo){
 
         RecordDTO record = recordService.recordOne(recordNo);
 
@@ -85,7 +88,7 @@ public class RecordController {
         // 게시글을 작성한 유저의 No
         int writerNo = record.getUserDTO().getUserNo();
         // 로그인한 유저의 No (session에서 정보가져와야함 지금은 임의로 값 설정)
-        int userNo = 4;
+        int userNo = loginMember.getUserNo().intValue();
 
         if (writerNo != userNo) { // 작성자와 로그인한 유저가 같지 않은 경우
             // 로그인한 유저가 해당 게시물에 좋아요를 눌렀는지 확인
@@ -286,17 +289,21 @@ public class RecordController {
     @ResponseBody
     @RequestMapping("insertComment")
     public String insertComment(CommentDTO comment){
-        System.out.println(comment);
         int result = commentService.registComment(comment);
-        System.out.println("result = " + result);
         return String.valueOf(result);
     }
     //댓글 리스트 출력
     @ResponseBody
     @RequestMapping(value = "listComment", produces = "application/json; charset=utf-8")
     public List<CommentDTO> listComment(int recordNo) {
-        System.out.println("여기까지 넘어오나? = " + recordNo);
         return commentService.showComment(recordNo);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "updateComment")
+    public String UpdateComment(@RequestParam(name = "updatebox", required = false) CommentDTO comment){
+        int result = commentService.updateComment(comment);
+        return String.valueOf(result);
     }
 
 

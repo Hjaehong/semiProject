@@ -54,7 +54,7 @@
                 <img th:id="btn_heart" th:src="@{/image/heart_before.png}" alt="빈하트이미지" onclick="changeHeart()"/>
             </th:block>
             <th:block th:if ="${heartCheck == 1}">
-                <img th:id="btn_heart" th:src="@{/image/heart_after.png}" alt="꽉찬하트이미지"/>
+                <img th:id="btn_heart" th:src="@{/image/heart_after.png}" alt="꽉찬하트이미지" onclick="changeHeart()"/>
             </th:block>
 <!--            <th:block th:if ="${heartCheck == 2}">-->
 <!--                <img th:id="btn_heart" th:src="@{/image/heart_after.png}" alt="꽉찬하트이미지"/>-->
@@ -67,12 +67,16 @@
         <div>
             <div>
                 <form>
-                    <div id="commentListView">
-
+                    <table>
+                        <tr id="commentListView">
+                            <!-- 댓글 리스트 -->
+                        </tr>
                         <!-- 작성자와 같을 경우 수정 삭제 -->
-                        <button type="submit" name="submit" value="update">수정</button>
-                        <button type="submit" name="submit" value="delete">삭제</button>
-                    </div>
+                        <tr class="updateBox">
+                            <textarea name="boxUpdate"></textarea>
+                            <button>확인</button>
+                        </tr>
+                    </table>
                 </form>
             </div>
         </div>
@@ -85,7 +89,7 @@
                 <span class="writer"> 작성자 </span>
             </div>
             <div>
-                <input type="hidden" id="userId" name="writer" th:value="${RecordOne.userDTO.userNo}"><!-- 나중에 섹션의 유저아이디로 받아와야함 -->
+                <input type="hidden" id="userNo" name="writer" th:value="${session.loginUser.getUserNo()}">
                 <input type="hidden" id="recordNo" name="recordNo" th:value="${RecordOne.recordNo}"/>
                 <textarea name="comContain" id="commentContain"></textarea>
                 <button id="commentSubmit">등록</button>
@@ -110,7 +114,6 @@
         let recordNo = [[${RecordOne.recordNo}]];
         let userNo = [[${userNo}]];
         // let heartCheck = [[${heartCheck}]];
-
         function changeHeart(){
             $.ajax({
                 type:"POST",
@@ -129,5 +132,87 @@
             });
         }
         /*]]>*/
+    </script>
+    <script th:inline="javascript">
+
+        $(function (){
+            commentList(); // selectReplyList
+            // 댓글 등록 버튼 클릭시
+            $("#commentSubmit").click(function (){
+
+                const userNo = document.getElementById('userNo').value;
+                let recordNo = document.getElementById('recordNo').value;
+                // 댓글을 작성하지 않고 버튼 클릭시 작성 안되게
+                if($("#commentContain").val().trim().length != 0){
+
+                    $.ajax({
+                        url : "/record/insertComment" ,
+                        type : "post" ,
+                        data:{comContain:$("#commentContain").val() ,
+                            recordNo: recordNo ,
+                            userNo: userNo},
+                        success:function (result){
+                            console.log(result);
+                            if(result > 0){
+                                $("#commentContain").val("");
+                                commentList();
+                            }else{
+                                alert("댓글을 등록할 수 없습니다.");
+                            }
+                        },error:function (){
+                            console.log("ajax 실패");
+                        }
+                    });
+                }else{
+                    alert("댓글을 작성하고 눌러주세요");
+                }
+            });
+        });
+
+        function commentList(){
+            let recordNo = document.getElementById('recordNo').value;
+            let sessionUserNo = [[${session.loginUser.getUserNo()}]];
+            let nickname = [[${RecordOne.getUserDTO().getNickname()}]];
+            $.ajax({
+                url:"/record/listComment" ,
+                data:{'recordNo':recordNo} ,
+                type:"post",
+                dataType: "json",
+                success:function (list){
+                    $("#comCount").text(list.length);// 총 댓글수
+
+                    let value="";
+                    $.each(list, function (i, obj){
+                        if(sessionUserNo == userNo){
+                            value += "<tr style='color: royalblue'>" +"<td>"
+                                + nickname + "</td>";
+                        }else{
+                            value += "<tr>"
+                                + "<td>" + nickname + "</td>";
+                        }
+                        value +=
+                            "<td>" + " | " + obj.comContain + "</td>"
+                            + "<tr/>";
+
+                    });
+                    $("#commentListView").html(value);
+                },error:function (){
+                    console.log("댓글 리스트 ajax 실패");
+                }
+            });
+
+        }
+        // 댓글 수정
+        // function updateComment(){
+        //     const upadatebox = document.querySelector('.updatebox');
+        //     let recordNo = document.getElementById('recordNo').value;
+        //     // 댓글 수정 텍스트에어리어 표시
+        //     upadatebox.classList.toggle('show');
+        //     console.log(content)
+        //     $.ajax({
+        //         url:"/record/updateComment" ,
+        //         data:{''}
+        //     });
+        // }
     </script>
 </html>

@@ -5,39 +5,80 @@
     <meta charset="UTF-8">
     <title>옷홋</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        h1{
+            text-align: center;
+        }
+        h2{
+            display: inline-block;
+        }
+        #viewBox{
+            /* border: 2px red solid; */
+            width: 60%;
+            margin: 0 auto;
+        }
+        #mainBox{
+            /* border: 2px black solid; */
+            position: relative;
+        }
+        #badgeImg{
+            border: 3px palegoldenrod solid;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+        }
+        #pictureBox {
+            width: 50%;
+
+        }
+        #span{
+            display: inline-block;
+        }
+        #subTitle{
+            border-bottom: 2px solid black;
+        }
+        #mainImg {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+        .bookmark{
+            display: inline-block;
+        }
+        .bookmarkImg{
+            width: 18px;
+            height: 18px;
+        }
+    </style>
 </head>
 <body>
 <div id="mainBox" th:replace="common/header.html"/>
-    <div id="detailBox">
-        <div>
-            <div>
+    <div id="DetailMainBox">
+        <div id="viewBox">
+            <div id="titleBox">
                 <h1 th:text="${travelInfo.placeName}"/>
-            </div>
-            <div>
-                <span th:text="${travelInfo.address}"/>
-                <span th:text="${travelInfo.tel}"/>
-
+                <img id="badgeImg" th:src="${travelInfo.cityDTO.badgeImg}"/>
+                <h2 th:text="${travelInfo.address}"/>
                 <div class="bookmark">
                     <th:block th:if ="${checkBookmark == 0}">
-                        <img th:id="btn_bookmark" th:src="@{/image/bookmark_before.png}" alt="빈북마크이미지" onclick="bookmarkChange()"/>
+                        <img class="bookmarkImg" th:id="btn_bookmark" th:src="@{/image/bookmark_before.png}" alt="빈북마크이미지" onclick="bookmarkChange()"/>
                     </th:block>
                     <th:block th:unless ="${checkBookmark == 0}">
-                        <img th:id="btn_bookmark" th:src="@{/image/bookmark_after.png}" alt="꽉찬북마크이미지" onclick="bookmarkChange()"/>
+                        <img class="bookmarkImg" th:id="btn_bookmark" th:src="@{/image/bookmark_after.png}" alt="꽉찬북마크이미지" onclick="bookmarkChange()"/>
                     </th:block>
                 </div>
             </div>
-        </div>
-        <div>
-            <img id="mainImg" th:src="${travelInfo.plImgPath}"/>
-        </div>
-        <div>
-            <span th:text="${travelInfo.cityDTO.locationDTO.locName}"/>
-            <span>
-                <img id="tagImg" th:src="${travelInfo.cityDTO.badgeImg}"/>
-            </span>
-        </div>
-        <div>
-            <span th:utext="${travelInfo.contentDetail}"/>
+            <hr>
+            <div id="pictureBox">
+                <img id="mainImg" th:src="${travelInfo.plImgPath}" alt="여행지 이미지"/>
+            </div>
+            <div id="subTitle">
+                <h3>상세정보</h3>
+            </div>
+            <div id="content">
+                <p th:utext="${travelInfo.contentDetail}"/>
+            </div>
         </div>
     </div>
 </div>

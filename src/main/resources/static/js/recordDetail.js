@@ -4,7 +4,7 @@ $(function (){
     // 댓글 등록 버튼 클릭시
     $("#commentSubmit").click(function (){
 
-        const userId = document.getElementById('userId').value;
+        const userNo = document.getElementById('userNo').value;
         let recordNo = document.getElementById('recordNo').value;
         // 댓글을 작성하지 않고 버튼 클릭시 작성 안되게
         if($("#commentContain").val().trim().length != 0){
@@ -14,7 +14,7 @@ $(function (){
                 type : "post" ,
                 data:{comContain:$("#commentContain").val() ,
                     recordNo: recordNo ,
-                    userNo: userId},
+                    userNo: userNo},
                 success:function (result){
                     console.log(result);
                     if(result > 0){
@@ -35,6 +35,7 @@ $(function (){
 
 function commentList(){
     let recordNo = document.getElementById('recordNo').value;
+    let sessionUserNo = [[${session.loginUser.getUserNo()}]]
     $.ajax({
         url:"/record/listComment" ,
         data:{'recordNo':recordNo} ,
@@ -45,10 +46,16 @@ function commentList(){
 
             let value="";
             $.each(list, function (i, obj){
+            if(sessionUserNo == userNo){
+                value += "<tr>"
+                    + "<th> + obj.username + <a href='#' onclick='updateComment'>수정</a> + <a></a> + </th>";
+            }else{
+                value += "<tr>"
+                    + "<th>" + obj.username + "</th>"
+            }
+                value += "<td>" +" | " + obj.comContain + "</td>"
+                    + <tr/>;
 
-                value += "<span>" + "작성자: "+ obj.userNo + "</span>"
-                    + "<span>" +" | " + obj.comContain + "</span>" + "</br>";
-                console.log(value);
             });
             $("#commentListView").html(value);
         },error:function (){

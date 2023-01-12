@@ -31,6 +31,12 @@
         select
             *
         from OH_COMMENT A
+        join OH_USER B on A.USER_NO = B.USER_NO
         where A.RECORD_NO = #{ recordNo }
     </select>
+
+<!--    <update id="updateComment" parameterType="">-->
+<!--        update COMMENT-->
+<!--        set COM_CONTAIN = #{}-->
+<!--    </update>-->
 </mapper>

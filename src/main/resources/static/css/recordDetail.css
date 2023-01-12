@@ -127,3 +127,15 @@ textarea{
     height: 24px;
     margin-right: 8px;
 }
+/*수정에 필요한 css*/
+.show{
+    display: block;
+}
+.updateBox{
+    display: none;
+}
+
+a{
+
+    color: rgba(111,252,255,0.7);
+}

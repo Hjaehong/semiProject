@@ -16,5 +16,5 @@ public class TagDTO {
 
     private String tagCode;
     private String tagName;
-     private String iconImg;
+    private String iconImg;
 }

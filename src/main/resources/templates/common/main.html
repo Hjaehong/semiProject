@@ -18,27 +18,14 @@
       <h1> 가장 핫한 여행지 </h1>
     </div>
     <div class="top-3">
-      <div class="recommend-one">
-        <img src="IMG_4149.JPG" alt="추천장소이미지"/>
-        <div class="place-info">
-          <h3> 여행지명 </h3>
-          <span> 지역정보 </span>
-          <span> 도시정보 </span>
-        </div>
-      </div>
-      <div class="recommend-one">
-        <img src="IMG_4149.JPG" alt="추천장소이미지"/>
-        <div class="place-info">
-          <h3> 여행지명 </h3>
-          <span> 여행지 정보 </span>
-        </div>
-      </div>
-      <div class="recommend-one">
-        <img src="IMG_4149.JPG" alt="추천장소이미지"/>
-        <div class="place-info">
-          <h3> 여행지명 </h3>
-          <span> 여행지 정보 </span>
-        </div>
+      <div class="recommend-one" th:each="topLank : ${TopLank}">
+        <a href="/recommend/recommendDetail/" th:attrappend="href=${topLank.placeId}">
+          <img th:src="@{${topLank.plImgPath}}" alt="추천장소이미지"/>
+          <div class="place-info">
+            <h3 th:text="${topLank.placeName}"></h3>
+            <span th:text="${topLank.cityDTO.locationDTO.locName} + ' '+ ${topLank.cityDTO.cityName}"></span>
+          </div>
+        </a>
       </div>
     </div>
   </div>
@@ -46,65 +33,11 @@
   <div class="keyword">
     <h1> 키워드로 여행지 찾기 </h1>
     <div class="choice-keyword">
-      <div class="keyword-one">
-        <img src="IMG_4149.JPG" alt="키워드이미지"/>
-        <div> 키워드명 </div>
-      </div>
-      <div class="keyword-one">
-        <img src="IMG_4149.JPG" alt="키워드이미지"/>
-        <div> 키워드명 </div>
-      </div>
-      <div class="keyword-one">
-        <img src="IMG_4149.JPG" alt="키워드이미지"/>
-        <div> 키워드명 </div>
-      </div>
-      <div class="keyword-one">
-        <img src="IMG_4149.JPG" alt="키워드이미지"/>
-        <div> 키워드명 </div>
-      </div>
-      <div class="keyword-one">
-        <img src="IMG_4149.JPG" alt="키워드이미지"/>
-        <div> 키워드명 </div>
-      </div>
-      <div class="keyword-one">
-        <img src="IMG_4149.JPG" alt="키워드이미지"/>
-        <div> 키워드명 </div>
-      </div>
-      <div class="keyword-one">
-        <img src="IMG_4149.JPG" alt="키워드이미지"/>
-        <div> 키워드명 </div>
-      </div>
-      <div class="keyword-one">
-        <img src="IMG_4149.JPG" alt="키워드이미지"/>
-        <div> 키워드명 </div>
-      </div>
-      <div class="keyword-one">
-        <img src="IMG_4149.JPG" alt="키워드이미지"/>
-        <div> 키워드명 </div>
-      </div>
-      <div class="keyword-one">
-        <img src="IMG_4149.JPG" alt="키워드이미지"/>
-        <div> 키워드명 </div>
-      </div>
-      <div class="keyword-one">
-        <img src="IMG_4149.JPG" alt="키워드이미지"/>
-        <div> 키워드명 </div>
-      </div>
-      <div class="keyword-one">
-        <img src="IMG_4149.JPG" alt="키워드이미지"/>
-        <div> 키워드명 </div>
-      </div>
-      <div class="keyword-one">
-        <img src="IMG_4149.JPG" alt="키워드이미지"/>
-        <div> 키워드명 </div>
-      </div>
-      <div class="keyword-one">
-        <img src="IMG_4149.JPG" alt="키워드이미지"/>
-        <div> 키워드명 </div>
-      </div>
-      <div class="keyword-one">
-        <img src="IMG_4149.JPG" alt="키워드이미지"/>
-        <div> 키워드명 </div>
+      <div class="keyword-one" th:each="tagList : ${TagList}">
+        <a th:href="@{/recommend/travelRecommend(tag=${tagList.tagCode})}">
+          <img th:src="@{${tagList.iconImg}}" alt="키워드이미지"/>
+          <div th:text="${tagList.tagName}"></div>
+        </a>
       </div>
     </div>
   </div>

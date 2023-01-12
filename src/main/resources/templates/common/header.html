@@ -7,7 +7,9 @@
 </head>
 <body>
     <div th:fragment="header" class="header">
-        <img th:src="@{/image/logo.png}" alt = "로고"/>
+        <a th:href="@{/}">
+            <img th:src="@{/image/logo.png}" alt = "로고"/>
+        </a>
         <ul class = "nav">
             <li><a href="#"> 여행 플래너</a></li>
             <li><a th:href="@{/recommend/travelRecommend}"> 여행지 추천</a></li>

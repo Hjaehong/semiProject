@@ -23,6 +23,7 @@ public class PlaceDTO {
      private int contentType;
      private String tagCode;
      private String contentDetail;
-     CityDTO cityDTO;
+     private CityDTO cityDTO;
+     private TagDTO tagDTO;
 
 }

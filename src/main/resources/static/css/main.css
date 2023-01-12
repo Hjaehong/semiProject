@@ -1,0 +1,80 @@
+#top-button{
+    position: fixed;
+    bottom: 50px;
+    right: 150px;
+    text-decoration: none;
+    /* background-color: skyblue; */
+    background: rgb(59, 59, 139);
+    /* border: 1px solid black; */
+    color: white;
+    padding: 5px;
+    border-radius: 15%;
+    font-size: 12px;
+}
+
+#top-button img{
+    width: 20px;
+    height: 20px;
+}
+
+.main-img img{
+    width: 100%;
+    height: 500px;
+}
+
+.hot{
+    text-align: center;
+}
+
+.recommend{
+    /* display: flex; */
+    border: 1px solid green;
+    margin: 2rem 18rem;
+}
+
+.top-3{
+    justify-content: center;
+    border: 2px solid black;
+    display: flex;
+}
+
+.recommend-one{
+    border: 1px solid red;
+    margin: 0 2rem;
+}
+
+.recommend-one img{
+    width: 200px;
+    height: 200px;
+}
+
+h3{
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+
+
+
+/* 키워드로 여행지 찾기 */
+.keyword{
+    border: 1px solid blue;
+    margin: 2rem 18rem;
+    text-align: center;
+}
+
+.choice-keyword{
+    justify-content: center;
+    border: 2px solid black;
+    display: flex;
+}
+
+.keyword-one{
+    border: 1px solid pink;
+    margin: 0 0.5rem;
+}
+
+.keyword-one img{
+    width: 50px;
+    height: 50px;
+}

@@ -65,6 +65,7 @@ h2{
 pre{
     margin-top: 12px;
     white-space: pre-wrap;
+    font-size: 14px;
 }
 
 .tag {
@@ -95,17 +96,23 @@ textarea{
     height: 100px;
 }
 
-button{
+.button{
+    display: flex;
+}
+
+.button button{
     border: none;
     background: #656565;
-    width: 50px;
-    height: 33px;
-    border-radius: 10px;
+    /*width: 50px;*/
+    /*height: 33px;*/
+    border-radius: 5%;
     color: #fff;
     display: block;
     margin-left: auto;
     margin-top: 10px;
     transform: translateX(8px);
+    padding: 0.5rem;
+    margin-right: 1rem;
 }
 
 .heart{

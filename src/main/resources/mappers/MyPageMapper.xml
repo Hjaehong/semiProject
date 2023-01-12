@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.team.semiTravelRecommend.model.dao.MyPageMapper"><!-- 메퍼위치하고  동일하게 네임스페이스 작성-->
+
+    <resultMap id="userInfoResultMap" type="com.team.semiTravelRecommend.model.dto.record.UserTagDTO">
+        <association property="userDTO" column="USER_NO" resultMap="userResultMap"/>
+        <association property="tagDTO" column="RECORD_TAG" resultMap="tagResultMap"/>
+    </resultMap>
+
+    <resultMap id="recordResultMap" type="com.team.semiTravelRecommend.model.dto.record.RecordDTO">
+        <id property="recordNo" column="RECORD_NO"/>
+        <result property="rcTitle" column="RC_TITLE"/>
+        <result property="rcDetail" column="RECORD_DETAIL"/>
+        <result property="travelStartDate" column="TRAVEL_START_DATE"/>
+        <result property="travelEndDate" column="TRAVEL_END_DATE"/>
+        <association property="cityDTO" column="CITY_CODE" resultMap="cityResultMap"/>
+        <association property="userDTO" column="USER_NO" resultMap="userResultMap"/>
+        <association property="tagDTO" column="RECORD_TAG" resultMap="tagResultMap"/>
+        <association property="fileDTO" column="IMG_FILE_NO" resultMap="fileResultMap"/>
+    </resultMap>
+
+    <resultMap id="cityResultMap" type="com.team.semiTravelRecommend.model.dto.record.CityDTO">
+        <id property="cityCode" column="CITY_CODE"/>
+        <result property="cityName" column="CITY_NAME"/>
+        <result property="badgeImg" column="BADGE_IMG"/>
+        <association property="locationDTO" column="LOC_CODE" resultMap="locationResultMap"/>
+    </resultMap>
+
+    <resultMap id="locationResultMap" type="com.team.semiTravelRecommend.model.dto.record.LocationDTO" >
+        <id property="locCode" column="LOC_CODE"/>
+        <result property="locName" column="LOC_NAME"/>
+    </resultMap>
+
+    <resultMap id="userResultMap" type="com.team.semiTravelRecommend.model.dto.record.UserDTO">
+        <id property="userNo" column="USER_NO"/>
+        <result property="userId" column="USER_ID"/>
+        <result property="userPwd" column="USER_PWD"/>
+        <result property="userName" column="USER_NAME"/>
+        <result property="Email" column="EMAIL"/>
+        <result property="nickname" column="NICKNAME"/>
+        <result property="status" column="STATUS"/>
+        <result property="intro" column="INTRO"/>
+    </resultMap>
+
+    <resultMap id="tagResultMap" type="com.team.semiTravelRecommend.model.dto.record.TagDTO">
+        <id property="tagCode" column="TAG_CODE"/>
+        <result property="tagName" column="TAG_NAME"/>
+    </resultMap>
+
+    <resultMap id="fileResultMap" type="com.team.semiTravelRecommend.model.dto.record.FileDTO">
+        <id property="fileNo" column="FILE_NO"/>
+        <result property="fileSize" column="FILE_SIZE"/>
+        <result property="originName" column="ORIGINNAME"/>
+        <result property="changeName" column="CHANGENAME"/>
+        <result property="imgPath" column="OH_PATH"/>
+    </resultMap>
+
+    <select id="readUserInfo" resultMap="userInfoResultMap">
+        SELECT
+            B.* ,
+            A.TAG_CODE ,
+            A.TAG_NAME
+        FROM (
+                 SELECT
+                     A.USER_NO,
+                     LISTAGG(C.TAG_CODE ,',') WITHIN GROUP (ORDER BY A.USER_NO) TAG_CODE,
+			         LISTAGG(C.TAG_NAME,',') WITHIN GROUP (ORDER BY A.USER_NO) TAG_NAME
+                 FROM OH_USER A
+                 JOIN USERTAG B ON A.USER_NO = B.USER_NO
+                 JOIN TAG C ON B.TAG_CODE = C.TAG_CODE
+                 GROUP BY A.USER_NO
+             ) A
+                 JOIN OH_USER B ON A.USER_NO = B.USER_NO
+        WHERE B.USER_NO = #{loginUserNo}
+    </select>
+
+    <select id="readMyBadge" resultMap="cityResultMap">
+        SELECT
+            D.LOC_NAME ,
+            C.CITY_NAME ,
+            C.BADGE_IMG
+        FROM OH_USER A
+        JOIN OH_RECORD B ON A.USER_NO = B.USER_NO
+        JOIN CITY C ON B.CITY_CODE = C.CITY_CODE
+        JOIN LOCATION D ON C.LOC_CODE = D.LOC_CODE
+        WHERE A.USER_NO = #{loginUserNo}
+    </select>
+
+    <select id="readMyRecord" resultMap="recordResultMap">
+        SELECT
+            B.RECORD_NO ,
+            B.RC_TITLE ,
+            B.TRAVEL_START_DATE ,
+            B.TRAVEL_END_DATE ,
+            D.LOC_NAME ,
+            C.CITY_NAME
+        FROM OH_USER A
+                 JOIN OH_RECORD B ON A.USER_NO = B.USER_NO
+                 JOIN CITY C ON B.CITY_CODE = C.CITY_CODE
+                 JOIN LOCATION D ON C.LOC_CODE = D.LOC_CODE
+        WHERE A.USER_NO = #{loginUserNo}
+    </select>
+
+
+</mapper>

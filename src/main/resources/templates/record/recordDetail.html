@@ -53,8 +53,8 @@
             <th:block th:if ="${heartCheck == 0}">
                 <img th:id="btn_heart" th:src="@{/image/heart_before.png}" alt="빈하트이미지" onclick="changeHeart()"/>
             </th:block>
-            <th:block th:unless ="${heartCheck == 0}">
-                <img th:id="btn_heart" th:src="@{/image/heart_after.png}" alt="꽉찬하트이미지" onclick="changeHeart()"/>
+            <th:block th:if ="${heartCheck == 1}">
+                <img th:id="btn_heart" th:src="@{/image/heart_after.png}" alt="꽉찬하트이미지"/>
             </th:block>
 <!--            <th:block th:if ="${heartCheck == 2}">-->
 <!--                <img th:id="btn_heart" th:src="@{/image/heart_after.png}" alt="꽉찬하트이미지"/>-->
@@ -80,9 +80,9 @@
             <!--            사이즈 조정하기~-->
             <div class="profile">
                 <div class="profile-img">
+<!--                    <img src="/image/profile.png" alt="프로필이미지"/>-->
                 </div>
-                <span class="writer"> 작성자 :</span>
-                <span></span>
+                <span class="writer"> 작성자 </span>
             </div>
             <div>
                 <input type="hidden" id="userId" name="writer" th:value="${RecordOne.userDTO.userNo}"><!-- 나중에 섹션의 유저아이디로 받아와야함 -->
@@ -112,8 +112,6 @@
         // let heartCheck = [[${heartCheck}]];
 
         function changeHeart(){
-            console.log("하트클릭실행");
-
             $.ajax({
                 type:"POST",
                 url:"/record/clickHeart",
@@ -132,66 +130,4 @@
         }
         /*]]>*/
     </script>
-<script th:inline="javascript">
-
-
-    $(function (){
-        commentList(); // selectReplyList
-        // 댓글 등록 버튼 클릭시
-        $("#commentSubmit").click(function (){
-
-            const userId = document.getElementById('userId').value;
-            let recordNo = document.getElementById('recordNo').value;
-            // 댓글을 작성하지 않고 버튼 클릭시 작성 안되게
-            if($("#commentContain").val().trim().length != 0){
-
-                $.ajax({
-                    url : "/record/insertComment" ,
-                    type : "post" ,
-                    data:{comContain:$("#commentContain").val() ,
-                          recordNo: recordNo ,
-                          userNo: userId},
-                    success:function (result){
-                        console.log(result);
-                        if(result > 0){
-                            $("#commentContain").val("");
-                            commentList();
-                        }else{
-                            alert("댓글을 등록할 수 없습니다.");
-                        }
-                    },error:function (){
-                        console.log("ajax 실패");
-                    }
-                });
-            }else{
-                alert("댓글을 작성하고 눌러주세요");
-            }
-        });
-    });
-
-    function commentList(){
-        let recordNo = document.getElementById('recordNo').value;
-        $.ajax({
-            url:"/record/listComment" ,
-            data:{'recordNo':recordNo} ,
-            type:"post",
-            dataType: "json",
-            success:function (list){
-                $("#comCount").text(list.length);// 총 댓글수
-
-                let value="";
-                $.each(list, function (i, obj){
-
-                    value += "<span>" + "작성자: "+ obj.userNo + "</span>"
-                            + "<span>" +" | " + obj.comContain + "</span>" + "</br>";
-                console.log(value);
-                });
-                $("#commentListView").html(value);
-            },error:function (){
-                console.log("댓글 리스트 ajax 실패");
-            }
-        });
-
-    }
-</script>
 </html>

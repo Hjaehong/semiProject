@@ -14,55 +14,55 @@
     <form action="/record/travelRecordWrite" method="post" enctype="multipart/form-data">
       <div class="title">
         <label for="title-name"> 제목 </label>
-        <input type="text" id="title-name" name="rcTitle">
+        <input type="text" id="title-name" name="rcTitle" required>
       </div>
 
       <div class="local">
         <label> 여행지 </label>
-        <select id="location" name="locCode" onchange="readCity(this.value)">
+        <select required="required" id="location" name="locCode" onchange="readCity(this.value)">
           <option th:each="location : ${ Location }"
                   th:value="${ location.locCode}"
                   th:text="${location.locName}">
           </option>
-          <option selected>--- 지역선택 ---</option>
+          <option value="" disabled selected>--- 지역선택 ---</option>
           <!-- selected : 초기에 선택되어있는 값 -->
         </select>
 
-        <select id="city-code" name="cityCode">
+        <select id="city-code" name="cityCode" required>
           <option th:each="city : ${ City }"
                   th:value="${city.cityCode}"
                   th:text="${city.cityName}">
           </option>
-          <option selected>--- 도시선택 ---</option>
+          <option value="" disabled selected>--- 도시선택 ---</option>
         </select>
       </div>
 
       <div class="date">
         <label for = "dateIn"> 여행 날짜 (시작일 - 종료일) </label>
         <span>
-          시작일 : <input type = "date" name="travelStartDate" id="dateIn">
-          종료일 : <input type = "date" name="travelEndDate">
+          시작일 : <input type = "date" name="travelStartDate" id="dateIn"required>
+          종료일 : <input type = "date" name="travelEndDate" id="dateOut" required>
         </span>
       </div>
 
       <div class="tag">
         <label> 태그 </label>
-        <select name="recordTag">
+        <select required="required" name="recordTag">
           <option th:each="tag : ${ Tag }"
                   th:value="${ tag.tagCode}"
                   th:text="${tag.tagName}">
           </option>
-          <option selected>--- 태그선택 ---</option>
+          <option value="" disabled selected>--- 태그선택 ---</option>
         </select>
       </div>
 
       <div class="content">
         <label> 내용 </label>
-        <textarea name="rcDetail"></textarea>
+        <textarea name="rcDetail" required></textarea>
       </div>
 
       <div class="imgFile">
-        <input type="file" name="file" class="imgFile"/>
+        <input type="file" name="file" class="imgFile" required/>
       </div>
 
       <button type="submit"> 작성하기 </button>
@@ -71,6 +71,28 @@
 <!--  <script type="text/javascript" th:src="@{/js/travelRecordWirte.js}"></script>-->
 </body>
     <script th:inline="javascript">
+    <!-- 날짜 관련 예외처리 함수 -->
+      let startDay = document.getElementById("dateIn");
+      let endDay = document.getElementById("dateOut");
+
+      let now_utc = Date.now();
+      let timeOff = new Date().getTimezoneOffset()*60000;
+      let today = new Date(now_utc - timeOff).toISOString().split("T")[0];
+
+      startDay.setAttribute("max", today);
+      endDay.setAttribute("max", today);
+
+      startDay.addEventListener('change', function(){
+        if(startDay.value)
+          endDay.min = startDay.value;
+      }, false);
+
+      endDay.addEventListener('change', function (){
+        if(endDay.value)
+          startDay.max = endDay.value;
+      })
+
+        //
         function readCity(locCode) {
             // console.log(locCode);
 
@@ -92,7 +114,7 @@
                         city.options[i] = new Option(cityDTO[i].cityName, cityDTO[i].cityCode);
                     }
 
-                    city.innerHTML += '<option selected>--- 도시선택 ---</option>';
+                    city.innerHTML += '<option value="" disabled selected>--- 도시선택 ---</option>';
 
                 }, error: function (e) {
                     alert("발생한 에러 확인" + e);

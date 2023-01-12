@@ -1,5 +1,5 @@
 .record {
-    margin: 5rem 8rem 0 8rem;
+    margin: 5rem 4rem 0 4rem;
 }
 
 ul {
@@ -69,4 +69,47 @@ h2 {
     font-size: 12px;
     border-radius: 6px;
     text-align: center;
+}
+
+#move-write-page{
+    position: fixed;
+    bottom: 100px;
+    right: 200px;
+    text-decoration: none;
+    background: rgb(59, 59, 139);
+    color: white;
+    padding: 5px;
+    border-radius: 15%;
+    font-size: 10px;
+}
+
+
+
+/* 페이징 버튼 css */
+/*.paging-area{*/
+/*    margin: 5rem 4rem;*/
+/*    border: 1px solid red;*/
+/*}*/
+
+/*.paging{*/
+/*    !*margin: 5rem 4rem;*!*/
+/*    justify-content: center;*/
+/*    list-style: none;*/
+/*    border: 1px solid green;*/
+/*}*/
+
+.paging li{
+    margin-right: 0.5rem;
+    list-style: none;
+    float: left;
+}
+
+.paging button{
+    background-color: white;
+    color: gray;
+}
+
+.paging button:disabled{
+    background-color: gray;
+    color: black;
 }

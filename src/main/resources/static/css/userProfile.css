@@ -1,0 +1,81 @@
+.left-area {
+    display: inline-block;
+    border: 1px solid blue;
+    margin: 0 4rem 0 0;
+}
+
+h2{
+    margin: 1rem 0 0.3rem 0;
+}
+
+.userId{
+    margin-bottom: 1.5rem;
+    color: gray;
+}
+
+.userTag span{
+    padding: 0.1rem;
+    margin: 0.2rem 0.2rem 0.2rem 0;
+    background: rgb(59, 59, 139);
+    color: white;
+    font-size: 0.8rem;
+    border-radius: 10%;
+    text-align: center;
+}
+
+.intro{
+    margin: 0;
+    font-size: 14px;
+    /* white-space: pre-wrap; */
+}
+
+.intro pre{
+    white-space: pre-line;
+}
+
+.profile {
+    border: 1px solid pink;
+    margin-bottom: 4rem;
+}
+
+.menu{
+    border: 1px solid yellow;
+}
+
+.my-menu{
+    background: rgb(59, 59, 139);
+    padding: 12px;
+    text-align: center;
+    color: white;
+}
+
+.travleMenu{
+    margin-top: 2rem;
+    margin-left: 1rem;
+}
+
+.myInfoMenu{
+    margin-top: 2rem;
+    margin-left: 1rem;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+}
+
+li {
+    padding-left: 12px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    margin: 0.5rem 0;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+a:hover li{
+    color: white;
+    background-color: rgb(59, 59, 139);
+}

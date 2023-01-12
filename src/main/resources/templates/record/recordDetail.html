@@ -61,7 +61,7 @@
             <th:block th:if ="${heartCheck == 2}">
 <!--                <img th:id="btn_heart" th:src="@{/image/heart_before.png}" alt="빈하트이미지" onclick="changeHeart()"/>-->
             </th:block>
-            <th:block th:if ="${heartCheck == 3}">
+            <th:block th:if="${session.loginUser.getUserNo() == null}">
                 <img th:id="btn_heart" th:src="@{/image/heart_before.png}" alt="빈하트이미지" onclick="changeHeart()"/>
                 <span>게시글 저장하기</span>
             </th:block>
@@ -93,16 +93,18 @@
             <button>등록</button>
         </form>
 
-        <div class="button">
+        <div class="edit-delete">
 <!-- 내가 쓴 기록만 수정 삭제가 가능해야함 -> if문 조건걸어서 안보이게 처리해주기 -->
-            <form class="edit" action="/record/editRecord" method="post" enctype="multipart/form-data">
-                <input type="hidden" th:name="recordNo" th:value="${RecordOne.recordNo}"/>
-                <button type="submit"> 수정 </button>
-            </form>
-            <form class="delete" action="/record/deleteRecord" method="post">
-                <input type="hidden" th:name="recordNo" th:value="${RecordOne.recordNo}"/>
-                <button type="submit"> 삭제 </button>
-            </form>
+            <th:block th:if ="${samePerson == 0}">
+                <form class="edit" action="/record/editRecord" method="post" enctype="multipart/form-data">
+                    <input type="hidden" th:name="recordNo" th:value="${RecordOne.recordNo}"/>
+                    <button type="submit"> 수정 </button>
+                </form>
+                <form class="delete" action="/record/deleteRecord" method="post">
+                    <input type="hidden" th:name="recordNo" th:value="${RecordOne.recordNo}"/>
+                    <button type="submit"> 삭제 </button>
+                </form>
+            </th:block>
         </div>
     </div>
 </body>
@@ -115,15 +117,12 @@
         console.log(heartCheck);
 
         function changeHeart(){
-            if(heartCheck == 3){
-                alert("로그인 후 이용해주세요!");
-            }
-            else {
+            if(heartCheck == 0 || heartCheck == 1){
                 $.ajax({
                     type:"POST",
                     url:"/record/clickHeart",
                     data: { 'recordNo' : recordNo,
-                            'userNo' : userNo},
+                        'userNo' : userNo},
                     dataType: "json",
                     success: function(result){
                         if (result == 1) {
@@ -134,6 +133,9 @@
                         }
                     }
                 });
+            }
+            else {
+                alert("로그인 후 이용해주세요!");
             }
         }
         /*]]>*/

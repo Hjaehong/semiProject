@@ -84,12 +84,12 @@ public class RecordController {
 
         RecordDTO record = recordService.recordOne(recordNo);
 
-        /* 좋아요 기능 구현을 위한 코드 */
         // 게시글을 작성한 유저의 No
         int writerNo = record.getUserDTO().getUserNo();
-        // 로그인한 유저의 No
+        // 로그인한 유저의 No (로그인 안되어있는 경우는 프론트에서 처리)
         int userNo = loginMember.getUserNo().intValue();
 
+        /* 좋아요 기능 구현을 위한 코드 */
         // 로그인한 유저가 해당 게시물에 좋아요를 눌렀는지 확인
         int heartCheck = recordService.heartCheck(recordNo, userNo);
 
@@ -102,10 +102,8 @@ public class RecordController {
         }
         else { // 작성자와 로그인한 유저가 같은 경우
             mv.addObject("heartCheck", 2);
-        }
-
-        if (userNo == 0){ // 로그인이 안되어있으면
-            mv.addObject("heartCheck", 3);
+            /* 수정, 삭제를 위한 코드 */
+            mv.addObject("samePerson", 0);
         }
 
         mv.addObject("userNo", userNo);

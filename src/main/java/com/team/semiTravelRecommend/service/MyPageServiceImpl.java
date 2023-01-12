@@ -33,4 +33,7 @@ public class MyPageServiceImpl implements MyPageService{
     @Override
     public List<RecordDTO> readMyRecord(int loginUserNo) { return myPageMapper.readMyRecord(loginUserNo); }
 
+    @Override
+    public List<RecordDTO> readMyHeart(int loginUserNo) { return myPageMapper.readMyHeart(loginUserNo); }
+
 }

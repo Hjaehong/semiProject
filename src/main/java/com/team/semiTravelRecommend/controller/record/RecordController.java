@@ -1,8 +1,6 @@
 package com.team.semiTravelRecommend.controller.record;
 
-import com.team.semiTravelRecommend.model.dto.SessionConst;
-import com.team.semiTravelRecommend.model.dto.comment.CommentDTO;
-import com.team.semiTravelRecommend.model.dto.record.*;
+import com.team.semiTravelRecommend.model.dto.*;
 import com.team.semiTravelRecommend.model.dto.response.LoginUserResponse;
 import com.team.semiTravelRecommend.paging.Pagenation;
 import com.team.semiTravelRecommend.paging.SelectCriteria;
@@ -303,5 +301,11 @@ public class RecordController {
         return commentService.showComment(recordNo);
     }
 
+    //댓글 수정
+    @ResponseBody
+    @RequestMapping(value = "updateComment")
+    public String updateComment(){
+        return null;
+    }
 
 }

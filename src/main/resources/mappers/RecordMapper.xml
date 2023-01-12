@@ -5,7 +5,7 @@
 
 <mapper namespace="com.team.semiTravelRecommend.model.dao.RecordMapper"><!-- 메퍼위치하고  동일하게 네임스페이스 작성-->
 
-    <resultMap id="recordResultMap" type="com.team.semiTravelRecommend.model.dto.record.RecordDTO">
+    <resultMap id="recordResultMap" type="com.team.semiTravelRecommend.model.dto.RecordDTO">
         <id property="recordNo" column="RECORD_NO"/>
         <result property="rcTitle" column="RC_TITLE"/>
         <result property="rcDetail" column="RECORD_DETAIL"/>
@@ -17,19 +17,19 @@
         <association property="fileDTO" column="IMG_FILE_NO" resultMap="fileResultMap"/>
     </resultMap>
 
-    <resultMap id="cityResultMap" type="com.team.semiTravelRecommend.model.dto.record.CityDTO">
+    <resultMap id="cityResultMap" type="com.team.semiTravelRecommend.model.dto.CityDTO">
         <id property="cityCode" column="CITY_CODE"/>
         <result property="cityName" column="CITY_NAME"/>
         <result property="badgeImg" column="BADGE_IMG"/>
         <association property="locationDTO" column="LOC_CODE" resultMap="locationResultMap"/>
     </resultMap>
 
-    <resultMap id="locationResultMap" type="com.team.semiTravelRecommend.model.dto.record.LocationDTO" >
+    <resultMap id="locationResultMap" type="com.team.semiTravelRecommend.model.dto.LocationDTO" >
         <id property="locCode" column="LOC_CODE"/>
         <result property="locName" column="LOC_NAME"/>
     </resultMap>
 
-    <resultMap id="userResultMap" type="com.team.semiTravelRecommend.model.dto.record.UserDTO">
+    <resultMap id="userResultMap" type="com.team.semiTravelRecommend.model.dto.UserDTO">
         <id property="userNo" column="USER_NO"/>
         <result property="userId" column="USER_ID"/>
         <result property="userPwd" column="USER_PWD"/>
@@ -40,12 +40,12 @@
         <result property="intro" column="INTRO"/>
     </resultMap>
 
-    <resultMap id="tagResultMap" type="com.team.semiTravelRecommend.model.dto.record.TagDTO">
+    <resultMap id="tagResultMap" type="com.team.semiTravelRecommend.model.dto.TagDTO">
         <id property="tagCode" column="TAG_CODE"/>
         <result property="tagName" column="TAG_NAME"/>
     </resultMap>
 
-    <resultMap id="fileResultMap" type="com.team.semiTravelRecommend.model.dto.record.FileDTO">
+    <resultMap id="fileResultMap" type="com.team.semiTravelRecommend.model.dto.FileDTO">
         <id property="fileNo" column="FILE_NO"/>
         <result property="fileSize" column="FILE_SIZE"/>
         <result property="originName" column="ORIGINNAME"/>

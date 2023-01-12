@@ -1,4 +1,4 @@
-package com.team.semiTravelRecommend.model.dto.recommend;
+package com.team.semiTravelRecommend.model.dto;
 
 import lombok.Data;
 
@@ -15,6 +15,7 @@ import lombok.Data;
  @Data
 public class PlaceDTO {
 
+      private int rowNum;
      private int placeId;
      private String placeName;
      private String address;

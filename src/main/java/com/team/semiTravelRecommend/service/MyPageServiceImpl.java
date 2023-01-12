@@ -1,9 +1,10 @@
 package com.team.semiTravelRecommend.service;
 
 import com.team.semiTravelRecommend.model.dao.MyPageMapper;
-import com.team.semiTravelRecommend.model.dto.record.CityDTO;
-import com.team.semiTravelRecommend.model.dto.record.RecordDTO;
-import com.team.semiTravelRecommend.model.dto.record.UserTagDTO;
+import com.team.semiTravelRecommend.model.dto.BookmarkDTO;
+import com.team.semiTravelRecommend.model.dto.CityDTO;
+import com.team.semiTravelRecommend.model.dto.RecordDTO;
+import com.team.semiTravelRecommend.model.dto.UserTagDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,5 +36,10 @@ public class MyPageServiceImpl implements MyPageService{
 
     @Override
     public List<RecordDTO> readMyHeart(int loginUserNo) { return myPageMapper.readMyHeart(loginUserNo); }
+
+    @Override
+    public List<BookmarkDTO> readMyBookmark(int loginUserNo) {
+        return myPageMapper.readMyBookMark(loginUserNo);
+    }
 
 }

@@ -77,10 +77,11 @@
                             <!-- 댓글 리스트 -->
                         </tr>
                         <!-- 작성자와 같을 경우 수정 삭제 -->
-<!--                        <tr class="updateBox">-->
-<!--                            <textarea name="boxUpdate"></textarea>-->
-<!--                            <button>확인</button>-->
-<!--                        </tr>-->
+                        <tr class="updateBox">
+                            <textarea name="boxUpdate" id="boxUpdate"></textarea>
+                            <input type="hidden" name="commentId" th:value="${}"
+                            <button id="updateOk">확인</button>
+                        </tr>
                     </table>
                 </form>
             </div>
@@ -201,7 +202,7 @@
                         value += "<tr>"
                             + "<th>"
                             + nickname
-                            + "<a href='#' onclick='updateComment()'>수정</a>"
+                            + "<a href='#' class='btnUpadate' onclick='updateComment()'>수정</a>"
                             + "<a></a>"
                             + "</th>";
                     } else {
@@ -218,5 +219,24 @@
             }
         });
     }
+
+    function updateComment() {
+
+        const updateForm = document.getElementById('boxUpdate').value;
+
+        $.ajax({
+            url : "/record/updateComment" ,
+            type : "post" ,
+            data : {comContain: $("#boxUpdate").val(),
+                    },
+            success:function (){
+                console.log('update ajax 성공')
+            },
+            error:function (){
+                console.log('update ajax 오류')
+            }
+        })
+    }
+
 </script>
 </html>

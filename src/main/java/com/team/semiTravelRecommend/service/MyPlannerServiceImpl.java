@@ -16,12 +16,40 @@ public class MyPlannerServiceImpl implements MyPlannerService{
     }
 
     @Override
-    public List<PlannerDTO> findPlannerTitle() {
-        return myPlannerMapper.findPlannerTitle();
+    public List<PlannerDTO> findPlannerTitle(int userNo) {
+        return myPlannerMapper.findPlannerTitle(userNo);
     }
 
     @Override
-    public List<PlannerDTO> findPlannerNo() { return myPlannerMapper.findPlannerNo(); }
+    public PlannerDTO findPlannerNo(int planNo) { return myPlannerMapper.findPlannerNo(planNo); }
+
+    @Override
+    public int deletePlanner(int planNo) { return myPlannerMapper.deletePlanner(planNo); }
+
+    @Override
+    public int showUpdatePlanner(int planNo) { return myPlannerMapper.showUpdatePlanner(planNo); }
+
+/*    @Override
+    public int updatePlanner(PlannerDTO planner) {
+        int result = myPlannerMapper.updatePlanner(planner);
+
+        return result;
+    }*/
+
+    public int updatePlanner(int planNo) { return myPlannerMapper.updatePlanner(planNo); }
+
+    @Override
+    public void updatePlanner(PlannerDTO plannerDTO) {
+        myPlannerMapper.updatePlanner(plannerDTO);
+    }
+
+
+
+
+
+
+
+
 
 
     /*@Override

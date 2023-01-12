@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface MyPlannerService {
 
+
     //String findPlannerByCode();
 
     //List<PlannerDTO> findPlannerByCode(int code);
@@ -14,7 +15,15 @@ public interface MyPlannerService {
 
 /*    List<PlannerDTO> findPlannerTitle(int userCode);*/
 
-    List<PlannerDTO> findPlannerTitle();
+    List<PlannerDTO> findPlannerTitle(int userNo);
 
-    List<PlannerDTO> findPlannerNo();
+    PlannerDTO findPlannerNo(int planNo);
+
+    int deletePlanner(int planNo);
+
+    int showUpdatePlanner(int planNo);
+
+    int updatePlanner(int planNo);
+
+    void updatePlanner(PlannerDTO plannerDTO);
 }

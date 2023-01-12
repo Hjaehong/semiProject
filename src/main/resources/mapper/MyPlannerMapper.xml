@@ -17,19 +17,57 @@
         <result property="plDetail" column="PL_DETAIL"/>
     </resultMap>
 
-    <select id="findPlannerTitle" resultMap="plannerResultMap">
+    <select id="findPlannerTitle" parameterType="_int" resultMap="plannerResultMap">
         SELECT
-            *
+               PLAN_NO,
+               TRAVEL_PLACE,
+               START_DUE_DATE
           FROM PLANNER
-
+         WHERE USER_NO = #{userNo}
     </select>
 
-    <select id="findPlannerNo" resultMap="plannerResultMap">
+    <select id="findPlannerNo" parameterType="_int" resultMap="plannerResultMap">
         SELECT
-            *
+               PLAN_NO,
+               TRAVEL_PLACE,
+               START_DUE_DATE,
+               END_DUE_DATE,
+               LODGING_INFO,
+               TRANSPORTATION,
+               CHECKLIST,
+               PL_DETAIL
           FROM PLANNER
+         WHERE PLAN_NO = #{planNo}
     </select>
+    
+    <delete id="deletePlanner" parameterType="_int">
+        DELETE FROM PLANNER
+         WHERE PLAN_NO = #{planNo}
+    </delete>
 
+<!--    <update id="showUpdatePlanner" parameterType="_int">-->
+<!--        UPDATE PLANNER-->
+<!--           SET TRAVEL_PLACE = #{travelPlace},-->
+<!--               START_DUE_DATE = #{startDueDate},-->
+<!--               END_DUE_DATE = #{endDueDate},-->
+<!--               LODGING_INFO = #{lodgingInfo},-->
+<!--               TRANSPORTATION = #{transportation},-->
+<!--               CHECKLIST = #{checklist},-->
+<!--               PL_DETAIL = #{plDetail}-->
+<!--         WHERE PLAN_NO = #{planNo}-->
+<!--    </update>-->
+
+    <update id="updatePlanner" parameterType="com.team.semiTravelRecommend.model.dto.PlannerDTO">
+        UPDATE PLANNER
+           SET TRAVEL_PLACE = #{travelPlace},
+               START_DUE_DATE = #{startDueDate},
+               END_DUE_DATE = #{endDueDate},
+               LODGING_INFO = #{lodgingInfo},
+               TRANSPORTATION = #{transportation},
+               CHECKLIST = #{checklist},
+               PL_DETAIL = #{plDetail}
+         WHERE PLAN_NO = #{planNo}
+    </update>
 <!--    <select id="findPlannerTitle" parameterType="_int" resultMap="plannerResultMap">
         SELECT
             A.TRAVEL_PLACE

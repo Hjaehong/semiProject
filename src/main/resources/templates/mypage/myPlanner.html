@@ -15,13 +15,13 @@
     <th>여행일</th>
 </tr>
 </table>
-    <ul>
+    <div >
         <li th:each="planner : ${ plannerList }">
-            <a th:href="@{/mypage/myPlanner/myPlannerDetail}">[[${planner.travelPlace}]]</a>
-
+            <a th:href="@{/mypage/myPlannerDetail(planNo=${planner.planNo})}">[[${planner.travelPlace}]]</a>
+            <span th:text="${planner.startDueDate}"></span>
         </li>
+    </div>
 
-    </ul>
 <!--<tr th:each="planner : ${ plannerList }">
 
     <td th:text="${ planner.travelPlace }">

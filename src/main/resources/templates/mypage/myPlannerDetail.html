@@ -15,8 +15,8 @@
 <br><br>
 
 
-
-    <table border="1px" th:each="planner : ${ plannerList }">
+<div>
+    <table border="1px" >
         <tr>
             <td>여행지</td>
             <td class="placeContent" th:text="${ planner.travelPlace }"></td>
@@ -34,13 +34,13 @@
         </tr>
         <tr>
             <td>숙소정보</td>
-            <td class="lodgingContent" th:text="${ lodgingInfo }">
+            <td class="lodgingContent" th:text="${ planner.lodgingInfo }">
 
             </td>
         </tr>
         <tr>
             <td>이동수단</td>
-            <td class="transportationContent" th:text="${ transportation }">
+            <td class="transportationContent" th:text="${ planner.transportation }">
 
             </td>
         </tr>
@@ -52,20 +52,20 @@
             <td class="detail">세부일정</td>
         </tr>
         <tr>
-            <td th:text="${ checklist }">
+            <td th:text="${ planner.checklist }">
 
             </td>
-            <td th:text="${ plDetail }">
+            <td th:text="${ planner.plDetail }">
 
             </td>
         </tr>
     </table>
+</div>
     <br>
 
-    <button onclick="location.href='/mypage/myPlanner/update'">수정하기</button>
-    <button onclick="location.href='/mypage/myPlanner'">삭제하기</button>
-
-
+    <!--<button th:onclick="|location.href='@{/mypage/myPlanner/update(planNo=${planner.planNo})}'|">수정하기</button>-->
+    <button th:onclick="|location.href='@{/mypage/myPlanner/showUpdate(planNo=${planner.planNo})}'|">수정하기</button>
+    <button th:onclick="|location.href='@{/mypage/myPlanner/delete(planNo=${planner.planNo})}'|">삭제하기</button>
 
 
 </body>

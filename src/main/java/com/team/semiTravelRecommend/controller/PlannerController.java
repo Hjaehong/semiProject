@@ -12,7 +12,7 @@ import java.util.List;
 
 
 @Controller
-@RequestMapping("/planner")
+@RequestMapping("/planner") //나중에 main으로 바꿔야할듯
 public class PlannerController {
 
     private final PlannerService plannerService;
@@ -41,25 +41,16 @@ public class PlannerController {
     }
 
     @GetMapping("/list")
-    public ModelAndView findPlannerList(ModelAndView mv) {
+    public ModelAndView findAllPlanner(ModelAndView mv) {
 
         List<PlannerDTO> plannerList = plannerService.findAllPlanner();
         plannerList.stream().forEach((planner -> System.out.println("planer = " + planner)));
 
-        mv.addObject("plannerList", plannerList);
+        mv.addObject("findAllPlanner", plannerList);
         mv.setViewName("planner/list");
 
         return mv;
 
     }
-
-
-/*@GetMapping("list")
-    public ModelAndView deletePlanner(ModelAndView mv) {
-
-        return mv;
-
-    }*/
-
 
 }

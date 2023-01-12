@@ -20,7 +20,7 @@
         <th>세부일정</th>
     </tr>
 
-    <tr th:each="planner : ${ plannerList }">
+    <tr th:each="planner : ${ findAllPlanner }">
         <td th:text="${ planner.planNo }"></td><!--dto의 필드명호출, getter없으면 에러남 내부에서 getter호출 -->
         <td th:text="${ planner.userNo }"></td>
         <td th:text="${ planner.travelPlace }"></td>

@@ -1,13 +1,7 @@
 package com.team.semiTravelRecommend.model.dto;
 
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
-//import oracle.sql.CLOB;
-//import java.sql.Clob;
-//import java.sql.Date;
-import java.sql.Clob;
 import java.sql.Date;
-
 
 @Data
 public class PlannerDTO {

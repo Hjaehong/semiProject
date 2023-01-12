@@ -12,5 +12,4 @@ public interface PlannerMapper {
 
     List<PlannerDTO> findAllPlanner();
 
-    int deletePlanner(PlannerDTO plannerDTO);
 }

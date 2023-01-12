@@ -8,11 +8,20 @@ import java.util.List;
 @Mapper
 public interface MyPlannerMapper {
 
+    List<PlannerDTO> findPlannerTitle(int userNo);
 
-    List<PlannerDTO> findPlannerTitle();
+    PlannerDTO findPlannerNo(int planNo);
 
-    List<PlannerDTO> findPlannerNo();
+    int deletePlanner(int planNo);
 
+    int showUpdatePlanner(int planNo);
+
+    int updatePlanner(int planNo);
+
+    void updatePlanner(PlannerDTO plannerDTO);
+
+
+    //int deletePlanner(PlannerDTO plannerDTO);
     //String findPlannerByCode();
 
 /*    List<PlannerDTO> findPlannerByCode(int code);

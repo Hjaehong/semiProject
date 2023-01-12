@@ -34,7 +34,7 @@ public class PlannerServiceImpl implements PlannerService{
         return plannerMapper.findAllPlanner();
     }
 
-    @Override
+/*    @Override
     public boolean deletePlanner(PlannerDTO plannerDTO) {
         int result = plannerMapper.deletePlanner(plannerDTO);
 
@@ -42,5 +42,5 @@ public class PlannerServiceImpl implements PlannerService{
 
         }
         return result > 0 ? true : false;
-    }
+    }*/
 }

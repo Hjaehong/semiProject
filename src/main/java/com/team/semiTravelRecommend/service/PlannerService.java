@@ -12,5 +12,5 @@ public interface PlannerService {
 
     List<PlannerDTO> findAllPlanner();
 
-    boolean deletePlanner(PlannerDTO plannerDTO);
+    //boolean deletePlanner(PlannerDTO plannerDTO);
 }

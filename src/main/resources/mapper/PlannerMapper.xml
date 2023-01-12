@@ -61,7 +61,7 @@
             (
             SEQ_PLAN_NO.NEXTVAL
                 , 9999 <!-- 임시로 유저번호 넣어서 되는지 확인-->
-                <!-- , #{ user_no } --> <!-- /**/ 별표 주석으로 하니깐 값이 나와서 오류났음 -->
+                <!-- , #{ userNo } --> <!-- /**/ 별표 주석으로 하니깐 값이 나와서 오류났음 -->
                 , #{ travelPlace }
                 , #{ startDueDate }
                 , #{ endDueDate }
@@ -70,7 +70,6 @@
                 , #{ checklist }
                 , #{ plDetail }
             )
-
     </insert>
 
     <delete id="deletePlanner">

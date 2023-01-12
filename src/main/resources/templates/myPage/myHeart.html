@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>myRecord</title>
     <link th:href="@{/css/myRecord.css}" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
   <div th:replace="common/header.html"></div>
@@ -19,18 +20,18 @@
                   <th> 번호 </th>
                   <th> 제목 </th>
                   <th> 여행지 </th>
-                  <th> 여행날짜 </th>
+                  <th> 작성자 </th>
               </tr>
               </thead>
 
               <tbody>
-              <tr th:each=" myRecord : ${MyRecord}">
-                  <td th:text="${myRecord.recordNo}"></td>
+              <tr th:each=" myHeart : ${MyHeart}">
+                  <td th:text="${myHeart.rowNum}"></td>
                   <td>
-                      <a th:text="${myRecord.rcTitle}" href="/record/recordDetail/" th:attrappend="href=${myRecord.recordNo}"/>
+                      <a th:text="${myHeart.rcTitle}" href="/record/recordDetail/" th:attrappend="href=${myHeart.recordNo}"/>
                   </td>
-                  <td th:text="${myRecord.cityDTO.locationDTO.locName} + ' ' + ${myRecord.cityDTO.cityName}"></td>
-                  <td th:text="${myRecord.travelStartDate}+ ' ~ ' + ${myRecord.travelStartDate}"></td>
+                  <td th:text="${myHeart.cityDTO.locationDTO.locName} + ' ' + ${myHeart.cityDTO.cityName}"></td>
+                  <td th:text="${myHeart.userDTO.nickname}"></td>
               </tr>
               </tbody>
           </table>

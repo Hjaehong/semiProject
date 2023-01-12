@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -35,18 +36,32 @@ public class HomeController {
     }
 
     @GetMapping("/")
-    public String homeLogin(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember, Model model, HttpServletRequest request) {
+    public ModelAndView homeLogin(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember, ModelAndView mv, HttpServletRequest request) {
         HttpSession session = request.getSession();
 
-        Object attribute = session.getAttribute(SessionConst.LOGIN_USER);
+//        Object attribute = session.getAttribute(SessionConst.LOGIN_USER);
+//
+//        //세션에 회원 데이터가 없으면 홈
+//        if (loginMember == null) {
+//            return "home";
+//        }
+//        //세션이 유지되면 로그인으로 이동
+//        model.addAttribute("loginMember", loginMember);
+//        return "loginHome";
 
-        //세션에 회원 데이터가 없으면 홈
-        if (loginMember == null) {
-            return "home";
+        if (loginMember == null) { // 로그인 정보가 없으면 0을
+            mv.addObject("loginMember", 0);
         }
-        //세션이 유지되면 로그인으로 이동
-        model.addAttribute("loginMember", loginMember);
-        return "loginHome";
+        else { // 로그인 정보가 있으면 1을
+            mv.addObject("loginMember", 1);
+        }
+
+        System.out.println(loginMember);
+
+        mv.setViewName("common/main");
+
+        return mv;
     }
+
 
 }

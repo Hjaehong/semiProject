@@ -12,6 +12,7 @@
 
     <resultMap id="recordResultMap" type="com.team.semiTravelRecommend.model.dto.record.RecordDTO">
         <id property="recordNo" column="RECORD_NO"/>
+        <result property="rowNum" column="ROWNUM"/>
         <result property="rcTitle" column="RC_TITLE"/>
         <result property="rcDetail" column="RECORD_DETAIL"/>
         <result property="travelStartDate" column="TRAVEL_START_DATE"/>
@@ -106,13 +107,14 @@
 
     <select id="readMyHeart" resultMap="recordResultMap">
         SELECT
-            ROWNUM AS RECORD_NO,
+            ROWNUM ,
             A.*
         FROM
             (
                 SELECT
                     F.USER_NO ,/* 로그인 유저 */
                     A.NICKNAME , /* 작성자닉네임 */
+                    B.RECORD_NO ,
                     B.RC_TITLE ,
                     C.TAG_NAME ,
                     D.CITY_NAME ,

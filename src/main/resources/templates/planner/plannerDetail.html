@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:replace="common/header.html"></div>
+<div class="recordWriteForm">
+  <h2> 플래너 작성하기 </h2>
+  <form action="/planner/plannerWrite" method="post" enctype="multipart/form-data">
+    <div class="title">
+      <label for="title-name"> 제목 </label>
+      <input type="text" id="title-name" name="rcTitle" required>
+    </div>
+
+    <div class="local">
+      <label> 여행지 </label>
+      <select required="required" id="location" name="locCode" onchange="readCity(this.value)">
+        <option th:each="location : ${ Location }"
+                th:value="${ location.locCode}"
+                th:text="${location.locName}">
+        </option>
+        <option value="" disabled selected>--- 지역선택 ---</option>
+        <!-- selected : 초기에 선택되어있는 값 -->
+      </select>
+
+      <select id="city-code" name="cityCode" required>
+        <option th:each="city : ${ City }"
+                th:value="${city.cityCode}"
+                th:text="${city.cityName}">
+        </option>
+        <option value="" disabled selected>--- 도시선택 ---</option>
+      </select>
+    </div>
+
+    <div class="date">
+      <label for = "dateIn"> 여행 날짜 (시작일 - 종료일) </label>
+      <span>
+          시작일 : <input type = "date" name="travelStartDate" id="dateIn"required>
+          종료일 : <input type = "date" name="travelEndDate" id="dateOut" required>
+        </span>
+    </div>
+
+    <div class="tag">
+      <label> 태그 </label>
+      <!--        <input type="text" name="recordTag" list="tagList" placeholder="-&#45;&#45; 태그선택 -&#45;&#45;" required>-->
+      <!--        <datalist id="tagList">-->
+      <!--          <option th:each="tag : ${ Tag }"-->
+      <!--                  th:value="${tag.tagCode}"-->
+      <!--                  th:text="${tag.tagName}">-->
+      <!--          </option>-->
+      <!--          <option value="" disabled selected>-&#45;&#45; 태그선택 -&#45;&#45;</option>-->
+      <!--        </datalist>-->
+      <select required="required" name="recordTag">
+        <option th:each="tag : ${ Tag }"
+                th:value="${ tag.tagCode}"
+                th:text="${tag.tagName}">
+        </option>
+        <option value="" disabled selected>--- 태그선택 ---</option>
+      </select>
+    </div>
+
+    <div class="content">
+      <label> 내용 </label>
+      <textarea name="rcDetail" required></textarea>
+    </div>
+
+    <div class="imgFile">
+      <input type="file" name="file" class="imgFile" required/>
+    </div>
+    <div>
+      <input type="hidden" name="userNo" th:value="${userNo}">
+    </div>
+    <button type="submit"> 작성하기 </button>
+  </form>
+</div>
+</body>
+</html>

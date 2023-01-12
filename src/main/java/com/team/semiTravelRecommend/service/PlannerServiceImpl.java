@@ -1,0 +1,28 @@
+package com.team.semiTravelRecommend.service;
+
+import com.team.semiTravelRecommend.model.dao.PlannerMapper;
+import com.team.semiTravelRecommend.model.dto.record.PlannerDTO;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+
+@Service
+@Transactional(rollbackFor = Exception.class)
+public class PlannerServiceImpl implements PlannerService {
+
+    private final PlannerMapper plannerMapper;
+
+    public PlannerServiceImpl(PlannerMapper plannerMapper) {
+        this.plannerMapper = plannerMapper;
+    }
+
+    @Override
+    public int insertPlanner(PlannerDTO planner) {
+        int result = plannerMapper.insertPlanner(planner);
+
+        if(result <= 0) {
+            System.out.println("플래너작성실패");
+        }
+        return result > 0 ? 1 : 0;
+    }
+}

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.team.semiTravelRecommend.model.dao.PlannerMapper"><!-- 메퍼위치하고  동일하게 네임스페이스 작성-->
+
+    <resultMap id="plannerResultMap" type="com.team.semiTravelRecommend.model.dto.record.PlannerDTO">
+        <id property="planNo" column="PLAN_NO"/>
+        <result property="rcTitle" column="TRAVEL_PLACE"/>
+        <result property="rcDetail" column="START_DUE_DATE"/>
+        <result property="travelStartDate" column="END_DUE_DATE"/>
+        <result property="travelEndDate" column="LODGING_INFO"/>
+        <result property="rcTitle" column="TRANSPORTATION"/>
+        <result property="rcDetail" column="CHECKLIST"/>
+        <result property="travelStartDate" column="PL_DETAIL"/>
+        <association property="userDTO" column="USER_NO" resultMap="userResultMap"/>
+    </resultMap>
+
+    <resultMap id="userResultMap" type="com.team.semiTravelRecommend.model.dto.record.UserDTO">
+        <id property="userNo" column="USER_NO"/>
+        <result property="userId" column="USER_ID"/>
+        <result property="userPwd" column="USER_PWD"/>
+        <result property="userName" column="USER_NAME"/>
+        <result property="Email" column="EMAIL"/>
+        <result property="nickname" column="NICKNAME"/>
+        <result property="status" column="STATUS"/>
+        <result property="intro" column="INTRO"/>
+    </resultMap>
+
+<!--    <select id="plannerOne" resultMap="plannerResultMap">-->
+<!--        SELECT-->
+<!--            A.* ,-->
+<!--            B.* ,-->
+<!--            C.* ,-->
+<!--            D.* ,-->
+<!--            E.* ,-->
+<!--            F.*-->
+<!--        FROM OH_RECORD A-->
+<!--        JOIN CITY B ON A.CITY_CODE = B.CITY_CODE-->
+<!--        JOIN LOCATION C ON B.LOC_CODE = C.LOC_CODE-->
+<!--        JOIN OH_USER D ON A.USER_NO = D.USER_NO-->
+<!--        JOIN TAG E ON A.RECORD_TAG = E.TAG_CODE-->
+<!--        JOIN OH_FILE F ON A.IMG_FILE_NO = F.FILE_NO-->
+<!--        WHERE A.RECORD_NO = #{ recordNo }-->
+<!--    </select>-->
+
+    <insert id="insertPlanner">
+            INSERT INTO Planner A
+            (
+            A.PLAN_NO
+            , A.USER_NO
+            , A.TRAVEL_PLACE
+            , A.START_DUE_DATE
+            , A.END_DUE_DATE
+            , A.LODGING_INFO
+            , A.TRANSPORTATION
+            , A.PL_DETAIL
+            )
+            VALUES
+            (
+            SEQ_PLAN_NO.NEXTVAL
+            , #{ userNo }
+            , #{ travelPlace }
+            , #{ startDueDate }
+            , #{ endDueDate }
+            , #{ lodgingInfo }
+            , #{ transportation }
+            , #{ plDetail }
+            )
+    </insert>
+
+    <delete id="deleteRecord" parameterType="_int">
+        DELETE FROM OH_RECORD
+        WHERE RECORD_NO = #{recordNo}
+    </delete>
+
+</mapper>

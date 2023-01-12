@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>여행기록하기</title>
+    <link th:href="@{/css/plannerWrite.css}" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+      const successMessage = "[[${ successMessage}]]";
+      if (successMessage){
+        alert(successMessage);
+      }
+    </script>
+</head>
+
+<body>
+  <div th:replace="common/header.html"></div>
+  <div class="plannerWriteForm">
+    <h2> 플래너 작성하기 </h2>
+    <form action="/planner/plannerWrite" method="post" enctype="multipart/form-data">
+      <div class="title">
+        <label for="travel-place"> 제목 </label>
+        <input type="text" id="travel-place" name="travelPlace" required>
+      </div>
+
+      <div class="date">
+        <label for = "dateIn"> 여행 날짜 (시작일 - 종료일) </label>
+        <span>
+          시작일 : <input type = "date" name="startDueDate" id="dateIn"required>
+          종료일 : <input type = "date" name="endDueDate" id="dateOut" required>
+        </span>
+      </div>
+
+      <div class="Lodging">
+        <label> 숙소정보 </label>
+        <textarea name="lodgingInfo"></textarea>
+      </div>
+
+      <div class="transportation">
+        <label> 교통수단 </label>
+        <textarea name="transportation"></textarea>
+      </div>
+
+      <div class="content">
+        <label> 내용 </label>
+        <textarea name="plDetail"></textarea>
+      </div>
+
+      <button type="submit"> 작성하기 </button>
+    </form>
+  </div>
+</body>
+    <script th:inline="javascript">
+    <!-- 날짜 관련 예외처리 함수 -->
+      let startDay = document.getElementById("dateIn");
+      let endDay = document.getElementById("dateOut");
+
+      let now_utc = Date.now();
+      let timeOff = new Date().getTimezoneOffset()*60000;
+      let today = new Date(now_utc - timeOff).toISOString().split("T")[0];
+
+      startDay.setAttribute("min", today);
+      endDay.setAttribute("min", today);
+
+      startDay.addEventListener('change', function(){
+        if(startDay.value)
+          endDay.min = startDay.value;
+      }, false);
+
+      endDay.addEventListener('change', function (){
+        if(endDay.value)
+          startDay.max = endDay.value;
+      })
+    </script>
+
+</html>

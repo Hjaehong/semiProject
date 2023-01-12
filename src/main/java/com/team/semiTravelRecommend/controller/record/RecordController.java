@@ -78,21 +78,25 @@ public class RecordController {
         // 게시글을 작성한 유저의 No
         int writerNo = record.getUserDTO().getUserNo();
         // 로그인한 유저의 No (session에서 정보가져와야함 지금은 임의로 값 설정)
-        int userNo = 4;
+        int userNo = 3;
+
+        // 로그인한 유저가 해당 게시물에 좋아요를 눌렀는지 확인
+        int heartCheck = recordService.heartCheck(recordNo, userNo);
 
         if (writerNo != userNo) { // 작성자와 로그인한 유저가 같지 않은 경우
-            // 로그인한 유저가 해당 게시물에 좋아요를 눌렀는지 확인
-            int heartCheck = recordService.heartCheck(recordNo, userNo);
-
             if (heartCheck == 1) { // 이미 눌려있다면 1을 반환
                 mv.addObject("heartCheck", 1);
             } else { // 눌려있지 않다면 0을 반환
                 mv.addObject("heartCheck", 0);
             }
         }
-//        else {
-//            mv.addObject("heartCheck", 2);
-//        }
+        else { // 작성자와 로그인한 유저가 같은 경우
+            mv.addObject("heartCheck", 2);
+        }
+
+        if (userNo == 0){ // 로그인이 안되어있으면
+            mv.addObject("heartCheck", 3);
+        }
 
         mv.addObject("userNo", userNo);
         mv.addObject("RecordOne", record);

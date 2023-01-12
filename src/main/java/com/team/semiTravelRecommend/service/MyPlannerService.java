@@ -25,5 +25,5 @@ public interface MyPlannerService {
 
     int updatePlanner(int planNo);
 
-    void updatePlanner(PlannerDTO plannerDTO);
+
 }

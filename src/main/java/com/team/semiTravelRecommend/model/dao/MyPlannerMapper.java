@@ -18,7 +18,7 @@ public interface MyPlannerMapper {
 
     int updatePlanner(int planNo);
 
-    void updatePlanner(PlannerDTO plannerDTO);
+
 
 
     //int deletePlanner(PlannerDTO plannerDTO);

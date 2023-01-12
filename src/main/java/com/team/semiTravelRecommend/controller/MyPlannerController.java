@@ -73,7 +73,7 @@ public class MyPlannerController {
     }
 
     /*화면에서 수정한다(딜리트랑 업데이트랑 같다?)*/
-    @PostMapping("/mypage/myPlanner/update")
+/*    @PostMapping("/mypage/myPlanner/update")
     public ModelAndView updatePlanner(String planNo, ModelAndView mv, RedirectAttributes rttr){
         System.out.println("///////////////////////");
         mv.addObject("planner", myPlannerService.updatePlanner(Integer.parseInt(planNo))) ; //지금 얘가 안먹는다 씨발!!!!!!!!!
@@ -81,7 +81,7 @@ public class MyPlannerController {
         mv.setViewName("redirect:/mypage/myPlannerDetail?planNo=${planner.planNo}");
 
         return mv;
-    }
+    }*/
 
 
 
@@ -106,6 +106,15 @@ public class MyPlannerController {
         return mv;
     }*/
 
+    @PostMapping("/update")
+    public ModelAndView updatePlanner(ModelAndView mv, PlannerDTO planner) {
+        System.out.println(planner);
+        System.out.println("컨트롤러 동작확인");
+        myPlannerService.updatePlanner(planner.getPlanNo());
+        mv.addObject("planNo", planner.getPlanNo());
+        mv.setViewName("redirect:/mypage/myPlannerDetail/{planNo}");
+        return mv;
+    }
 }
 
 

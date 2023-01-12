@@ -36,12 +36,12 @@ public class MyPlannerServiceImpl implements MyPlannerService{
         return result;
     }*/
 
-    public int updatePlanner(int planNo) { return myPlannerMapper.updatePlanner(planNo); }
-
-    @Override
-    public void updatePlanner(PlannerDTO plannerDTO) {
-        myPlannerMapper.updatePlanner(plannerDTO);
+    public int updatePlanner(int planNo) { int result = myPlannerMapper.updatePlanner(planNo);
+        System.out.println(result);
+        return result;
     }
+
+
 
 
 

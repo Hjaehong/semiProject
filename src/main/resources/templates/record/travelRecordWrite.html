@@ -47,6 +47,14 @@
 
       <div class="tag">
         <label> 태그 </label>
+<!--        <input type="text" name="recordTag" list="tagList" placeholder="-&#45;&#45; 태그선택 -&#45;&#45;" required>-->
+<!--        <datalist id="tagList">-->
+<!--          <option th:each="tag : ${ Tag }"-->
+<!--                  th:value="${tag.tagCode}"-->
+<!--                  th:text="${tag.tagName}">-->
+<!--          </option>-->
+<!--          <option value="" disabled selected>-&#45;&#45; 태그선택 -&#45;&#45;</option>-->
+<!--        </datalist>-->
         <select required="required" name="recordTag">
           <option th:each="tag : ${ Tag }"
                   th:value="${ tag.tagCode}"

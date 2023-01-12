@@ -33,34 +33,34 @@ $(function (){
     });
 });
 
-function commentList(){
+
+function commentList() {
     let recordNo = document.getElementById('recordNo').value;
     let sessionUserNo = [[${session.loginUser.getUserNo()}]]
     $.ajax({
-        url:"/record/listComment" ,
-        data:{'recordNo':recordNo} ,
-        type:"post",
+        url: "/record/listComment",
+        data: {'recordNo': recordNo},
+        type: "post",
         dataType: "json",
-        success:function (list){
+        success: function (list) {
             $("#comCount").text(list.length);// 총 댓글수
 
-            let value="";
-            $.each(list, function (i, obj){
-            if(sessionUserNo == userNo){
-                value += "<tr>"
-                    + "<th> + obj.username + <a href='#' onclick='updateComment'>수정</a> + <a></a> + </th>";
-            }else{
-                value += "<tr>"
-                    + "<th>" + obj.username + "</th>"
-            }
-                value += "<td>" +" | " + obj.comContain + "</td>"
+            let value = "";
+            $.each(list, function (i, obj) {
+                if (sessionUserNo == userNo) {
+                    value += "<tr>"
+                        + "<th> + obj.username + <a href='#' onclick='updateComment'>수정</a> + <a></a> + </th>";
+                } else {
+                    value += "<tr>"
+                        + "<th>" + obj.username + "</th>"
+                }
+                value += "<td>" + " | " + obj.comContain + "</td>"
                     + <tr/>;
 
             });
             $("#commentListView").html(value);
-        },error:function (){
+        }, error: function () {
             console.log("댓글 리스트 ajax 실패");
         }
     });
-
 }

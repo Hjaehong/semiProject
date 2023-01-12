@@ -37,3 +37,7 @@ th, td {
 th:first-child, td:first-child {
     border-left: none;
 }
+
+table tbody td a{
+    color: blue;
+}

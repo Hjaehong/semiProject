@@ -12,6 +12,7 @@
 
     <resultMap id="recordResultMap" type="com.team.semiTravelRecommend.model.dto.record.RecordDTO">
         <id property="recordNo" column="RECORD_NO"/>
+        <result property="rowNum" column="ROWNUM"/>
         <result property="rcTitle" column="RC_TITLE"/>
         <result property="rcDetail" column="RECORD_DETAIL"/>
         <result property="travelStartDate" column="TRAVEL_START_DATE"/>
@@ -102,6 +103,30 @@
                  JOIN CITY C ON B.CITY_CODE = C.CITY_CODE
                  JOIN LOCATION D ON C.LOC_CODE = D.LOC_CODE
         WHERE A.USER_NO = #{loginUserNo}
+    </select>
+
+    <select id="readMyHeart" resultMap="recordResultMap">
+        SELECT
+            ROWNUM ,
+            A.*
+        FROM
+            (
+                SELECT
+                    F.USER_NO ,/* 로그인 유저 */
+                    A.NICKNAME , /* 작성자닉네임 */
+                    B.RECORD_NO ,
+                    B.RC_TITLE ,
+                    C.TAG_NAME ,
+                    D.CITY_NAME ,
+                    E.LOC_NAME
+                FROM OH_USER A
+                         JOIN OH_RECORD B ON A.USER_NO = B.USER_NO
+                         JOIN TAG C ON B.RECORD_TAG = C.TAG_CODE
+                         JOIN CITY D ON B.CITY_CODE = D.CITY_CODE
+                         JOIN LOCATION E ON D.LOC_CODE = E.LOC_CODE
+                         JOIN HEART F ON B.RECORD_NO = F.RECORD_NO
+                WHERE F.USER_NO = #{loginUserNo}
+            )A
     </select>
 
 

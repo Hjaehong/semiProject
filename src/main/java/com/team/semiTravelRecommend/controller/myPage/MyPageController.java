@@ -1,13 +1,16 @@
 package com.team.semiTravelRecommend.controller.myPage;
 
+import com.team.semiTravelRecommend.model.dto.SessionConst;
 import com.team.semiTravelRecommend.model.dto.record.CityDTO;
 import com.team.semiTravelRecommend.model.dto.record.RecordDTO;
 import com.team.semiTravelRecommend.model.dto.record.UserTagDTO;
+import com.team.semiTravelRecommend.model.dto.response.LoginUserResponse;
 import com.team.semiTravelRecommend.service.MyPageService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import java.util.HashMap;
 import java.util.List;
@@ -25,10 +28,11 @@ public class MyPageController {
     }
 
     @GetMapping("myPage")
-    public Model myPage (Model model){ // 마이페이지에 들어오면 이 메소드가 실행됨
+    public Model myPage (@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember,
+                         Model model){ // 마이페이지에 들어오면 이 메소드가 실행됨
 
         // 로그인 기능 연결 후 session에서 userNo 가져오기 (지금은 임의로 3으로 보냄)
-        int loginUserNo = 3;
+        int loginUserNo = loginMember.getUserNo().intValue();
 
         Model userInfoModel = readUserInfo(model, loginUserNo);
 
@@ -44,11 +48,11 @@ public class MyPageController {
     }
 
     @GetMapping("myRecord")
-    public Model myRecord(Model model){
+    public Model myRecord(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember,
+                          Model model){
 
         // 로그인 기능 연결 후 session 에서 받아오기
-        int loginUserNo = 3;
-
+        int loginUserNo = loginMember.getUserNo().intValue();
         Model userInfoModel = readUserInfo(model, loginUserNo);
 
         model.addAttribute("UserInfo", userInfoModel.getAttribute("UserInfo"));
@@ -57,6 +61,23 @@ public class MyPageController {
         List<RecordDTO> myRecord = myPageService.readMyRecord(loginUserNo);
 
         model.addAttribute("MyRecord", myRecord);
+
+        return model;
+    }
+
+    @GetMapping("myHeart")
+    public Model readMyHeart(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember,
+                             Model model){
+
+        int loginUserNo = loginMember.getUserNo().intValue();
+        Model userInfoModel = readUserInfo(model, loginUserNo);
+
+        model.addAttribute("UserInfo", userInfoModel.getAttribute("UserInfo"));
+        model.addAttribute("UserTag", userInfoModel.getAttribute("UserTag"));
+
+        List<RecordDTO> myHeart = myPageService.readMyHeart(loginUserNo);
+
+        model.addAttribute("MyHeart", myHeart);
 
         return model;
     }

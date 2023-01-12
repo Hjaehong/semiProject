@@ -16,6 +16,7 @@ import java.sql.Date;
 @Data
 public class RecordDTO {
 
+    private int rowNum;
     private int recordNo;
     private int userNo;
     private String rcTitle;

@@ -46,6 +46,8 @@ public class RecordController {
         this.commentService = commentService;
     }
 
+
+
     @GetMapping("recordList")
     public Model recordList(Model model, HttpServletRequest request){
 
@@ -86,25 +88,43 @@ public class RecordController {
 
         // 게시글을 작성한 유저의 No
         int writerNo = record.getUserDTO().getUserNo();
-        // 로그인한 유저의 No (로그인 안되어있는 경우는 프론트에서 처리)
-        int userNo = loginMember.getUserNo().intValue();
+        // 로그인 정보가 없을 경우 userNo을 0으로 설정
+        int userNo = 0;
+
+        if (loginMember != null) { // 로그인 정보가 null이 아닌경우 userNo을 받아옴
+            userNo = loginMember.getUserNo().intValue();
+        }
 
         /* 좋아요 기능 구현을 위한 코드 */
-        // 로그인한 유저가 해당 게시물에 좋아요를 눌렀는지 확인
-        int heartCheck = recordService.heartCheck(recordNo, userNo);
+        if (userNo == 0){ // 로그인 정보가 없는 경우
+            mv.addObject("heartCheck", 3);
+        } else if (writerNo != userNo) { // 로그인은 되어있지만, 작성자와 로그인한 유저가 다른 경우 (좋아요 기능 활성화)
+            // 로그인한 유저가 해당 게시물에 좋아요를 눌렀는지 확인
+            int heartCheck = recordService.heartCheck(recordNo, userNo);
 
-        if (writerNo != userNo) { // 작성자와 로그인한 유저가 같지 않은 경우
             if (heartCheck == 1) { // 이미 눌려있다면 1을 반환
                 mv.addObject("heartCheck", 1);
             } else { // 눌려있지 않다면 0을 반환
                 mv.addObject("heartCheck", 0);
             }
-        }
-        else { // 작성자와 로그인한 유저가 같은 경우
+        } else { // 작성자와 로그인한 유저가 같은 경우 (좋아요 기능 비활성화, 수정 삭제 버튼 활성화)
             mv.addObject("heartCheck", 2);
             /* 수정, 삭제를 위한 코드 */
             mv.addObject("samePerson", 0);
         }
+
+//        if (writerNo != userNo) { // 로그인 된 상태이면서 작성자와 로그인한 유저가 같지 않은 경우
+//            if (heartCheck == 1) { // 이미 눌려있다면 1을 반환
+//                mv.addObject("heartCheck", 1);
+//            } else { // 눌려있지 않다면 0을 반환
+//                mv.addObject("heartCheck", 0);
+//            }
+//        }
+//        else { // 작성자와 로그인한 유저가 같은 경우
+//            mv.addObject("heartCheck", 2);
+//            /* 수정, 삭제를 위한 코드 */
+//            mv.addObject("samePerson", 0);
+//        }
 
         mv.addObject("userNo", userNo);
         mv.addObject("RecordOne", record);

@@ -61,7 +61,7 @@
             <th:block th:if ="${heartCheck == 2}">
 <!--                <img th:id="btn_heart" th:src="@{/image/heart_before.png}" alt="빈하트이미지" onclick="changeHeart()"/>-->
             </th:block>
-            <th:block th:if="${session.loginUser.getUserNo() == null}">
+            <th:block th:if="${heartCheck == 3}">
                 <img th:id="btn_heart" th:src="@{/image/heart_before.png}" alt="빈하트이미지" onclick="changeHeart()"/>
                 <span>게시글 저장하기</span>
             </th:block>

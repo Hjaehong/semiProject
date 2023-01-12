@@ -1,9 +1,7 @@
 package com.team.semiTravelRecommend.controller.record;
 
-import com.team.semiTravelRecommend.model.dto.SessionConst;
 import com.team.semiTravelRecommend.model.dto.comment.CommentDTO;
 import com.team.semiTravelRecommend.model.dto.record.*;
-import com.team.semiTravelRecommend.model.dto.response.LoginUserResponse;
 import com.team.semiTravelRecommend.paging.Pagenation;
 import com.team.semiTravelRecommend.paging.SelectCriteria;
 import com.team.semiTravelRecommend.service.CommentService;
@@ -79,16 +77,15 @@ public class RecordController {
     }
 
     @GetMapping("recordDetail/{recordNo}")
-    public ModelAndView recordOne(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember,
-                                  ModelAndView mv, @PathVariable("recordNo") int recordNo){
+    public ModelAndView recordOne(ModelAndView mv, @PathVariable("recordNo") int recordNo){
 
         RecordDTO record = recordService.recordOne(recordNo);
 
         /* 좋아요 기능 구현을 위한 코드 */
         // 게시글을 작성한 유저의 No
         int writerNo = record.getUserDTO().getUserNo();
-        // 로그인한 유저의 No
-        int userNo = loginMember.getUserNo().intValue();
+        // 로그인한 유저의 No (session에서 정보가져와야함 지금은 임의로 값 설정)
+        int userNo = 4;
 
         if (writerNo != userNo) { // 작성자와 로그인한 유저가 같지 않은 경우
             // 로그인한 유저가 해당 게시물에 좋아요를 눌렀는지 확인
@@ -128,15 +125,12 @@ public class RecordController {
     }
 
     @GetMapping(value="travelRecordWrite", produces = "application/json; charset=UTF-8")
-    public ModelAndView readTagAndLocation(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember,
-                                           ModelAndView mv){
-        // 유저의 정보를 가져오기
-        int userNo = loginMember.getUserNo().intValue();
+    public ModelAndView readTagAndLocation(ModelAndView mv){
 
         List<LocationDTO> locationList = readLocation();
 
         List<TagDTO> tagList = readTag();
-        mv.addObject("userNo", userNo);
+
         mv.addObject("Location", locationList);
         mv.addObject("Tag", tagList);
 
@@ -164,6 +158,7 @@ public class RecordController {
     @PostMapping("travelRecordWrite")
     public ModelAndView writeRecord(ModelAndView mv, RecordDTO record, @RequestParam(name="file", required = false) MultipartFile file, RedirectAttributes rttr){
 
+        System.out.println(record.getCityCode());
 
         if ((!file.getOriginalFilename().equals(""))){
             int fileNo = saveFile(file);
@@ -291,14 +286,16 @@ public class RecordController {
     @ResponseBody
     @RequestMapping("insertComment")
     public String insertComment(CommentDTO comment){
-        // comment 입력
+        System.out.println(comment);
         int result = commentService.registComment(comment);
+        System.out.println("result = " + result);
         return String.valueOf(result);
     }
     //댓글 리스트 출력
     @ResponseBody
     @RequestMapping(value = "listComment", produces = "application/json; charset=utf-8")
     public List<CommentDTO> listComment(int recordNo) {
+        System.out.println("여기까지 넘어오나? = " + recordNo);
         return commentService.showComment(recordNo);
     }
 

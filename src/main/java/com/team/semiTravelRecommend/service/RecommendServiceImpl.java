@@ -36,8 +36,33 @@ public class RecommendServiceImpl implements RecommendService{
     public List<PlaceDTO> listPaging(SelectCriteria selectCriteria) {return recommendMapper.listPaging(selectCriteria);}
 
     @Override
-    public PlaceDTO detailTravelInfo(String travelInfo) {
+    public PlaceDTO detailTravelInfo(int travelInfo) {
         return recommendMapper.travelDetail(travelInfo);
+    }
+
+    @Override
+    public int checkBookmark(int userNo, int travelInfo) {
+        return recommendMapper.checkBookmark(userNo, travelInfo);
+    }
+
+    @Override
+    public int deleteBookmark(int userNo, int placeId) {
+        int result = recommendMapper.deleteBookmark(userNo, placeId);
+
+        if(result <= 0){
+            System.out.println("북마크 삭제 오류 발생 ");
+        }
+        return result;
+    }
+
+    @Override
+    public int insertBookmark(int userNo, int placeId) {
+        int result = recommendMapper.insertBookmark(userNo, placeId);
+
+        if(result <= 0){
+            System.out.println("북마크 삭제 오류 발생 ");
+        }
+        return result;
     }
 
 

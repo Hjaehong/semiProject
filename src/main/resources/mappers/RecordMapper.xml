@@ -189,7 +189,7 @@
         VALUES
             (
                 SEQ_RECORD_NO.NEXTVAL,
-                3,
+                1,
                 #{rcTitle },
                 #{recordTag},
                 #{rcDetail},

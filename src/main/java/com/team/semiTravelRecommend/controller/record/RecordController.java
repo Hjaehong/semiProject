@@ -1,17 +1,11 @@
 package com.team.semiTravelRecommend.controller.record;
 
-import com.fasterxml.jackson.core.JsonFactoryBuilder;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.team.semiTravelRecommend.model.dto.comment.CommentDTO;
 import com.team.semiTravelRecommend.model.dto.record.*;
 import com.team.semiTravelRecommend.paging.Pagenation;
 import com.team.semiTravelRecommend.paging.SelectCriteria;
 import com.team.semiTravelRecommend.service.CommentService;
 import com.team.semiTravelRecommend.service.RecordService;
-import lombok.extern.log4j.Log4j;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,8 +17,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -197,7 +189,7 @@ public class RecordController {
             imgFile.setFileSize(file.getSize());
             imgFile.setOriginName(file.getOriginalFilename());
             imgFile.setChangeName(changeName);
-            imgFile.setImgPath("/uploadImgs/"+changeName);
+            imgFile.setImgPath("/uploadImgs/" +changeName);
 
             recordService.saveFile(imgFile);
 

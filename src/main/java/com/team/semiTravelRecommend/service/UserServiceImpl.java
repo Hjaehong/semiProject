@@ -3,6 +3,7 @@ package com.team.semiTravelRecommend.service;
 import com.team.semiTravelRecommend.model.dao.UserMapper;
 import com.team.semiTravelRecommend.model.dto.UserResponse;
 import com.team.semiTravelRecommend.model.dto.UserVO;
+import com.team.semiTravelRecommend.model.dto.requset.DeleteUserRequest;
 import com.team.semiTravelRecommend.model.dto.requset.LoginUserRequest;
 import com.team.semiTravelRecommend.model.dto.requset.SaveUserRequest;
 import com.team.semiTravelRecommend.model.dto.requset.UpdateUserRequest;
@@ -51,11 +52,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void delete(UpdateUserRequest request, UserResponse attribute) {
+    public void delete(UserResponse attribute) {
         UserVO userVO = userMapper.findByEmail(attribute.getEmail())
                 .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
-
-        userVO.deleteUser(request.getUserId(), request.getUserName(), request.getEmail());
 
         userMapper.delete(userVO);
     }

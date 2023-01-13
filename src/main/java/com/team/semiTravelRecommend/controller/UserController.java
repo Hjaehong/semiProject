@@ -3,6 +3,7 @@ package com.team.semiTravelRecommend.controller;
 import com.team.semiTravelRecommend.model.dto.SessionConst;
 import com.team.semiTravelRecommend.model.dto.UserResponse;
 import com.team.semiTravelRecommend.model.dto.UserVO;
+import com.team.semiTravelRecommend.model.dto.requset.DeleteUserRequest;
 import com.team.semiTravelRecommend.model.dto.requset.LoginUserRequest;
 import com.team.semiTravelRecommend.model.dto.requset.SaveUserRequest;
 import com.team.semiTravelRecommend.model.dto.requset.UpdateUserRequest;
@@ -119,19 +120,28 @@ public class UserController {
 
         HttpSession session = servletRequest.getSession();
         UserResponse attribute = (UserResponse) session.getAttribute(SessionConst.LOGIN_USER);
-        log.info(">>>>>>>>>>> attribute = {}", attribute);
 
-        userService.update(updateUserRequest, attribute);
+        log.info("before session={}", attribute);
+
+        userService.update(updateUserRequest, attribute );
 
         UserResponse user = userService.getUser(updateUserRequest.getUserId());
         session.setAttribute(SessionConst.LOGIN_USER, user);
+
+        UserResponse updatedSession = (UserResponse)session.getAttribute(SessionConst.LOGIN_USER);
+        log.info("after session={}", updatedSession);
+
         return "redirect:/";
+
     }
 
     @GetMapping("/delete")
-    public String deleteForm(HttpServletRequest request, UpdateUserRequest updateUserRequest, Model model) {
+    public String deleteForm(HttpServletRequest request, DeleteUserRequest deleteUserRequest, Model model) {
         HttpSession session = request.getSession();
         UserResponse attribute = (UserResponse) session.getAttribute(SessionConst.LOGIN_USER);
+        UserResponse user = userService.getUser(attribute.getUserId());
+
+        log.info("user = {}", user);
 
         model.addAttribute("loginMember", attribute.getUserId());
 
@@ -139,20 +149,23 @@ public class UserController {
     }
 
     @PostMapping("/delete")
-    public String delete(@ModelAttribute @Valid UpdateUserRequest updateUserRequest,
+    public String delete(@ModelAttribute @Valid DeleteUserRequest deleteUserRequest,
                          BindingResult bindingResult,
                          HttpServletRequest request) {
         if (bindingResult.hasErrors()) {
             log.info("error = {}", bindingResult.getFieldError().getDefaultMessage());
             return "user/delete";
         }
+
+        log.info(">>>>>>>>>>> request = {}", deleteUserRequest);//여기 왜 안담길까
+
         HttpSession session = request.getSession();
         UserResponse attribute = (UserResponse) session.getAttribute(SessionConst.LOGIN_USER);
 
-        userService.delete(updateUserRequest, attribute);
+        log.info("before session={}", attribute);
 
-        UserResponse user = userService.getUser(updateUserRequest.getUserId());
-        session.setAttribute(SessionConst.LOGIN_USER, user);
+        userService.delete(attribute);
+
 
         return "redirect:/";
     }

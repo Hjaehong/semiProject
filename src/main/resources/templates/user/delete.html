@@ -7,13 +7,13 @@
 </head>
 
 <body>
-<form th:action="@{/delete}" th:object="${updateUserRequest}" method="post">
+<form th:action="@{/delete}" th:object="${deleteUserRequest}" method="post">
     <div class="container">
     <h1>회원 탈퇴</h1>
 
         <p th:text="|${loginMember}님 탈퇴하시려면 이메일을 입력하세요.|"></p>
 
-<!--    <h4>회원탈퇴를 위해 이메일을 입력해주세요</h4>-->
+    <h4>회원탈퇴를 위해 이메일을 입력해주세요</h4>
 
         <div class="form-group">
             <label for="email">email</label>

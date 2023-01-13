@@ -22,5 +22,6 @@ public class UserResponse {
 
     public UserResponse(LoginUserResponse loginUser) {
         this.userId = loginUser.getUserId();
+        this.email = loginUser.getEmail();
     }
 }

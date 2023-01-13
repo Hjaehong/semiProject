@@ -1,9 +1,7 @@
 package com.team.semiTravelRecommend.controller.record;
 
-import com.team.semiTravelRecommend.model.dto.SessionConst;
 import com.team.semiTravelRecommend.model.dto.comment.CommentDTO;
 import com.team.semiTravelRecommend.model.dto.record.*;
-import com.team.semiTravelRecommend.model.dto.response.LoginUserResponse;
 import com.team.semiTravelRecommend.paging.Pagenation;
 import com.team.semiTravelRecommend.paging.SelectCriteria;
 import com.team.semiTravelRecommend.service.CommentService;
@@ -81,15 +79,16 @@ public class RecordController {
     }
 
     @GetMapping("recordDetail/{recordNo}")
-    public ModelAndView recordOne(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember,
-                                  ModelAndView mv, @PathVariable("recordNo") int recordNo){
+    public ModelAndView recordOne(ModelAndView mv, @PathVariable("recordNo") int recordNo){
 
         RecordDTO record = recordService.recordOne(recordNo);
 
         // 게시글을 작성한 유저의 No
         int writerNo = record.getUserDTO().getUserNo();
+
         // 로그인 정보가 없을 경우 userNo을 0으로 설정
         int userNo = 0;
+
 
         if (loginMember != null) { // 로그인 정보가 null이 아닌경우 userNo을 받아옴
             userNo = loginMember.getUserNo().intValue();
@@ -150,15 +149,12 @@ public class RecordController {
     }
 
     @GetMapping(value="travelRecordWrite", produces = "application/json; charset=UTF-8")
-    public ModelAndView readTagAndLocation(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember,
-                                           ModelAndView mv){
-        // 유저의 정보를 가져오기
-        int userNo = loginMember.getUserNo().intValue();
+    public ModelAndView readTagAndLocation(ModelAndView mv){
 
         List<LocationDTO> locationList = readLocation();
 
         List<TagDTO> tagList = readTag();
-        mv.addObject("userNo", userNo);
+
         mv.addObject("Location", locationList);
         mv.addObject("Tag", tagList);
 
@@ -314,14 +310,16 @@ public class RecordController {
     @ResponseBody
     @RequestMapping("insertComment")
     public String insertComment(CommentDTO comment){
-        // comment 입력
+        System.out.println(comment);
         int result = commentService.registComment(comment);
+        System.out.println("result = " + result);
         return String.valueOf(result);
     }
     //댓글 리스트 출력
     @ResponseBody
     @RequestMapping(value = "listComment", produces = "application/json; charset=utf-8")
     public List<CommentDTO> listComment(int recordNo) {
+        System.out.println("여기까지 넘어오나? = " + recordNo);
         return commentService.showComment(recordNo);
     }
 

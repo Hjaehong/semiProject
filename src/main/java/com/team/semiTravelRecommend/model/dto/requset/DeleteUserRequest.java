@@ -7,7 +7,5 @@ import lombok.NoArgsConstructor;
 @Data
 public class DeleteUserRequest {
 
-    private String userName;
-    private String userId;
     private String email;
 }

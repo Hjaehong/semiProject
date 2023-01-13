@@ -60,10 +60,10 @@ public class UserServiceImpl implements UserService {
     }
 
     public LoginUserResponse login(LoginUserRequest request) {
-       UserVO user = userMapper.findByUserId(request.getUserId()).orElseThrow(() -> new IllegalArgumentException("아이디 또는 비밀번호를 확인하세요"));
+       UserVO user = userMapper.findByUserId(request.getUserId()).orElse(null);
 
         if (!BCrypt.checkpw(request.getUserPwd(), user.getUserPwd())) {
-            throw new IllegalArgumentException("아이디 또는 비밀번호를 확인하세요");
+            return null;
         }
         return new LoginUserResponse(user);
     }

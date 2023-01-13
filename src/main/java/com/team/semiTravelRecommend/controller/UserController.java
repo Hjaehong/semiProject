@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -60,20 +61,22 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login(@Valid @ModelAttribute LoginUserRequest loginUserRequest, BindingResult bindingResult, HttpServletRequest request) {
+    public String login(@ModelAttribute("loginForm") @Valid LoginUserRequest loginUserRequest, BindingResult bindingResult, HttpServletRequest request) {
         if (bindingResult.hasErrors()) {
             log.info("error = {}", bindingResult.getFieldError().getDefaultMessage());
             return "user/loginForm";
         }
         LoginUserResponse loginUser = userService.login(loginUserRequest);
 
+        if (loginUser == null) {
+            bindingResult.reject("loginFail", "아이디 또는 비밀번호를 확인해주세요");
+            return "user/loginForm";
+        }
+
         UserResponse userResponse = new UserResponse(loginUser);
 
 
-        if (loginUser == null) {
-            bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
-            return "user/loginForm";
-        }
+
 
         log.info("로그인 성공 ! = {}", loginUser);
 
@@ -157,7 +160,7 @@ public class UserController {
             return "user/delete";
         }
 
-        log.info(">>>>>>>>>>> request = {}", deleteUserRequest);//여기 왜 안담길까
+        log.info(">>>>>>>>>>> request = {}", deleteUserRequest.getEmail());//여기 왜 안담길까
 
         HttpSession session = request.getSession();
         UserResponse attribute = (UserResponse) session.getAttribute(SessionConst.LOGIN_USER);
@@ -169,6 +172,6 @@ public class UserController {
         if (session != null) {
             session.invalidate();
         }
-        return "home";
+        return "redirect:/";
     }
 }

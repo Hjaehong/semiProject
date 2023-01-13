@@ -1,46 +1,53 @@
 package com.team.semiTravelRecommend.service;
 
 import com.team.semiTravelRecommend.model.dao.PlannerMapper;
-import com.team.semiTravelRecommend.model.dto.PlannerDTO;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.team.semiTravelRecommend.model.dto.record.PlannerDTO;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 
 @Service
-public class PlannerServiceImpl implements PlannerService{
+@Transactional(rollbackFor = Exception.class)
+public class PlannerServiceImpl implements PlannerService {
 
     private final PlannerMapper plannerMapper;
 
-    @Autowired
-    public PlannerServiceImpl(PlannerMapper plannerMapper) { this.plannerMapper = plannerMapper; }
-
-
-    @Override
-    public boolean insertPlanner(PlannerDTO plannerDTO) throws Exception {
-        int result = plannerMapper.insertPlanner(plannerDTO);
-
-
-
-        if(result <= 0) {
-            throw new Exception("플래너등록실패");
-        }
-        return result > 0 ? true : false;
-
+    public PlannerServiceImpl(PlannerMapper plannerMapper) {
+        this.plannerMapper = plannerMapper;
     }
 
     @Override
-    public List<PlannerDTO> findAllPlanner() {
-        return plannerMapper.findAllPlanner();
-    }
-
-/*    @Override
-    public boolean deletePlanner(PlannerDTO plannerDTO) {
-        int result = plannerMapper.deletePlanner(plannerDTO);
+    public int insertPlanner(PlannerDTO planner) {
+        int result = plannerMapper.insertPlanner(planner);
 
         if(result <= 0) {
-
+            System.out.println("플래너작성실패");
         }
-        return result > 0 ? true : false;
-    }*/
+        return result > 0 ? 1 : 0;
+    }
+
+    @Override
+    public PlannerDTO plannerOne(int planNo) { return plannerMapper.plannerOne(planNo); }
+
+    @Override
+    public int editPlanner(PlannerDTO planner) {
+
+        int result = plannerMapper.editPlanner(planner);
+
+        if(result <= 0) {
+            System.out.println("플래너작성실패");
+        }
+        return result > 0 ? 1 : 0;
+    }
+
+    @Override
+    public int deletePlanner(int planNo) {
+
+        int result = plannerMapper.deletePlanner(planNo);
+
+        if(result <= 0) {
+            System.out.println("플래너작성실패");
+        }
+        return result > 0 ? 1 : 0;
+    }
 }

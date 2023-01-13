@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.semiTravelRecommend.model.dao.UserMapper">
+    <!-- 임시 추가 -->
+    <resultMap id="userResultMap" type="com.team.semiTravelRecommend.model.dto.UserVO">
+        <id property="userNo" column="USER_NO"/>
+        <result property="userId" column="USER_ID"/>
+        <result property="userName" column="USER_NAME"/>
+        <result property="userPwd" column="USER_PWD"/>
+        <result property="email" column="EMAIL"/>
+        <result property="nickname" column="NICKNAME"/>
+
+    </resultMap>
+    <insert id="save" parameterType="com.team.semiTravelRecommend.model.dto.UserVO">
+        INSERT INTO OH_USER (
+                             USER_NO,
+                             USER_ID,
+                             USER_PWD,
+                             USER_NAME,
+                             EMAIL,
+                             NICKNAME
+        )
+        VALUES (
+                SEQ_USER_NO.NEXTVAL,
+                #{userId},
+                #{userPwd},
+                #{userName},
+                #{email},
+                #{nickname}
+            )
+    </insert>
+
+    <select id="findByUserId" parameterType="String" resultMap="userResultMap">
+        select
+            USER_NO ,
+            USER_PWD ,
+            USER_NAME ,
+            EMAIL ,
+            NICKNAME
+        from OH_USER
+        where USER_ID = #{userId}
+    </select>
+
+    <select id="findById" parameterType="Long" resultMap="userResultMap">
+        select *
+        from OH_USER
+        where USER_NO = #{userNo}
+    </select>
+
+    <update id="update">
+        UPDATE user
+        SET
+        USER_NAME=#{userName},
+        USER_PWD=#{userPwd},
+        EMAIL=#{email}
+        WHERE USER_NO=#{userNo}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM user WHERE USER_ID = #{userId}
+    </delete>
+
+</mapper>

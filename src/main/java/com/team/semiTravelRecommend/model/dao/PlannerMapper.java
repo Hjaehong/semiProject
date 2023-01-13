@@ -1,15 +1,16 @@
 package com.team.semiTravelRecommend.model.dao;
 
-import com.team.semiTravelRecommend.model.dto.PlannerDTO;
+import com.team.semiTravelRecommend.model.dto.record.PlannerDTO;
 import org.apache.ibatis.annotations.Mapper;
-
-import java.util.List;
 
 @Mapper
 public interface PlannerMapper {
 
-    int insertPlanner(PlannerDTO plannerDTO);
+    int insertPlanner(PlannerDTO planner);
 
-    List<PlannerDTO> findAllPlanner();
+    PlannerDTO plannerOne(int planNo);
 
+    int editPlanner(PlannerDTO planner);
+
+    int deletePlanner(int planNo);
 }

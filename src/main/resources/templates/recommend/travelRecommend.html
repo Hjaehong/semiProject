@@ -3,23 +3,94 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>옷홋</title>
+    <link th:href="@{/css/travelRecommend.css}" rel="stylesheet" type="text/css">
 </head>
-<body>
-    <div name="showUserTag">
-        <form  method="post">
-            <tr th:each="tagList : ${ tagList }">
-                <td><input type="checkbox" name="tag" th:text="${tagList.tag_name}" th:value="${tagList.tag_code}"></td>
-            </tr>
-            <button type="submit" onclick="location.href='/recommend/travelRecommend'">변경하기</button>
-        </form>
 
-    </div>
-    <div name="showRecommendPlace">
-        <tr th:each="travelList : ${ travelList }">
-            <td th:text="${travelList.place_name}"><br></td>
-            <td><img onclick="location.href='/recommend/placeDetail'" th:src="${travelList.pl_img_path}"/><br> </td>
-        </tr>
-    </div>
+<body>
+    <div th:replace="common/header.html"></div>
+    <nav id="showUserTag" name="showUserTag">
+        <form>
+            <div class="tagTable">
+                <div th:each="tagList : ${ tagList }">
+                    <div>
+                        <button type="submit" name="tag" class="tagButton" th:text="${tagList.tagName}" th:value="${tagList.tagCode}"
+                                onclick="location.href='recommend/travelRecommend'"><img th:src="${tagList.iconImg}"/></button>
+                    </div>
+                    <div>
+<!--                        <img class="tagImg" th:src="${tagList.iconImg}"/>-->
+                    </div>
+                </div>
+            </div>
+        </form>
+    </nav>
+    <section id="topView"name="showRecommendPlace">
+        <div id="travelView">
+            <div class="travelInfo" th:each="travelList : ${ travelList }">
+                <div class="travelDetail">
+                    <div>
+                        <form>
+                            <!-- modal창 접근 시-->
+                            <!--<img th:src="${travelList.pl_img_path}" class="modalClick"/>-->
+                            <!-- 여행지의 자세한 정보페이지 이동 -->
+                            <a href="recommendDetail/"  th:attrappend="href=${travelList.placeId}">
+                                <th:block th:if = "${travelList.plImgPath != null}">
+                                    <img class="travelImg" th:src="${travelList.plImgPath}" alt="여행지사진"/>
+                                </th:block>
+                                <th:block th:unless = "${travelList.plImgPath != null}">
+                                    <img class="travelImg" th:src="@{/image/noImg.png}" alt="이미지없음"/>
+                                </th:block>
+                            </a>
+                        </form>
+                    </div>
+                    <div>
+                        <!-- 장소명 -->
+                        <th:block>
+                            <span class="travelText" th:text="${travelList.placeName}"/>
+                        </th:block>
+                    </div>
+                    <div>
+                        <!-- 지역명 -->
+                        <span class="locName" th:text="${travelList.cityDTO.locationDTO?.locName}"/>
+                    </div>
+                    <div class="modalView">
+                        <!-- 모달창 -->
+                        <span class="modalMain" th:utext="${travelList.contentDetail}"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+        <footer>
+            <div align="center" >
+                <ul id="page" th:each="page : ${ selectCriteria }">
+                    <li th:if="${page.pageNo <= 1}">
+                        <button disabled><</button>
+                    </li>
+                    <li th:if="${page.pageNo > 1}">
+                        <button th:onclick="|location.href='@{/recommend/travelRecommend(currentPage=${page.pageNo-1})}'|"><</button>
+                    <li th:each="num : ${#numbers.sequence(page.startPage,page.endPage)}">
+                        <th:block th:if="${page.pageNo eq num}">
+                            <button disabled th:text="${num}"></button>
+                        </th:block>
+                        <th:block th:if="${page.pageNo ne num}">
+                            <button id="bc" onclick="nextPage(this.innerText)"  th:text="${num}"></button>
+                        </th:block>
+                    </li>
+                    </li>
+                    <li th:if="${page.pageNo >= page.maxPage}">
+                        <button disabled>></button>
+                    </li>
+                    <li th:if="${page.pageNo < page.maxPage}">
+                        <button th:onclick="|location.href='@{/recommend/travelRecommend(currentPage=${page.pageNo+1})}'|">></button>
+                    </li>
+                </ul>
+            </div>
+        </footer>
+        <script th:inline="javascript">
+
+        </script>
+        <script type="text/javascript" th:src="@{/js/travelRecommend.js}"></script>
+
 </body>
 </html>

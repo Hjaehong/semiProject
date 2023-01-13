@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Main</title>
+    <link th:href="@{/css/main.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+  <a name="Top"></a>
+  <div th:replace="/common/header.html"></div>
+
+  <div class="main-img">
+    <img th:src="@{/image/mainImg.jpg}" alt = "메인이미지"/>
+  </div>
+
+  <div class="recommend">
+    <div class="hot">
+      <h1> 가장 핫한 여행지 </h1>
+    </div>
+    <div class="top-3">
+      <div class="recommend-one" th:each="topLank : ${TopLank}">
+        <a href="/recommend/recommendDetail/" th:attrappend="href=${topLank.placeId}">
+          <img th:src="@{${topLank.plImgPath}}" alt="추천장소이미지"/>
+          <div class="place-info">
+            <h3 th:text="${topLank.placeName}"></h3>
+            <span th:text="${topLank.cityDTO.locationDTO.locName} + ' '+ ${topLank.cityDTO.cityName}"></span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="keyword">
+    <h1> 키워드로 여행지 찾기 </h1>
+    <div class="choice-keyword">
+      <div class="keyword-one" th:each="tagList : ${TagList}">
+        <a th:href="@{/recommend/travelRecommend(tag=${tagList.tagCode})}">
+          <img th:src="@{${tagList.iconImg}}" alt="키워드이미지"/>
+          <div th:text="${tagList.tagName}"></div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <a href="#Top" id="top-button"> ▲ TOP </a>
+</body>
+</html>

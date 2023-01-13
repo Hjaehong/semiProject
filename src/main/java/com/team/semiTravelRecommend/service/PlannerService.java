@@ -1,16 +1,14 @@
 package com.team.semiTravelRecommend.service;
 
-
-import com.team.semiTravelRecommend.model.dto.PlannerDTO;
-
-import java.util.List;
+import com.team.semiTravelRecommend.model.dto.record.PlannerDTO;
 
 public interface PlannerService {
 
-    // 스트링이 아니라 인트나 불린으로 받는다
-    boolean insertPlanner(PlannerDTO plannerDTO) throws Exception;
+    int insertPlanner(PlannerDTO planner);
 
-    List<PlannerDTO> findAllPlanner();
+    PlannerDTO plannerOne(int planNo);
 
-    //boolean deletePlanner(PlannerDTO plannerDTO);
+    int editPlanner(PlannerDTO planner);
+
+    int deletePlanner(int planNo);
 }

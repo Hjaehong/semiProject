@@ -7,4 +7,8 @@ import org.apache.ibatis.annotations.Mapper;
 public interface PlannerMapper {
 
     int insertPlanner(PlannerDTO planner);
+
+    PlannerDTO plannerOne(int planNo);
+
+    int deletePlanner(int planNo);
 }

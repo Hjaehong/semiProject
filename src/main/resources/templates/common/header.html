@@ -11,7 +11,7 @@
             <img th:src="@{/image/logo.png}" alt = "로고"/>
         </a>
         <ul class = "nav">
-            <li><a th:href="@{/planner/plannerWrite}"> 여행 플래너</a></li>
+            <li><a th:href="@{/planner/plannerWrite}" onclick="return login()"> 여행 플래너</a></li>
             <li><a th:href="@{/recommend/travelRecommend}"> 여행지 추천</a></li>
             <li><a th:href="@{/record/recordList}"> 여행 기록</a></li>
         </ul>
@@ -27,4 +27,24 @@
         </ul>
     </div>
 </body>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+    let loginState = [[${loginMember}]];
+    console.log(loginState)
+
+    function login(){
+        if(loginState == 0){
+            alert("로그인 후 이용해주세요!");
+            // 로그인 창으로 이동하기
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+    /*]]>*/
+</script>
+
 </html>

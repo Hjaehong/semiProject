@@ -71,9 +71,22 @@
             )
     </insert>
 
-    <delete id="deleteRecord" parameterType="_int">
-        DELETE FROM OH_RECORD
-        WHERE RECORD_NO = #{recordNo}
+    <select id="plannerOne" resultMap="plannerResultMap">
+        SELECT
+            PLAN_NO,
+            TRAVEL_PLACE,
+            START_DUE_DATE,
+            END_DUE_DATE,
+            LODGING_INFO,
+            TRANSPORTATION,
+            PL_DETAIL
+        FROM PLANNER
+        WHERE PLAN_NO = #{planNo}
+    </select>
+
+    <delete id="deletePlanner" parameterType="_int">
+        DELETE FROM PLANNER
+        WHERE PLAN_NO = #{planNo}
     </delete>
 
 </mapper>

@@ -8,72 +8,44 @@
 <div th:replace="common/header.html"></div>
 <div class="recordWriteForm">
   <h2> 플래너 작성하기 </h2>
-  <form action="/planner/plannerWrite" method="post" enctype="multipart/form-data">
-    <div class="title">
-      <label for="title-name"> 제목 </label>
-      <input type="text" id="title-name" name="rcTitle" required>
-    </div>
+  <div>
+    <table class="myRecord">
+      <thead>
+      <tr>
+        <th> 번호 </th>
+        <th> 예정 여행지 </th>
+        <th> 예정날짜 </th>
+        <th> 숙소정보 </th>
+        <th> 교통수단 </th>
+        <th> 준비사항 및 상세일정 </th>
+      </tr>
+      </thead>
 
-    <div class="local">
-      <label> 여행지 </label>
-      <select required="required" id="location" name="locCode" onchange="readCity(this.value)">
-        <option th:each="location : ${ Location }"
-                th:value="${ location.locCode}"
-                th:text="${location.locName}">
-        </option>
-        <option value="" disabled selected>--- 지역선택 ---</option>
-        <!-- selected : 초기에 선택되어있는 값 -->
-      </select>
+      <tbody>
+      <tr th:each=" planner : ${Planner}">
+        <td th:text="${planner.planNo}"></td> <!--  rowNum으로 받아줘야함 (planNo은 모든 유저가 공통으로 쓰니까)-->
+        <td>
+          <a th:text="${planner.travelPlace}" href="/planner/plannerDetail/" th:attrappend="href=${planner.planNo}"/>
+        </td>
+        <td th:text="${planner.startDueDate}+ ' ~ ' + ${planner.endDueDate}"></td>
+        <td th:text="${planner.lodgingInfo}"></td>
+        <td th:text="${planner.transportation}"></td>
+        <td th:text="${planner.plDetail}"></td>
+      </tr>
+      </tbody>
+    </table>
 
-      <select id="city-code" name="cityCode" required>
-        <option th:each="city : ${ City }"
-                th:value="${city.cityCode}"
-                th:text="${city.cityName}">
-        </option>
-        <option value="" disabled selected>--- 도시선택 ---</option>
-      </select>
+    <div class="edit-delete">
+        <form class="edit" action="/planner/editPlanner" method="post">
+          <input type="hidden" th:name="planNo" th:value="${Planner.planNo}"/>
+          <button type="submit"> 수정 </button>
+        </form>
+        <form class="delete" action="/planner/deletePlanner" method="post">
+          <input type="hidden" th:name="planNo" th:value="${Planner.planNo}"/>
+          <button type="submit"> 삭제 </button>
+        </form>
     </div>
-
-    <div class="date">
-      <label for = "dateIn"> 여행 날짜 (시작일 - 종료일) </label>
-      <span>
-          시작일 : <input type = "date" name="travelStartDate" id="dateIn"required>
-          종료일 : <input type = "date" name="travelEndDate" id="dateOut" required>
-        </span>
-    </div>
-
-    <div class="tag">
-      <label> 태그 </label>
-      <!--        <input type="text" name="recordTag" list="tagList" placeholder="-&#45;&#45; 태그선택 -&#45;&#45;" required>-->
-      <!--        <datalist id="tagList">-->
-      <!--          <option th:each="tag : ${ Tag }"-->
-      <!--                  th:value="${tag.tagCode}"-->
-      <!--                  th:text="${tag.tagName}">-->
-      <!--          </option>-->
-      <!--          <option value="" disabled selected>-&#45;&#45; 태그선택 -&#45;&#45;</option>-->
-      <!--        </datalist>-->
-      <select required="required" name="recordTag">
-        <option th:each="tag : ${ Tag }"
-                th:value="${ tag.tagCode}"
-                th:text="${tag.tagName}">
-        </option>
-        <option value="" disabled selected>--- 태그선택 ---</option>
-      </select>
-    </div>
-
-    <div class="content">
-      <label> 내용 </label>
-      <textarea name="rcDetail" required></textarea>
-    </div>
-
-    <div class="imgFile">
-      <input type="file" name="file" class="imgFile" required/>
-    </div>
-    <div>
-      <input type="hidden" name="userNo" th:value="${userNo}">
-    </div>
-    <button type="submit"> 작성하기 </button>
-  </form>
+  </div>
 </div>
 </body>
 </html>

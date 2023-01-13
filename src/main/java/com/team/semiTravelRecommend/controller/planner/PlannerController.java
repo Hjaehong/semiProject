@@ -5,6 +5,7 @@ import com.team.semiTravelRecommend.service.PlannerService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -43,6 +44,27 @@ public class PlannerController {
         rttr.addFlashAttribute("successMessage", "작성 완료!");
 
         return mv;
+    }
 
+    @GetMapping("plannerDetail/{planNo}")
+    public ModelAndView plannerOne (ModelAndView mv, @PathVariable("planNo") int planNo){
+
+        PlannerDTO planner = plannerService.plannerOne(planNo);
+
+        mv.addObject("Planner", planner);
+        mv.setViewName("redirect:/myPage/myPlanner");
+
+        return mv;
+    }
+
+    @PostMapping("deletePlanner")
+    public ModelAndView deletePlanner (ModelAndView mv, int planNo, RedirectAttributes rttr){
+
+        plannerService.deletePlanner(planNo);
+
+        mv.setViewName("redirect:/myPage/myPlanner");
+        rttr.addFlashAttribute("successMessage", "삭제 완료!");
+
+        return mv;
     }
 }

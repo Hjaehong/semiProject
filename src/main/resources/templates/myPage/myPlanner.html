@@ -4,6 +4,12 @@
   <meta charset="UTF-8">
   <title>myRecord</title>
   <link th:href="@{/css/myRecord.css}" rel="stylesheet" type="text/css">
+  <script>
+    const successMessage = "[[${ successMessage}]]";
+    if (successMessage){
+      alert(successMessage);
+    }
+  </script>
 </head>
 <body>
 <div th:replace="common/header.html"></div>
@@ -24,9 +30,9 @@
 
       <tbody>
       <tr th:each=" myPlanner : ${MyPlanner}">
-        <td th:text="${myPlanner.planNo}"></td>
+        <td th:text="${myPlanner.planNo}"></td> <!--  rowNum으로 받아줘야함 (planNo은 모든 유저가 공통으로 쓰니까)-->
         <td>
-          <a th:text="${myPlanner.travelPlace}" href="/record/recordDetail/" th:attrappend="href=${myPlanner.planNo}"/>
+          <a th:text="${myPlanner.travelPlace}" href="/planner/plannerDetail/" th:attrappend="href=${myPlanner.planNo}"/>
         </td>
         <td th:text="${myPlanner.startDueDate}+ ' ~ ' + ${myPlanner.endDueDate}"></td>
       </tr>

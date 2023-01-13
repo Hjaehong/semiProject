@@ -127,7 +127,7 @@
                 SELECT
                     F.USER_NO ,/* 로그인 유저 */
                     A.NICKNAME , /* 작성자닉네임 */
-                    B.RECORD_NO ,
+                    B.RECORD_NO , /* 로그인한 유저가 좋아요 누른 게시물의 번호*/
                     B.RC_TITLE ,
                     C.TAG_NAME ,
                     D.CITY_NAME ,

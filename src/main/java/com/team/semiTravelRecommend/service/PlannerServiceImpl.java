@@ -25,4 +25,18 @@ public class PlannerServiceImpl implements PlannerService {
         }
         return result > 0 ? 1 : 0;
     }
+
+    @Override
+    public PlannerDTO plannerOne(int planNo) { return plannerMapper.plannerOne(planNo); }
+
+    @Override
+    public int deletePlanner(int planNo) {
+
+        int result = plannerMapper.deletePlanner(planNo);
+
+        if(result <= 0) {
+            System.out.println("플래너작성실패");
+        }
+        return result > 0 ? 1 : 0;
+    }
 }

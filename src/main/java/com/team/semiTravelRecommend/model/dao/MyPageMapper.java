@@ -1,6 +1,7 @@
 package com.team.semiTravelRecommend.model.dao;
 
 import com.team.semiTravelRecommend.model.dto.record.CityDTO;
+import com.team.semiTravelRecommend.model.dto.record.PlannerDTO;
 import com.team.semiTravelRecommend.model.dto.record.RecordDTO;
 import com.team.semiTravelRecommend.model.dto.record.UserTagDTO;
 import org.apache.ibatis.annotations.Mapper;
@@ -17,4 +18,6 @@ public interface MyPageMapper {
     List<RecordDTO> readMyRecord(int loginUserNo);
 
     List<RecordDTO> readMyHeart(int loginUserNo);
+
+    List<PlannerDTO> readMyPlanner(int loginUserNo);
 }

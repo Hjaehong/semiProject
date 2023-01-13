@@ -71,26 +71,21 @@
         <!-- 댓글리스트 -->
         <div>
             <div>
-                <form>
-                    <table>
-                        <tr id="commentListView">
-                            <!-- 댓글 리스트 -->
-                        </tr>
-                        <!-- 작성자와 같을 경우 수정 삭제 -->
-                        <tr class="updateBox">
-                            <textarea name="boxUpdate" id="boxUpdate"></textarea>
-                            <input type="hidden" name="commentId" th:value="${}"
-                            <button id="updateOk">확인</button>
-                        </tr>
-                    </table>
-                </form>
+                <div id="commentListView">
+                    <!-- 댓글 리스트 -->
+                </div>
+                <!-- 작성자와 같을 경우 수정 삭제 -->
+                <div class="updateBox">
+                    <textarea name="boxUpdate" id="boxUpdate"></textarea>
+                    <button id="updateOk">확인</button>
+                </div>
             </div>
         </div>
         <div class="comment-form"  id="commentArea">
             <!--            사이즈 조정하기~-->
             <div class="profile">
-                <div class="profile-img">
-<!--                    <img src="/image/profile.png" alt="프로필이미지"/>-->
+                <div class="profile-img" th:each="comList : ${comList}">
+                    <input type="hidden" th:class="comList" th:name="comNo" th:value="${comList.comNo}"/>
                 </div>
                 <span class="writer"> 작성자 </span>
             </div>
@@ -122,7 +117,7 @@
         let recordNo = [[${RecordOne.recordNo}]];
         let userNo = [[${userNo}]];
         let heartCheck = [[${heartCheck}]];
-        console.log(heartCheck);
+
 
         function changeHeart(){
             if(heartCheck == 0 || heartCheck == 1){
@@ -156,6 +151,7 @@
 
             const userNo = document.getElementById('userNo').value;
             let recordNo = document.getElementById('recordNo').value;
+
             // 댓글을 작성하지 않고 버튼 클릭시 작성 안되게
             if($("#commentContain").val().trim().length != 0){
 
@@ -163,10 +159,8 @@
                     url : "/record/insertComment" ,
                     type : "post" ,
                     data:{comContain:$("#commentContain").val() ,
-                        recordNo: recordNo ,
-                        userNo: userNo},
+                        recordNo: recordNo},
                     success:function (result){
-                        console.log(result);
                         if(result > 0){
                             $("#commentContain").val("");
                             commentList();
@@ -188,29 +182,32 @@
         let recordNo = document.getElementById('recordNo').value;
         let sessionUserNo = [[${session.loginUser.getUserNo()}]]
         let nickname = [[${RecordOne.getUserDTO().getNickname()}]];
+
+
+        for(let i = 0; i < 10; i++){
+
+        }
         $.ajax({
             url: "/record/listComment",
             data: {'recordNo': recordNo},
             type: "post",
             dataType: "json",
             success: function (list) {
+
                 $("#comCount").text(list.length);// 총 댓글수
 
                 let value = "";
                 $.each(list, function (i, obj) {
-                    if (sessionUserNo == userNo) {
-                        value += "<tr>"
-                            + "<th>"
-                            + nickname
-                            + "<a href='#' class='btnUpadate' onclick='updateComment()'>수정</a>"
+                    value += "<form class='comContentList'>"
+                        + "<span class='comContent'>" + obj.comContain + "</span>"
+                        + "<span> " + nickname + "</span>";
+                    if (sessionUserNo === userNo) {
+                        value += "<a href='#' class='btnUpdate' onclick='selectOne()'>수정</a>"
                             + "<a></a>"
-                            + "</th>";
+                            + "</form>";
                     } else {
-                        value += "<tr>"
-                            + "<th>" + nickname + "</th>"
+                        value += "</form>";
                     }
-                    value += "<td>" + " | " + obj.comContain + "</td>"
-                        + "<tr/>";
 
                 });
                 $("#commentListView").html(value);
@@ -220,22 +217,40 @@
         });
     }
 
-    function updateComment() {
 
-        const updateForm = document.getElementById('boxUpdate').value;
+    function selectOne() {
+        // 버튼클래스의 index를 저장해서 그걸 저장된 content의 인덱스에 대입?
+        // 유저 번호
+        const userNo = document.getElementById('userNo').value;
+        // 코멘트 번호
+        const comList = document.getElementsByClassName('comList');
+        // 클릭한 버튼의 인덱스를 가져오자
+        console.log(document.querySelector('.comContentList'));
 
-        $.ajax({
-            url : "/record/updateComment" ,
-            type : "post" ,
-            data : {comContain: $("#boxUpdate").val(),
-                    },
-            success:function (){
-                console.log('update ajax 성공')
-            },
-            error:function (){
-                console.log('update ajax 오류')
-            }
-        })
+        // 코멘트 내용
+
+        // comNo을 저장
+        let com= [];
+
+        for(let i = 0; i < comList.length; i++){
+            com[i] = comList[i].value;
+        }
+
+
+        // $.ajax({
+        //     url : "/record/selectOneComment" ,
+        //     type : "post" ,
+        //     data : { 'com' : com ,
+        //             'userNo' : userNo ,
+        //
+        //             },
+        //     success:function (){
+        //         console.log('update ajax 성공')
+        //     },
+        //     error:function (){
+        //         console.log('update ajax 오류')
+        //     }
+        // })
     }
 
 </script>

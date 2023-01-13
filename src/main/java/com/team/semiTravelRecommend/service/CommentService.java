@@ -20,4 +20,6 @@ public interface CommentService {
     List<CommentDTO> showComment(int recordNo);
     // 댓글 수정
     int updateComment(CommentDTO comment);
-}
+    // comNo 찾기
+     String selectOne(CommentDTO comment);
+ }

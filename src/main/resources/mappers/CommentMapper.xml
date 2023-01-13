@@ -35,6 +35,12 @@
         where A.RECORD_NO = #{ recordNo }
     </select>
 
+    <select id="selectOne" resultMap="commentResultMap">
+        select
+            *
+        from OH_COMMENT
+        where USER_NO=#{userNo} and COM_CONTAIN =#{comContain}
+    </select>
 <!--    <update id="updateComment" parameterType="">-->
 <!--        update COMMENT-->
 <!--        set COM_CONTAIN = #{}-->

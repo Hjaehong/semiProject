@@ -81,7 +81,7 @@ public class RecordController {
                                   ModelAndView mv, @PathVariable("recordNo") int recordNo){
 
         RecordDTO record = recordService.recordOne(recordNo);
-
+        List<CommentDTO> comList = commentService.showComment(recordNo);
         // 게시글을 작성한 유저의 No
         int writerNo = record.getUserDTO().getUserNo();
         // 로그인한 유저의 No (로그인 안되어있는 경우는 프론트에서 처리)
@@ -103,7 +103,7 @@ public class RecordController {
             /* 수정, 삭제를 위한 코드 */
             mv.addObject("samePerson", 0);
         }
-
+        mv.addObject("comList", comList);
         mv.addObject("userNo", userNo);
         mv.addObject("RecordOne", record);
         mv.setViewName("record/recordDetail");
@@ -298,14 +298,18 @@ public class RecordController {
     @ResponseBody
     @RequestMapping(value = "listComment", produces = "application/json; charset=utf-8")
     public List<CommentDTO> listComment(int recordNo) {
-        return commentService.showComment(recordNo);
+
+        List<CommentDTO> comList = commentService.showComment(recordNo);
+
+        return comList;
     }
 
-    //댓글 수정
+    //댓글 수정 request로 받아서 ajax로 넘겨줘야한다.
+    @RequestMapping(value = "selectOneComment")
     @ResponseBody
-    @RequestMapping(value = "updateComment")
-    public String updateComment(){
-        return null;
+    public String updateComment(CommentDTO comment){
+
+        return commentService.selectOne(comment);
     }
 
 }

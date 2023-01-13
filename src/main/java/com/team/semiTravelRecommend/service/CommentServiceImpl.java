@@ -37,4 +37,9 @@ public class CommentServiceImpl implements CommentService{
         return result;
     }
 
+    @Override
+    public String selectOne(CommentDTO comment) {
+        return commentMapper.selectOne(comment);
+    }
+
 }

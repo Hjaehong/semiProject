@@ -2,12 +2,10 @@ package com.team.semiTravelRecommend.controller.planner;
 
 import com.team.semiTravelRecommend.model.dto.record.PlannerDTO;
 import com.team.semiTravelRecommend.service.PlannerService;
+import oracle.jdbc.proxy.annotation.Post;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -37,10 +35,8 @@ public class PlannerController {
         // 필수입력 사항이 아닌 값들은 비어있는 경우 null 처리해서 set해주거나, 프론트단에서 value처리 해줘야할 듯
         plannerService.insertPlanner(planner); // 우선 지금은 모든 항목 필수입력으로 설정해두기
 
-        mv.setViewName("redirect:/planner/plannerWrite");
-        // 뒤에 planNo 추가 필요 -> planNo을 찾아올 적절한 방법이 없음 (유니크한 값이 planNo밖에 없는데 그걸 찾으려면,, 우째...?)
-        // 작성하면 바로 마이페이지로 넘어가게...?
-        // 우선은 다시 작성페이지로 돌아가게 해둠 (나중에 수정 필요)
+        mv.setViewName("redirect:/myPage/myPlanner");
+        // 작성하면 바로 마이페이지의 myPlan으로 넘어가게 설정
         rttr.addFlashAttribute("successMessage", "작성 완료!");
 
         return mv;
@@ -52,7 +48,31 @@ public class PlannerController {
         PlannerDTO planner = plannerService.plannerOne(planNo);
 
         mv.addObject("Planner", planner);
+        mv.setViewName("planner/plannerDetail");
+
+        return mv;
+    }
+
+    @PostMapping("editPlanner")
+    public ModelAndView readPlanner (ModelAndView mv, int planNo){
+        // planNo을 받아서 수정창에 기존의 정보를 띄워주는 메소드
+
+        PlannerDTO planner = plannerService.plannerOne(planNo);
+
+        mv.addObject("Planner", planner);
+        mv.setViewName("planner/plannerEdit");
+
+        return mv;
+    }
+
+    @PostMapping("plannerEdit")
+    public ModelAndView editPlanner (ModelAndView mv, PlannerDTO planner, RedirectAttributes rttr){
+
+        System.out.println("수정 메소드 호출 확인용");
+        plannerService.editPlanner(planner);
+
         mv.setViewName("redirect:/myPage/myPlanner");
+        rttr.addFlashAttribute("successMessage", "수정 완료!");
 
         return mv;
     }

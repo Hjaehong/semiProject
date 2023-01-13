@@ -27,6 +27,39 @@ public class MyPageController {
 
         this.myPageService = myPageService;
     }
+//    @GetMapping("myPage")
+//    public Model getSession (@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember,
+//                             Model loginUser){
+//
+//        int loginUserNo = loginMember.getUserNo().intValue();
+//
+////        Model userInfoModel = userInfo(model, loginUserNo);
+////
+////        List<CityDTO> myBadge = readMyBadge(loginUserNo);
+////
+////        userInfoModel.addAttribute("UserBadge", myBadge);
+//        loginUser.addAttribute("UserNo", loginUserNo);
+//
+//        return loginUser;
+//    }
+//
+//    public Model userInfo(Model model, int loginUserNo){ // 테스트해보고 정상적으로 돌아가면 이름 readUserInfo로 바꾸기
+//
+//        UserTagDTO userInfo = myPageService.readUserInfo(loginUserNo);
+//
+//        String tagName = userInfo.getTagDTO().getTagName();
+//        String[] tagList = tagName.split(",");
+//
+//        model.addAttribute("UserInfo", userInfo);
+//        model.addAttribute("UserTag", tagList);
+//
+//        return model;
+//    }
+//
+//    public List<CityDTO> readMyBadge(int loginUserNo){
+//
+//        return myPageService.readMyBadge(loginUserNo);
+//    }
 
     @GetMapping("myPage")
     public Model myPage (@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember,

@@ -8,5 +8,7 @@ public interface PlannerService {
 
     PlannerDTO plannerOne(int planNo);
 
+    int editPlanner(PlannerDTO planner);
+
     int deletePlanner(int planNo);
 }

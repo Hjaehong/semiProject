@@ -5,48 +5,49 @@
     <title>여행기록하기</title>
     <link th:href="@{/css/plannerWrite.css}" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script>
-      const successMessage = "[[${ successMessage}]]";
-      if (successMessage){
-        alert(successMessage);
-      }
-    </script>
+<!--    <script>-->
+<!--      const successMessage = "[[${ successMessage}]]";-->
+<!--      if (successMessage){-->
+<!--        alert(successMessage);-->
+<!--      }-->
+<!--    </script>-->
 </head>
 
 <body>
   <div th:replace="common/header.html"></div>
   <div class="plannerWriteForm">
     <h2> 플래너 작성하기 </h2>
-    <form action="/planner/plannerWrite" method="post" enctype="multipart/form-data">
+    <form action="/planner/plannerEdit" method="post">
       <div class="title">
-        <label for="travel-place"> 여행지 </label>
-        <input type="text" id="travel-place" name="travelPlace" required>
+        <label for="travel-place"> 여행 </label>
+        <input type="text" id="travel-place" name="travelPlace" th:field="${Planner.travelPlace}" required>
       </div>
 
       <div class="date">
         <label for = "dateIn"> 여행 날짜 (시작일 - 종료일) </label>
         <span>
-          시작일 : <input type = "date" name="startDueDate" id="dateIn" required>
-          종료일 : <input type = "date" name="endDueDate" id="dateOut" required>
+          시작일 : <input type = "date" name="startDueDate" id="dateIn" th:field ="${Planner.startDueDate}" required>
+          종료일 : <input type = "date" name="endDueDate" id="dateOut" th:field ="${Planner.endDueDate}" required>
         </span>
       </div>
 
       <div class="Lodging">
         <label> 숙소정보 </label>
-        <textarea name="lodgingInfo"></textarea>
+        <input type="text" name="lodgingInfo" th:field="${Planner.lodgingInfo}" required>
       </div>
 
       <div class="transportation">
         <label> 교통수단 </label>
-        <textarea name="transportation"></textarea>
+        <input type="text" name="transportation" th:field="${Planner.transportation}" required>
       </div>
 
       <div class="content">
         <label> 내용 </label>
-        <textarea name="plDetail"></textarea>
+        <textarea name="plDetail" th:text="${Planner.plDetail}"></textarea>
       </div>
 
-      <button type="submit"> 작성하기 </button>
+      <input type="hidden" th:name="planNo" th:value="${Planner.planNo}">
+      <button type="submit"> 수정하기 </button>
     </form>
   </div>
 </body>

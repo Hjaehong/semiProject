@@ -84,6 +84,17 @@
         WHERE PLAN_NO = #{planNo}
     </select>
 
+    <update id="editPlanner">
+        UPDATE PLANNER
+        SET TRAVEL_PLACE = #{travelPlace} ,
+            START_DUE_DATE = #{startDueDate} ,
+            END_DUE_DATE = #{endDueDate} ,
+            LODGING_INFO = #{lodgingInfo} ,
+            TRANSPORTATION = #{transportation} ,
+            PL_DETAIL = #{plDetail}
+        WHERE PLAN_NO = #{planNo}
+    </update>
+
     <delete id="deletePlanner" parameterType="_int">
         DELETE FROM PLANNER
         WHERE PLAN_NO = #{planNo}

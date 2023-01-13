@@ -10,5 +10,7 @@ public interface PlannerMapper {
 
     PlannerDTO plannerOne(int planNo);
 
+    int editPlanner(PlannerDTO planner);
+
     int deletePlanner(int planNo);
 }

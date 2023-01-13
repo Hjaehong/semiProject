@@ -12,6 +12,7 @@
 
     <resultMap id="recordResultMap" type="com.team.semiTravelRecommend.model.dto.record.RecordDTO">
         <id property="recordNo" column="RECORD_NO"/>
+        <result property="rowNum" column="ROWNUM"/>
         <result property="rcTitle" column="RC_TITLE"/>
         <result property="rcDetail" column="RECORD_DETAIL"/>
         <result property="travelStartDate" column="TRAVEL_START_DATE"/>
@@ -56,6 +57,19 @@
         <result property="originName" column="ORIGINNAME"/>
         <result property="changeName" column="CHANGENAME"/>
         <result property="imgPath" column="OH_PATH"/>
+    </resultMap>
+
+    <resultMap id="plannerResultMap" type="com.team.semiTravelRecommend.model.dto.record.PlannerDTO">
+        <id property="planNo" column="PLAN_NO"/>
+        <result property="userNo" column="USER_NO"/>
+        <result property="travelPlace" column="TRAVEL_PLACE"/>
+        <result property="startDueDate" column="START_DUE_DATE"/>
+        <result property="endDueDate" column="END_DUE_DATE"/>
+        <result property="lodgingInfo" column="LODGING_INFO"/>
+        <result property="transportation" column="TRANSPORTATION"/>
+        <result property="checkList" column="CHECKLIST"/>
+        <result property="plDetail" column="PL_DETAIL"/>
+        <!--        <association property="userDTO" column="USER_NO" resultMap="userResultMap"/>-->
     </resultMap>
 
     <select id="readUserInfo" resultMap="userInfoResultMap">
@@ -104,5 +118,39 @@
         WHERE A.USER_NO = #{loginUserNo}
     </select>
 
+    <select id="readMyHeart" resultMap="recordResultMap">
+        SELECT
+            ROWNUM ,
+            A.*
+        FROM
+            (
+                SELECT
+                    F.USER_NO ,/* 로그인 유저 */
+                    A.NICKNAME , /* 작성자닉네임 */
+                    B.RECORD_NO , /* 로그인한 유저가 좋아요 누른 게시물의 번호*/
+                    B.RC_TITLE ,
+                    C.TAG_NAME ,
+                    D.CITY_NAME ,
+                    E.LOC_NAME
+                FROM OH_USER A
+                         JOIN OH_RECORD B ON A.USER_NO = B.USER_NO
+                         JOIN TAG C ON B.RECORD_TAG = C.TAG_CODE
+                         JOIN CITY D ON B.CITY_CODE = D.CITY_CODE
+                         JOIN LOCATION E ON D.LOC_CODE = E.LOC_CODE
+                         JOIN HEART F ON B.RECORD_NO = F.RECORD_NO
+                WHERE F.USER_NO = #{loginUserNo}
+            )A
+    </select>
+
+    <select id="readMyPlanner" resultMap="plannerResultMap">
+        SELECT
+            A.PLAN_NO ,
+            A.TRAVEL_PLACE ,
+            A.START_DUE_DATE ,
+            A.END_DUE_DATE
+        FROM PLANNER A
+        WHERE A.USER_NO = #{loginUserNo}
+        ORDER BY PLAN_NO
+    </select>
 
 </mapper>

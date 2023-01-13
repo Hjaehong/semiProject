@@ -1,6 +1,7 @@
 package com.team.semiTravelRecommend.controller;
 
 import com.team.semiTravelRecommend.model.dto.SessionConst;
+import com.team.semiTravelRecommend.model.dto.record.UserDTO;
 import com.team.semiTravelRecommend.model.dto.requset.LoginUserRequest;
 import com.team.semiTravelRecommend.model.dto.requset.SaveUserRequest;
 import com.team.semiTravelRecommend.model.dto.requset.UpdateUserRequest;
@@ -73,6 +74,12 @@ public class UserController {
 
         HttpSession session = request.getSession();
         session.setAttribute(SessionConst.LOGIN_USER, loginUser);
+
+//        UserDTO user = (UserDTO) session.getAttribute(SessionConst.LOGIN_USER);
+//        System.out.println(user);
+
+        System.out.println(session.getAttribute(SessionConst.LOGIN_USER));
+        //userNo 만 가져오고 있음
 
         return "redirect:/";
     }

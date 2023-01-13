@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>myRecord</title>
+  <link th:href="@{/css/myRecord.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div th:replace="common/header.html"></div>
+<div class="myPage">
+  <div th:replace="common/userProfile.html"> </div>
+
+  <div class="content-area">
+    <h3> 내 여행기록 </h3>
+    <hr>
+    <table class="myRecord">
+      <thead>
+      <tr>
+        <th> 번호 </th>
+        <th> 예정 여행지 </th>
+        <th> 예정날짜 </th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr th:each=" myPlanner : ${MyPlanner}">
+        <td th:text="${myPlanner.planNo}"></td>
+        <td>
+          <a th:text="${myPlanner.travelPlace}" href="/record/recordDetail/" th:attrappend="href=${myPlanner.planNo}"/>
+        </td>
+        <td th:text="${myPlanner.startDueDate}+ ' ~ ' + ${myPlanner.endDueDate}"></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</body>
+</html>

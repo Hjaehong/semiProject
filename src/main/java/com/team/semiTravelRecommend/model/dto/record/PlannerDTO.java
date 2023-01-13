@@ -15,5 +15,5 @@ public class PlannerDTO {
     private String transportation;
     private String checkList;
     private String plDetail;
-    private UserDTO userDTO;
+//    private UserDTO userDTO;
 }

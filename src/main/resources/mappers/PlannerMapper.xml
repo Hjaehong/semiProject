@@ -7,14 +7,15 @@
 
     <resultMap id="plannerResultMap" type="com.team.semiTravelRecommend.model.dto.record.PlannerDTO">
         <id property="planNo" column="PLAN_NO"/>
-        <result property="rcTitle" column="TRAVEL_PLACE"/>
-        <result property="rcDetail" column="START_DUE_DATE"/>
-        <result property="travelStartDate" column="END_DUE_DATE"/>
-        <result property="travelEndDate" column="LODGING_INFO"/>
-        <result property="rcTitle" column="TRANSPORTATION"/>
-        <result property="rcDetail" column="CHECKLIST"/>
-        <result property="travelStartDate" column="PL_DETAIL"/>
-        <association property="userDTO" column="USER_NO" resultMap="userResultMap"/>
+        <result property="userNo" column="USER_NO"/>
+        <result property="travelPlace" column="TRAVEL_PLACE"/>
+        <result property="startDueDate" column="START_DUE_DATE"/>
+        <result property="endDueDate" column="END_DUE_DATE"/>
+        <result property="lodgingInfo" column="LODGING_INFO"/>
+        <result property="transportation" column="TRANSPORTATION"/>
+        <result property="checkList" column="CHECKLIST"/>
+        <result property="plDetail" column="PL_DETAIL"/>
+<!--        <association property="userDTO" column="USER_NO" resultMap="userResultMap"/>-->
     </resultMap>
 
     <resultMap id="userResultMap" type="com.team.semiTravelRecommend.model.dto.record.UserDTO">

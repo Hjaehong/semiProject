@@ -2,6 +2,7 @@ package com.team.semiTravelRecommend.service;
 
 import com.team.semiTravelRecommend.model.dao.MyPageMapper;
 import com.team.semiTravelRecommend.model.dto.record.CityDTO;
+import com.team.semiTravelRecommend.model.dto.record.PlannerDTO;
 import com.team.semiTravelRecommend.model.dto.record.RecordDTO;
 import com.team.semiTravelRecommend.model.dto.record.UserTagDTO;
 import org.springframework.stereotype.Service;
@@ -35,5 +36,8 @@ public class MyPageServiceImpl implements MyPageService{
 
     @Override
     public List<RecordDTO> readMyHeart(int loginUserNo) { return myPageMapper.readMyHeart(loginUserNo); }
+
+    @Override
+    public List<PlannerDTO> readMyPlanner(int loginUserNo) { return myPageMapper.readMyPlanner(loginUserNo); }
 
 }

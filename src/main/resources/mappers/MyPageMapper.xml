@@ -59,6 +59,19 @@
         <result property="imgPath" column="OH_PATH"/>
     </resultMap>
 
+    <resultMap id="plannerResultMap" type="com.team.semiTravelRecommend.model.dto.record.PlannerDTO">
+        <id property="planNo" column="PLAN_NO"/>
+        <result property="userNo" column="USER_NO"/>
+        <result property="travelPlace" column="TRAVEL_PLACE"/>
+        <result property="startDueDate" column="START_DUE_DATE"/>
+        <result property="endDueDate" column="END_DUE_DATE"/>
+        <result property="lodgingInfo" column="LODGING_INFO"/>
+        <result property="transportation" column="TRANSPORTATION"/>
+        <result property="checkList" column="CHECKLIST"/>
+        <result property="plDetail" column="PL_DETAIL"/>
+        <!--        <association property="userDTO" column="USER_NO" resultMap="userResultMap"/>-->
+    </resultMap>
+
     <select id="readUserInfo" resultMap="userInfoResultMap">
         SELECT
             B.* ,
@@ -129,5 +142,15 @@
             )A
     </select>
 
+    <select id="readMyPlanner" resultMap="plannerResultMap">
+        SELECT
+            A.PLAN_NO ,
+            A.TRAVEL_PLACE ,
+            A.START_DUE_DATE ,
+            A.END_DUE_DATE
+        FROM PLANNER A
+        WHERE A.USER_NO = #{loginUserNo}
+        ORDER BY PLAN_NO
+    </select>
 
 </mapper>

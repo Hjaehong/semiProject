@@ -2,6 +2,7 @@ package com.team.semiTravelRecommend.controller.myPage;
 
 import com.team.semiTravelRecommend.model.dto.SessionConst;
 import com.team.semiTravelRecommend.model.dto.record.CityDTO;
+import com.team.semiTravelRecommend.model.dto.record.PlannerDTO;
 import com.team.semiTravelRecommend.model.dto.record.RecordDTO;
 import com.team.semiTravelRecommend.model.dto.record.UserTagDTO;
 import com.team.semiTravelRecommend.model.dto.response.LoginUserResponse;
@@ -31,7 +32,6 @@ public class MyPageController {
     public Model myPage (@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember,
                          Model model){ // 마이페이지에 들어오면 이 메소드가 실행됨
 
-        // 로그인 기능 연결 후 session에서 userNo 가져오기 (지금은 임의로 3으로 보냄)
         int loginUserNo = loginMember.getUserNo().intValue();
 
         Model userInfoModel = readUserInfo(model, loginUserNo);
@@ -66,7 +66,7 @@ public class MyPageController {
     }
 
     @GetMapping("myHeart")
-    public Model readMyHeart(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember,
+    public Model myHeart(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember,
                              Model model){
 
         int loginUserNo = loginMember.getUserNo().intValue();
@@ -81,6 +81,23 @@ public class MyPageController {
 
         return model;
     }
+
+    @GetMapping("myPlanner")
+    public Model myPlanner(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember,
+                           Model model){
+
+        int loginUserNo = loginMember.getUserNo().intValue();
+        Model userInfoModel = readUserInfo(model, loginUserNo);
+
+        model.addAttribute("UserInfo", userInfoModel.getAttribute("UserInfo"));
+        model.addAttribute("UserTag", userInfoModel.getAttribute("UserTag"));
+
+        List<PlannerDTO> myPlanner = myPageService.readMyPlanner(loginUserNo);
+        model.addAttribute("MyPlanner", myPlanner);
+
+        return model;
+    }
+
 
     /* 마이페이지에서 공통적으로 일어나는 로직을 따로 메소드로 만듦 */
     public Model readUserInfo(Model model, int loginUserNo){

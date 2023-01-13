@@ -166,7 +166,9 @@ public class UserController {
 
         userService.delete(attribute);
 
-
-        return "redirect:/";
+        if (session != null) {
+            session.invalidate();
+        }
+        return "home";
     }
 }

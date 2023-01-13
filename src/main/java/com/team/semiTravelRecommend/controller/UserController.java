@@ -1,26 +1,26 @@
 package com.team.semiTravelRecommend.controller;
 
 import com.team.semiTravelRecommend.model.dto.SessionConst;
+import com.team.semiTravelRecommend.model.dto.UserResponse;
+import com.team.semiTravelRecommend.model.dto.UserVO;
 import com.team.semiTravelRecommend.model.dto.requset.LoginUserRequest;
 import com.team.semiTravelRecommend.model.dto.requset.SaveUserRequest;
 import com.team.semiTravelRecommend.model.dto.requset.UpdateUserRequest;
 import com.team.semiTravelRecommend.model.dto.response.LoginUserResponse;
-import com.team.semiTravelRecommend.model.dto.response.UpdateUserResponse;
 import com.team.semiTravelRecommend.service.UserService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Slf4j
-//@RequiredArgsConstructor
 @Controller
 public class UserController {
 
@@ -66,6 +66,9 @@ public class UserController {
         }
         LoginUserResponse loginUser = userService.login(loginUserRequest);
 
+        UserResponse userResponse = new UserResponse(loginUser);
+
+
         if (loginUser == null) {
             bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
             return "user/loginForm";
@@ -74,7 +77,7 @@ public class UserController {
         log.info("로그인 성공 ! = {}", loginUser);
 
         HttpSession session = request.getSession();
-        session.setAttribute(SessionConst.LOGIN_USER, loginUser);
+        session.setAttribute(SessionConst.LOGIN_USER, userResponse);
 
         return "redirect:/";
     }
@@ -90,24 +93,67 @@ public class UserController {
     }
 
     @GetMapping("/update")
-    public String updateForm() {
+    public String updateForm(HttpServletRequest request, UpdateUserRequest updateUserRequest, Model model) {
+        HttpSession session = request.getSession();
+        UserResponse attribute = (UserResponse) session.getAttribute(SessionConst.LOGIN_USER);
+        UserResponse user = userService.getUser(attribute.getUserId());
+
+        log.info("user = {}", user);
+
+        model.addAttribute("updateUserRequest", user);
+
         return "user/update";
     }
 
+
     @PostMapping("/update")
-    public String update(Long userNo, UpdateUserRequest updateUserRequest) {
-        userService.update(userNo, updateUserRequest);
+    public String update(@ModelAttribute @Valid UpdateUserRequest updateUserRequest,
+                         BindingResult bindingResult,
+                         HttpServletRequest servletRequest) {
+        if (bindingResult.hasErrors()) {
+            log.info("error = {}", bindingResult.getFieldError().getDefaultMessage());
+            return "user/signup";
+        }
+
+        log.info(">>>>>>>>>>> request = {}", updateUserRequest);
+
+        HttpSession session = servletRequest.getSession();
+        UserResponse attribute = (UserResponse) session.getAttribute(SessionConst.LOGIN_USER);
+        log.info(">>>>>>>>>>> attribute = {}", attribute);
+
+        userService.update(updateUserRequest, attribute);
+
+        UserResponse user = userService.getUser(updateUserRequest.getUserId());
+        session.setAttribute(SessionConst.LOGIN_USER, user);
         return "redirect:/";
     }
 
     @GetMapping("/delete")
-    public String deleteForm() {
+    public String deleteForm(HttpServletRequest request, UpdateUserRequest updateUserRequest, Model model) {
+        HttpSession session = request.getSession();
+        UserResponse attribute = (UserResponse) session.getAttribute(SessionConst.LOGIN_USER);
+
+        model.addAttribute("loginMember", attribute.getUserId());
+
         return "user/delete";
     }
 
     @PostMapping("/delete")
-    public String delete(Long userNo) {
-        userService.delete(userNo);
+    public String delete(@ModelAttribute @Valid UpdateUserRequest updateUserRequest,
+                         BindingResult bindingResult,
+                         HttpServletRequest request) {
+        if (bindingResult.hasErrors()) {
+            log.info("error = {}", bindingResult.getFieldError().getDefaultMessage());
+            return "user/delete";
+        }
+        HttpSession session = request.getSession();
+        UserResponse attribute = (UserResponse) session.getAttribute(SessionConst.LOGIN_USER);
+
+        userService.delete(updateUserRequest, attribute);
+
+        UserResponse user = userService.getUser(updateUserRequest.getUserId());
+        session.setAttribute(SessionConst.LOGIN_USER, user);
+
         return "redirect:/";
     }
 }

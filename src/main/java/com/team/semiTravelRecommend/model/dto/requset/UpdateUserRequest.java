@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @Data
 public class UpdateUserRequest {
     private String userName;
-    private String userPwd;
+    private String userId;
     private String email;
 }

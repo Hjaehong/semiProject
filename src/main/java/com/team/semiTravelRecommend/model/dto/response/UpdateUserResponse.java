@@ -8,15 +8,13 @@ public class UpdateUserResponse {
 
     private Long userNo;
     private String userId;
-    private String userPwd;
     private String userName;
     private String email;
-    private String role;
 
     public UpdateUserResponse(UserVO updatedUser) {
-        this.userPwd = updatedUser.getUserPwd();
+        this.userNo = updatedUser.getUserNo();
+        this.userId = updatedUser.getUserId();
         this.userName = updatedUser.getUserName();
         this.email = updatedUser.getEmail();
-
     }
 }

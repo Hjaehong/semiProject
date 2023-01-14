@@ -3,24 +3,6 @@
     margin: 5rem 18rem 0 18rem;
 }
 
-h6{
-    display: inline-block;
-    font-weight: 400;
-    font-size: 20px;
-    margin:0
-}
-
-.localName{
-    padding-right: 0.3rem;
-}
-
-h2{
-    font-weight: 700;
-    font-size: 36px;
-    margin:8px 0;
-}
-
-
 .mascot{
     /* 마스코트 이미지와 도시이름 중앙 정렬 */
     display: flex;
@@ -45,6 +27,25 @@ h2{
     height: 100%;
 }
 
+
+.mascot h6{
+    display: inline-block;
+    font-weight: 400;
+    font-size: 20px;
+    margin: 0;
+    padding-right: 0.3rem;
+}
+
+/*.localName{*/
+/*    padding-right: 0.3rem;*/
+/*}*/
+
+.title{
+    font-weight: 700;
+    font-size: 36px;
+    margin:8px 0;
+}
+
 .writer{
     font-weight: 400;
     font-size: 16px;
@@ -58,11 +59,11 @@ h2{
 
 .travelImg{
     width: 100%;
-    height: 580px;
+    height: 650px;
     margin-top: 20px;
 }
 
-pre{
+.content pre{
     margin-top: 12px;
     white-space: pre-wrap;
     font-size: 14px;
@@ -70,37 +71,32 @@ pre{
 
 .tag {
     /*본문과 태그의 간격*/
-    margin: 8px 0 53px;
-}
-
-.tag span {
+    margin: 8px 0 40px;
     display: inline-block;
-    background: rgb(59, 59, 139);
-    margin-right: 8px;
+    background: #103B73;
     padding: 7px 10px 5px;
     border-radius: 5px;
     color: white;
     text-align: center;
 }
 
-.comment-form{
-    border: 2px solid black;
-    border-radius: 6px;
-    margin-top:11px;
-    padding: 10px 24px;
-}
-
-textarea{
-    margin-top: 4px;
-    width:100%;
-    height: 100px;
-}
+/*.tag span {*/
+/*    display: inline-block;*/
+/*    background: #103B73;*/
+/*    margin-right: 8px;*/
+/*    padding: 7px 10px 5px;*/
+/*    border-radius: 5px;*/
+/*    color: white;*/
+/*    text-align: center;*/
+/*}*/
 
 .edit-delete{
     display: flex;
+    /*margin-right: auto;*/
+    margin: 20px 0;
 }
 
-.button button{
+.edit-delete button{
     border: none;
     background: #656565;
     /*width: 50px;*/
@@ -108,10 +104,8 @@ textarea{
     border-radius: 5%;
     color: #fff;
     display: block;
-    margin-left: auto;
-    margin-top: 10px;
     transform: translateX(8px);
-    padding: 0.5rem;
+    padding: 4px 8px;
     margin-right: 1rem;
 }
 
@@ -126,4 +120,26 @@ textarea{
     width: 24px;
     height: 24px;
     margin-right: 8px;
+    cursor:pointer;
+}
+
+.comment-form{
+    border: 2px solid black;
+    border-radius: 6px;
+    margin-top:11px;
+    padding: 10px 24px;
+}
+
+.comment-form textarea{
+    margin-top: 4px;
+    width:100%;
+    height: 100px;
+}
+
+.back-list{
+    display: inline-block;
+    margin: 20px 0 60px;
+    padding: 4px;
+    text-decoration: none;
+    cursor:pointer;
 }

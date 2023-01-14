@@ -1,7 +1,9 @@
 package com.team.semiTravelRecommend.controller.record;
 
+import com.team.semiTravelRecommend.model.dto.SessionConst;
 import com.team.semiTravelRecommend.model.dto.comment.CommentDTO;
 import com.team.semiTravelRecommend.model.dto.record.*;
+import com.team.semiTravelRecommend.model.dto.response.LoginUserResponse;
 import com.team.semiTravelRecommend.paging.Pagenation;
 import com.team.semiTravelRecommend.paging.SelectCriteria;
 import com.team.semiTravelRecommend.service.CommentService;
@@ -79,19 +81,24 @@ public class RecordController {
     }
 
     @GetMapping("recordDetail/{recordNo}")
-    public ModelAndView recordOne(ModelAndView mv, @PathVariable("recordNo") int recordNo){
+    public ModelAndView recordOne(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember,
+                                  ModelAndView mv, @PathVariable("recordNo") int recordNo){
 
         RecordDTO record = recordService.recordOne(recordNo);
 
         // 게시글을 작성한 유저의 No
         int writerNo = record.getUserDTO().getUserNo();
 
-        // 로그인 정보가 없을 경우 userNo을 0으로 설정
-        int userNo = 0;
+        // 로그인 정보에 따라 userNo 값이 달라짐
+        int userNo;
 
 
         if (loginMember != null) { // 로그인 정보가 null이 아닌경우 userNo을 받아옴
             userNo = loginMember.getUserNo().intValue();
+            mv.addObject("loginMember", 1);
+        } else {
+            userNo = 0;
+            mv.addObject("loginMember", 0);
         }
 
         /* 좋아요 기능 구현을 위한 코드 */

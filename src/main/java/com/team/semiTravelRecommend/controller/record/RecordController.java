@@ -103,6 +103,7 @@ public class RecordController {
             /* 수정, 삭제를 위한 코드 */
             mv.addObject("samePerson", 0);
         }
+
         mv.addObject("comList", comList);
         mv.addObject("userNo", userNo);
         mv.addObject("RecordOne", record);

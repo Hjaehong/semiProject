@@ -159,7 +159,8 @@
                     url : "/record/insertComment" ,
                     type : "post" ,
                     data:{comContain:$("#commentContain").val() ,
-                        recordNo: recordNo},
+                        recordNo: recordNo ,
+                        userNo : userNo},
                     success:function (result){
                         if(result > 0){
                             $("#commentContain").val("");
@@ -181,8 +182,7 @@
     function commentList() {
         let recordNo = document.getElementById('recordNo').value;
         let sessionUserNo = [[${session.loginUser.getUserNo()}]]
-        let nickname = [[${RecordOne.getUserDTO().getNickname()}]];
-
+        let nickname = [[${user.getUserDTO().getNickname()}]];
 
         for(let i = 0; i < 10; i++){
 
@@ -197,18 +197,19 @@
                 $("#comCount").text(list.length);// 총 댓글수
 
                 let value = "";
+                let a= 0;
                 $.each(list, function (i, obj) {
                     value += "<form class='comContentList'>"
                         + "<span class='comContent'>" + obj.comContain + "</span>"
                         + "<span> " + nickname + "</span>";
                     if (sessionUserNo === userNo) {
-                        value += "<a href='#' class='btnUpdate' onclick='selectOne()'>수정</a>"
+                        value += "<a href='#' class='btnUpdate"+a+"' onclick='selectOne("+a+")'>수정</a>"
                             + "<a></a>"
                             + "</form>";
                     } else {
                         value += "</form>";
                     }
-
+                    a++;
                 });
                 $("#commentListView").html(value);
             }, error: function () {
@@ -225,7 +226,8 @@
         // 코멘트 번호
         const comList = document.getElementsByClassName('comList');
         // 클릭한 버튼의 인덱스를 가져오자
-        console.log(document.querySelector('.comContentList'));
+        var ex = $(".comContentList").index();
+        console.log('인덱싱 떴냐?'+ex);
 
         // 코멘트 내용
 

@@ -1,7 +1,9 @@
 package com.team.semiTravelRecommend.controller.record;
 
+import com.team.semiTravelRecommend.model.dto.SessionConst;
 import com.team.semiTravelRecommend.model.dto.comment.CommentDTO;
 import com.team.semiTravelRecommend.model.dto.record.*;
+import com.team.semiTravelRecommend.model.dto.response.LoginUserResponse;
 import com.team.semiTravelRecommend.paging.Pagenation;
 import com.team.semiTravelRecommend.paging.SelectCriteria;
 import com.team.semiTravelRecommend.service.CommentService;
@@ -79,7 +81,8 @@ public class RecordController {
     }
 
     @GetMapping("recordDetail/{recordNo}")
-    public ModelAndView recordOne(ModelAndView mv, @PathVariable("recordNo") int recordNo){
+    public ModelAndView recordOne(ModelAndView mv, @PathVariable("recordNo") int recordNo,
+                                  @SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember){
 
         RecordDTO record = recordService.recordOne(recordNo);
 

@@ -19,7 +19,7 @@
 
       <div class="local">
         <label> 여행지 </label>
-        <select required="required" id="location" name="locCode" onchange="readCity(this.value)">
+        <select id="locationList" name="locCode" onchange="readCity(this.value)">
           <option th:each="location : ${ Location }"
                   th:value="${ location.locCode}"
                   th:text="${location.locName}">
@@ -28,7 +28,7 @@
           <!-- selected : 초기에 선택되어있는 값 -->
         </select>
 
-        <select id="city-code" name="cityCode" required>
+        <select id="cityList" name="cityCode">
           <option th:each="city : ${ City }"
                   th:value="${city.cityCode}"
                   th:text="${city.cityName}">
@@ -55,7 +55,7 @@
 <!--          </option>-->
 <!--          <option value="" disabled selected>-&#45;&#45; 태그선택 -&#45;&#45;</option>-->
 <!--        </datalist>-->
-        <select required="required" name="recordTag">
+        <select id="tagList" name="recordTag">
           <option th:each="tag : ${ Tag }"
                   th:value="${ tag.tagCode}"
                   th:text="${tag.tagName}">
@@ -73,13 +73,13 @@
         <input type="file" name="file" class="imgFile" required/>
       </div>
 
-      <button class="regist-record" type="submit"> 작성하기 </button>
+      <button type="submit"> 작성하기 </button>
     </form>
   </div>
 <!--  <script type="text/javascript" th:src="@{/js/travelRecordWirte.js}"></script>-->
 </body>
     <script th:inline="javascript">
-    <!-- 날짜 관련 예외처리 함수 -->
+      <!-- 날짜 관련 예외처리 함수 -->
       let startDay = document.getElementById("dateIn");
       let endDay = document.getElementById("dateOut");
 
@@ -100,12 +100,12 @@
           startDay.max = endDay.value;
       })
 
-        //
+        // 선택한 지역에 따라 도시를 가져오는 함수
         function readCity(locCode) {
-            // console.log(locCode);
 
-            // let location = document.getElementById("location");
-            let city = document.getElementById("city-code");
+            let city = document.getElementById("cityList");
+            // let location = document.getElementById("locationList");
+            // location.attr("required", true);
             city.options.length = null;
 
             $.ajax({
@@ -114,7 +114,7 @@
                 data: {'locCode': locCode},
                 dataType: "json",
                 success: function (cityDTO) {
-                    console.log(cityDTO[0]);
+                    // console.log(cityDTO[0]);
 
                     // let city = document.getElementById("city-code");
 
@@ -123,13 +123,13 @@
                     }
 
                     city.innerHTML += '<option value="" disabled selected>--- 도시선택 ---</option>';
+                    // city.attr("required", true);
 
                 }, error: function (e) {
                     alert("발생한 에러 확인" + e);
                 }
             })
         };
-
     </script>
 
 </html>

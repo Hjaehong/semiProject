@@ -109,7 +109,7 @@
     height: 50px;
 }
 
-.regist-record {
+.recordWriteForm button{
     border: none;
     background: #656565;
     /*width: 50px;*/
@@ -122,4 +122,8 @@
     /*margin-top: 24px;*/
     margin: 24px auto;
     transform: translateX(8px);
+}
+
+.recordWriteForm button:hover{
+    background-color: #BF214B;
 }

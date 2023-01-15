@@ -141,5 +141,10 @@
     margin: 20px 0 60px;
     padding: 4px;
     text-decoration: none;
+    color: #103B73;
     cursor:pointer;
+}
+
+.back-list:hover{
+    color: #BF214B;
 }

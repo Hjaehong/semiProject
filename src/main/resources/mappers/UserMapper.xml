@@ -32,13 +32,13 @@
             )
     </insert>
 
-    <select id="findByUserId" parameterType="String" resultType="com.team.semiTravelRecommend.model.dto.UserVO">
+    <select id="findByUserId" parameterType="String" resultMap="userResultMap">
         SELECT *
         FROM OH_USER
         WHERE USER_ID = #{userId}
     </select>
 
-    <select id="findByEmail" parameterType="String" resultType="com.team.semiTravelRecommend.model.dto.UserVO">
+    <select id="findByEmail" parameterType="String" resultMap="userResultMap">
         SELECT *
         FROM OH_USER
         WHERE EMAIL = #{email}
@@ -57,5 +57,6 @@
         FROM OH_USER
         WHERE EMAIL = #{email}
     </delete>
+
 
 </mapper>

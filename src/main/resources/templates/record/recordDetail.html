@@ -47,6 +47,7 @@
         </div>
 
         <div class="edit-delete">
+            <!-- 작성자에게만 버튼이 보이도록 설정 -->
             <th:block th:if ="${samePerson == 0}">
                 <form class="edit" action="/record/editRecord" method="post" enctype="multipart/form-data">
                     <input type="hidden" th:name="recordNo" th:value="${RecordOne.recordNo}"/>

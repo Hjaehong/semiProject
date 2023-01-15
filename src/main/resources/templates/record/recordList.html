@@ -69,16 +69,11 @@
         </div>
     </div>
 
-      <a id="move-write-page" th:href="@{/record/travelRecordWrite}"> 여행기록<br>작성하기 </a>
+    <!-- 로그인한 유저에게만 버튼이 보이도록 설정 -->
+    <th:block th:if="${loginMember == 1}">
+        <a id="move-write-page" th:href="@{/record/travelRecordWrite}"> 여행기록<br>작성하기 </a>
+    </th:block>
 
-  <script th:inline="javascript">
-      /*<![CDATA[*/
-
-      let loginMember = [[${loginMember}]];
-      console.log(loginMember);
-
-      /*]]>*/
-  </script>
   <script type="text/javascript" th:src="@{/js/travelRecord.js}"></script>
 </body>
 </html>

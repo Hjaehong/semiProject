@@ -1,5 +1,6 @@
 .record {
     margin: 5rem 4rem 0 4rem;
+    /*border: 1px solid red;*/
 }
 
 /*ul {*/
@@ -92,39 +93,39 @@
     background-color: #BF214B;
 }
 
-
-
 /* 페이징 버튼 css */
 .paging-area{
-    /*margin: 5rem 4rem;*/
-    border: 1px solid red;
-}
-
-.paging-area ul{
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-
-.paging{
     margin: 5rem 4rem;
-    justify-content: center;
+    /*border: 1px solid red;*/
+}
+
+.paging ul{
     list-style: none;
-    border: 1px solid green;
+    margin-left: 40%;
 }
 
 .paging li{
-    margin-right: 0.5rem;
-    list-style: none;
+    margin: 32px 4px 60px;
     float: left;
 }
 
 .paging button{
+    border: 1px solid gray;
+    border-radius: 10%;
     background-color: white;
     color: gray;
+    padding: 2px 6px;
 }
 
 .paging button:disabled{
-    background-color: gray;
-    color: black;
+    border: 1px solid #103B73;
+    background-color: #103B73;
+    color: white;
+}
+
+.paging button:hover{
+    cursor: pointer;
+    /*background-color: #BF214B;*/
+    color: #BF214B;
+    border: 1px solid #BF214B;
 }

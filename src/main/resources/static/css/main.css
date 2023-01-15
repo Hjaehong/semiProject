@@ -27,6 +27,7 @@
 
 .hot{
     text-align: center;
+    margin-bottom: 24px;
 }
 
 .top-3{
@@ -76,11 +77,17 @@
 .keyword{
     margin: 8rem 18rem;
     text-align: center;
+    border: 1px solid blue;
+}
+
+.keyword h1{
+    margin-bottom: 24px;
 }
 
 .button-list{
     display: flex;
-    margin: 0 64px;
+    margin: 0 8px;
+    justify-content: center;
 }
 
 .button-list button{
@@ -96,15 +103,14 @@
 
 .tag{
     height: 100px;
-    width: 660px;
-    margin: 0 4px;
+    width: 750px;
+    margin: 0 8px;
     overflow-x: hidden;
 }
 
 .tag-list{
     display: flex;
     transition: .3s ease-out;
-    /*width: 100%;*/
     height: 100%;
 }
 
@@ -118,7 +124,7 @@
     /*border: 1px solid pink;*/
     padding: 0 4px;
     margin: 0 4px;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .keyword-one a{
@@ -132,6 +138,7 @@
 }
 
 .keyword-one img{
-    width: 50px;
-    height: 50px;
+    width: 55px;
+    height: 55px;
+    margin-bottom: 4px;
 }

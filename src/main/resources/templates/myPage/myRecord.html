@@ -25,7 +25,7 @@
 
               <tbody>
               <tr th:each=" myRecord : ${MyRecord}">
-                  <td th:text="${myRecord.recordNo}"></td>
+                  <td th:text="${myRecord.rowNum}"></td>  <!-- rowNum으로 받아줘야함 (planNo은 모든 유저가 공통으로 쓰니까) -->
                   <td>
                       <a th:text="${myRecord.rcTitle}" href="/record/recordDetail/" th:attrappend="href=${myRecord.recordNo}"/>
                   </td>

@@ -2,7 +2,6 @@ package com.team.semiTravelRecommend.controller;
 
 import com.team.semiTravelRecommend.model.dto.SessionConst;
 import com.team.semiTravelRecommend.model.dto.UserResponse;
-import com.team.semiTravelRecommend.model.dto.response.LoginUserResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,12 +35,12 @@ public class HomeController {
     }
 
     @GetMapping("/")
-    public String homeLogin(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) UserResponse loginMember, Model model, HttpServletRequest request) {
+    public String homeLogin(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
         UserResponse attribute = (UserResponse) session.getAttribute(SessionConst.LOGIN_USER);
 
         //세션에 회원 데이터가 없으면 홈
-        if (loginMember == null) {
+        if (attribute == null) {
             return "home";
         }
 
@@ -51,3 +50,5 @@ public class HomeController {
     }
 
 }
+
+

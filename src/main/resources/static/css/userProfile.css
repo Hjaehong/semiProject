@@ -1,11 +1,19 @@
-.left-area {
+.profile-menu {
     display: inline-block;
-    border: 1px solid blue;
-    margin: 0 4rem 0 0;
+    /*border: 1px solid blue;*/
+    margin: 0 32px 0 0;
+    padding: 0 32px;
 }
 
-h2{
-    margin: 1rem 0 0.3rem 0;
+.profile {
+    border: 1px solid gray;
+    border-radius: 3%;
+    margin-bottom: 4rem;
+    padding: 0 1rem;
+}
+
+.nickname{
+    margin: 1rem 0 0.3rem;
 }
 
 .userId{
@@ -14,11 +22,11 @@ h2{
 }
 
 .userTag span{
-    padding: 0.1rem;
-    margin: 0.2rem 0.2rem 0.2rem 0;
-    background: rgb(59, 59, 139);
+    padding: 0.2rem;
+    margin: 0.2rem 0.4rem 0.2rem 0;
+    background: #103B73;
     color: white;
-    font-size: 0.8rem;
+    font-size: 12px;
     border-radius: 10%;
     text-align: center;
 }
@@ -33,24 +41,22 @@ h2{
     white-space: pre-line;
 }
 
-.profile {
-    border: 1px solid pink;
-    margin-bottom: 4rem;
-}
-
 .menu{
-    border: 1px solid yellow;
+    border: 1px solid gray;
+    border-radius: 2%;
+    padding: 1rem 1rem 0;
 }
 
 .my-menu{
-    background: rgb(59, 59, 139);
+    background: #103B73;
     padding: 12px;
     text-align: center;
     color: white;
+    border-radius: 3%;
 }
 
-.travleMenu{
-    margin-top: 2rem;
+.travelMenu{
+    margin-top: 1rem;
     margin-left: 1rem;
 }
 
@@ -59,23 +65,27 @@ h2{
     margin-left: 1rem;
 }
 
-ul {
+.menu ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     font-weight: bold;
 }
 
-li {
-    padding-left: 12px;
-    padding-top: 4px;
-    padding-bottom: 4px;
+.menu li {
+    padding: 4px 0 4px 12px;
     margin: 0.5rem 0;
     font-size: 14px;
     font-weight: normal;
+    /*text-decoration: none;*/
 }
 
-a:hover li{
-    color: white;
-    background-color: rgb(59, 59, 139);
+.menu a{
+    text-decoration: none;
+    color: black;
+}
+
+.menu a:hover{
+    color: #BF214B;
+    /*background-color: rgb(59, 59, 139);*/
 }

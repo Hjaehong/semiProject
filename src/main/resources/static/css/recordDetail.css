@@ -106,7 +106,7 @@
     display: block;
     transform: translateX(8px);
     padding: 4px 8px;
-    margin-right: 1rem;
+    margin-left: auto; /* 화면의 오른쪽으로 정렬되길 원함*/
 }
 
 .heart{

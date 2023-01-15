@@ -1,40 +1,52 @@
 .recordWriteForm{
-    margin: 0 18rem;
+    margin: 60px 18rem 0;
+    /*border: 1px solid gray;*/
 }
 
-form > div {
-    border: 1px solid red;
-    border-top: none;
+.recordWriteForm h2{
+    margin-bottom: 2rem;
 }
 
-label {
+.recordWriteForm form > div {
+    border-bottom: 1px solid black;
+    padding-bottom: 2rem;
+    padding-top: 2rem;
+}
+
+.recordWriteForm form > div:first-child{
+    border-bottom: 1px solid black;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+}
+
+.recordWriteForm label {
     display: inline-block;
     width: 10rem;
     text-align: center;
     border-right: 1px solid black;
-    padding: 2rem;
-}
-
-.content {
-    display: flex;
-    align-items: center;
+    padding: 4px;
 }
 
 .title {
-    border-top: 1px solid red;
+    border-top: 1px solid black;
+    /*padding-top: 1rem;*/
+    /*margin-left: 8px;*/
 }
 
-#title-name {
-    border: none;
-    width: 30rem;
+#title-name { /* input box 크기 설정 */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 70%;
     height: 4rem;
     font-size: 20px;
+    margin-left: 8px;
 }
 
-select {
-    width: 50%; /* 가로 사이즈 */
+.recordWriteForm select {
+    width: 30%; /* 가로 사이즈 */
     padding: 10px; /* 내부여백 */
     /*padding-left: 12px;*/
+    margin-left: 4px;
     border: 1px solid #ddd;
     border-radius: 4px;
     box-sizing: border-box;
@@ -46,23 +58,58 @@ select {
     outline:none;
 }
 
-select:hover {
+.recordWriteForm select:hover {
     border: 1px solid #aaa;
 }
 
+.local select{
+    display: inline-block;
+    margin-right: 8px;
+}
+
+#location{
+    margin-left: 8px;
+}
+
+.date span{
+    margin-left: 8px;
+}
+
+#dateIn{
+    margin-right: 16px;
+}
+
+.tag select{
+    margin-left: 8px;
+}
+
+.content {
+    display: flex;
+    align-items: center;
+}
+
 .content label{
-    border-right: none;
+    /*border-right: none;*/
 }
 
-textarea {
-    border: none;
-    border-left: 1px solid blue;
-    width: 72%;
+.content textarea {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 75%;
     height: 30rem;
+    margin-left: 8px;
 }
 
+.imgFile{
+    margin: 4px;
+}
 
-button{
+.imgFile img { /* edit form에 필요한 내용 */
+    width: 50px;
+    height: 50px;
+}
+
+.regist-record {
     border: none;
     background: #656565;
     /*width: 50px;*/
@@ -70,13 +117,9 @@ button{
     border-radius: 10px;
     color: #fff;
     display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 24px;
+    /*margin-left: auto;*/
+    /*margin-right: auto;*/
+    /*margin-top: 24px;*/
+    margin: 24px auto;
     transform: translateX(8px);
-}
-
-.imgFile img {
-    width: 50px;
-    height: 50px;
 }

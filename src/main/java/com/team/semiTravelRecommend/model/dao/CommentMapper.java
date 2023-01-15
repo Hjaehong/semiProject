@@ -1,6 +1,7 @@
 package com.team.semiTravelRecommend.model.dao;
 
 import com.team.semiTravelRecommend.model.dto.CommentDTO;
+import com.team.semiTravelRecommend.model.dto.UserDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -24,4 +25,6 @@ public interface CommentMapper {
     int updateComment(CommentDTO comment);
     // comNo찾기
      String selectOne(CommentDTO comment);
+
+     CommentDTO showNickname(int userNo);
  }

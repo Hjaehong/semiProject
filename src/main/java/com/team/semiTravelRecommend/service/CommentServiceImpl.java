@@ -2,6 +2,7 @@ package com.team.semiTravelRecommend.service;
 
 import com.team.semiTravelRecommend.model.dao.CommentMapper;
 import com.team.semiTravelRecommend.model.dto.CommentDTO;
+import com.team.semiTravelRecommend.model.dto.UserDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -40,6 +41,11 @@ public class CommentServiceImpl implements CommentService{
     @Override
     public String selectOne(CommentDTO comment) {
         return commentMapper.selectOne(comment);
+    }
+
+    @Override
+    public CommentDTO showNickname(int userNo) {
+        return commentMapper.showNickname(userNo);
     }
 
 }

@@ -1,6 +1,7 @@
 package com.team.semiTravelRecommend.service;
 
 import com.team.semiTravelRecommend.model.dto.CommentDTO;
+import com.team.semiTravelRecommend.model.dto.UserDTO;
 
 import java.util.List;
  /**
@@ -22,4 +23,6 @@ public interface CommentService {
     int updateComment(CommentDTO comment);
     // comNo 찾기
      String selectOne(CommentDTO comment);
+
+     CommentDTO showNickname(int userNo);
  }

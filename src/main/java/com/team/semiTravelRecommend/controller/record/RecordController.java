@@ -79,14 +79,15 @@ public class RecordController {
     @GetMapping("recordDetail/{recordNo}")
     public ModelAndView recordOne(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember,
                                   ModelAndView mv, @PathVariable("recordNo") int recordNo){
-
-        RecordDTO record = recordService.recordOne(recordNo);
-        List<CommentDTO> comList = commentService.showComment(recordNo);
-        // 게시글을 작성한 유저의 No
-        int writerNo = record.getUserDTO().getUserNo();
         // 로그인한 유저의 No (로그인 안되어있는 경우는 프론트에서 처리)
         int userNo = loginMember.getUserNo().intValue();
 
+        RecordDTO record = recordService.recordOne(recordNo);
+        List<CommentDTO> comList = commentService.showComment(recordNo);
+        CommentDTO nickname = commentService.showNickname(userNo);
+
+        // 게시글을 작성한 유저의 No
+        int writerNo = record.getUserDTO().getUserNo();
         /* 좋아요 기능 구현을 위한 코드 */
         // 로그인한 유저가 해당 게시물에 좋아요를 눌렀는지 확인
         int heartCheck = recordService.heartCheck(recordNo, userNo);
@@ -104,6 +105,7 @@ public class RecordController {
             mv.addObject("samePerson", 0);
         }
 
+        mv.addObject("nickname", nickname);
         mv.addObject("comList", comList);
         mv.addObject("userNo", userNo);
         mv.addObject("RecordOne", record);

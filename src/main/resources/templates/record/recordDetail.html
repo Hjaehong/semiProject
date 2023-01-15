@@ -114,7 +114,7 @@
         /*<![CDATA[*/
 
         let recordNo = [[${RecordOne.recordNo}]];
-        let userNo = [[${userNo}]];
+        let userNo = [[${RecordOne.recordNo}]];
         let heartCheck = [[${heartCheck}]];
 
 
@@ -182,16 +182,10 @@
         let recordNo = document.getElementById('recordNo').value;
         let sessionUserNo = [[${session.loginUser.getUserNo()}]]
 
-
-        for(let i = 0; i < 10; i++){
-
-        }
         $.ajax({
             url: "/record/listComment",
             data: {
-                'recordNo': recordNo,
-                'userNo': $("#userNo").val(),
-            },
+                'recordNo': recordNo},
             type: "post",
             dataType: "json",
             success: function (list) {
@@ -201,9 +195,9 @@
                 let value = "";
                 let a= 0;
                 $.each(list, function (i, obj) {
-                    value += "<form class='comContentList'>"
+                    value += "<div class='comContentList'>"
                         + "<span class='comContent'>" + obj.comContain + "</span>"
-                        + "</form>";
+                        + "</div>";
                     a++;
                 });
                 $("#commentListView").html(value);

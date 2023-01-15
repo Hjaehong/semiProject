@@ -298,19 +298,11 @@ public class RecordController {
     //댓글 리스트 출력
     @ResponseBody
     @RequestMapping(value = "listComment", produces = "application/json; charset=utf-8")
-    public List<CommentDTO> listComment(int userNo) {
+    public List<CommentDTO> listComment(int recordNo) {
 
-        List<CommentDTO> comList = commentService.showComment(userNo);
+        List<CommentDTO> comList = commentService.showComment(recordNo);
 
         return comList;
-    }
-
-    //댓글 수정 request로 받아서 ajax로 넘겨줘야한다.
-    @RequestMapping(value = "selectOneComment")
-    @ResponseBody
-    public String updateComment(CommentDTO comment){
-
-        return commentService.selectOne(comment);
     }
 
 }

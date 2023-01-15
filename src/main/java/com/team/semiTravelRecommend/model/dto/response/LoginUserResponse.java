@@ -11,9 +11,11 @@ public class LoginUserResponse {
 
     private Long userNo;
     private String userId;
+    private String email;
 
     public LoginUserResponse(UserVO user) {
         this.userNo = user.getUserNo();
         this.userId = user.getUserId();
+        this.email = user.getEmail();
     }
 }

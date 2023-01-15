@@ -2,8 +2,10 @@ package com.team.semiTravelRecommend.model.dto.response;
 
 import com.team.semiTravelRecommend.model.dto.UserVO;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class UpdateUserResponse {
 
     private Long userNo;

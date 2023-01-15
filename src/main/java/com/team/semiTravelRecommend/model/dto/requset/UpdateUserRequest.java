@@ -9,10 +9,11 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 @Data
 public class UpdateUserRequest {
-    @NotBlank
+
+    @NotBlank(message = "수정할 이름을 적으세요")
     private String userName;
-    @NotBlank
+    @NotBlank(message = "수정할 아이디를 적으세요")
     private String userId;
-    @NotBlank
+    @NotBlank(message = "수정할 이메일을 적으세요")
     private String email;
 }

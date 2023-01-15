@@ -41,13 +41,18 @@ public class UserController {
     }
 
     @PostMapping("/user-signup")
-    public String signUp(@ModelAttribute @Valid SaveUserRequest saveUserRequest, BindingResult bindingResult) {
+    public String signUp(@ModelAttribute("saveUserRequest") @Valid SaveUserRequest saveUserRequest, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             log.info("error = {}", bindingResult.getFieldError().getDefaultMessage());
             return "user/signup";
         }
         log.info("홈 화면 데이터 = {}", saveUserRequest);
         userService.save(saveUserRequest);
+
+        if (saveUserRequest == null) {
+            bindingResult.reject("loginFail", "회원가입할 정보를 입력해주세요.");
+            return "user/signup";
+        }
         log.info("save 메서드 종료");
         return "redirect:/";
     }
@@ -116,7 +121,7 @@ public class UserController {
                          HttpServletRequest servletRequest) {
         if (bindingResult.hasErrors()) {
             log.info("error = {}", bindingResult.getFieldError().getDefaultMessage());
-            return "user/signup";
+            return "user/update";
         }
 
         log.info(">>>>>>>>>>> request = {}", updateUserRequest);

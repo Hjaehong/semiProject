@@ -82,7 +82,7 @@ public class UserController {
             return "user/loginForm";
         }
 
-        UserResponse userResponse = new UserResponse(loginUser);
+//        UserResponse userResponse = new UserResponse(loginUser);
 
 
 
@@ -90,7 +90,7 @@ public class UserController {
         log.info("로그인 성공 ! = {}", loginUser);
 
         HttpSession session = request.getSession();
-        session.setAttribute(SessionConst.LOGIN_USER, userResponse);
+        session.setAttribute(SessionConst.LOGIN_USER, loginUser);
 
 //        UserDTO user = (UserDTO) session.getAttribute(SessionConst.LOGIN_USER);
 //        System.out.println(user);

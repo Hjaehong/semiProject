@@ -31,19 +31,19 @@
             )
     </insert>
 
-    <select id="findByUserId" parameterType="String" resultType="com.team.semiTravelRecommend.model.dto.UserVO">
+    <select id="findByUserId" parameterType="String" resultMap="userResultMap">
         SELECT *
         FROM OH_USER
         WHERE USER_ID = #{userId}
     </select>
 
-    <select id="findByEmail" parameterType="String" resultType="com.team.semiTravelRecommend.model.dto.UserVO">
+    <select id="findByEmail" parameterType="String" resultMap="userResultMap">
         SELECT *
         FROM OH_USER
         WHERE EMAIL = #{email}
     </select>
 
-    <update id="update" parameterType="com.team.semiTravelRecommend.model.dto.UserVO">
+    <update id="update">
         UPDATE OH_USER
         SET USER_NAME=#{userName},
             USER_ID=#{userId},
@@ -51,7 +51,7 @@
         WHERE USER_NO = #{userNo}
     </update>
 
-    <delete id="delete" parameterType="com.team.semiTravelRecommend.model.dto.UserVO">
+    <delete id="delete" parameterType="String">
         DELETE
         FROM OH_USER
         WHERE EMAIL = #{email}

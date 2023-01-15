@@ -35,6 +35,14 @@
         where A.RECORD_NO = #{ recordNo }
     </select>
 
+    <select id="showNickname" resultMap="commentResultMap">
+        select
+            *
+        from OH_COMMENT A
+                 join OH_USER B on A.USER_NO = B.USER_NO
+        where A.user_no = #{ userNo }
+    </select>
+
     <select id="selectOne" resultMap="commentResultMap">
         select
             *

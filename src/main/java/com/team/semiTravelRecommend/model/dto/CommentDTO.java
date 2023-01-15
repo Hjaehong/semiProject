@@ -18,4 +18,5 @@ public class CommentDTO {
     private int userNo;
     private int recordNo;
     private String comContain;
+    private UserDTO userDTO;
 }

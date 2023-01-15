@@ -85,7 +85,6 @@
             <!--            사이즈 조정하기~-->
             <div class="profile">
                 <div class="profile-img" th:each="comList : ${comList}">
-                    <input type="hidden" th:class="comList" th:name="comNo" th:value="${comList.comNo}"/>
                 </div>
                 <span class="writer"> 작성자 </span>
             </div>
@@ -182,14 +181,17 @@
     function commentList() {
         let recordNo = document.getElementById('recordNo').value;
         let sessionUserNo = [[${session.loginUser.getUserNo()}]]
-        let nickname = [[${nickname.getUserDTO().getNickname()}]];
+
 
         for(let i = 0; i < 10; i++){
 
         }
         $.ajax({
             url: "/record/listComment",
-            data: {'recordNo': recordNo},
+            data: {
+                'recordNo': recordNo,
+                'userNo': $("#userNo").val(),
+            },
             type: "post",
             dataType: "json",
             success: function (list) {
@@ -201,14 +203,7 @@
                 $.each(list, function (i, obj) {
                     value += "<form class='comContentList'>"
                         + "<span class='comContent'>" + obj.comContain + "</span>"
-                        + "<span> " + nickname + "</span>";
-                    if (sessionUserNo === userNo) {
-                        value += "<a href='#' class='btnUpdate"+a+"' onclick='selectOne("+a+")'>수정</a>"
-                            + "<a></a>"
-                            + "</form>";
-                    } else {
-                        value += "</form>";
-                    }
+                        + "</form>";
                     a++;
                 });
                 $("#commentListView").html(value);

@@ -38,7 +38,6 @@ public class HomeController {
     @GetMapping("/")
     public ModelAndView homeLogin(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember, ModelAndView mv, HttpServletRequest request) {
         HttpSession session = request.getSession();
-
 //        Object attribute = session.getAttribute(SessionConst.LOGIN_USER);
 //
 //        //세션에 회원 데이터가 없으면 홈

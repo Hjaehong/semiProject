@@ -84,7 +84,6 @@ public class RecordController {
 
         RecordDTO record = recordService.recordOne(recordNo);
         List<CommentDTO> comList = commentService.showComment(recordNo);
-        CommentDTO nickname = commentService.showNickname(userNo);
 
         // 게시글을 작성한 유저의 No
         int writerNo = record.getUserDTO().getUserNo();
@@ -105,7 +104,6 @@ public class RecordController {
             mv.addObject("samePerson", 0);
         }
 
-        mv.addObject("nickname", nickname);
         mv.addObject("comList", comList);
         mv.addObject("userNo", userNo);
         mv.addObject("RecordOne", record);
@@ -300,9 +298,9 @@ public class RecordController {
     //댓글 리스트 출력
     @ResponseBody
     @RequestMapping(value = "listComment", produces = "application/json; charset=utf-8")
-    public List<CommentDTO> listComment(int recordNo) {
+    public List<CommentDTO> listComment(int userNo) {
 
-        List<CommentDTO> comList = commentService.showComment(recordNo);
+        List<CommentDTO> comList = commentService.showComment(userNo);
 
         return comList;
     }

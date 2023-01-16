@@ -8,6 +8,8 @@ import com.team.semiTravelRecommend.model.dto.requset.UpdateUserRequest;
 import com.team.semiTravelRecommend.model.dto.response.LoginUserResponse;
 import com.team.semiTravelRecommend.model.dto.response.UpdateUserResponse;
 
+import java.util.HashMap;
+
 public interface UserService {
 
     void save(SaveUserRequest request);
@@ -19,4 +21,8 @@ public interface UserService {
     void update(UpdateUserRequest request, UserResponse user);
 
     void delete(UserResponse attribute);
+
+    int findUserNo(String userId);
+
+    int insertUserTag(HashMap<String, Object> userTag);
 }

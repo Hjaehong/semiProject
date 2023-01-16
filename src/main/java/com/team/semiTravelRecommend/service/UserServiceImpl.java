@@ -13,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+
 @Slf4j
 @RequiredArgsConstructor
 @Service
@@ -66,5 +68,18 @@ public class UserServiceImpl implements UserService {
             return null;
         }
         return new LoginUserResponse(user);
+    }
+
+    @Override
+    public int findUserNo(String userId){ return userMapper.findUserNo(userId); }
+
+    @Override
+    public int insertUserTag(HashMap<String, Object> userTag){
+        int result = userMapper.insertUserTag(userTag);
+
+        if(result <= 0) {
+            System.out.println("유저 여행 취향 저장 실패");
+        }
+        return result > 0 ? 1 : 0;
     }
 }

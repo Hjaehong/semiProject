@@ -25,7 +25,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -41,35 +43,35 @@ public class UserController {
     @ModelAttribute("regions")
     public Map<String, String> regions() {
         Map<String, String> regions = new LinkedHashMap<>();
-        regions.put("NATIONAL PARK", "국공립공원");
-        regions.put("MOUNTAIN", "산");
-        regions.put("FOREST", "휴양림");
-        regions.put("WATERFALL/VALLEY", "폭포/계곡");
-        regions.put("SEA", "바다");
-        regions.put("ISLAND", "섬");
-        regions.put("RIVER/LAKE", "강/호수");
-        regions.put("OLD PALACE", "고궁");
-        regions.put("HISTORIC SITES", "유적지");
-        regions.put("AMUSEMENT PARK/THEME PARK ", "유원지/테마공원");
-        regions.put("SPA", "온천/스파");
-        regions.put("UNIQUE EXPERIENCE", "이색체험");
-        regions.put("MONUMENT/OBSERVATORY", "기념비/전망대");
-        regions.put("FAMOUS BUILDING", "유명건물");
-        regions.put("MUSEUM", "박물관");
-        regions.put("ART GALLERY/EXHIBITION ", "미술관/전시관");
-        regions.put("BOOK TOUR", "북투어");
-        regions.put("BIKE", "자전거");
-        regions.put("GOLF", "골프");
-        regions.put("CAMPING", "캠핑");
-        regions.put("TRACKING", "트래킹");
-        regions.put("WATER SPORTS", "수상레포츠");
-        regions.put("FISHING", "낚시");
-        regions.put("AIR LEISURE SPORTS", "항공레포츠");
-        regions.put("LOCAL MARKET", "지역시장");
-        regions.put("CRAFTS/WORKSHOP", "공예/공방");
-        regions.put("EXOTIC FOOD", "이색음식");
-        regions.put("VEGETARIAN", "채식");
-        regions.put("GUESTHOUSE", "게스트하우스");
+        regions.put("T1", "국공립공원");
+        regions.put("T2", "산");
+        regions.put("T3", "휴양림");
+        regions.put("T4", "폭포/계곡");
+        regions.put("T5", "바다");
+        regions.put("T6", "섬");
+        regions.put("T7", "강/호수");
+        regions.put("T8", "고궁");
+        regions.put("T9", "유적지");
+        regions.put("T10", "유원지/테마공원");
+        regions.put("T11", "온천/스파");
+        regions.put("T12", "이색체험");
+        regions.put("T13", "기념비/전망대");
+        regions.put("T14", "유명건물");
+        regions.put("T15", "박물관");
+        regions.put("T16", "미술관/전시관");
+        regions.put("T17", "북투어");
+        regions.put("T18", "자전거");
+        regions.put("T19", "골프");
+        regions.put("T20", "캠핑");
+        regions.put("T21", "트래킹");
+        regions.put("T22", "수상레포츠");
+        regions.put("T23", "낚시");
+        regions.put("T24", "항공레포츠");
+        regions.put("T25", "지역시장");
+        regions.put("T26", "공예/공방");
+        regions.put("T27", "이색음식");
+        regions.put("T28", "채식");
+        regions.put("T29", "게스트하우스");
         return regions;
     }
 
@@ -90,8 +92,21 @@ public class UserController {
             return "user/signup";
         }
         log.info("홈 화면 데이터 = {}", saveUserRequest);
+        userService.save(saveUserRequest); //User 테이블에 user 정보를 저장
         log.info("saveUserRequest.regions={}", saveUserRequest.getRegions());
-        userService.save(saveUserRequest);
+
+        List<String> userChoiceTag = saveUserRequest.getRegions();
+        System.out.println(userChoiceTag);
+
+        int userNo = userService.findUserNo(saveUserRequest.getUserId());
+
+        HashMap<String, Object> userTag = new HashMap<>();
+        userTag.put("userNo", userNo);
+
+        for (int i = 0; i < userChoiceTag.size(); i++){
+            userTag.put("tagCode", userChoiceTag.get(i));
+            userService.insertUserTag(userTag);
+        }
 
         if (saveUserRequest == null) {
             bindingResult.reject("loginFail", "회원가입할 정보를 입력해주세요.");

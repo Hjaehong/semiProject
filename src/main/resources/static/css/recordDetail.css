@@ -21,12 +21,11 @@
 }
 
 .mascot img{
-    /* 사용자가 등록한 프로필 이미지 */
+    /* 마스코트 이미지 */
     object-fit: contain;
     width: 100%;
     height: 100%;
 }
-
 
 .mascot h6{
     display: inline-block;
@@ -43,7 +42,7 @@
 .title{
     font-weight: 700;
     font-size: 36px;
-    margin:8px 0;
+    margin: 8px 0;
 }
 
 .writer{

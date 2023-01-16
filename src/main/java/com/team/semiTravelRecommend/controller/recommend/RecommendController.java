@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -74,11 +75,32 @@ public class RecommendController {
         List<PlaceDTO> travelList = recommendService.listPaging(selectCriteria);
         // 여행지 태그 조회
         List<TagDTO> tagList = recommendService.showTag();
+
+        List<TagDTO> tagGroup1 = new ArrayList<>();
+        List<TagDTO> tagGroup2 = new ArrayList<>();
+        List<TagDTO> tagGroup3 = new ArrayList<>();
+
+        for (int i = 0; i < 10; i++) {
+            tagGroup1.add(tagList.get(i));
+        }
+
+        for (int i = 10; i < 20; i++) {
+            tagGroup2.add(tagList.get(i));
+        }
+
+        for (int i = 20; i < tagList.size(); i++) {
+            tagGroup3.add(tagList.get(i));
+        }
+        model.addAttribute("TagGroup1", tagGroup1);
+        model.addAttribute("TagGroup2", tagGroup2);
+        model.addAttribute("TagGroup3", tagGroup3);
+
         // 선택한 태그 여행지 조회
         List<PlaceDTO> tagchooselList = recommendService.tagRecommendTravel(tagCode);
 
         model.addAttribute("selectCriteria", selectCriteria);
-        model.addAttribute("tagList", tagList);
+//        model.addAttribute("tagList", tagList);
+
         if( tagCode != null){
             model.addAttribute("travelList", tagchooselList);
         } else {

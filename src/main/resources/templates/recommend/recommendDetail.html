@@ -18,11 +18,14 @@
                 <span th:text="${travelInfo.tel}"/>
 
                 <div class="bookmark">
-                    <th:block th:if ="${checkBookmark == 0}">
-                        <img th:id="btn_bookmark" th:src="@{/image/bookmark_before.png}" alt="빈북마크이미지" onclick="bookmarkChange()"/>
-                    </th:block>
-                    <th:block th:unless ="${checkBookmark == 0}">
-                        <img th:id="btn_bookmark" th:src="@{/image/bookmark_after.png}" alt="꽉찬북마크이미지" onclick="bookmarkChange()"/>
+                    <!-- 로그인 정보가 있을때만 버튼이 보이도록 함 -->
+                    <th:block th:if ="${loginMember == 1}">
+                        <th:block th:if ="${checkBookmark == 0}">
+                            <img th:id="btn_bookmark" th:src="@{/image/bookmark_before.png}" alt="빈북마크이미지" onclick="bookmarkChange()"/>
+                        </th:block>
+                        <th:block th:unless ="${checkBookmark == 0}">
+                            <img th:id="btn_bookmark" th:src="@{/image/bookmark_after.png}" alt="꽉찬북마크이미지" onclick="bookmarkChange()"/>
+                        </th:block>
                     </th:block>
                 </div>
             </div>

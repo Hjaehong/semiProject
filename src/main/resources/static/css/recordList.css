@@ -1,17 +1,42 @@
-.record {
-    margin: 5rem 4rem 0 4rem;
+#top-button{
+    position: fixed;
+    bottom: 50px;
+    right: 150px;
+    text-decoration: none;
+    background-color: #103B73;
+    color: white;
+    padding: 5px;
+    border-radius: 10%;
+    font-size: 12px;
 }
 
-ul {
-    list-style-type: none;
-    /* 기본으로 있는 margin, padding 없애고 해야합니다요  */
-    margin: 0;
-    padding: 0;
+#top-button:hover{
+    background-color: #BF214B;
 }
+
+.record {
+    margin: 5rem 4rem 0 4rem;
+    /*border: 1px solid red;*/
+}
+
+/*ul {*/
+/*    list-style-type: none;*/
+/*    !* 기본으로 있는 margin, padding 없애고 해야합니다요  *!*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*}*/
+
 .wrapper {
+    list-style-type: none;
     margin: 0 18rem;
     padding: 20px;
     border-bottom: 1px dashed black;
+}
+
+.wrapper a {
+    color: black;
+    text-decoration: none;
+    cursor:pointer;
 }
 
 .list-item {
@@ -51,18 +76,15 @@ ul {
     margin-top: 4px;
 }
 
-h2 {
+.text-container h2 {
     padding: 8px 0;
     margin: 0;
 }
 
-.tag-list {
-    margin-top: 30px;
-}
-
-.tag-item {
+.tag {
     display: inline-block;
-    background: rgb(59, 59, 139);
+    margin-top: 30px;
+    background: #103B73;
     color: white;
     padding: 6px 8px;
     margin-right: 10px;
@@ -76,40 +98,51 @@ h2 {
     bottom: 100px;
     right: 200px;
     text-decoration: none;
-    background: rgb(59, 59, 139);
+    background: #103B73;
     color: white;
     padding: 5px;
     border-radius: 15%;
     font-size: 10px;
 }
 
-
+#move-write-page:hover{
+    background-color: #BF214B;
+}
 
 /* 페이징 버튼 css */
-/*.paging-area{*/
-/*    margin: 5rem 4rem;*/
-/*    border: 1px solid red;*/
-/*}*/
+.paging-area{
+    margin: 5rem 4rem;
+    /*border: 1px solid red;*/
+}
 
-/*.paging{*/
-/*    !*margin: 5rem 4rem;*!*/
-/*    justify-content: center;*/
-/*    list-style: none;*/
-/*    border: 1px solid green;*/
-/*}*/
+.paging ul{
+    list-style: none;
+    margin-left: 40%;
+}
 
 .paging li{
-    margin-right: 0.5rem;
-    list-style: none;
+    margin: 32px 4px 60px;
     float: left;
 }
 
 .paging button{
+    border: 1px solid gray;
+    border-radius: 10%;
     background-color: white;
     color: gray;
+    padding: 2px 6px;
 }
 
 .paging button:disabled{
-    background-color: gray;
-    color: black;
+    border: 1px solid #103B73;
+    background-color: #103B73;
+    color: white;
+    pointer-events: none; /* hover 효과 적용 안되게 설정 */
+}
+
+.paging button:hover{
+    cursor: pointer;
+    /*background-color: #BF214B;*/
+    color: #BF214B;
+    border: 1px solid #BF214B;
 }

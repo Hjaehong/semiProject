@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -63,8 +64,27 @@ public class HomeController {
         List<PlaceDTO> topLank = mainPageService.readTopLank();
         List<TagDTO> tagList = mainPageService.readTagList();
 
+        List<TagDTO> tagGroup1 = new ArrayList<>();
+        List<TagDTO> tagGroup2 = new ArrayList<>();
+        List<TagDTO> tagGroup3 = new ArrayList<>();
+
+        for (int i = 0; i < 10; i++) {
+            tagGroup1.add(tagList.get(i));
+            mv.addObject("TagGroup1", tagGroup1);
+        }
+
+        for (int i = 10; i < 20; i++) {
+            tagGroup2.add(tagList.get(i));
+            mv.addObject("TagGroup2", tagGroup2);
+        }
+
+        for (int i = 20; i < tagList.size(); i++) {
+            tagGroup3.add(tagList.get(i));
+            mv.addObject("TagGroup3", tagGroup3);
+        }
+
         mv.addObject("TopLank", topLank);
-        mv.addObject("TagList", tagList);
+//        mv.addObject("TagList", tagList);
 
         mv.setViewName("common/main");
 

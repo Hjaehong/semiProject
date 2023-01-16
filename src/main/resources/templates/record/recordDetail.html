@@ -15,7 +15,6 @@
 <body>
 <div th:replace="common/header.html"></div>
     <div class="posting">
-        <button class="back-list" type="button" th:onclick="|location.href='@{/record/recordList}'|"> 목록으로 돌아가기 </button>
         <div class="head">
             <div class="mascot">
                 <div class="mascot-img">
@@ -25,7 +24,7 @@
                 <h6 th:text="${RecordOne.cityDTO.cityName}"></h6>
             </div>
 
-            <h2 th:text="${RecordOne.rcTitle}"></h2>
+            <h2 class="title" th:text="${RecordOne.rcTitle}"></h2>
 
             <div class="writer">
                 <span> 작성자 : </span>
@@ -44,9 +43,21 @@
 
         <div class="content">
             <pre th:text="${RecordOne.rcDetail}"></pre>
-            <div class="tag">
-                <span th:text="${RecordOne.tagDTO.tagName}"></span>
-            </div>
+            <div class="tag" th:text="${RecordOne.tagDTO.tagName}"/>
+        </div>
+
+        <div class="edit-delete">
+            <!-- 작성자에게만 버튼이 보이도록 설정 -->
+            <th:block th:if ="${samePerson == 0}">
+                <form class="edit" action="/record/editRecord" method="post" enctype="multipart/form-data">
+                    <input type="hidden" th:name="recordNo" th:value="${RecordOne.recordNo}"/>
+                    <button type="submit"> 수정 </button>
+                </form>
+                <form class="delete" action="/record/deleteRecord" method="post">
+                    <input type="hidden" th:name="recordNo" th:value="${RecordOne.recordNo}"/>
+                    <button type="submit"> 삭제 </button>
+                </form>
+            </th:block>
         </div>
 
         <div class="heart">
@@ -87,24 +98,13 @@
                 <div class="profile-img">
 <!--                    <img src="/image/profile.png" alt="프로필이미지"/>-->
                 </div>
-                <span class="writer"> 작성자 </span>
+                <span class="comment-writer"> 작성자 </span>
             </div>
             <textarea id="commentContain"></textarea>
             <button>등록</button>
         </div>
 
-        <div class="edit-delete">
-            <th:block th:if ="${samePerson == 0}">
-                <form class="edit" action="/record/editRecord" method="post" enctype="multipart/form-data">
-                    <input type="hidden" th:name="recordNo" th:value="${RecordOne.recordNo}"/>
-                    <button type="submit"> 수정 </button>
-                </form>
-                <form class="delete" action="/record/deleteRecord" method="post">
-                    <input type="hidden" th:name="recordNo" th:value="${RecordOne.recordNo}"/>
-                    <button type="submit"> 삭제 </button>
-                </form>
-            </th:block>
-        </div>
+        <a class="back-list" th:href="@{/record/recordList}"> <- 목록으로 </a>
     </div>
 </body>
     <script th:inline="javascript">
@@ -114,6 +114,9 @@
         let userNo = [[${userNo}]];
         let heartCheck = [[${heartCheck}]];
         console.log(heartCheck);
+
+        let loginMember = [[${loginMember}]];
+        console.log(loginMember);
 
         function changeHeart(){
             if(heartCheck == 0 || heartCheck == 1){
@@ -138,6 +141,7 @@
             }
         }
         /*]]>*/
+
     </script>
 <script th:inline="javascript" th:src="@{/js/recordDetail.js}"> </script>
 </html>

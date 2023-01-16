@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>myRecord</title>
-  <link th:href="@{/css/myRecord.css}" rel="stylesheet" type="text/css">
+  <link th:href="@{/css/myActivity.css}" rel="stylesheet" type="text/css">
   <script>
     const successMessage = "[[${ successMessage}]]";
     if (successMessage){
@@ -17,9 +17,9 @@
   <div th:replace="common/userProfile.html"> </div>
 
   <div class="content-area">
-    <h3> 내 여행기록 </h3>
+    <h3> 내 플래너 </h3>
     <hr>
-    <table class="myRecord">
+    <table class="myActivity">
       <thead>
       <tr>
         <th> 번호 </th>
@@ -30,7 +30,7 @@
 
       <tbody>
       <tr th:each=" myPlanner : ${MyPlanner}">
-        <td th:text="${myPlanner.planNo}"></td> <!--  rowNum으로 받아줘야함 (planNo은 모든 유저가 공통으로 쓰니까)-->
+        <td th:text="${myPlanner.rowNum}"></td> <!-- rowNum으로 받아줘야함 (planNo은 모든 유저가 공통으로 쓰니까) -->
         <td>
           <a th:text="${myPlanner.travelPlace}" href="/planner/plannerDetail/" th:attrappend="href=${myPlanner.planNo}"/>
         </td>

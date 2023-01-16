@@ -38,7 +38,15 @@ public class RecommendController {
 
     // 추천 여행장소 리스트 맨처음에 보여짐
     @GetMapping("travelRecommend")
-    public Model recommendList(@RequestParam(value = "tag", required = false) String tagCode, HttpServletRequest request, Model model){
+    public Model recommendList(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember,
+                               @RequestParam(value = "tag", required = false) String tagCode, HttpServletRequest request, Model model){
+
+        if (loginMember != null) { // 로그인 유무만 확인하면 되기 때문에 따로 userNo을 받지 않음
+            model.addAttribute("loginMember", 1);
+        } else { // 로그인 정보가 null인 경우
+            model.addAttribute("loginMember", 0);
+        }
+
         // paging.html에서 currentPage인 name을 가져온다.
         String currentPage = request.getParameter("currentPage");
         // session에 저장된 user의 정보 가져오기
@@ -89,12 +97,22 @@ public class RecommendController {
     public String travelDetail(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember,
                                Model model, @PathVariable(value = "placeId")int travelInfo){
         // 디테일 정보를 placeId로 찾는다.
-        System.out.println("travelInfo = " + travelInfo);
-        // session에 저장된 유저번호를 가져온다 Long타입이기 때문에 int형으로 형변환
-        int userNo = loginMember.getUserNo().intValue();
         PlaceDTO travelDetail = recommendService.detailTravelInfo(travelInfo);
+        System.out.println("travelInfo = " + travelInfo);
+
+        int userNo;
+
+        if (loginMember != null) { // 로그인 정보가 null이 아닌경우 userNo을 받아옴
+            userNo = loginMember.getUserNo().intValue();
+            model.addAttribute("loginMember", 1);
+        } else { // 로그인 정보가 null인 경우
+            userNo = 0;
+            model.addAttribute("loginMember", 0);
+        }
+
         int checkBookmark = recommendService.checkBookmark(userNo, travelInfo);
         System.out.println("checkBookmark = " + checkBookmark);
+
         if(checkBookmark == 1){
             model.addAttribute("checkBookmark", 1);
         }else{

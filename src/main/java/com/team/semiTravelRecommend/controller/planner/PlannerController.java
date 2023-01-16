@@ -31,7 +31,7 @@ public class PlannerController {
         System.out.println(planner.getEndDueDate());
         System.out.println( "숙소정보확인" + planner.getLodgingInfo());
 
-        planner.setUserNo(6); // userNo 임의 설정 -> 나중에 로그인이랑 연결 후 삭제해줘야함
+        planner.setUserNo(1); // userNo 임의 설정 -> 나중에 로그인이랑 연결 후 삭제해줘야함
         // 필수입력 사항이 아닌 값들은 비어있는 경우 null 처리해서 set해주거나, 프론트단에서 value처리 해줘야할 듯
         plannerService.insertPlanner(planner); // 우선 지금은 모든 항목 필수입력으로 설정해두기
 

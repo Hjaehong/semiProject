@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>나의플래너디테일</title>
+</head>
+<body>
+<header>
+    로고 <b>여행플래너</b> 여행지추천 여행공유 마이페이지 로그아웃
+</header>
+<hr>
+<br>
+플래너 작성하기
+<br><br>
+
+
+<div>
+    <table border="1px" >
+        <tr>
+            <td>여행지</td>
+            <td class="placeContent" th:text="${ planner.travelPlace }"></td>
+            <!-- 케밥 케이스(Kebab Case)
+            하이픈으로 단어를 연결하는 방식이며 HTML태그의 id, class 값으로 흔히 쓰인다. -->
+        </tr>
+        <tr>
+            <td>여행일자</td>
+            <td class="startDateContent" th:text="${ planner.startDueDate }">
+                시작일:
+            </td>
+            <td class="endDateContent" th:text="${ planner.endDueDate }">
+                종료일:
+            </td>
+        </tr>
+        <tr>
+            <td>숙소정보</td>
+            <td class="lodgingContent" th:text="${ planner.lodgingInfo }">
+
+            </td>
+        </tr>
+        <tr>
+            <td>이동수단</td>
+            <td class="transportationContent" th:text="${ planner.transportation }">
+
+            </td>
+        </tr>
+    </table>
+    <br>
+    <table border="1px">
+        <tr>
+            <td class="checklist">체크리스트</td>
+            <td class="detail">세부일정</td>
+        </tr>
+        <tr>
+            <td th:text="${ planner.checklist }">
+
+            </td>
+            <td th:text="${ planner.plDetail }">
+
+            </td>
+        </tr>
+    </table>
+</div>
+    <br>
+
+    <!--<button th:onclick="|location.href='@{/mypage/myPlanner/update(planNo=${planner.planNo})}'|">수정하기</button>-->
+    <button th:onclick="|location.href='@{/mypage/myPlanner/showUpdate(planNo=${planner.planNo})}'|">수정하기</button>
+    <button th:onclick="|location.href='@{/mypage/myPlanner/delete(planNo=${planner.planNo})}'|">삭제하기</button>
+
+
+</body>
+</html>

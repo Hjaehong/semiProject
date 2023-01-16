@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import java.util.List;
 
 @NoArgsConstructor
 @Data
@@ -30,5 +31,7 @@ public class SaveUserRequest {
     // 추가
     @NotBlank(message = "닉네임은 필수 값입니다.")
     private String nickname;
+
+    private List<String> regions;
 
 }

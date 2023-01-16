@@ -49,7 +49,14 @@ public class RecordController {
 
 
     @GetMapping("recordList")
-    public Model recordList(Model model, HttpServletRequest request){
+    public Model recordList(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember,
+                            Model model, HttpServletRequest request){
+
+        if (loginMember != null) { // 로그인 유무만 확인하면 되기 때문에 따로 userNo을 받지 않음
+            model.addAttribute("loginMember", 1);
+        } else { // 로그인 정보가 null인 경우
+            model.addAttribute("loginMember", 0);
+        }
 
         String currentPage = request.getParameter("currentPage");
 
@@ -81,20 +88,24 @@ public class RecordController {
     }
 
     @GetMapping("recordDetail/{recordNo}")
-    public ModelAndView recordOne(ModelAndView mv, @PathVariable("recordNo") int recordNo,
-                                  @SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember){
+    public ModelAndView recordOne(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember,
+                                  ModelAndView mv, @PathVariable("recordNo") int recordNo){
 
         RecordDTO record = recordService.recordOne(recordNo);
 
         // 게시글을 작성한 유저의 No
         int writerNo = record.getUserDTO().getUserNo();
 
-        // 로그인 정보가 없을 경우 userNo을 0으로 설정
-        int userNo = 0;
+        // 로그인 정보에 따라 userNo 값이 달라짐
+        int userNo;
 
 
         if (loginMember != null) { // 로그인 정보가 null이 아닌경우 userNo을 받아옴
             userNo = loginMember.getUserNo().intValue();
+            mv.addObject("loginMember", 1);
+        } else { // 로그인 정보가 null인 경우
+            userNo = 0;
+            mv.addObject("loginMember", 0);
         }
 
         /* 좋아요 기능 구현을 위한 코드 */
@@ -115,19 +126,7 @@ public class RecordController {
             mv.addObject("samePerson", 0);
         }
 
-//        if (writerNo != userNo) { // 로그인 된 상태이면서 작성자와 로그인한 유저가 같지 않은 경우
-//            if (heartCheck == 1) { // 이미 눌려있다면 1을 반환
-//                mv.addObject("heartCheck", 1);
-//            } else { // 눌려있지 않다면 0을 반환
-//                mv.addObject("heartCheck", 0);
-//            }
-//        }
-//        else { // 작성자와 로그인한 유저가 같은 경우
-//            mv.addObject("heartCheck", 2);
-//            /* 수정, 삭제를 위한 코드 */
-//            mv.addObject("samePerson", 0);
-//        }
-
+        /* ajax로 좋아요 기능을 구현하는데 그때 userNo이 필요하기 때문에 add해줌 */
         mv.addObject("userNo", userNo);
         mv.addObject("RecordOne", record);
         mv.setViewName("record/recordDetail");
@@ -152,15 +151,12 @@ public class RecordController {
     }
 
     @GetMapping(value="travelRecordWrite", produces = "application/json; charset=UTF-8")
-    public ModelAndView readTagAndLocation(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember,
-                                           ModelAndView mv){
-        // 유저의 정보를 가져오기
-        int userNo = loginMember.getUserNo().intValue();
+    public ModelAndView readTagAndLocation(ModelAndView mv){
 
         List<LocationDTO> locationList = readLocation();
 
         List<TagDTO> tagList = readTag();
-        mv.addObject("userNo", userNo);
+
         mv.addObject("Location", locationList);
         mv.addObject("Tag", tagList);
 
@@ -186,15 +182,19 @@ public class RecordController {
     }
 
     @PostMapping("travelRecordWrite")
-    public ModelAndView writeRecord(ModelAndView mv, RecordDTO record, @RequestParam(name="file", required = false) MultipartFile file, RedirectAttributes rttr){
+    public ModelAndView writeRecord(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember,
+                                    ModelAndView mv, RecordDTO record, @RequestParam(name="file", required = false) MultipartFile file, RedirectAttributes rttr){
 
-        System.out.println(record.getCityCode());
-
+        // 파일에 대한 처리를 하는 메소드 호출 후 fileNo을 DTO에 set해줌
         if ((!file.getOriginalFilename().equals(""))){
             int fileNo = saveFile(file);
 
             record.setImgFileNo(fileNo);
         }
+
+        // session 에서 로그인한 user의 정보를 찾아서 DTO에 set해줌
+        int userNo = loginMember.getUserNo().intValue();
+        record.setUserNo(userNo);
 
         recordService.insertRecord(record);
 

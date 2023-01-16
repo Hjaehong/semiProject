@@ -201,7 +201,6 @@
 
     </insert>
 
-
     <update id="editRecord">
         UPDATE OH_RECORD
         SET RC_TITLE=#{rcTitle},

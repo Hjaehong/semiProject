@@ -32,16 +32,75 @@
 
   <div class="keyword">
     <h1> 키워드로 여행지 찾기 </h1>
-    <div class="choice-keyword">
-      <div class="keyword-one" th:each="tagList : ${TagList}">
-        <a th:href="@{/recommend/travelRecommend(tag=${tagList.tagCode})}">
-          <img th:src="@{${tagList.iconImg}}" alt="키워드이미지"/>
-          <div th:text="${tagList.tagName}"></div>
-        </a>
+    <div class="button-list">
+      <button class="button-left"> < </button>
+      <div class="tag">
+        <div class="tag-list">
+          <div class="tagGroup">
+            <div class="keyword-one" th:each="tagGroup1 : ${TagGroup1}">
+              <a th:href="@{/recommend/travelRecommend(tag=${tagGroup1.tagCode})}">
+                <img th:src="@{${tagGroup1.iconImg}}" alt="키워드이미지"/>
+                <div th:text="${tagGroup1.tagName}"></div>
+              </a>
+            </div>
+          </div>
+
+          <div class="tagGroup">
+            <div class="keyword-one" th:each="tagGroup2 : ${TagGroup2}">
+              <a th:href="@{/recommend/travelRecommend(tag=${tagGroup2.tagCode})}">
+                <img th:src="@{${tagGroup2.iconImg}}" alt="키워드이미지"/>
+                <div th:text="${tagGroup2.tagName}"></div>
+              </a>
+            </div>
+          </div>
+
+          <div class="tagGroup">
+            <div class="keyword-one" th:each="tagGroup3 : ${TagGroup3}">
+              <a th:href="@{/recommend/travelRecommend(tag=${tagGroup3.tagCode})}">
+                <img th:src="@{${tagGroup3.iconImg}}" alt="키워드이미지"/>
+                <div th:text="${tagGroup3.tagName}"></div>
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
+      <button class="button-right"> > </button>
     </div>
   </div>
-
   <a href="#Top" id="top-button"> ▲ TOP </a>
 </body>
+
+<script>
+  const tag = document.querySelector('.tag');
+  const tagList = document.querySelector('.tag-list');
+  const tagGroups = document.querySelectorAll('.tagGroup');
+  let currentIndex = 0; // 현재 슬라이드 화면 인덱스
+
+  console.log(tag);
+  console.log(tagList);
+  console.log(tagGroups);
+
+  tagGroups.forEach((tagGroup) => {
+    tagGroup.style.width = `${tag.clientWidth}px`; // inner의 width를 모두 outer의 width로 만들기
+  })
+
+  tagList.style.width = `${tag.clientWidth * tagGroups.length}px`; // innerList의 width를 inner의 width * inner의 개수로 만들기
+
+  /*
+  버튼에 이벤트 등록하기
+  */
+  const buttonLeft = document.querySelector('.button-left');
+  const buttonRight = document.querySelector('.button-right');
+  buttonLeft.addEventListener('click', () => {
+    currentIndex--;
+    currentIndex = currentIndex < 0 ? 0 : currentIndex; // index값이 0보다 작아질 경우 0으로 변경
+    tagList.style.marginLeft = `-${tag.clientWidth * currentIndex}px`; // index만큼 margin을 주어 옆으로 밀기
+  });
+
+  buttonRight.addEventListener('click', () => {
+    currentIndex++;
+    currentIndex = currentIndex >= tagGroups.length ? tagGroups.length - 1 : currentIndex; // index값이 inner의 총 개수보다 많아질 경우 마지막 인덱스값으로 변경
+    tagList.style.marginLeft = `-${tag.clientWidth * currentIndex}px`; // index만큼 margin을 주어 옆으로 밀기
+  });
+</script>
 </html>

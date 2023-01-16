@@ -8,22 +8,36 @@
 </head>
 <body>
     <div th:fragment="header" class="header">
-        <a th:href="@{/}">
+        <a class="logo-img" th:href="@{/}">
             <img th:src="@{/image/logo.png}" alt = "로고"/>
         </a>
         <ul class = "nav">
-            <li><a th:href="@{/planner/plannerWrite}" onclick="return login()" id="planner"> 여행 플래너</a></li>
-            <li><a th:href="@{/recommend/travelRecommend}"> 여행지 추천</a></li>
-            <li><a th:href="@{/record/recordList}"> 여행 기록</a></li>
+            <li>
+                <a th:href="@{/planner/plannerWrite}" onclick="return login()" id="planner"> 여행 플래너
+                    <input type="hidden" th:value="${loginMember}">
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/recommend/travelRecommend}"> 여행지 추천
+                    <input type="hidden" th:value="${loginMember}">
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/record/recordList}"> 여행 기록
+                    <input type="hidden" th:value="${loginMember}">
+                </a>
+            </li>
         </ul>
         <ul class = "enter">
             <th:block th:if="${loginMember == 0}">
                 <li><a th:href="@{/user-signup}"> 회원가입 </a></li>
                 <li><a th:href="@{/login}"> 로그인 </a></li>
+                <li th:text="${loginMember}"><li>
             </th:block>
             <th:block th:unless="${loginMember == 0}">
                 <li><a th:href="@{/myPage/myPage}"> 마이페이지 </a></li>
                 <li><a th:href="@{/logout}"> 로그아웃 </a></li> <!-- 로그아웃 처리 필요-->
+                <li th:text="${loginMember}"><li>
             </th:block>
         </ul>
     </div>

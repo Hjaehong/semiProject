@@ -1,0 +1,55 @@
+.myPage {
+    display: flex;
+    /*position: relative;*/
+    /*border: 1px solid red;*/
+    margin: 5rem 14rem;
+    padding: 2rem 0;
+    justify-content: center;
+}
+
+.content-area{
+    /*position: absolute;*/
+    /*top: 32px;*/
+    /*right: 32px;*/
+    width: 600px;
+}
+
+.content-area h3{
+    margin: 1rem 0 0.5rem;
+}
+
+.myActivity{
+    /* border-spacing: 0.5rem; */
+    /* border: 1px solid blue; */
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.myActivity thead tr{
+    border-bottom: 1px solid black;
+}
+
+.myActivity tr{
+    text-align: center;
+    /* background-color: green; */
+    /* line-height: 1rem; */
+}
+
+.myActivity th, td {
+    border-bottom: 1px solid #444444;
+    border-left: 1px solid #444444;
+    padding: 10px;
+    /*margin: 10px;*/
+}
+
+.myActivity th:first-child, td:first-child {
+    border-left: none;
+}
+
+.myActivity tbody td a{
+    color: #103B73;
+}
+
+.myActivity tbody td a:hover{
+    color: #BF214B;
+}

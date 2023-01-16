@@ -6,6 +6,7 @@ import java.sql.Date;
 @Data
 public class PlannerDTO {
 
+    private int rowNum;
     private int planNo;
     private int userNo;
     private String travelPlace;

@@ -4,6 +4,7 @@ import com.team.semiTravelRecommend.model.dto.UserVO;
 import com.team.semiTravelRecommend.model.dto.requset.UpdateUserRequest;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,4 +20,8 @@ public interface UserMapper {
     Optional<UserVO> findByUserId(String userId);
 
     Optional<UserVO> findByEmail(String email);
+
+    int findUserNo(String userId);
+
+    int insertUserTag(HashMap<String, Object> userTag);
 }

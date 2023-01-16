@@ -32,33 +32,29 @@
     </insert>
 
     <select id="findByUserId" parameterType="String" resultMap="userResultMap">
-        select
-            USER_NO ,
-            USER_PWD ,
-            USER_NAME ,
-            EMAIL ,
-            NICKNAME
-        from OH_USER
-        where USER_ID = #{userId}
+        SELECT *
+        FROM OH_USER
+        WHERE USER_ID = #{userId}
     </select>
 
-    <select id="findById" parameterType="Long" resultMap="userResultMap">
-        select *
-        from OH_USER
-        where USER_NO = #{userNo}
+    <select id="findByEmail" parameterType="String" resultMap="userResultMap">
+        SELECT *
+        FROM OH_USER
+        WHERE EMAIL = #{email}
     </select>
 
     <update id="update">
-        UPDATE user
-        SET
-        USER_NAME=#{userName},
-        USER_PWD=#{userPwd},
-        EMAIL=#{email}
-        WHERE USER_NO=#{userNo}
+        UPDATE OH_USER
+        SET USER_NAME=#{userName},
+            USER_ID=#{userId},
+            EMAIL=#{email}
+        WHERE USER_NO = #{userNo}
     </update>
 
-    <delete id="delete">
-        DELETE FROM user WHERE USER_ID = #{userId}
+    <delete id="delete" parameterType="String">
+        DELETE
+        FROM OH_USER
+        WHERE EMAIL = #{email}
     </delete>
 
 </mapper>

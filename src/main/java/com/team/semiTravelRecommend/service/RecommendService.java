@@ -1,7 +1,7 @@
 package com.team.semiTravelRecommend.service;
 
-import com.team.semiTravelRecommend.model.dto.PlaceDTO;
-import com.team.semiTravelRecommend.model.dto.TagDTO;
+import com.team.semiTravelRecommend.model.recommend.PlaceDTO;
+import com.team.semiTravelRecommend.model.recommend.TagDTO;
 import com.team.semiTravelRecommend.paging.SelectCriteria;
 
 import java.util.List;

@@ -1,7 +1,7 @@
-package com.team.semiTravelRecommend.model.dto;
+package com.team.semiTravelRecommend.model.dto.record;
 
 import com.team.semiTravelRecommend.model.dto.CityDTO;
-import com.team.semiTravelRecommend.model.dto.TagDTO;
+import com.team.semiTravelRecommend.model.recommend.TagDTO;
 import lombok.Data;
 
 import java.sql.Date;

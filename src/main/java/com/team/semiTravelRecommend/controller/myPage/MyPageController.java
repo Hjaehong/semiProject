@@ -1,10 +1,10 @@
 package com.team.semiTravelRecommend.controller.myPage;
 
 import com.team.semiTravelRecommend.model.dto.SessionConst;
-import com.team.semiTravelRecommend.model.dto.BookmarkDTO;
+import com.team.semiTravelRecommend.model.recommend.BookmarkDTO;
 import com.team.semiTravelRecommend.model.dto.CityDTO;
-import com.team.semiTravelRecommend.model.dto.RecordDTO;
-import com.team.semiTravelRecommend.model.dto.UserTagDTO;
+import com.team.semiTravelRecommend.model.dto.record.RecordDTO;
+import com.team.semiTravelRecommend.model.dto.record.UserTagDTO;
 import com.team.semiTravelRecommend.model.dto.response.LoginUserResponse;
 import com.team.semiTravelRecommend.service.MyPageService;
 import org.springframework.stereotype.Controller;

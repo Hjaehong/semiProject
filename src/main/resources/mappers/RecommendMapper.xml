@@ -5,7 +5,7 @@
 
 <mapper namespace="com.team.semiTravelRecommend.model.dao.RecommendMapper"><!-- 메퍼위치하고  동일하게 네임스페이스 작성-->
 
-    <resultMap type="com.team.semiTravelRecommend.model.dto.PlaceDTO" id="placeResultMap">
+    <resultMap type="com.team.semiTravelRecommend.model.recommend.PlaceDTO" id="placeResultMap">
         <id property="placeId" column="PLACE_ID"/>
         <result property="placeName" column="PLACE_NAME"/>
         <result property="address" column="ADDRESS"/>
@@ -25,12 +25,12 @@
         <association property="locationDTO" column="LOC_CODE" resultMap="locResultMap"/>
 
     </resultMap>
-    <resultMap type="com.team.semiTravelRecommend.model.dto.LocationDTO" id="locResultMap">
+    <resultMap type="com.team.semiTravelRecommend.model.recommend.LocationDTO" id="locResultMap">
         <id property="locCode" column="LOC_CODE"/>
         <result property="locName" column="LOC_NAME"/>
 
     </resultMap>
-    <resultMap type="com.team.semiTravelRecommend.model.dto.TagDTO" id="tagResultMap">
+    <resultMap type="com.team.semiTravelRecommend.model.recommend.TagDTO" id="tagResultMap">
         <id property="tagCode" column="TAG_CODE"/>
         <result property="tagName" column="TAG_NAME"/>
         <result property="iconImg" column="ICON_IMG"/>

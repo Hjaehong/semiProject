@@ -1,7 +1,7 @@
 package com.team.semiTravelRecommend.model.dao;
 
-import com.team.semiTravelRecommend.model.dto.PlaceDTO;
-import com.team.semiTravelRecommend.model.dto.TagDTO;
+import com.team.semiTravelRecommend.model.recommend.PlaceDTO;
+import com.team.semiTravelRecommend.model.recommend.TagDTO;
 import com.team.semiTravelRecommend.paging.SelectCriteria;
 import org.apache.ibatis.annotations.Mapper;
 /**

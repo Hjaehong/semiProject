@@ -1,7 +1,12 @@
 package com.team.semiTravelRecommend.controller.record;
 
 import com.team.semiTravelRecommend.model.dto.*;
+import com.team.semiTravelRecommend.model.dto.comment.CommentDTO;
+import com.team.semiTravelRecommend.model.dto.record.FileDTO;
+import com.team.semiTravelRecommend.model.dto.record.RecordDTO;
 import com.team.semiTravelRecommend.model.dto.response.LoginUserResponse;
+import com.team.semiTravelRecommend.model.recommend.LocationDTO;
+import com.team.semiTravelRecommend.model.recommend.TagDTO;
 import com.team.semiTravelRecommend.paging.Pagenation;
 import com.team.semiTravelRecommend.paging.SelectCriteria;
 import com.team.semiTravelRecommend.service.CommentService;

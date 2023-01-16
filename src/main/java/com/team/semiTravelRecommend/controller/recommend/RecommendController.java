@@ -1,8 +1,8 @@
 package com.team.semiTravelRecommend.controller.recommend;
 
 import com.team.semiTravelRecommend.model.dto.SessionConst;
-import com.team.semiTravelRecommend.model.dto.PlaceDTO;
-import com.team.semiTravelRecommend.model.dto.TagDTO;
+import com.team.semiTravelRecommend.model.recommend.PlaceDTO;
+import com.team.semiTravelRecommend.model.recommend.TagDTO;
 import com.team.semiTravelRecommend.model.dto.response.LoginUserResponse;
 import com.team.semiTravelRecommend.paging.Pagenation;
 import com.team.semiTravelRecommend.paging.SelectCriteria;
@@ -10,7 +10,6 @@ import com.team.semiTravelRecommend.service.RecommendService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;

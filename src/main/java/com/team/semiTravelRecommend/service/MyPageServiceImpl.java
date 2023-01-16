@@ -1,10 +1,10 @@
 package com.team.semiTravelRecommend.service;
 
 import com.team.semiTravelRecommend.model.dao.MyPageMapper;
-import com.team.semiTravelRecommend.model.dto.BookmarkDTO;
+import com.team.semiTravelRecommend.model.recommend.BookmarkDTO;
 import com.team.semiTravelRecommend.model.dto.CityDTO;
-import com.team.semiTravelRecommend.model.dto.RecordDTO;
-import com.team.semiTravelRecommend.model.dto.UserTagDTO;
+import com.team.semiTravelRecommend.model.dto.record.RecordDTO;
+import com.team.semiTravelRecommend.model.dto.record.UserTagDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

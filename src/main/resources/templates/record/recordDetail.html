@@ -152,10 +152,6 @@
 
             let userNo = [[${userNo}]];
             let recordNo = [[${RecordOne.recordNo}]];
-
-            const userNo = document.getElementById('userNo').value;
-            let recordNo = document.getElementById('recordNo').value;
-
             // 댓글을 작성하지 않고 버튼 클릭시 작성 안되게
             if($("#commentContain").val().trim().length != 0){
                 $.ajax({

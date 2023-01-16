@@ -47,6 +47,7 @@ public class RecordController {
     }
 
 
+
     @GetMapping("recordList")
     public Model recordList(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember,
                             Model model, HttpServletRequest request){
@@ -89,7 +90,6 @@ public class RecordController {
     @GetMapping("recordDetail/{recordNo}")
     public ModelAndView recordOne(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember,
                                   ModelAndView mv, @PathVariable("recordNo") int recordNo){
-
 
         RecordDTO record = recordService.recordOne(recordNo);
         // 댓글 정보를 가져오기 위한 list 선언

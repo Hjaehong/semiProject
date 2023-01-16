@@ -148,3 +148,11 @@
 .back-list:hover{
     color: #BF214B;
 }
+
+.commentList {
+    display: none;
+}
+
+.show {
+    display: block;
+}

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>여행기록하기</title>
+    <title>플래너작성</title>
     <link th:href="@{/css/plannerWrite.css}" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
@@ -31,18 +31,18 @@
         </span>
       </div>
 
-      <div class="Lodging">
+      <div class="lodging">
         <label> 숙소정보 </label>
-        <textarea name="lodgingInfo"></textarea>
+        <input type="text" name="lodgingInfo" id="lodging"></input>
       </div>
 
       <div class="transportation">
         <label> 교통수단 </label>
-        <textarea name="transportation"></textarea>
+        <input type="text" name="transportation" id="trasnport"></input>
       </div>
 
       <div class="content">
-        <label> 내용 </label>
+        <label> 상세일정 </label>
         <textarea name="plDetail"></textarea>
       </div>
 

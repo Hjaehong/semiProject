@@ -90,9 +90,9 @@ public class RecordController {
         int userNo = 0;
 
 
-        if (loginMember != null) { // 로그인 정보가 null이 아닌경우 userNo을 받아옴
+        /*if (loginMember != null) { // 로그인 정보가 null이 아닌경우 userNo을 받아옴
             userNo = loginMember.getUserNo().intValue();
-        }
+        }*/
 
         /* 좋아요 기능 구현을 위한 코드 */
         if (userNo == 0){ // 로그인 정보가 없는 경우

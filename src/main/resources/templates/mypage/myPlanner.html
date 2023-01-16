@@ -1,35 +1,45 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>나의플래너</title>
+  <meta charset="UTF-8">
+  <title>myRecord</title>
+  <link th:href="@{/css/myRecord.css}" rel="stylesheet" type="text/css">
+  <script>
+    const successMessage = "[[${ successMessage}]]";
+    if (successMessage){
+      alert(successMessage);
+    }
+  </script>
 </head>
 <body>
-<form>
-<h1>플래너</h1>
+<div th:replace="common/header.html"></div>
+<div class="myPage">
+  <div th:replace="common/userProfile.html"> </div>
 
-<table>
-<tr>
-    <th>예상여행지</th>
-    <th>여행일</th>
-</tr>
-</table>
-    <div >
-        <li th:each="planner : ${ plannerList }">
-            <a th:href="@{/mypage/myPlannerDetail(planNo=${planner.planNo})}">[[${planner.travelPlace}]]</a>
-            <span th:text="${planner.startDueDate}"></span>
-        </li>
-    </div>
+  <div class="content-area">
+    <h3> 나의 플래너 </h3>
+    <hr>
+    <table class="myRecord">
+      <thead>
+      <tr>
+        <th> 번호 </th>
+        <th> 예정 여행지 </th>
+        <th> 예정날짜 </th>
+      </tr>
+      </thead>
 
-<!--<tr th:each="planner : ${ plannerList }">
+      <tbody>
+      <tr th:each=" myPlanner : ${MyPlanner}">
+        <td th:text="${myPlanner.planNo}"></td> <!--  rowNum으로 받아줘야함 (planNo은 모든 유저가 공통으로 쓰니까)-->
+        <td>
+          <a th:text="${myPlanner.travelPlace}" href="/planner/plannerDetail/" th:attrappend="href=${myPlanner.planNo}"/>
+        </td>
+        <td th:text="${myPlanner.startDueDate}+ ' ~ ' + ${myPlanner.endDueDate}"></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 
-    <td th:text="${ planner.travelPlace }">
-        <a th:href="@{/mypage/myPlannerDetail}">[[${plannerList}]]</a>
-    </td>
-    <td th:text="${ planner.startDueDate }"></td>
-</tr>-->
-
-</form>
 </body>
 </html>

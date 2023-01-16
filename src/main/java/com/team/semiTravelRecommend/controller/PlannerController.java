@@ -1,3 +1,4 @@
+/*
 package com.team.semiTravelRecommend.controller;
 
 import com.team.semiTravelRecommend.model.dto.PlannerDTO;
@@ -54,3 +55,4 @@ public class PlannerController {
     }
 
 }
+*/

@@ -6,21 +6,9 @@
 
     <resultMap type="com.team.semiTravelRecommend.model.dto.CommentDTO" id="commentResultMap">
         <id property="comNo" column="COM_NO"/>
+        <result property="userNo" column="USER_NO"/>
         <result property="recordNo" column="RECORD_NO"/>
         <result property="comContain" column="COM_CONTAIN"/>
-
-        <association property="userDTO" column="USER_NO" resultMap="userResultMap"/>
-    </resultMap>
-
-    <resultMap id="userResultMap" type="com.team.semiTravelRecommend.model.dto.UserDTO">
-        <id property="userNo" column="USER_NO"/>
-        <result property="userId" column="USER_ID"/>
-        <result property="userPwd" column="USER_PWD"/>
-        <result property="userName" column="USER_NAME"/>
-        <result property="Email" column="EMAIL"/>
-        <result property="nickname" column="NICKNAME"/>
-        <result property="status" column="STATUS"/>
-        <result property="intro" column="INTRO"/>
     </resultMap>
 
     <insert id="insertComment">
@@ -61,14 +49,8 @@
         from OH_COMMENT
         where USER_NO=#{userNo} and COM_CONTAIN =#{comContain}
     </select>
-    <update id="updateComment">
-        update OH_COMMENT
-        set COM_CONTAIN = #{comContain}
-        where COM_NO = #{comNo}
-    </update>
-
-    <delete id="deleteComment">
-        delete from OH_COMMENT
-        where COM_NO = #{comNo}
-    </delete>
+<!--    <update id="updateComment" parameterType="">-->
+<!--        update COMMENT-->
+<!--        set COM_CONTAIN = #{}-->
+<!--    </update>-->
 </mapper>

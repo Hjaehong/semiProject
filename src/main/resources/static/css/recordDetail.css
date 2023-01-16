@@ -138,11 +138,3 @@ textarea{
 a{
     color: rgba(111,252,255,0.7);
 }
-
-.commentList {
-    display: none;
-}
-
-.show {
-    display: block;
-}

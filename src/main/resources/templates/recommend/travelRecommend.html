@@ -4,19 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <title>옷홋</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link th:href="@{/css/travelRecommend.css}" rel="stylesheet" type="text/css">
 </head>
 
 <body>
     <div th:replace="common/header.html"></div>
     <nav id="showUserTag" name="showUserTag">
-        <form >
+        <form>
             <div class="tagTable">
                 <div th:each="tagList : ${ tagList }">
                     <div>
                         <button type="submit" name="tag" class="tagButton" th:text="${tagList.tagName}" th:value="${tagList.tagCode}"
-                                onclick="location.href='recommend/travelRecommend'"><img th:src="@{${tagList.iconImg}}"/></button>
+                                onclick="location.href='recommend/travelRecommend'"><img th:src="${tagList.iconImg}"/></button>
+                    </div>
+                    <div>
+<!--                        <img class="tagImg" th:src="${tagList.iconImg}"/>-->
                     </div>
                 </div>
             </div>

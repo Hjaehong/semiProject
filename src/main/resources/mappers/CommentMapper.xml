@@ -6,7 +6,6 @@
 
     <resultMap type="com.team.semiTravelRecommend.model.dto.comment.CommentDTO" id="commentResultMap">
         <id property="comNo" column="COM_NO"/>
-        <result property="userNo" column="USER_NO"/>
         <result property="recordNo" column="RECORD_NO"/>
         <result property="comContain" column="COM_CONTAIN"/>
 

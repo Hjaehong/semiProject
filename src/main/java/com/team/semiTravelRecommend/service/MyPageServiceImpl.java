@@ -1,5 +1,6 @@
 package com.team.semiTravelRecommend.service;
 
+import com.team.semiTravelRecommend.model.dto.BookmarkDTO;
 import com.team.semiTravelRecommend.model.dao.MyPageMapper;
 import com.team.semiTravelRecommend.model.dto.record.CityDTO;
 import com.team.semiTravelRecommend.model.dto.record.PlannerDTO;
@@ -39,5 +40,10 @@ public class MyPageServiceImpl implements MyPageService{
 
     @Override
     public List<PlannerDTO> readMyPlanner(int loginUserNo) { return myPageMapper.readMyPlanner(loginUserNo); }
+
+    @Override
+    public List<BookmarkDTO> readMyBookmark(int loginUserNo) {
+        return myPageMapper.readMyBookMark(loginUserNo);
+    }
 
 }

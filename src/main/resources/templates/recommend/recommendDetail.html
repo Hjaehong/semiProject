@@ -5,44 +5,37 @@
     <meta charset="UTF-8">
     <title>옷홋</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link th:href="@{/css/travelDetail.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
 <div id="mainBox" th:replace="common/header.html"/>
-    <div id="detailBox">
-        <div>
-            <div>
-                <h1 th:text="${travelInfo.placeName}"/>
-            </div>
-            <div>
-                <span th:text="${travelInfo.address}"/>
-                <span th:text="${travelInfo.tel}"/>
-
-                <div class="bookmark">
-                    <!-- 로그인 정보가 있을때만 버튼이 보이도록 함 -->
-                    <th:block th:if ="${loginMember == 1}">
-                        <th:block th:if ="${checkBookmark == 0}">
-                            <img th:id="btn_bookmark" th:src="@{/image/bookmark_before.png}" alt="빈북마크이미지" onclick="bookmarkChange()"/>
-                        </th:block>
-                        <th:block th:unless ="${checkBookmark == 0}">
-                            <img th:id="btn_bookmark" th:src="@{/image/bookmark_after.png}" alt="꽉찬북마크이미지" onclick="bookmarkChange()"/>
-                        </th:block>
-                    </th:block>
-                </div>
+<div id="DetailMainBox">
+    <div id="viewBox">
+        <div id="titleBox">
+            <h1 th:text="${travelInfo.placeName}"/>
+            <img id="badgeImg" th:src="${travelInfo.cityDTO.badgeImg}"/>
+            <h2 th:text="${travelInfo.address}"/>
+            <div class="bookmark">
+                <th:block th:if ="${checkBookmark == 0}">
+                    <img class="bookmarkImg" th:id="btn_bookmark" th:src="@{/image/bookmark_before.png}" alt="빈북마크이미지" onclick="bookmarkChange()"/>
+                </th:block>
+                <th:block th:unless ="${checkBookmark == 0}">
+                    <img class="bookmarkImg" th:id="btn_bookmark" th:src="@{/image/bookmark_after.png}" alt="꽉찬북마크이미지" onclick="bookmarkChange()"/>
+                </th:block>
             </div>
         </div>
-        <div>
-            <img id="mainImg" th:src="${travelInfo.plImgPath}"/>
+        <hr>
+        <div id="pictureBox">
+            <img id="mainImg" th:src="${travelInfo.plImgPath}" alt="여행지 이미지"/>
         </div>
-        <div>
-            <span th:text="${travelInfo.cityDTO.locationDTO.locName}"/>
-            <span>
-                <img id="tagImg" th:src="${travelInfo.cityDTO.badgeImg}"/>
-            </span>
+        <div id="subTitle">
+            <h3>상세정보</h3>
         </div>
-        <div>
-            <span th:utext="${travelInfo.contentDetail}"/>
+        <div id="content">
+            <p th:utext="${travelInfo.contentDetail}"/>
         </div>
     </div>
+</div>
 </div>
 </body>
 <script th:inline="javascript">
@@ -56,7 +49,7 @@
             type:"POST" ,
             url:"/recommend/checkingBookmark" ,
             data:{ 'placeId' : placeId,
-                    'userNo' : userNo},
+                'userNo' : userNo},
             dataType:"json" ,
             success: function (result){
                 if(result == 1){

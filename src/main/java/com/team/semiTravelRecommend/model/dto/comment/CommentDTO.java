@@ -1,5 +1,6 @@
 package com.team.semiTravelRecommend.model.dto.comment;
 
+import com.team.semiTravelRecommend.model.dto.record.UserDTO;
 import lombok.Data;
  /**
     * Version : 1.0
@@ -18,4 +19,5 @@ public class CommentDTO {
     private int userNo;
     private int recordNo;
     private String comContain;
+    private UserDTO userDTO;
 }

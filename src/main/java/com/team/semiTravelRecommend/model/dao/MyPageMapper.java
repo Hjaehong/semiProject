@@ -1,5 +1,6 @@
 package com.team.semiTravelRecommend.model.dao;
 
+import com.team.semiTravelRecommend.model.dto.BookmarkDTO;
 import com.team.semiTravelRecommend.model.dto.record.CityDTO;
 import com.team.semiTravelRecommend.model.dto.record.PlannerDTO;
 import com.team.semiTravelRecommend.model.dto.record.RecordDTO;
@@ -20,4 +21,6 @@ public interface MyPageMapper {
     List<RecordDTO> readMyHeart(int loginUserNo);
 
     List<PlannerDTO> readMyPlanner(int loginUserNo);
+
+    List<BookmarkDTO> readMyBookMark(int loginUserNo);
 }

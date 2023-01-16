@@ -1,5 +1,6 @@
 package com.team.semiTravelRecommend.controller.myPage;
 
+import com.team.semiTravelRecommend.model.dto.BookmarkDTO;
 import com.team.semiTravelRecommend.model.dto.SessionConst;
 import com.team.semiTravelRecommend.model.dto.record.CityDTO;
 import com.team.semiTravelRecommend.model.dto.record.PlannerDTO;
@@ -13,9 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/myPage")
@@ -127,6 +126,22 @@ public class MyPageController {
 
         List<PlannerDTO> myPlanner = myPageService.readMyPlanner(loginUserNo);
         model.addAttribute("MyPlanner", myPlanner);
+
+        return model;
+    }
+
+    @GetMapping("myBookmark")
+    public Model readMyBookmark(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember,
+                                Model model){
+        int loginUserNo = loginMember.getUserNo().intValue();
+        Model userInfoModel = readUserInfo(model, loginUserNo);
+
+        model.addAttribute("UserInfo", userInfoModel.getAttribute("UserInfo"));
+        model.addAttribute("UserTag", userInfoModel.getAttribute("UserTag"));
+
+        List<BookmarkDTO> myBookmark = myPageService.readMyBookmark(loginUserNo);
+
+        model.addAttribute("myBookmark", myBookmark);
 
         return model;
     }

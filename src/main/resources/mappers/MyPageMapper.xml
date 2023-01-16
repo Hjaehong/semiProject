@@ -73,6 +73,37 @@
         <!--        <association property="userDTO" column="USER_NO" resultMap="userResultMap"/>-->
     </resultMap>
 
+    <resultMap type="com.team.semiTravelRecommend.model.dto.BookmarkDTO" id="bookmarkResultMap">
+        <association property="userDTO" column="USER_NO" resultMap="userResultMap"/>
+        <association property="placeDTO" column="PLACE_ID" resultMap="placeResultMap"/>
+    </resultMap>
+
+    <resultMap type="com.team.semiTravelRecommend.model.dto.recommend.PlaceDTO" id="placeResultMap">
+        <id property="placeId" column="PLACE_ID"/>
+        <result property="rowNum" column="ROWNUM"/>
+        <result property="placeName" column="PLACE_NAME"/>
+        <result property="address" column="ADDRESS"/>
+        <result property="tel" column="TEL"/>
+        <result property="plImgPath" column="PL_IMG_PATH"/>
+        <result property="contentType" column="CONTENT_TYPE"/>
+        <result property="tagCode" column="TAG_CODE"/>
+        <result property="contentDetail" column="CONTENT_DETAIL"/>
+
+        <collection property="cityDTO" column="CITY_CODE" resultMap="tempResultMap"/>
+    </resultMap>
+
+    <resultMap id="tempResultMap" type="com.team.semiTravelRecommend.model.dto.recommend.CityDTO">
+        <id property="cityCode" column="CITY_CODE"/>
+        <result property="cityName" column="CITY_NAME"/>
+        <result property="badgeImg" column="BADGE_IMG"/>
+
+        <association property="locationDTO" column="LOC_CODE" resultMap="locationTempResultMap"/>
+    </resultMap>
+
+    <resultMap id="locationTempResultMap" type="com.team.semiTravelRecommend.model.dto.recommend.LocationDTO" >
+        <id property="locCode" column="LOC_CODE"/>
+        <result property="locName" column="LOC_NAME"/>
+    </resultMap>
     <select id="readUserInfo" resultMap="userInfoResultMap">
         SELECT
             B.* ,
@@ -164,6 +195,17 @@
                 WHERE A.USER_NO = #{loginUserNo}
                 ORDER BY PLAN_NO
             )A
+    </select>
+
+    <select id="readMyBookMark" resultMap="bookmarkResultMap">
+        select ROWNUM,
+               a.*
+        from(select *
+             from BOOKMARK a
+                      join OH_USER b on a.USER_NO = b.USER_NO
+                      join PLACE c on a.PLACE_ID = c.PLACE_ID
+             WHERE a.user_no = #{loginUserNo})a
+
     </select>
 
 </mapper>

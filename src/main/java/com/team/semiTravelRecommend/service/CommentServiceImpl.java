@@ -39,13 +39,12 @@ public class CommentServiceImpl implements CommentService{
     }
 
     @Override
-    public String selectOne(CommentDTO comment) {
-        return commentMapper.selectOne(comment);
+    public int deleteComment(int comNo) {
+        int result = commentMapper.deleteComment(comNo);
+
+        if( result < 1) System.out.println("댓글 삭제 실패!");
+        return result;
     }
 
-    @Override
-    public CommentDTO showNickname(int userNo) {
-        return commentMapper.showNickname(userNo);
-    }
 
 }

@@ -82,7 +82,6 @@ section {
 #travelView {
     width: 90%;
     padding: 20px;
-    background-color: aliceblue;
 }
 /*최상위 뷰(여행지 추천)*/
 #topView {
@@ -95,6 +94,24 @@ section {
     display: inline-flex;
 }
 
+#showUserTag {
+
+}
+
+
+
+.tagButton {
+    height: 32px;
+    background-color: rgb(29,58,111);
+    border-radius: 10%;
+    color: white;
+    font-size: 6px;
+    border: none;
+}
+
+.tagButton:hover{
+    background-color: rgb(175,50,77);
+}
 
 
 

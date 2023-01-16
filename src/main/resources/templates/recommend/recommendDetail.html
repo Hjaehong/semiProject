@@ -85,7 +85,7 @@
 </body>
 <script th:inline="javascript">
     let placeId = [[${travelInfo.placeId}]];
-    let userNo = 1; // 임시 유저 번호
+    let userNo = [[${userNo}]];
     console.log(userNo, placeId)
     // 북마크 클릭 이벤트
     function bookmarkChange(){

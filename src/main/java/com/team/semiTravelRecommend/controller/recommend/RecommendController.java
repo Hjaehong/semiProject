@@ -10,6 +10,7 @@ import com.team.semiTravelRecommend.service.RecommendService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -80,10 +81,6 @@ public class RecommendController {
 
         return model;
     }
-//    @GetMapping("/paging")
-//    public void page(HttpServletRequest request, Model model){
-//
-//    }
     // 태그선택시 호출
     @GetMapping("recommendDetail/{placeId}")
     public String travelDetail(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember,
@@ -110,15 +107,15 @@ public class RecommendController {
 
     @RequestMapping(value = "/checkingBookmark", produces = "application/json; charset=UTF-8")
     @ResponseBody
-    public int checkingBookmark(int userNo,int placeId){
+    public Model checkingBookmark(int userNo,int placeId, Model model){
+
         int checkBookmark = recommendService.checkBookmark(userNo, placeId);
 
         if(checkBookmark == 1){
-            return recommendService.deleteBookmark(userNo, placeId);
+            return model.addAttribute("checkBookmark", 1);
         }else {
-            return recommendService.insertBookmark(userNo, placeId);
+            return model.addAttribute("checkBookmark", 0);
 
         }
-
     }
 }

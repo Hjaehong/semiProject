@@ -72,7 +72,6 @@ public class RecordController {
 
         model.addAttribute("selectCriteria", selectCriteria);
         model.addAttribute("RecordList", recordList);
-
         return model;
     }
 
@@ -84,7 +83,6 @@ public class RecordController {
 
         RecordDTO record = recordService.recordOne(recordNo);
         List<CommentDTO> comList = commentService.showComment(recordNo);
-
         // 게시글을 작성한 유저의 No
         int writerNo = record.getUserDTO().getUserNo();
         /* 좋아요 기능 구현을 위한 코드 */
@@ -303,6 +301,21 @@ public class RecordController {
         List<CommentDTO> comList = commentService.showComment(recordNo);
 
         return comList;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "updateComment")
+    public String updateComment(CommentDTO comment){
+        int result = commentService.updateComment(comment);
+        return String.valueOf(result);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "deleteComment")
+    public String deleteComment(int comNo){
+        int result = commentService.deleteComment(comNo);
+
+        return String.valueOf(result);
     }
 
 }

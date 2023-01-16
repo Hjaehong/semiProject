@@ -21,8 +21,6 @@ public interface CommentService {
     List<CommentDTO> showComment(int recordNo);
     // 댓글 수정
     int updateComment(CommentDTO comment);
-    // comNo 찾기
-     String selectOne(CommentDTO comment);
-
-     CommentDTO showNickname(int userNo);
+     // 댓글 삭제
+     int deleteComment(int comNo);
  }

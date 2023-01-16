@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>플래너작성</title>
+
+    <!--<script>
+      const successMessage = "[[${ successMessage }]]";
+      console.log(successMessage);
+      if (successMessage){
+        alert(successMessage);
+      }
+    </script>-->
+
+</head>
+<body>
+    <header>
+      로고 <b>여행플래너</b> 여행지추천 여행공유 마이페이지 로그아웃
+    </header>
+    <hr>
+    <br>
+    플래너 작성하기
+    <br><br>
+    <form action="/planner/planner" method="post"> <!-- form action="/planner/writepro" method="post" 데이터들을 플래너/라이트두로 보내준다 -->
+      <table border="1px">
+        <tr>
+          <td>여행지</td>
+          <td class="placeContent">
+            <input type="text" name="travelPlace">
+          </td>
+          <!-- 케밥 케이스(Kebab Case)
+          하이픈으로 단어를 연결하는 방식이며 HTML태그의 id, class 값으로 흔히 쓰인다. -->
+        </tr>
+        <tr>
+          <td>여행일자</td>
+          <td class="startDateContent">
+            시작일:<input type="date" name="startDueDate" value="startdate">
+          </td>
+          <td class="endDateContent">
+            종료일:<input type="date" name="endDueDate" value="enddate">
+          </td>
+        </tr>
+        <tr>
+          <td>숙소정보</td>
+          <td class="lodgingContent">
+            <input type="text" name="lodgingInfo">
+          </td>
+        </tr>
+        <tr>
+          <td>이동수단</td>
+          <td class="transportationContent">
+            <input type="text" name="transportation">
+          </td>
+        </tr>
+      </table>
+      <br>
+      <table border="1px">
+        <tr>
+          <td class="checklist">체크리스트</td>
+          <td class="detail">세부일정</td>
+        </tr>
+        <tr>
+          <td>
+            <!--<input type="checkbox" id="check" name="checklist" value="check">-->
+            <input type="text" name="checklist">
+          </td>
+          <td>
+            <textarea rows="5" cols="40" name="plDetail"></textarea>
+          </td>
+        </tr>
+      </table>
+      <br>
+      <input type="submit" value="등록">
+    </form>
+    <button onclick="location.href='/planner/list'">전체조회</button>
+
+</body>
+</html>

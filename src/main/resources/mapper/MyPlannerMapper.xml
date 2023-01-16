@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.team.semiTravelRecommend.model.dao.MyPlannerMapper">
+
+    <resultMap type="com.team.semiTravelRecommend.model.dto.PlannerDTO" id="plannerResultMap">
+        <id property="planNo" column="PLAN_NO"/>
+        <result property="userNo" column="USER_NO"/>
+        <result property="travelPlace" column="TRAVEL_PLACE"/>
+        <result property="startDueDate" column="START_DUE_DATE"/>
+        <result property="endDueDate" column="END_DUE_DATE"/>
+        <result property="lodgingInfo" column="LODGING_INFO"/>
+        <result property="transportation" column="TRANSPORTATION"/>
+        <result property="checklist" column="CHECKLIST"/>
+        <result property="plDetail" column="PL_DETAIL"/>
+    </resultMap>
+
+    <select id="findPlannerTitle" parameterType="_int" resultMap="plannerResultMap">
+        SELECT
+               PLAN_NO,
+               TRAVEL_PLACE,
+               START_DUE_DATE
+          FROM PLANNER
+         WHERE USER_NO = #{userNo}
+    </select>
+
+    <select id="findPlannerNo" parameterType="_int" resultMap="plannerResultMap">
+        SELECT
+               PLAN_NO,
+               TRAVEL_PLACE,
+               START_DUE_DATE,
+               END_DUE_DATE,
+               LODGING_INFO,
+               TRANSPORTATION,
+               CHECKLIST,
+               PL_DETAIL
+          FROM PLANNER
+         WHERE PLAN_NO = #{planNo}
+    </select>
+    
+    <delete id="deletePlanner" parameterType="_int">
+        DELETE FROM PLANNER
+         WHERE PLAN_NO = #{planNo}
+    </delete>
+
+<!--    <update id="showUpdatePlanner" parameterType="_int">-->
+<!--        UPDATE PLANNER-->
+<!--           SET TRAVEL_PLACE = #{travelPlace},-->
+<!--               START_DUE_DATE = #{startDueDate},-->
+<!--               END_DUE_DATE = #{endDueDate},-->
+<!--               LODGING_INFO = #{lodgingInfo},-->
+<!--               TRANSPORTATION = #{transportation},-->
+<!--               CHECKLIST = #{checklist},-->
+<!--               PL_DETAIL = #{plDetail}-->
+<!--         WHERE PLAN_NO = #{planNo}-->
+<!--    </update>-->
+
+    <update id="updatePlanner" parameterType="com.team.semiTravelRecommend.model.dto.PlannerDTO">
+        UPDATE PLANNER
+           SET TRAVEL_PLACE = #{travelPlace},
+               START_DUE_DATE = #{startDueDate},
+               END_DUE_DATE = #{endDueDate},
+               LODGING_INFO = #{lodgingInfo},
+               TRANSPORTATION = #{transportation},
+               CHECKLIST = #{checklist},
+               PL_DETAIL = #{plDetail}
+         WHERE PLAN_NO = #{planNo}
+    </update>
+<!--    <select id="findPlannerTitle" parameterType="_int" resultMap="plannerResultMap">
+        SELECT
+            A.TRAVEL_PLACE
+        FROM PLANNER A
+        WHERE A.USER_NO = #{userCode}
+
+    </select>-->
+
+<!--    <select id="findPlannerByCode" parameterType="_int" resultMap="plannerResultMap">
+        SELECT
+            A.TRAVEL_PLACE
+             &lt;!&ndash; , A.START_DUE_DATE
+             , A.END_DUE_DATE
+             , A.LODGING_INFO
+             , A.TRANSPORTATION
+             , A.CHECKLIST
+             , A.PL_DETAIL &ndash;&gt;
+        FROM PLANNER A
+        WHERE A.PLAN_NO = #{ code }
+    </select>-->
+
+
+<!--    <insert id="insertPlanner">
+        INSERT
+        INTO Planner A
+            (
+               A.PLAN_NO
+             , A.USER_NO
+             , A.TRAVEL_PLACE
+             , A.START_DUE_DATE
+             , A.END_DUE_DATE
+             , A.LODGING_INFO
+             , A.TRANSPORTATION
+             , A.CHECKLIST
+             , A.PL_DETAIL
+        )
+        VALUES
+            (
+            SEQ_PLAN_NO.NEXTVAL
+                , 9999 &lt;!&ndash; 임시로 유저번호 넣어서 되는지 확인&ndash;&gt;
+                &lt;!&ndash; , #{ user_no } &ndash;&gt; &lt;!&ndash; /**/ 별표 주석으로 하니깐 값이 나와서 오류났음 &ndash;&gt;
+                , #{travelPlace}
+                , #{startDueDate}
+                , #{endDueDate }
+                , #{lodgingInfo}
+                , #{transportation}
+                , #{checklist}
+                , #{plDetail}
+            )
+
+    </insert>-->
+
+<!--    <delete id="deletePlanner">
+        DELETE FROM PLANNER
+         WHERE PLAN_NO = #{planNo}
+
+&lt;!&ndash; 추가하면서 알아봐야할듯&ndash;&gt;
+
+
+    </delete>-->
+
+
+
+
+</mapper>

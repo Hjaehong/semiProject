@@ -43,6 +43,15 @@
             <div class="field-error" th:errors="*{nickname}" />
         </div>
 
+        <div>
+            <div>취향 선택</div>
+            <div th:each="region : ${regions}" class="form-check form-check-inline">
+                <input type="checkbox" th:field="*{regions}" th:value="${region.key}" class="form-check-input">
+                <label th:for="${#ids.prev('regions')}"
+                       th:text="${region.value}" class="form-check-label">국공립공원</label>
+            </div>
+        </div>
+
         <button type="submit" class="btn btn-primary">회원가입</button>
             <button th:onclick="|location.href='@{/}'|" type="button">취소</button>
 

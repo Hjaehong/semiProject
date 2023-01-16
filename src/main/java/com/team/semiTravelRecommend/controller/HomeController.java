@@ -3,6 +3,7 @@ package com.team.semiTravelRecommend.controller;
 import com.team.semiTravelRecommend.model.dto.SessionConst;
 import com.team.semiTravelRecommend.model.dto.recommend.PlaceDTO;
 import com.team.semiTravelRecommend.model.dto.recommend.TagDTO;
+import com.team.semiTravelRecommend.model.dto.UserResponse;
 import com.team.semiTravelRecommend.model.dto.response.LoginUserResponse;
 import com.team.semiTravelRecommend.service.MainPageService;
 import lombok.extern.slf4j.Slf4j;
@@ -46,7 +47,8 @@ public class HomeController {
 //    }
 
     @GetMapping("/")
-    public ModelAndView homeLogin(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember, ModelAndView mv, HttpServletRequest request) {
+    public ModelAndView homeLogin(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember,
+                                  ModelAndView mv, HttpServletRequest request) {
         HttpSession session = request.getSession();
 
 //        Object attribute = session.getAttribute(SessionConst.LOGIN_USER);

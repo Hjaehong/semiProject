@@ -24,6 +24,6 @@ public class SaveUserResponse {
         this.email = savedUser.getEmail();
         // 추가
         this.nickname = savedUser.getNickname();
-        this.role = savedUser.getRole();
+
     }
 }

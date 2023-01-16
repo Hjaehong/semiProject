@@ -90,6 +90,7 @@ public class RecordController {
     public ModelAndView recordOne(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember,
                                   ModelAndView mv, @PathVariable("recordNo") int recordNo){
 
+
         RecordDTO record = recordService.recordOne(recordNo);
 
         // 게시글을 작성한 유저의 No

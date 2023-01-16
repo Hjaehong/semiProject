@@ -17,11 +17,17 @@ public class UserVO {
     private String userPwd;
     private String email;
     private String nickname; // 임시
-    private String role;
 
-    public void updateUser(String userName, String email, String userPwd) {
-        this.userId = email;
+
+    public void updateUser(String userId, String userName, String email) {
+        this.userId = userId;
         this.userName = userName;
-        this.userPwd = userPwd;
+        this.email = email;
+    }
+
+    public void deleteUser(String userId, String userName, String email) {
+        this.userId = userId;
+        this.userName = userName;
+        this.email = email;
     }
 }

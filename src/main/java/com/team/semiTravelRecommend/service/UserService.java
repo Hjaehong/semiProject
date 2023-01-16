@@ -1,9 +1,12 @@
 package com.team.semiTravelRecommend.service;
 
+import com.team.semiTravelRecommend.model.dto.UserResponse;
+import com.team.semiTravelRecommend.model.dto.requset.DeleteUserRequest;
 import com.team.semiTravelRecommend.model.dto.requset.LoginUserRequest;
 import com.team.semiTravelRecommend.model.dto.requset.SaveUserRequest;
 import com.team.semiTravelRecommend.model.dto.requset.UpdateUserRequest;
 import com.team.semiTravelRecommend.model.dto.response.LoginUserResponse;
+import com.team.semiTravelRecommend.model.dto.response.UpdateUserResponse;
 
 public interface UserService {
 
@@ -11,7 +14,9 @@ public interface UserService {
 
     LoginUserResponse login(LoginUserRequest request);
 
-    void update(Long userNo, UpdateUserRequest updateUserRequest);
+    UserResponse getUser(String userId);
 
-    void delete(Long userNo);
+    void update(UpdateUserRequest request, UserResponse user);
+
+    void delete(UserResponse attribute);
 }

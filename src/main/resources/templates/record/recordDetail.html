@@ -97,13 +97,16 @@
 
             <div class="commentInfo" th:each="comList : ${comList}">
                 <input type="hidden" id="nickname" th:value="${comList.userDTO.nickname}">
+                <input type="hidden" id="userNo" th:value="${comList.userDTO.userNo}">
                 <input type="hidden" class="comNo" th:value="${comList.comNo}">
             </div>
+            <div>
                 <span class="comment-writer"> 작성자 </span>
             </div>
             <textarea id="commentContain"></textarea>
             <button>등록</button>
         </div>
+
 
         <a class="back-list" th:href="@{/record/recordList}"> <- 목록으로 </a>
     </div>
@@ -180,7 +183,7 @@
 
     function commentList() {
         let recordNo = [[${RecordOne.recordNo}]];
-        let userNo = [[${userNo}]];
+        let userNo = document.getElementById('userNo').value;
         let nickname = document.getElementById('nickname').value;
         let currUserNo = [[${session.loginUser.getUserNo()}]];
         let comNo = document.getElementsByClassName('comNo');
@@ -202,7 +205,7 @@
                         + "<th>"+ nickname + "</th>"
                         + "<td>" + " | " + obj.comContain + "</td>";
                     //  현재 접속한 유저와 작성한 유저가 같을때 댓글 수정 삭제
-                    if(userNo === currUserNo){
+                    if(userNo == currUserNo){
                         value +=  "<td>" + "<a href='#' class='btnComment' onclick='updateComment("+comNo[i].value+")'>수정</a>"
                             + "|" + "<a href='#' class='btnComment' onclick='deleteComment("+comNo[i].value+")'>삭제</a>" + "</td>"
                             + "</tr>";

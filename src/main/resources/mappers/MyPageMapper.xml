@@ -61,6 +61,7 @@
 
     <resultMap id="plannerResultMap" type="com.team.semiTravelRecommend.model.dto.record.PlannerDTO">
         <id property="planNo" column="PLAN_NO"/>
+        <result property="rowNum" column="ROWNUM"/>
         <result property="userNo" column="USER_NO"/>
         <result property="travelPlace" column="TRAVEL_PLACE"/>
         <result property="startDueDate" column="START_DUE_DATE"/>
@@ -105,17 +106,23 @@
 
     <select id="readMyRecord" resultMap="recordResultMap">
         SELECT
-            B.RECORD_NO ,
-            B.RC_TITLE ,
-            B.TRAVEL_START_DATE ,
-            B.TRAVEL_END_DATE ,
-            D.LOC_NAME ,
-            C.CITY_NAME
-        FROM OH_USER A
-                 JOIN OH_RECORD B ON A.USER_NO = B.USER_NO
-                 JOIN CITY C ON B.CITY_CODE = C.CITY_CODE
-                 JOIN LOCATION D ON C.LOC_CODE = D.LOC_CODE
-        WHERE A.USER_NO = #{loginUserNo}
+            ROWNUM,
+            A.*
+        FROM
+            (
+                SELECT
+                    B.RECORD_NO ,
+                    B.RC_TITLE ,
+                    B.TRAVEL_START_DATE ,
+                    B.TRAVEL_END_DATE ,
+                    D.LOC_NAME ,
+                    C.CITY_NAME
+                FROM OH_USER A
+                         JOIN OH_RECORD B ON A.USER_NO = B.USER_NO
+                         JOIN CITY C ON B.CITY_CODE = C.CITY_CODE
+                         JOIN LOCATION D ON C.LOC_CODE = D.LOC_CODE
+                WHERE A.USER_NO = #{loginUserNo}
+            )A
     </select>
 
     <select id="readMyHeart" resultMap="recordResultMap">
@@ -144,13 +151,19 @@
 
     <select id="readMyPlanner" resultMap="plannerResultMap">
         SELECT
-            A.PLAN_NO ,
-            A.TRAVEL_PLACE ,
-            A.START_DUE_DATE ,
-            A.END_DUE_DATE
-        FROM PLANNER A
-        WHERE A.USER_NO = #{loginUserNo}
-        ORDER BY PLAN_NO
+            ROWNUM,
+            A.*
+        FROM
+            (
+                SELECT
+                    A.PLAN_NO ,
+                    A.TRAVEL_PLACE ,
+                    A.START_DUE_DATE ,
+                    A.END_DUE_DATE
+                FROM PLANNER A
+                WHERE A.USER_NO = #{loginUserNo}
+                ORDER BY PLAN_NO
+            )A
     </select>
 
 </mapper>

@@ -12,9 +12,11 @@
     </script>
 </head>
 <body>
+  <a name="Top"></a>
+  <a href="#Top" id="top-button"> ▲ TOP </a>
   <div th:replace="common/header.html"></div>
     <div class="record">
-      <ul th:each="recordList : ${ RecordList }" class="wrapper">
+      <ul class="wrapper" th:each="recordList : ${ RecordList }">
           <a href="recordDetail/" th:attrappend="href=${recordList.recordNo}">
               <li class="list-item">
                   <!-- 여행기록물 이미지 영역 -->
@@ -35,44 +37,45 @@
                           <span th:text="${recordList.cityDTO.locationDTO.locName}"></span>
                           <span th:text="${recordList.cityDTO.cityName}"></span>
                       </div>
-                      <ul class="tag-list">
-                          <li class="tag-item" th:text="${recordList.tagDTO.tagName}"></li>
-                      </ul>
+                      <div class="tag" th:text="${recordList.tagDTO.tagName}"/>
                   </div>
               </li>
           </a>
       </ul>
     </div>
+<!--      <footer>-->
+  <div class="paging">
+          <div align="center" >
+              <ul id="page" th:each="page : ${ selectCriteria }">
+                  <li th:if="${page.pageNo <= 1}">
+                      <button disabled><</button>
+                  </li>
+                  <li th:if="${page.pageNo > 1}">
+                      <button th:onclick="|location.href='@{/recommend/travelRecommend(currentPage=${page.pageNo-1})}'|"><</button>
+                  <li th:each="num : ${#numbers.sequence(page.startPage,page.endPage)}">
+                      <th:block th:if="${page.pageNo eq num}">
+                          <button disabled th:text="${num}"></button>
+                      </th:block>
+                      <th:block th:if="${page.pageNo ne num}">
+                          <button id="bc" onclick="nextPage(this.innerText)"  th:text="${num}"></button>
+                      </th:block>
+                  </li>
+                  </li>
+                  <li th:if="${page.pageNo >= page.maxPage}">
+                      <button disabled>></button>
+                  </li>
+                  <li th:if="${page.pageNo < page.maxPage}">
+                      <button th:onclick="|location.href='@{/recommend/travelRecommend(currentPage=${page.pageNo+1})}'|">></button>
+                  </li>
+              </ul>
+          </div>
+  </div>
+<!--      </footer>-->
 
-    <div th:fragment="paging" class="paging-area">
-          <!--            <button id="startPage">맨앞</button>-->
-          <ul class="paging" th:each="page : ${ selectCriteria }">
-              <!--  -->
-              <li th:if="${page.pageNo <= 1}">
-                  <button disabled><</button>
-              </li>
-              <li th:if="${page.pageNo > 1}">
-                  <button th:onclick="|location.href='@{/recommend/travelRecommend(currentPage=${page.pageNo-1})}'|"><</button>
-              <li th:each="num : ${#numbers.sequence(page.startPage,page.endPage)}">
-                  <th:block th:if="${page.pageNo eq num}">
-                      <button disabled th:text="${num}"></button>
-                  </th:block>
-                  <th:block th:if="${page.pageNo ne num}">
-                      <button id="bc" onclick="nextPage(this.innerText)"  th:text="${num}"></button>
-                  </th:block>
-              </li>
-              </li>
-              <li th:if="${page.pageNo >= page.maxPage}">
-                  <button disabled>></button>
-              </li>
-              <li th:if="${page.pageNo < page.maxPage}">
-                  <button th:onclick="|location.href='@{/recommend/travelRecommend(currentPage=${page.pageNo+1})}'|">></button>
-              </li>
-          </ul>
-      </div>
-
-      <a id="move-write-page" th:href="@{/record/travelRecordWrite}"> 여행기록<br>작성하기 </a>
-
+    <!-- 로그인한 유저에게만 버튼이 보이도록 설정 -->
+    <th:block th:if="${loginMember == 1}">
+        <a id="move-write-page" th:href="@{/record/travelRecordWrite}"> 여행기록<br>작성하기 </a>
+    </th:block>
 
   <script type="text/javascript" th:src="@{/js/travelRecord.js}"></script>
 </body>

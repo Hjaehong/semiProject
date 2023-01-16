@@ -6,14 +6,13 @@
     <link th:href="@{/css/userProfile.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
-  <div class="left-area">
+  <div class="profile-menu">
     <div class="profile">
       <h2 class="nickname" th:text="${UserInfo.userDTO.nickname}"></h2>
       <div class="userId" th:text="${UserInfo.userDTO.userId}"></div>
       <div class="userTag">
-                      <span th:each=" userTag : ${UserTag}">
-                          <span th:text="${userTag}"></span>
-                      </span>
+        <span th:each=" userTag : ${UserTag}" th:text="${userTag}">
+        </span>
       </div>
       <div class="intro">
         <pre  th:text="${UserInfo.userDTO.intro}"> </pre>
@@ -22,7 +21,7 @@
 
     <div class="menu">
       <div class="my-menu"> MyMenu</div>
-      <div class="travleMenu">
+      <div class="travelMenu">
         <ul> 여행정보
           <a th:href="@{/myPage/myPage}"> <li> 내 뱃지 </li> </a>
           <a th:href="@{/myPage/myPlanner}"> <li> 플래너 </li> </a>

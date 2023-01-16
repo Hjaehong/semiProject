@@ -319,18 +319,29 @@ public class RecordController {
     @ResponseBody
     @RequestMapping("insertComment")
     public String insertComment(CommentDTO comment){
-        System.out.println(comment);
         int result = commentService.registComment(comment);
-        System.out.println("result = " + result);
         return String.valueOf(result);
     }
     //댓글 리스트 출력
     @ResponseBody
     @RequestMapping(value = "listComment", produces = "application/json; charset=utf-8")
     public List<CommentDTO> listComment(int recordNo) {
-        System.out.println("여기까지 넘어오나? = " + recordNo);
-        return commentService.showComment(recordNo);
+        List<CommentDTO> comList = commentService.showComment(recordNo);
+        return comList;
     }
 
+    @ResponseBody
+    @RequestMapping(value = "updateComment")
+    public String updateComment(CommentDTO comment){
+        int result = commentService.updateComment(comment);
+        return String.valueOf(result);
+    }
 
+    @ResponseBody
+    @RequestMapping(value = "deleteComment")
+    public String deleteComment(int comNo){
+        int result = commentService.deleteComment(comNo);
+
+        return String.valueOf(result);
+    }
 }

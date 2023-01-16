@@ -9,6 +9,19 @@
         <result property="userNo" column="USER_NO"/>
         <result property="recordNo" column="RECORD_NO"/>
         <result property="comContain" column="COM_CONTAIN"/>
+
+        <association property="userDTO" column="USER_NO" resultMap="userResultMap"/>
+    </resultMap>
+
+    <resultMap id="userResultMap" type="com.team.semiTravelRecommend.model.dto.record.UserDTO">
+        <id property="userNo" column="USER_NO"/>
+        <result property="userId" column="USER_ID"/>
+        <result property="userPwd" column="USER_PWD"/>
+        <result property="userName" column="USER_NAME"/>
+        <result property="Email" column="EMAIL"/>
+        <result property="nickname" column="NICKNAME"/>
+        <result property="status" column="STATUS"/>
+        <result property="intro" column="INTRO"/>
     </resultMap>
 
     <insert id="insertComment">
@@ -31,6 +44,20 @@
         select
             *
         from OH_COMMENT A
+                 join OH_USER B on A.USER_NO = B.USER_NO
         where A.RECORD_NO = #{ recordNo }
     </select>
+
+    <update id="updateComment">
+        update OH_COMMENT
+        set COM_CONTAIN = #{comContain}
+        where COM_NO = #{comNo}
+    </update>
+
+    <delete id="deleteComment">
+        delete from OH_COMMENT
+        where COM_NO = #{comNo}
+    </delete>
+
+
 </mapper>

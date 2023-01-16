@@ -29,4 +29,19 @@ public class CommentServiceImpl implements CommentService{
         return commentMapper.viewAllComment(recordNo);
     }
 
+    @Override
+    public int updateComment(CommentDTO comment) {
+        int result = commentMapper.updateComment(comment);
+        if( result < 1) System.out.println("댓글 수정 실패!");
+        return result;
+    }
+
+    @Override
+    public int deleteComment(int comNo) {
+        int result = commentMapper.deleteComment(comNo);
+
+        if( result < 1) System.out.println("댓글 삭제 실패!");
+        return result;
+    }
+
 }

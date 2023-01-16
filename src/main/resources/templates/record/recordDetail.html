@@ -199,6 +199,7 @@
                 'recordNo': recordNo},
             type: "post",
             dataType: "json",
+            async: false,
             success: function (list) {
 
                 $("#comCount").text(list.length);// 총 댓글수

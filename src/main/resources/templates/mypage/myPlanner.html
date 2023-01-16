@@ -30,7 +30,7 @@
 
       <tbody>
       <tr th:each=" myPlanner : ${MyPlanner}">
-        <td th:text="${myPlanner.planNo}"></td> <!--  rowNum으로 받아줘야함 (planNo은 모든 유저가 공통으로 쓰니까)-->
+        <td th:text="${myPlanner.rowNum}"></td> <!-- rowNum으로 받아줘야함 (planNo은 모든 유저가 공통으로 쓰니까) -->
         <td>
           <a th:text="${myPlanner.travelPlace}" href="/planner/plannerDetail/" th:attrappend="href=${myPlanner.planNo}"/>
         </td>

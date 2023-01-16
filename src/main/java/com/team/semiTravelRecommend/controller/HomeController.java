@@ -61,7 +61,11 @@ public class HomeController {
             mv.addObject("loginMember", 1);
         }
 
+        // 북마크 많이 된 순으로 출력 (가장 핫한 여행지 부분을 위한 코드)
         List<PlaceDTO> topLank = mainPageService.readTopLank();
+        mv.addObject("TopLank", topLank);
+
+        // 여행 키워드 출력 (키워드로 여행지 찾기 부분을 위한 코드)
         List<TagDTO> tagList = mainPageService.readTagList();
 
         List<TagDTO> tagGroup1 = new ArrayList<>();
@@ -70,21 +74,19 @@ public class HomeController {
 
         for (int i = 0; i < 10; i++) {
             tagGroup1.add(tagList.get(i));
-            mv.addObject("TagGroup1", tagGroup1);
         }
 
         for (int i = 10; i < 20; i++) {
             tagGroup2.add(tagList.get(i));
-            mv.addObject("TagGroup2", tagGroup2);
         }
 
         for (int i = 20; i < tagList.size(); i++) {
             tagGroup3.add(tagList.get(i));
-            mv.addObject("TagGroup3", tagGroup3);
         }
 
-        mv.addObject("TopLank", topLank);
-//        mv.addObject("TagList", tagList);
+        mv.addObject("TagGroup1", tagGroup1);
+        mv.addObject("TagGroup2", tagGroup2);
+        mv.addObject("TagGroup3", tagGroup3);
 
         mv.setViewName("common/main");
 

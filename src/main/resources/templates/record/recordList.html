@@ -43,7 +43,7 @@
           </a>
       </ul>
     </div>
-<!--      <footer>-->
+
   <div class="paging">
           <div align="center" >
               <ul id="page" th:each="page : ${ selectCriteria }">
@@ -51,7 +51,7 @@
                       <button disabled><</button>
                   </li>
                   <li th:if="${page.pageNo > 1}">
-                      <button th:onclick="|location.href='@{/recommend/travelRecommend(currentPage=${page.pageNo-1})}'|"><</button>
+                      <button th:onclick="|location.href='@{/reocrd/recordList(currentPage=${page.pageNo-1})}'|"><</button>
                   <li th:each="num : ${#numbers.sequence(page.startPage,page.endPage)}">
                       <th:block th:if="${page.pageNo eq num}">
                           <button disabled th:text="${num}"></button>
@@ -65,12 +65,11 @@
                       <button disabled>></button>
                   </li>
                   <li th:if="${page.pageNo < page.maxPage}">
-                      <button th:onclick="|location.href='@{/recommend/travelRecommend(currentPage=${page.pageNo+1})}'|">></button>
+                      <button th:onclick="|location.href='@{/reocrd/recordList(currentPage=${page.pageNo+1})}'|">></button>
                   </li>
               </ul>
           </div>
   </div>
-<!--      </footer>-->
 
     <!-- 로그인한 유저에게만 버튼이 보이도록 설정 -->
     <th:block th:if="${loginMember == 1}">

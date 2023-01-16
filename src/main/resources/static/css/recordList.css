@@ -1,3 +1,19 @@
+#top-button{
+    position: fixed;
+    bottom: 50px;
+    right: 150px;
+    text-decoration: none;
+    background-color: #103B73;
+    color: white;
+    padding: 5px;
+    border-radius: 10%;
+    font-size: 12px;
+}
+
+#top-button:hover{
+    background-color: #BF214B;
+}
+
 .record {
     margin: 5rem 4rem 0 4rem;
     /*border: 1px solid red;*/
@@ -121,6 +137,7 @@
     border: 1px solid #103B73;
     background-color: #103B73;
     color: white;
+    pointer-events: none; /* hover 효과 적용 안되게 설정 */
 }
 
 .paging button:hover{

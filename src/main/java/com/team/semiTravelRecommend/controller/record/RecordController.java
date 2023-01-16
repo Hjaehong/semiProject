@@ -211,6 +211,9 @@ public class RecordController {
         String changeName = uuid+"_"+file.getOriginalFilename();
         File saveFile = new File(projectPath, changeName);
 
+        System.out.println(file.isEmpty());
+        System.out.println(file.getOriginalFilename());
+
         try {
             file.transferTo(saveFile);
 

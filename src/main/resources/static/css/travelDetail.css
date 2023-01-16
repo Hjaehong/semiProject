@@ -1,0 +1,44 @@
+h1{
+    text-align: center;
+}
+h2{
+    display: inline-block;
+}
+#viewBox{
+    /* border: 2px red solid; */
+    width: 60%;
+    margin: 0 auto;
+}
+#mainBox{
+    /* border: 2px black solid; */
+    position: relative;
+}
+#badgeImg{
+    border: 3px palegoldenrod solid;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+}
+#pictureBox {
+    width: 50%;
+
+}
+#span{
+    display: inline-block;
+}
+#subTitle{
+    border-bottom: 2px solid black;
+}
+#mainImg {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+.bookmark{
+    display: inline-block;
+}
+.bookmarkImg{
+    width: 18px;
+    height: 18px;
+}

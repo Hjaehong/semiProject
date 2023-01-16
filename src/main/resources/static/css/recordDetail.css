@@ -156,3 +156,21 @@
 .show {
     display: block;
 }
+
+#commentListView {
+    width: 100%;
+
+
+}
+
+#commentListView>tr>th{
+}
+
+#commentListView>tr>td:last-child{
+    text-align: right;
+}
+
+#commentListView>tr{
+    border-top: rgb(233,233,233) solid 1px;
+}
+

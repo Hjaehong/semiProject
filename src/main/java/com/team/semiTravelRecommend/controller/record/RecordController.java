@@ -47,6 +47,7 @@ public class RecordController {
     }
 
 
+
     @GetMapping("recordList")
     public Model recordList(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember,
                             Model model, HttpServletRequest request){
@@ -90,9 +91,9 @@ public class RecordController {
     public ModelAndView recordOne(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember,
                                   ModelAndView mv, @PathVariable("recordNo") int recordNo){
 
-
         RecordDTO record = recordService.recordOne(recordNo);
-
+        // 댓글 정보를 가져오기 위한 list 선언
+        List<CommentDTO> comList = commentService.showComment(recordNo);
         // 게시글을 작성한 유저의 No
         int writerNo = record.getUserDTO().getUserNo();
 
@@ -127,6 +128,7 @@ public class RecordController {
         }
 
         /* ajax로 좋아요 기능을 구현하는데 그때 userNo이 필요하기 때문에 add해줌 */
+        mv.addObject("comList", comList);
         mv.addObject("userNo", userNo);
         mv.addObject("RecordOne", record);
         mv.setViewName("record/recordDetail");

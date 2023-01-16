@@ -1,111 +1,167 @@
-/* 페이징 */
-ul{
-
-}
-/*이미지*/
-.travelImg {
-    width: 376px;
-    height: 271px;
-    /*가로세로 비율은 유지하면서 컨테이너에 꽉 차도록 설정*/
-    object-fit: cover;
-    /*padding: 10px;*/
+.recommend-all{
+    margin-top: 4rem;
 }
 
-/*페이징 위치*/
-footer {
-    bottom: 0;
-}
-
-/*메인 위치*/
-section {
-    min-height: 100%;
-    position: relative;
-}
-
-/* 추천 여행지 모달 뷰*/
-.modalView {
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    width: 100%;
-    height: 100%;
-
-    display: none;
-
-    background-color: rgba(0, 0, 0, 0.4);
-
-}
-
-/*모달 뷰*/
-.modalMain {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-
-    width: 600px;
-    height: 500px;
-
-    padding: 30px;
-
-    text-align: center;
-
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
-    overflow: auto;
-
-    transform: translateX(-50%) translateY(-50%);
-}
-
-
-/* 배치를 옆으로 이동 */
-.travelInfo {
-    display: inline-flex;
-}
-
-.tagTable {
-    display: inline-flex;
-}
-
-.travelText{
-    text-align: center;
-    font-size: 16px;
-    font-weight: bold;
-}
-
-.locName {
-    color: rgba(0,0,0,0.31)
-}
-
-/*상위 뷰 (여행지 추천)*/
-#travelView {
-    width: 90%;
-    padding: 20px;
-
-}
-/*최상위 뷰(여행지 추천)*/
-#topView {
+/* 태그 선택하는 영역 */
+.button-list{
     display: flex;
+    margin: 0 8px;
     justify-content: center;
 }
 
-#page {
-    list-style: none;
-    display: inline-flex;
+.button-list button{
+    background-color: white;
+    border-style: none;
+    height: 20px;
+    margin: 2rem 0;
+    font-size: 16px;
 }
 
-.tagButton {
-    height: 32px;
-    background-color: rgb(29,58,111);
-    border-radius: 10%;
+.button-list button:hover{
+    background-color: #BF214B;
     color: white;
-    font-size: 6px;
-    border: none;
 }
 
-.tagButton:hover{
-    background-color: rgb(175,50,77);
+.tag{
+    height: 100px;
+    width: 750px;
+    margin: 0 8px;
+    overflow-x: hidden;
+}
+
+.tag-list{
+    display: flex;
+    transition: .3s ease-out;
+    height: 100%;
+}
+
+.tagGroup{
+    justify-content: center;
+    /*border: 2px solid black;*/
+    display: flex;
+}
+
+.keyword-one{
+    /*border: 1px solid pink;*/
+    padding: 0 4px;
+    margin: 0 4px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.keyword-one a{
+    text-decoration: none;
+    color: black;
+}
+
+.keyword-one a:hover{
+    text-decoration: none;
+    color: #BF214B;
+}
+
+.keyword-one img{
+    width: 50px;
+    height: 50px;
+    margin-bottom: 4px;
+}
+
+/* 여행지 정보 출력 부분 */
+.recommend{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 20px;
+    row-gap: 80px;
+    padding: 5rem 16rem;
+}
+
+.place-img{
+    text-decoration: none;
+    color: black;
+}
+
+.place-img:hover{
+    color: #BF214B;
+}
+
+.place-img img{
+    width: 100%;
+    height: 140px;
+}
+
+.info{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 4px;
+}
+
+.placeName{
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.local{
+    font-size: 14px;
+    color: gray;
+}
+
+.mascot-img{
+    /* display: inline-block; */
+    border-radius: 70%;
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    /* margin-right: 8px; */
+    /*border: 1px solid red;*/
+}
+
+.mascot-img img{
+    object-fit: fill;
+    width: 100%;
+    height: 100%;
+}
+
+
+
+
+
+
+/* 페이징 버튼 css */
+.paging-area{
+    margin: 5rem 4rem;
+    /*border: 1px solid red;*/
+}
+
+.paging ul{
+    list-style: none;
+    margin-left: 40%;
+}
+
+.paging li{
+    margin: 32px 4px 60px;
+    float: left;
+}
+
+.paging button{
+    border: 1px solid gray;
+    border-radius: 10%;
+    background-color: white;
+    color: gray;
+    padding: 2px 6px;
+}
+
+.paging button:disabled{
+    border: 1px solid #103B73;
+    background-color: #103B73;
+    color: white;
+    pointer-events: none; /* hover 효과 적용 안되게 설정 */
+}
+
+.paging button:hover{
+    cursor: pointer;
+    /*background-color: #BF214B;*/
+    color: #BF214B;
+    border: 1px solid #BF214B;
 }
 
 
@@ -117,3 +173,137 @@ section {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*!* 페이징 *!*/
+/*ul{*/
+
+/*}*/
+/*!*이미지*!*/
+/*.travelImg {*/
+/*    width: 376px;*/
+/*    height: 271px;*/
+/*    !*가로세로 비율은 유지하면서 컨테이너에 꽉 차도록 설정*!*/
+/*    object-fit: cover;*/
+/*    !*padding: 10px;*!*/
+/*}*/
+
+/*!*페이징 위치*!*/
+/*footer {*/
+/*    bottom: 0;*/
+/*}*/
+
+/*!*메인 위치*!*/
+/*section {*/
+/*    min-height: 100%;*/
+/*    position: relative;*/
+/*}*/
+
+/*!* 추천 여행지 모달 뷰*!*/
+/*.modalView {*/
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    left: 0;*/
+
+/*    width: 100%;*/
+/*    height: 100%;*/
+
+/*    display: none;*/
+
+/*    background-color: rgba(0, 0, 0, 0.4);*/
+
+/*}*/
+
+/*!*모달 뷰*!*/
+/*.modalMain {*/
+/*    position: absolute;*/
+/*    top: 50%;*/
+/*    left: 50%;*/
+
+/*    width: 600px;*/
+/*    height: 500px;*/
+
+/*    padding: 30px;*/
+
+/*    text-align: center;*/
+
+/*    background-color: white;*/
+/*    border-radius: 10px;*/
+/*    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);*/
+/*    overflow: auto;*/
+
+/*    transform: translateX(-50%) translateY(-50%);*/
+/*}*/
+
+
+/*!* 배치를 옆으로 이동 *!*/
+/*.travelInfo {*/
+/*    display: inline-flex;*/
+/*}*/
+
+/*.tagTable {*/
+/*    display: inline-flex;*/
+/*}*/
+
+/*.travelText{*/
+/*    text-align: center;*/
+/*    font-size: 16px;*/
+/*    font-weight: bold;*/
+/*}*/
+
+/*.locName {*/
+/*    color: rgba(0,0,0,0.31)*/
+/*}*/
+
+/*!*상위 뷰 (여행지 추천)*!*/
+/*#travelView {*/
+/*    width: 90%;*/
+/*    padding: 20px;*/
+
+/*}*/
+/*!*최상위 뷰(여행지 추천)*!*/
+/*#topView {*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*}*/
+
+/*#page {*/
+/*    list-style: none;*/
+/*    display: inline-flex;*/
+/*}*/
+
+/*.tagButton {*/
+/*    height: 32px;*/
+/*    background-color: rgb(29,58,111);*/
+/*    border-radius: 10%;*/
+/*    color: white;*/
+/*    font-size: 6px;*/
+/*    border: none;*/
+/*}*/
+
+/*.tagButton:hover{*/
+/*    background-color: rgb(175,50,77);*/
+/*}*/

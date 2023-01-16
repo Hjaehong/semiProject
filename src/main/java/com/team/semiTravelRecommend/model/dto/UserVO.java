@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
@@ -17,6 +19,7 @@ public class UserVO {
     private String userPwd;
     private String email;
     private String nickname; // 임시
+    private List<String> regions;
 
 
     public void updateUser(String userId, String userName, String email) {

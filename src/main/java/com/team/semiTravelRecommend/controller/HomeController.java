@@ -1,6 +1,7 @@
 package com.team.semiTravelRecommend.controller;
 
 import com.team.semiTravelRecommend.model.dto.SessionConst;
+import com.team.semiTravelRecommend.model.dto.UserResponse;
 import com.team.semiTravelRecommend.model.dto.recommend.PlaceDTO;
 import com.team.semiTravelRecommend.model.dto.recommend.TagDTO;
 import com.team.semiTravelRecommend.model.dto.UserResponse;
@@ -51,15 +52,7 @@ public class HomeController {
                                   ModelAndView mv, HttpServletRequest request) {
         HttpSession session = request.getSession();
 
-//        Object attribute = session.getAttribute(SessionConst.LOGIN_USER);
-//
-//        //세션에 회원 데이터가 없으면 홈
-//        if (loginMember == null) {
-//            return "home";
-//        }
-//        //세션이 유지되면 로그인으로 이동
-//        model.addAttribute("loginMember", loginMember);
-//        return "loginHome";
+        Object attribute = session.getAttribute(SessionConst.LOGIN_USER);
 
         if (loginMember == null) { // 로그인 정보가 없으면 0을
             mv.addObject("loginMember", 0);
@@ -97,6 +90,5 @@ public class HomeController {
 
         return mv;
     }
-
 
 }

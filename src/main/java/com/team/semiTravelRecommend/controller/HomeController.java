@@ -14,7 +14,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
-
+ /**
+    * Version : 1.0
+   * 클래스명: HomeController
+   * 작성일자 : 2023/01/18
+ * 작성자 : 손종범
+   * 설명 :
+   * 수정일자 :
+   * 수정자 :
+   * 수정내역 :
+ */
 @Slf4j
 @Controller
 public class HomeController {
@@ -24,26 +33,6 @@ public class HomeController {
     public HomeController(MainPageService mainPageService) {
         this.mainPageService = mainPageService;
     }
-
-//    //    @GetMapping("/")
-//    public String home() {
-//        log.info("진입");
-//        System.out.println("왔어요");
-//        return "home";
-//    }
-//
-//    //@GetMapping("/user/test")
-//    @ResponseBody
-//    public String test(HttpServletRequest request) {
-//        HttpSession session = request.getSession();
-//
-//        Object attribute = session.getAttribute(SessionConst.LOGIN_USER);
-//
-//        if (attribute == null) {
-//            return "로그인 해주세요";
-//        }
-//        return "메인화면";
-//    }
 
     @GetMapping("/")
     public ModelAndView homeLogin(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember,
@@ -70,17 +59,9 @@ public class HomeController {
         List<TagDTO> tagGroup2 = new ArrayList<>();
         List<TagDTO> tagGroup3 = new ArrayList<>();
 
-        for (int i = 0; i < 10; i++) {
-            tagGroup1.add(tagList.get(i));
-        }
-
-        for (int i = 10; i < 20; i++) {
-            tagGroup2.add(tagList.get(i));
-        }
-
-        for (int i = 20; i < tagList.size(); i++) {
-            tagGroup3.add(tagList.get(i));
-        }
+        for (int i = 0; i < 10; i++) {tagGroup1.add(tagList.get(i));}
+        for (int i = 10; i < 20; i++) {tagGroup2.add(tagList.get(i));}
+        for (int i = 20; i < tagList.size(); i++) {tagGroup3.add(tagList.get(i));}
 
         mv.addObject("TagGroup1", tagGroup1);
         mv.addObject("TagGroup2", tagGroup2);

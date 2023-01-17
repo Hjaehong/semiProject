@@ -133,11 +133,6 @@ public class UserController {
             return "user/loginForm";
         }
 
-//        UserResponse userResponse = new UserResponse(loginUser);
-
-
-
-
         log.info("로그인 성공 ! = {}", loginUser);
 
         HttpSession session = request.getSession();

@@ -155,7 +155,6 @@ public class RecordController {
     public ModelAndView readTagAndLocation(ModelAndView mv){
 
         List<LocationDTO> locationList = readLocation();
-
         List<TagDTO> tagList = readTag();
 
         mv.addObject("loginMember", 1);

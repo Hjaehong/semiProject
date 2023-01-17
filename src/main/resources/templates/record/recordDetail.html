@@ -100,9 +100,6 @@
                 <input type="hidden" class="userNo" th:value="${comList.userDTO.userNo}">
                 <input type="hidden" class="comNo" th:value="${comList.comNo}">
             </div>
-<!--            <div>-->
-<!--                <span class="comment-writer"> 작성자 </span>-->
-<!--            </div>-->
             <textarea id="commentContain"></textarea>
             <button id="commentSubmit">등록</button>
         </div>
@@ -167,6 +164,7 @@
                     success:function (result){
                         if(result > 0){
                             $("#commentContain").val("");
+                            location.href = "/record/recordDetail/" + recordNo;
                             commentList();
                         }else{
                             alert("댓글을 등록할 수 없습니다.");
@@ -222,7 +220,7 @@
                     // console.log("닉네임리스트 =" + nicknameList[i] + ", 댓글리스트[i]" + comNoList[i])
                     valueTag += "<tr>"
                         + "<th>"+ nicknameList[i] + "</th>"
-                        + "<td>" + obj.comContain + "</td>";
+                        + "<td style='text-align: left'>" + obj.comContain + "</td>";
                     //  현재 접속한 유저와 작성한 유저가 같을때 댓글 수정 삭제
                     if(userNoList[i] == currUserNo){
                         valueTag +=  "<td>" + "<a href='#' class='btnComment' onclick='updateComment("+comNoList[i] +")'>수정</a>"
@@ -231,9 +229,7 @@
                     } else {
                         valueTag += "</tr>";
                     }
-                    valueTag += "<div class='comContentList'>"
-                        + "<span class='comContent'>" + obj.comContain + "</span>"
-                        + "</div>";
+
                 });
                 $("#commentListView").html(valueTag);
             }, error: function () {

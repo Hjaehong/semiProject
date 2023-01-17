@@ -1,8 +1,8 @@
 package com.team.semiTravelRecommend.service;
 
 import com.team.semiTravelRecommend.model.dao.MainPageMapper;
-import com.team.semiTravelRecommend.model.dto.recommend.PlaceDTO;
-import com.team.semiTravelRecommend.model.dto.recommend.TagDTO;
+import com.team.semiTravelRecommend.model.dto.PlaceDTO;
+import com.team.semiTravelRecommend.model.dto.TagDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

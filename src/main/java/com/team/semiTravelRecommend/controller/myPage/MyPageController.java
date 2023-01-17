@@ -2,10 +2,10 @@ package com.team.semiTravelRecommend.controller.myPage;
 
 import com.team.semiTravelRecommend.model.dto.BookmarkDTO;
 import com.team.semiTravelRecommend.model.dto.SessionConst;
-import com.team.semiTravelRecommend.model.dto.record.CityDTO;
-import com.team.semiTravelRecommend.model.dto.record.PlannerDTO;
-import com.team.semiTravelRecommend.model.dto.record.RecordDTO;
-import com.team.semiTravelRecommend.model.dto.record.UserTagDTO;
+import com.team.semiTravelRecommend.model.dto.CityDTO;
+import com.team.semiTravelRecommend.model.dto.PlannerDTO;
+import com.team.semiTravelRecommend.model.dto.RecordDTO;
+import com.team.semiTravelRecommend.model.dto.UserTagDTO;
 import com.team.semiTravelRecommend.model.dto.response.LoginUserResponse;
 import com.team.semiTravelRecommend.service.MyPageService;
 import org.springframework.stereotype.Controller;
@@ -15,7 +15,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import java.util.List;
-
+ /**
+    * Version : 1.0
+   * 클래스명: MyPageController
+   * 작성일자 : 2023/01/17
+ * 작성자 : heojaehong
+   * 설명 : 마이페이지 컨트롤러
+   * 수정일자 :
+   * 수정자 :
+   * 수정내역 :
+ */
 @Controller
 @RequestMapping("/myPage")
 public class MyPageController {
@@ -27,10 +36,11 @@ public class MyPageController {
         this.myPageService = myPageService;
     }
 
+    // 마이페이지로 이동하는 메소드
     @GetMapping("myPage")
     public Model myPage (@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember,
                          Model model){ // 마이페이지에 들어오면 이 메소드가 실행됨
-
+        // 세션 유저 정보
         int loginUserNo = loginMember.getUserNo().intValue();
 
         Model userInfoModel = readUserInfo(model, loginUserNo);
@@ -46,7 +56,7 @@ public class MyPageController {
 
         return model;
     }
-
+    // 마이페이지에서 내가 작성한 여행 기록 리스트 페이지로 이동하는 메소드
     @GetMapping("myRecord")
     public Model myRecord(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember,
                           Model model){

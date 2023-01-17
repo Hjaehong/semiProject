@@ -1,6 +1,6 @@
 package com.team.semiTravelRecommend.model.dao;
 
-import com.team.semiTravelRecommend.model.dto.record.*;
+import com.team.semiTravelRecommend.model.dto.*;
 import com.team.semiTravelRecommend.paging.SelectCriteria;
 import org.apache.ibatis.annotations.Mapper;
 

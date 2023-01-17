@@ -1,6 +1,4 @@
 package com.team.semiTravelRecommend.model.dto;
-import com.team.semiTravelRecommend.model.dto.recommend.PlaceDTO;
-import com.team.semiTravelRecommend.model.dto.record.UserDTO;
 import lombok.Data;
 
 @Data

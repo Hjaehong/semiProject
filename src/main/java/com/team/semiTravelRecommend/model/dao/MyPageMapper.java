@@ -1,10 +1,10 @@
 package com.team.semiTravelRecommend.model.dao;
 
 import com.team.semiTravelRecommend.model.dto.BookmarkDTO;
-import com.team.semiTravelRecommend.model.dto.record.CityDTO;
-import com.team.semiTravelRecommend.model.dto.record.PlannerDTO;
-import com.team.semiTravelRecommend.model.dto.record.RecordDTO;
-import com.team.semiTravelRecommend.model.dto.record.UserTagDTO;
+import com.team.semiTravelRecommend.model.dto.CityDTO;
+import com.team.semiTravelRecommend.model.dto.PlannerDTO;
+import com.team.semiTravelRecommend.model.dto.RecordDTO;
+import com.team.semiTravelRecommend.model.dto.UserTagDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

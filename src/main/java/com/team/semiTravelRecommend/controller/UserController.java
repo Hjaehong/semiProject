@@ -1,17 +1,13 @@
 package com.team.semiTravelRecommend.controller;
 
 import com.team.semiTravelRecommend.model.dto.SessionConst;
-import com.team.semiTravelRecommend.model.dto.record.UserDTO;
 import com.team.semiTravelRecommend.model.dto.UserResponse;
-import com.team.semiTravelRecommend.model.dto.UserVO;
 import com.team.semiTravelRecommend.model.dto.requset.DeleteUserRequest;
 import com.team.semiTravelRecommend.model.dto.requset.LoginUserRequest;
 import com.team.semiTravelRecommend.model.dto.requset.SaveUserRequest;
 import com.team.semiTravelRecommend.model.dto.requset.UpdateUserRequest;
 import com.team.semiTravelRecommend.model.dto.response.LoginUserResponse;
-import com.team.semiTravelRecommend.model.dto.response.UpdateUserResponse;
 import com.team.semiTravelRecommend.service.UserService;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +15,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 

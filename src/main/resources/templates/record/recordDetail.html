@@ -130,11 +130,12 @@
                         'userNo' : userNo},
                     dataType: "json",
                     success: function(result){
-                        if (result == 1) {
-                            $("#btn_heart").attr("src", "/image/heart_before.png");
+                        console.log("하트의 값 : " + result)
+                        if (result == 2) {
+                            $("#btn_heart").attr("src", "/image/heart_after.png");
                         }
                         else {
-                            $("#btn_heart").attr("src", "/image/heart_after.png");
+                            $("#btn_heart").attr("src", "/image/heart_before.png");
                         }
                     }
                 });

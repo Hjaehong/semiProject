@@ -138,7 +138,7 @@ public class RecordController {
 
     @RequestMapping(value="clickHeart", produces = "application/json; charset=UTF-8")
     @ResponseBody
-    public int clickHeart(int recordNo, int userNo /*, int heartCheck */){
+    public int clickHeart(int recordNo, int userNo){
 
         int heartCheck = recordService.heartCheck(recordNo, userNo);
 

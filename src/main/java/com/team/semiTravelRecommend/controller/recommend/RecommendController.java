@@ -133,12 +133,14 @@ public class RecommendController {
         }
 
         int checkBookmark = recommendService.checkBookmark(userNo, travelInfo);
+        System.out.println("================= ");
         System.out.println("checkBookmark = " + checkBookmark);
+        System.out.println("================= " );
 
-        if(checkBookmark == 1){
-            model.addAttribute("checkBookmark", 1);
+        if(checkBookmark == 2){
+            model.addAttribute("checkBookmark", 2);
         }else{
-            model.addAttribute("checkBookmark", 0);
+            model.addAttribute("checkBookmark", 1);
         }
         System.out.println("travelDetail = " + travelDetail);
         // 찾은 정보를 모델에 저장하여 뷰에 전달
@@ -154,8 +156,10 @@ public class RecommendController {
         int checkBookmark = recommendService.checkBookmark(userNo, placeId);
 
         if(checkBookmark == 1){
+            System.out.println("delete 발생");
             return recommendService.deleteBookmark(userNo, placeId);
         }else {
+            System.out.println("insert 발생");
             return recommendService.insertBookmark(userNo, placeId);
 
         }

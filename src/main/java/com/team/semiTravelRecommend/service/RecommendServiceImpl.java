@@ -52,7 +52,7 @@ public class RecommendServiceImpl implements RecommendService{
         if(result <= 0){
             System.out.println("북마크 삭제 오류 발생 ");
         }
-        return result;
+        return result > 0 ? 1 : 0;
     }
 
     @Override
@@ -62,7 +62,7 @@ public class RecommendServiceImpl implements RecommendService{
         if(result <= 0){
             System.out.println("북마크 삭제 오류 발생 ");
         }
-        return result;
+        return result > 0 ? 2 : 0;
     }
 
 

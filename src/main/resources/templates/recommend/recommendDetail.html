@@ -52,7 +52,7 @@
 <script th:inline="javascript">
     let placeId = [[${travelInfo.placeId}]];
     let userNo = [[${userNo}]]; // 임시 유저 번호
-    console.log(userNo, placeId)
+
     // 북마크 클릭 이벤트
     function bookmarkChange(){
         let loginMember = [[${loginMember}]];
@@ -64,10 +64,12 @@
                 'userNo' : userNo},
             dataType:"json" ,
             success: function (result){
+                console.log("현재 result"+ result);
                 if(result == 1){
-                    $("#btn_bookmark").attr("src", "/image/bookmark_before.png");
-                } else{
                     $("#btn_bookmark").attr("src", "/image/bookmark_after.png");
+
+                } else{
+                    $("#btn_bookmark").attr("src", "/image/bookmark_before.png");
                 }
             }
         });

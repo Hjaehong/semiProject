@@ -159,6 +159,7 @@ public class RecordController {
 
         List<TagDTO> tagList = readTag();
 
+        mv.addObject("loginMember", 1);
         mv.addObject("Location", locationList);
         mv.addObject("Tag", tagList);
 
@@ -249,6 +250,7 @@ public class RecordController {
 
         List<TagDTO> tagList = readTag();
 
+        mv.addObject("loginMember", 1);
         mv.addObject("Location", locationList);
         mv.addObject("Tag", tagList);
         mv.addObject("RecordOne", record);
@@ -270,10 +272,6 @@ public class RecordController {
 		* 	  --> 서버에 업로드 후
 		* 	  --> originName : 새로첨부된파일원본명, changeName : 새로첨부된파일수정명
         */
-
-        System.out.println("값이 잘 넘어오는지 확인 : " + record.getRecordNo());
-        System.out.println("첨부파일 정보 확인 : " + record.getImgFileNo());
-        System.out.println("원본 첨부파일 정보 확인 : " + record.getFileDTO().getChangeName());
 
         String orgChangeName = record.getFileDTO().getChangeName();
 

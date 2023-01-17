@@ -105,7 +105,6 @@ public class RecommendController {
 
         model.addAttribute("selectCriteria", selectCriteria);
 
-
         return model;
     }
 //    @GetMapping("/paging")

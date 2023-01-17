@@ -14,10 +14,10 @@
         <div class="titleBox">
             <div class="place-name">
                 <div class="bookmark-img">
-                    <th:block th:if ="${checkBookmark == 0}">
+                    <th:block th:if ="${checkBookmark == 1}">
                         <img class="bookmarkImg" th:id="btn_bookmark" th:src="@{/image/bookmark_before.png}" alt="빈북마크이미지" onclick="bookmarkChange()"/>
                     </th:block>
-                    <th:block th:unless ="${checkBookmark == 0}">
+                    <th:block th:unless ="${checkBookmark == 1}">
                         <img class="bookmarkImg" th:id="btn_bookmark" th:src="@{/image/bookmark_after.png}" alt="꽉찬북마크이미지" onclick="bookmarkChange()"/>
                     </th:block>
                 </div>
@@ -65,7 +65,7 @@
             dataType:"json" ,
             success: function (result){
                 console.log("현재 result"+ result);
-                if(result == 1){
+                if(result == 2){
                     $("#btn_bookmark").attr("src", "/image/bookmark_after.png");
 
                 } else{

@@ -87,9 +87,11 @@
 }
 
 .button-list button{
+    background-color: white;
     border-style: none;
     height: 20px;
     margin: 2rem 0;
+    font-size: 16px;
 }
 
 .button-list button:hover{

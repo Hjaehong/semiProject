@@ -27,6 +27,7 @@ public class SelectCriteria implements Serializable {
     private int endPage;        // 한 번에 보여줄 페이징 버튼의 마지막 페이지 수
     private int startRow;       // DB 조회 시 최신 글 부터 조회해야 하는 행의 시작 수
     private int endRow;         // DB 조회 시 최신 글 부터 조회해야 하는 행의 마지막 수
+    private String tag;         // tag
 
 
 }

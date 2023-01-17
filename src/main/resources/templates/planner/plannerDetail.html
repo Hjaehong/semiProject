@@ -6,13 +6,13 @@
     <link th:href="@{/css/plannerDetail.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
-<!--여기 바꿔야함-->
+
 <div th:replace="common/header.html"></div>
   <div class="plannerDetailForm">
     <h2> 플래너 </h2>
     <wrap>
       <div class="number"> <!-- rowNum으로 받아줘야함 (planNo은 모든 유저가 공통으로 쓰니까) -->
-        <span> 번호 : </span>
+        <span> 게시글 번호 : </span>
         <span th:text="${Planner.planNo}"></span>
       </div>
 
@@ -40,7 +40,7 @@
 
       <div class="content">
         <span> 세부일정 </span>
-        <textarea th:value="${Planner.plDetail}" th:text="${Planner.plDetail}"></textarea> <!-- textarea 처리를 일단 text로 함 -->
+        <pre th:text="${Planner.plDetail}"></pre> <!-- textarea 처리를 일단 text로 함 -->
       </div>
 
     </wrap>

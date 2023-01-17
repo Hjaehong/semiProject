@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <title>Main</title>
     <link th:href="@{/css/main.css}" rel="stylesheet" type="text/css">
+    <script>
+      const successMessage = "[[${ successMessage}]]";
+      if (successMessage){
+        alert(successMessage);
+      }
+    </script>
 </head>
 <body>
   <a name="Top"></a>

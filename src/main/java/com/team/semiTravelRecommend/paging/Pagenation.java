@@ -15,7 +15,7 @@ public class Pagenation {
    return getSelectCriteria(pageNo, totalCount, limit, buttonAmount, null);
   }
     // 페이징 처리⁄
-  public static SelectCriteria getSelectCriteria(int pageNo, int totalCount, int limit, int buttonAmount, String tag) {
+  public static SelectCriteria getSelectCriteria(int pageNo, int totalCount, int limit, int buttonAmount, String tagCode) {
 
    int maxPage;   // 전체 페이지에서 가장 마지막 페이지 표시
    int startPage; // 한번에 표시될 페이지 버튼의 시작할 페이지
@@ -45,7 +45,7 @@ public class Pagenation {
     System.out.println("starRow = " + starRow);
     System.out.println("endRow = " + endRow);
 
-    SelectCriteria selectCriteria = new SelectCriteria(pageNo, totalCount, limit, buttonAmount, maxPage, startPage, endPage, starRow, endRow, tag);
+    SelectCriteria selectCriteria = new SelectCriteria(pageNo, totalCount, limit, buttonAmount, maxPage, startPage, endPage, starRow, endRow, tagCode);
     return selectCriteria;
   }
 

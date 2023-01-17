@@ -62,7 +62,13 @@
     </select>
     <!-- 총 여행지 갯수 -->
     <select id="countTravel" resultType="_int">
-        select count(*) from PLACE
+        select count(*)
+        from PLACE
+        <where>
+            <if test="tagCode != null">
+                TAG_CODE = #{tagCode}
+            </if>
+        </where>
     </select>
     <!-- 페이징 리스트 -->
     <select id="listPaging"  resultMap="placeResultMap">
@@ -74,6 +80,11 @@
                 from PLACE p
                 JOIN CITY c ON p.CITY_CODE = c.CITY_CODE
                 JOIN LOCATION l ON c.LOC_CODE =l.LOC_CODE
+                <where>
+                    <if test="tagCode != null">
+                        TAG_CODE = #{tagCode}
+                    </if>
+                </where>
                 order by PLACE_ID desc
                 )a
                 where ROWNUM<![CDATA[<= #{ endRow }]]>

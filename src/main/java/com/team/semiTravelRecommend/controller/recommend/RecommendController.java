@@ -63,16 +63,24 @@ public class RecommendController {
         // 여행지 총 개수 카운트
         int totalCount = recommendService.findAllCnt();
         // 한페이지에 보여줄 게시물 수
-        int limit = 8;
+        int limit = 16;
         // 한페이지에 보여줄 버튼 개수
         int buttonAmount = 5;
         // 페이징 처리를 위한 로직 호출
         SelectCriteria selectCriteria = null;
-        // 페이징 처리에 관한 정보를 담고 있는 인스턴스를 반환
-        selectCriteria = Pagenation.getSelectCriteria(pageNo,totalCount, limit, buttonAmount);
 
-        // 조회
-        List<PlaceDTO> travelList = recommendService.listPaging(selectCriteria);
+        // tagCode가 있는지 없는지에 따라 구분
+        if(tagCode != null && !"".equals(tagCode)) {
+            selectCriteria = Pagenation.getSelectCriteria(pageNo,totalCount, limit, buttonAmount, tagCode);
+            List<PlaceDTO> travelList = recommendService.listPaging(selectCriteria);
+            model.addAttribute("travelList", travelList);
+        }
+        else {
+            selectCriteria = Pagenation.getSelectCriteria(pageNo,totalCount, limit, buttonAmount);
+            List<PlaceDTO> travelList = recommendService.listPaging(selectCriteria);
+            model.addAttribute("travelList", travelList);
+        }
+
         // 여행지 태그 조회
         List<TagDTO> tagList = recommendService.showTag();
 
@@ -95,17 +103,7 @@ public class RecommendController {
         model.addAttribute("TagGroup2", tagGroup2);
         model.addAttribute("TagGroup3", tagGroup3);
 
-        // 선택한 태그 여행지 조회
-        List<PlaceDTO> tagchooselList = recommendService.tagRecommendTravel(tagCode);
-
         model.addAttribute("selectCriteria", selectCriteria);
-//        model.addAttribute("tagList", tagList);
-
-        if( tagCode != null){
-            model.addAttribute("travelList", tagchooselList);
-        } else {
-            model.addAttribute("travelList", travelList);
-        }
 
 
         return model;

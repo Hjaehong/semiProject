@@ -1,0 +1,107 @@
+.plannerDetailForm {
+    margin: 60px 18rem 0;
+}
+
+.plannerDetailForm h2 {
+    margin-bottom: 2rem;
+}
+
+.plannerDetailForm wrap > div {
+    border-bottom: 1px solid black;
+    padding-bottom: 2rem;
+    padding-top: 2rem;
+}
+
+.plannerWriteForm wrap > div:first-child{
+    border-bottom: 1px solid black;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+} /* form > div:first-child : form 안에 첫번째 div영역에만 css값을 줌 */
+
+.plannerWriteForm label {
+    display: inline-block;
+    width: 10rem;
+    text-align: center;
+    border-right: 1px solid black;
+    padding: 4px;
+}
+
+.title {
+    border-top: 1px solid black;
+}
+
+#travel-place {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 70%;
+    height: 4rem;
+    font-size: 20px;
+    margin-left: 8px;
+}
+
+#lodging {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 70%;
+    height: 3rem;
+    font-size: 15px;
+    margin-left: 8px;
+}
+
+#trasnport {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 70%;
+    height: 3rem;
+    font-size: 15px;
+    margin-left: 8px;
+}
+
+.date span {
+    margin-left: 8px;
+}
+
+#dateIn {
+    margin-right: 16px;
+}
+
+.content {
+    display: flex;
+    align-items: center;
+}
+
+pre {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 75%;
+    height: 30rem;
+    margin-left: 8px;
+    font-size: 16px;
+}
+
+button {
+    border: none;
+    background: #656565;
+    height: 40px;
+    border-radius: 10px;
+    color: #fff;
+    display: block;
+    margin: 24px auto;
+    transform: translateX(8px);
+}
+
+button:hover {
+    background-color: #BF214B;
+}
+
+.edit-delete {
+    display: flex;
+/*    justify-content: center;*/
+    margin-left: 45%;
+}
+
+.edit {
+    margin-right: 16px;
+}
+
+/*ㅁㄴㅇㅁㄴㅇㄻㄴㅇㄹ*/

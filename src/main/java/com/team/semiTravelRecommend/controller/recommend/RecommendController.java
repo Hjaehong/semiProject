@@ -61,7 +61,7 @@ public class RecommendController {
             pageNo = 1;
         }
         // 여행지 총 개수 카운트
-        int totalCount = recommendService.findAllCnt();
+        int totalCount = recommendService.findAllCnt(tagCode);
         // 한페이지에 보여줄 게시물 수
         int limit = 16;
         // 한페이지에 보여줄 버튼 개수
@@ -71,7 +71,7 @@ public class RecommendController {
 
         // tagCode가 있는지 없는지에 따라 구분
         if(tagCode != null && !"".equals(tagCode)) {
-            selectCriteria = Pagenation.getSelectCriteria(pageNo,totalCount, limit, buttonAmount, tagCode);
+            selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount, tagCode);
             List<PlaceDTO> travelList = recommendService.listPaging(selectCriteria);
             model.addAttribute("travelList", travelList);
         }

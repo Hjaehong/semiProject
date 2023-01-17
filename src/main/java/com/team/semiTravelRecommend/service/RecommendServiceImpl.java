@@ -30,7 +30,7 @@ public class RecommendServiceImpl implements RecommendService{
 
     // 총 여행지 갯수 출력
     @Override
-    public int findAllCnt() { return recommendMapper.countTravel(); }
+    public int findAllCnt(String tagCode) { return recommendMapper.countTravel(tagCode); }
 
     @Override
     public List<PlaceDTO> listPaging(SelectCriteria selectCriteria) {return recommendMapper.listPaging(selectCriteria);}

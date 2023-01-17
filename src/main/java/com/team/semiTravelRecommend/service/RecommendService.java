@@ -23,7 +23,7 @@ public interface RecommendService {
     // 여행지 태그 보여주기
     List<TagDTO> showTag();
     // 여행지 전체 갯수 카운트
-    int findAllCnt();
+    int findAllCnt(String tagCode);
     // 페이징 리스트
     List<PlaceDTO> listPaging(SelectCriteria selectCriteria);
 

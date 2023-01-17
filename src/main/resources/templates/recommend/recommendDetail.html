@@ -40,7 +40,6 @@
             </div>
             <hr>
             <div class="address" th:text="'상세주소 : ' + ${travelInfo.address}"></div>
-    <!--        <div th:text="'전화번호 : ' + ${travelInfo.tel}"></div>-->
             <th:block th:if ="${travelInfo.tel == null}">
                 <div th:text="'전화번호 : X'"></div>
             </th:block>
@@ -49,7 +48,8 @@
             </th:block>
         </div>
 
-        <a class="back-list" href="javascript:history.back();"> <- 목록으로 </a>
+<!--        <a class="back-list" href="javascript:history.back();"> <- 목록으로 </a>-->
+        <a class="back-list" th:href="@{/recommend/travelRecommend}"> <- 목록으로 </a>
     </div>
 </body>
 <script th:inline="javascript">

@@ -77,6 +77,7 @@
 <!--  </div>-->
 
   <div class="edit-delete">
+    <button type="button" class="back-list" onclick="location.href='javascript:history.back();'"> <- 목록으로 </button>
     <form class="edit" action="/planner/editPlanner" method="post">
       <input type="hidden" th:name="planNo" th:value="${Planner.planNo}"/>
       <button type="submit"> 수정 </button>

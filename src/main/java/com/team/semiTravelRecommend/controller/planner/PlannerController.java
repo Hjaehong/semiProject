@@ -22,23 +22,23 @@ public class PlannerController {
     }
 
     @GetMapping("plannerWrite")
-    public void planner (){
-        // session 정보를 확인해서 userNo을 가져와서 프론트단에 뿌려주고
-        // hidden 처리해서 Post 할때 같이 보내줘야 할 듯?!
+    public Model planner (Model model){
+
+        model.addAttribute("loginMember", 1);
+
+        return model;
     }
 
     @PostMapping("plannerWrite")
     public ModelAndView writePlanner (@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember,
                                       ModelAndView mv, PlannerDTO planner, RedirectAttributes rttr){
 
-        System.out.println(planner.getEndDueDate());
-        System.out.println( "숙소정보확인" + planner.getLodgingInfo());
-
         int userNo = loginMember.getUserNo().intValue();
         planner.setUserNo(userNo);
 
         plannerService.insertPlanner(planner);
 
+        mv.addObject("loginMember", 1);
         mv.setViewName("redirect:/myPage/myPlanner");
         // 작성하면 바로 마이페이지의 myPlan으로 넘어가게 설정
         rttr.addFlashAttribute("successMessage", "작성 완료!");
@@ -51,6 +51,7 @@ public class PlannerController {
 
         PlannerDTO planner = plannerService.plannerOne(planNo);
 
+        mv.addObject("loginMember", 1);
         mv.addObject("Planner", planner);
         mv.setViewName("planner/plannerDetail");
 
@@ -63,6 +64,7 @@ public class PlannerController {
 
         PlannerDTO planner = plannerService.plannerOne(planNo);
 
+        mv.addObject("loginMember", 1);
         mv.addObject("Planner", planner);
         mv.setViewName("planner/plannerEdit");
 
@@ -75,6 +77,7 @@ public class PlannerController {
         System.out.println("수정 메소드 호출 확인용");
         plannerService.editPlanner(planner);
 
+        mv.addObject("loginMember", 1);
         mv.setViewName("redirect:/myPage/myPlanner");
         rttr.addFlashAttribute("successMessage", "수정 완료!");
 

@@ -55,16 +55,18 @@
                 <th:block th:unless = "${travelList.plImgPath != null}">
                     <img class="travelImg" th:src="@{/image/noImg.png}" alt="이미지없음"/>
                 </th:block>
-<!--            </a>-->
-<!--            </form>-->
+
                 <div class="info">
                     <div class="text-info">
                         <div class="placeName" th:text="${travelList.placeName}"></div>
                         <div class="local" th:text="${travelList.cityDTO.locationDTO?.locName} + ' ' + ${travelList.cityDTO.cityName}"></div>
                     </div>
                     <div class="mascot">
-                        <div class="mascot-img">
+                        <div class="mascot-img" th:if="${travelList.cityDTO.badgeImg != null}">
                             <img th:src="@{${travelList.cityDTO.badgeImg}}" alt="마스코트사진"/>
+                        </div>
+                        <div class="mascot-img" th:unless="${travelList.cityDTO.badgeImg != null}">
+                            <img th:src="@{/image/noImg.png}" alt="마스코트사진"/>
                         </div>
                     </div>
                 </div>

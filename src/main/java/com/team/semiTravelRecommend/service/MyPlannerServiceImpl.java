@@ -1,7 +1,7 @@
 package com.team.semiTravelRecommend.service;
 
 import com.team.semiTravelRecommend.model.dao.MyPlannerMapper;
-import com.team.semiTravelRecommend.model.dto.record.PlannerDTO;
+import com.team.semiTravelRecommend.model.dto.PlannerDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

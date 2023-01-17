@@ -1,6 +1,6 @@
 package com.team.semiTravelRecommend.service;
 
-import com.team.semiTravelRecommend.model.dto.record.PlannerDTO;
+import com.team.semiTravelRecommend.model.dto.PlannerDTO;
 
 public interface PlannerService {
 

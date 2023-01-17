@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>recordDetail</title>
+    <title>옷홋</title>
     <link th:href="@{/css/recordDetail.css}" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
@@ -100,9 +100,6 @@
                 <input type="hidden" class="userNo" th:value="${comList.userDTO.userNo}">
                 <input type="hidden" class="comNo" th:value="${comList.comNo}">
             </div>
-<!--            <div>-->
-<!--                <span class="comment-writer"> 작성자 </span>-->
-<!--            </div>-->
             <textarea id="commentContain"></textarea>
             <button id="commentSubmit">등록</button>
         </div>
@@ -111,6 +108,7 @@
         <a class="back-list" th:href="@{/record/recordList}"> <- 목록으로 </a>
     </div>
 </body>
+<!-- 하트 관련 ajax -->
     <script th:inline="javascript">
         /*<![CDATA[*/
 
@@ -147,7 +145,7 @@
         /*]]>*/
 
     </script>
-
+<!-- 댓글 입력 ajax -->
 <script th:inline="javascript">
     $(function (){
         commentList(); // selectReplyList
@@ -167,6 +165,7 @@
                     success:function (result){
                         if(result > 0){
                             $("#commentContain").val("");
+                            location.href = "/record/recordDetail/" + recordNo;
                             commentList();
                         }else{
                             alert("댓글을 등록할 수 없습니다.");
@@ -182,7 +181,6 @@
     });
 
     // 댓글리스트를 출력
-
     function commentList() {
         let recordNo = [[${RecordOne.recordNo}]];
         let currUserNo = [[${session.loginUser.getUserNo()}]]; // 현재 세션에 저장된 유저번호
@@ -192,15 +190,12 @@
         for(let i = 0; i < userNo.length; i++){
             userNoList[i] = userNo[i].value;
             console.log()
-
         }
         // 닉네임을 배열에 저장
         let nickname = document.querySelectorAll('#nicknameList');
-
         let nicknameList =[];
         for(let i=0; i<nickname.length;i++){
             nicknameList[i] = nickname[i].value;
-
         }
         // 댓글번호를 배열에 저장
         let comNo = document.getElementsByClassName('comNo');
@@ -214,7 +209,6 @@
                 'recordNo': recordNo},
             type: "post",
             dataType: "json",
-            async: false,
             success: function (list) {
                 $("#comCount").text(list.length);// 총 댓글수
                 let valueTag = "";
@@ -223,7 +217,7 @@
                     // console.log("닉네임리스트 =" + nicknameList[i] + ", 댓글리스트[i]" + comNoList[i])
                     valueTag += "<tr>"
                         + "<th>"+ nicknameList[i] + "</th>"
-                        + "<td>" + obj.comContain + "</td>";
+                        + "<td style='text-align: left'>" + obj.comContain + "</td>";
                     //  현재 접속한 유저와 작성한 유저가 같을때 댓글 수정 삭제
                     if(userNoList[i] == currUserNo){
                         valueTag +=  "<td>" + "<a href='#' class='btnComment' onclick='updateComment("+comNoList[i] +")'>수정</a>"
@@ -232,9 +226,7 @@
                     } else {
                         valueTag += "</tr>";
                     }
-                    valueTag += "<div class='comContentList'>"
-                        + "<span class='comContent'>" + obj.comContain + "</span>"
-                        + "</div>";
+
                 });
                 $("#commentListView").html(valueTag);
             }, error: function () {

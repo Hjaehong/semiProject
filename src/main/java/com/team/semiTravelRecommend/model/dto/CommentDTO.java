@@ -1,6 +1,6 @@
-package com.team.semiTravelRecommend.model.dto.comment;
+package com.team.semiTravelRecommend.model.dto;
 
-import com.team.semiTravelRecommend.model.dto.record.UserDTO;
+import com.team.semiTravelRecommend.model.dto.UserDTO;
 import lombok.Data;
  /**
     * Version : 1.0

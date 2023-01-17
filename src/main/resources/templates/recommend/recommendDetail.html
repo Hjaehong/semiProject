@@ -14,10 +14,10 @@
         <div class="titleBox">
             <div class="place-name">
                 <div class="bookmark-img">
-                    <th:block th:if ="${checkBookmark == 0}">
+                    <th:block th:if ="${checkBookmark == 1}">
                         <img class="bookmarkImg" th:id="btn_bookmark" th:src="@{/image/bookmark_before.png}" alt="빈북마크이미지" onclick="bookmarkChange()"/>
                     </th:block>
-                    <th:block th:unless ="${checkBookmark == 0}">
+                    <th:block th:unless ="${checkBookmark == 1}">
                         <img class="bookmarkImg" th:id="btn_bookmark" th:src="@{/image/bookmark_after.png}" alt="꽉찬북마크이미지" onclick="bookmarkChange()"/>
                     </th:block>
                 </div>
@@ -26,8 +26,11 @@
             <div class="loc-info" th:text="${travelInfo.cityDTO.locationDTO.locName} +' '+ ${travelInfo.cityDTO.cityName}"></div>
         </div>
         <hr>
-        <div class="place-img">
-            <img id="mainImg" th:src="${travelInfo.plImgPath}" alt="여행지 이미지"/>
+        <div class="place-img" th:if="${travelInfo.plImgPath != null}">
+            <img class="mainImg" th:src="${travelInfo.plImgPath}" alt="여행지 이미지"/>
+        </div>
+        <div class="place-img" th:unless="${travelInfo.plImgPath != null}">
+            <img class="mainImg" th:src="@{/image/noImg.png}" alt="여행지 이미지"/>
         </div>
         <div class="detail-info">
             <h2> 상세정보 </h2>
@@ -37,16 +40,16 @@
             </div>
             <hr>
             <div class="address" th:text="'상세주소 : ' + ${travelInfo.address}"></div>
-    <!--        <div th:text="'전화번호 : ' + ${travelInfo.tel}"></div>-->
-            <th:block th:if ="${travelInfo.tel == ''}">
+            <th:block th:if ="${travelInfo.tel == null}">
                 <div th:text="'전화번호 : X'"></div>
             </th:block>
-            <th:block th:unless ="${travelInfo.tel == ''}">
+            <th:block th:unless ="${travelInfo.tel == null}">
                 <div th:text="'전화번호 : ' + ${travelInfo.tel}"></div>
             </th:block>
         </div>
 
-        <a class="back-list" href="javascript:history.back();"> <- 목록으로 </a>
+<!--        <a class="back-list" href="javascript:history.back();"> <- 목록으로 </a>-->
+        <a class="back-list" th:href="@{/recommend/travelRecommend}"> <- 목록으로 </a>
     </div>
 </body>
 <script th:inline="javascript">
@@ -65,7 +68,7 @@
             dataType:"json" ,
             success: function (result){
                 console.log("현재 result"+ result);
-                if(result == 1){
+                if(result == 2){
                     $("#btn_bookmark").attr("src", "/image/bookmark_after.png");
 
                 } else{

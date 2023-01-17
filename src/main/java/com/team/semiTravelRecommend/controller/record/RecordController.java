@@ -1,8 +1,7 @@
 package com.team.semiTravelRecommend.controller.record;
 
-import com.team.semiTravelRecommend.model.dto.SessionConst;
-import com.team.semiTravelRecommend.model.dto.comment.CommentDTO;
-import com.team.semiTravelRecommend.model.dto.record.*;
+import com.team.semiTravelRecommend.model.dto.*;
+import com.team.semiTravelRecommend.model.dto.CommentDTO;
 import com.team.semiTravelRecommend.model.dto.response.LoginUserResponse;
 import com.team.semiTravelRecommend.paging.Pagenation;
 import com.team.semiTravelRecommend.paging.SelectCriteria;
@@ -156,7 +155,6 @@ public class RecordController {
     public ModelAndView readTagAndLocation(ModelAndView mv){
 
         List<LocationDTO> locationList = readLocation();
-
         List<TagDTO> tagList = readTag();
 
         mv.addObject("loginMember", 1);

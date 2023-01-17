@@ -6,6 +6,8 @@
     <meta charset="UTF-8">
 </head>
 <body>
+<div th:replace="common/header.html"></div>
+
 <form method="post" action="" th:action th:object="${saveUserRequest}">
 
     <div th:if="${#fields.hasGlobalErrors()}">

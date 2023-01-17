@@ -96,15 +96,15 @@
         <div class="comment-form"  id="commentArea">
 
             <div class="commentInfo" th:each="comList : ${comList}">
-                <input type="hidden" id="nickname" th:value="${comList.userDTO.nickname}">
-                <input type="hidden" id="userNo" th:value="${comList.userDTO.userNo}">
+                <input type="hidden" id="nicknameList" th:value="${comList.userDTO.nickname}">
+                <input type="hidden" class="userNo" th:value="${comList.userDTO.userNo}">
                 <input type="hidden" class="comNo" th:value="${comList.comNo}">
             </div>
             <div>
                 <span class="comment-writer"> 작성자 </span>
             </div>
             <textarea id="commentContain"></textarea>
-            <button>등록</button>
+            <button id="commentSubmit">등록</button>
         </div>
 
 
@@ -184,11 +184,29 @@
 
     function commentList() {
         let recordNo = [[${RecordOne.recordNo}]];
-        let userNo = document.getElementById('userNo').value;
-        let nickname = document.getElementById('nickname').value;
-        let currUserNo = [[${session.loginUser.getUserNo()}]];
-        let comNo = document.getElementsByClassName('comNo');
+        let currUserNo = [[${session.loginUser.getUserNo()}]]; // 현재 세션에 저장된 유저번호
+        // 유저의 정보를 배열에 저장
+        let userNo = document.querySelectorAll('.userNo');
+        let userNoList = [];
+        for(let i = 0; i < userNo.length; i++){
+            userNoList[i] = userNo[i].value;
+            console.log()
 
+        }
+        // 닉네임을 배열에 저장
+        let nickname = document.querySelectorAll('#nicknameList');
+
+        let nicknameList =[];
+        for(let i=0; i<nickname.length;i++){
+            nicknameList[i] = nickname[i].value;
+
+        }
+        // 댓글번호를 배열에 저장
+        let comNo = document.getElementsByClassName('comNo');
+        let comNoList =[];
+        for(let i = 0; i < comNo.length; i++){
+            comNoList[i] = comNo[i].value;
+        }
         $.ajax({
             url: "/record/listComment",
             data: {
@@ -198,29 +216,26 @@
             async: false,
             success: function (list) {
                 $("#comCount").text(list.length);// 총 댓글수
-                let value = "";
+                let valueTag = "";
                 let a= 0;
                 $.each(list, function (i, obj) {
-
-                    value += "<tr>"
-                        + "<th>"+ nickname + "</th>"
-                        + "<td>" + " | " + obj.comContain + "</td>";
+                    // console.log("닉네임리스트 =" + nicknameList[i] + ", 댓글리스트[i]" + comNoList[i])
+                    valueTag += "<tr>"
+                        + "<th>"+ nicknameList[i] + "</th>"
+                        + "<td>" + obj.comContain + "</td>";
                     //  현재 접속한 유저와 작성한 유저가 같을때 댓글 수정 삭제
-                    if(userNo == currUserNo){
-                        value +=  "<td>" + "<a href='#' class='btnComment' onclick='updateComment("+comNo[i].value+")'>수정</a>"
-                            + "|" + "<a href='#' class='btnComment' onclick='deleteComment("+comNo[i].value+")'>삭제</a>" + "</td>"
+                    if(userNoList[i] == currUserNo){
+                        valueTag +=  "<td>" + "<a href='#' class='btnComment' onclick='updateComment("+comNoList[i] +")'>수정</a>"
+                            + "|" + "<a href='#' class='btnComment' onclick='deleteComment("+ comNoList[i] +")'>삭제</a>" + "</td>"
                             + "</tr>";
                     } else {
-                        value += "</tr>";
+                        valueTag += "</tr>";
                     }
-
-
-                    value += "<div class='comContentList'>"
+                    valueTag += "<div class='comContentList'>"
                         + "<span class='comContent'>" + obj.comContain + "</span>"
                         + "</div>";
-                    a++;
                 });
-                $("#commentListView").html(value);
+                $("#commentListView").html(valueTag);
             }, error: function () {
                 console.log("댓글 리스트 ajax 실패");
             }

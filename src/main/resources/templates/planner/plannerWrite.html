@@ -55,19 +55,20 @@
       let startDay = document.getElementById("dateIn");
       let endDay = document.getElementById("dateOut");
 
-      let now_utc = Date.now();
-      let timeOff = new Date().getTimezoneOffset()*60000;
-      let today = new Date(now_utc - timeOff).toISOString().split("T")[0];
+      let now_utc = Date.now(); /* Date.now()는 현재 날짜를 utc형식의 밀리 초로 반환 */
+      let timeOff = new Date().getTimezoneOffset()*60000; /* getTimezoneOffset()은 utc 시간과의 차이를 분 분단위로 반환하므로 60000을 곱해서 밀리초 단위로 반환 */
+      let today = new Date(now_utc - timeOff).toISOString().split("T")[0]; /* now_utc - timeOff 로 기준시간을 구하고, toISOString 통해 시간을 문자열로 바꾸고, T를 기준으로 나눈다 */
+                                                                           /* ex) '2023-01-17T17:13'를 T 기준으로 나눠 시간부분은 버리고 앞부분인 날짜부분만 사용한다 */
 
-      startDay.setAttribute("min", today);
+      startDay.setAttribute("min", today); /* 위의 값을 input type "date" 에 담아서 최소로 설정해서 오늘 전으로는 선택안되도록 한다 */
       endDay.setAttribute("min", today);
 
-      startDay.addEventListener('change', function(){
+      startDay.addEventListener('change', function(){ /* 시작일 먼저 골랐을때, 종료일은 최소 시작일이어야 함 */
         if(startDay.value)
           endDay.min = startDay.value;
       }, false);
 
-      endDay.addEventListener('change', function (){
+      endDay.addEventListener('change', function (){ /* 종료일 먼저 골랐을때, 시작일은 최대 종료일이어야 함 */
         if(endDay.value)
           startDay.max = endDay.value;
       })

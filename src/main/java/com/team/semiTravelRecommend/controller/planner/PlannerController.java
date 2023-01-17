@@ -1,6 +1,8 @@
 package com.team.semiTravelRecommend.controller.planner;
 
+import com.team.semiTravelRecommend.model.dto.SessionConst;
 import com.team.semiTravelRecommend.model.dto.record.PlannerDTO;
+import com.team.semiTravelRecommend.model.dto.response.LoginUserResponse;
 import com.team.semiTravelRecommend.service.PlannerService;
 import oracle.jdbc.proxy.annotation.Post;
 import org.springframework.stereotype.Controller;
@@ -26,18 +28,21 @@ public class PlannerController {
     }
 
     @PostMapping("plannerWrite")
-    public ModelAndView writePlanner (ModelAndView mv, PlannerDTO planner, RedirectAttributes rttr){
+    public ModelAndView writePlanner (@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember,
+                                      ModelAndView mv, PlannerDTO planner, RedirectAttributes rttr){
 
         System.out.println(planner.getEndDueDate());
         System.out.println( "숙소정보확인" + planner.getLodgingInfo());
 
-        planner.setUserNo(1); // userNo 임의 설정 -> 나중에 로그인이랑 연결 후 삭제해줘야함
+        int userNo = loginMember.getUserNo().intValue(); // 위에 어노테이션으로 세션입력하고, intValue를 사용해 int형으로 바꿔서 그 값을 불러옴
+        planner.setUserNo(userNo);
         // 필수입력 사항이 아닌 값들은 비어있는 경우 null 처리해서 set해주거나, 프론트단에서 value처리 해줘야할 듯
         plannerService.insertPlanner(planner); // 우선 지금은 모든 항목 필수입력으로 설정해두기
 
         mv.setViewName("redirect:/myPage/myPlanner");
         // 작성하면 바로 마이페이지의 myPlan으로 넘어가게 설정
         rttr.addFlashAttribute("successMessage", "작성 완료!");
+        /* myPage의 myPlanner.html에 스크립트문(alert)를 이용해서 위의 성공메세지를 띄움 */
 
         return mv;
     }

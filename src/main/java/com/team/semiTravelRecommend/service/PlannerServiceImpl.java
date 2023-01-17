@@ -35,7 +35,7 @@ public class PlannerServiceImpl implements PlannerService {
         int result = plannerMapper.editPlanner(planner);
 
         if(result <= 0) {
-            System.out.println("플래너작성실패");
+            System.out.println("플래너수정실패");
         }
         return result > 0 ? 1 : 0;
     }
@@ -46,7 +46,7 @@ public class PlannerServiceImpl implements PlannerService {
         int result = plannerMapper.deletePlanner(planNo);
 
         if(result <= 0) {
-            System.out.println("플래너작성실패");
+            System.out.println("플래너삭제실패");
         }
         return result > 0 ? 1 : 0;
     }

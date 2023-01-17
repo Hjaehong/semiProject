@@ -70,6 +70,12 @@
     align-items: center;
 }
 
+.content pre{
+    margin-top: 12px;
+    white-space: pre-wrap;
+    font-size: 14px;
+}
+
 pre {
     border: 1px solid #ddd;
     border-radius: 4px;

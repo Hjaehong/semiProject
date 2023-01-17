@@ -119,10 +119,10 @@ public class MyPageController {
     public Model myPlanner(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember,
                            Model model){
 
-        int loginUserNo = loginMember.getUserNo().intValue();
+        int loginUserNo = loginMember.getUserNo().intValue(); // intValue 를 사용해서 int형으로 바꿔줌
         Model userInfoModel = readUserInfo(model, loginUserNo);
 
-        model.addAttribute("UserInfo", userInfoModel.getAttribute("UserInfo"));
+        model.addAttribute("UserInfo", userInfoModel.getAttribute("UserInfo")); // model.addAttribute() : model에 데이터를 담을 때 사용
         model.addAttribute("UserTag", userInfoModel.getAttribute("UserTag"));
 
         List<PlannerDTO> myPlanner = myPageService.readMyPlanner(loginUserNo);

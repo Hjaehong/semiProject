@@ -118,7 +118,6 @@ public class RecommendController {
                                Model model, @PathVariable(value = "placeId")int travelInfo){
         // 디테일 정보를 placeId로 찾는다.
         PlaceDTO travelDetail = recommendService.detailTravelInfo(travelInfo);
-        System.out.println("travelInfo = " + travelInfo);
 
         int userNo;
 
@@ -131,9 +130,6 @@ public class RecommendController {
         }
 
         int checkBookmark = recommendService.checkBookmark(userNo, travelInfo);
-        System.out.println("================= ");
-        System.out.println("checkBookmark = " + checkBookmark);
-        System.out.println("================= " );
 
         if(checkBookmark == 2){
             model.addAttribute("checkBookmark", 2);

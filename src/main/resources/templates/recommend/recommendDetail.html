@@ -26,8 +26,11 @@
             <div class="loc-info" th:text="${travelInfo.cityDTO.locationDTO.locName} +' '+ ${travelInfo.cityDTO.cityName}"></div>
         </div>
         <hr>
-        <div class="place-img">
-            <img id="mainImg" th:src="${travelInfo.plImgPath}" alt="여행지 이미지"/>
+        <div class="place-img" th:if="${travelInfo.plImgPath != null}">
+            <img class="mainImg" th:src="${travelInfo.plImgPath}" alt="여행지 이미지"/>
+        </div>
+        <div class="place-img" th:unless="${travelInfo.plImgPath != null}">
+            <img class="mainImg" th:src="@{/image/noImg.png}" alt="여행지 이미지"/>
         </div>
         <div class="detail-info">
             <h2> 상세정보 </h2>
@@ -38,10 +41,10 @@
             <hr>
             <div class="address" th:text="'상세주소 : ' + ${travelInfo.address}"></div>
     <!--        <div th:text="'전화번호 : ' + ${travelInfo.tel}"></div>-->
-            <th:block th:if ="${travelInfo.tel == ''}">
+            <th:block th:if ="${travelInfo.tel == null}">
                 <div th:text="'전화번호 : X'"></div>
             </th:block>
-            <th:block th:unless ="${travelInfo.tel == ''}">
+            <th:block th:unless ="${travelInfo.tel == null}">
                 <div th:text="'전화번호 : ' + ${travelInfo.tel}"></div>
             </th:block>
         </div>

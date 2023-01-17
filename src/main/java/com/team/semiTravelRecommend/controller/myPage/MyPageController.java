@@ -2,6 +2,7 @@ package com.team.semiTravelRecommend.controller.myPage;
 
 import com.team.semiTravelRecommend.model.dto.BookmarkDTO;
 import com.team.semiTravelRecommend.model.dto.SessionConst;
+import com.team.semiTravelRecommend.model.dto.UserResponse;
 import com.team.semiTravelRecommend.model.dto.record.CityDTO;
 import com.team.semiTravelRecommend.model.dto.record.PlannerDTO;
 import com.team.semiTravelRecommend.model.dto.record.RecordDTO;
@@ -61,7 +62,7 @@ public class MyPageController {
 //    }
 
     @GetMapping("myPage")
-    public Model myPage (@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember,
+    public Model myPage (@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) UserResponse loginMember,
                          Model model){ // 마이페이지에 들어오면 이 메소드가 실행됨
 
         int loginUserNo = loginMember.getUserNo().intValue();
@@ -75,6 +76,13 @@ public class MyPageController {
         List<CityDTO> myBadge = myPageService.readMyBadge(loginUserNo);
 
         model.addAttribute("UserBadge", myBadge);
+
+        if (loginMember == null) { // 로그인 정보가 없으면 0을
+            model.addAttribute("loginMember", 0);
+        }
+        else { // 로그인 정보가 있으면 1을
+            model.addAttribute("loginMember", 1);
+        }
 
         return model;
     }

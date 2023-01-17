@@ -40,6 +40,7 @@ public class UserServiceImpl implements UserService {
         userVO.setUserName(request.getUserName());
         userVO.setEmail(request.getEmail());
         userVO.setNickname(request.getNickname());
+        userVO.setRegions(request.getRegions());
 
         userMapper.save(userVO);
     }

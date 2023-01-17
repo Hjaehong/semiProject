@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 @NoArgsConstructor
 @Data
@@ -16,4 +17,6 @@ public class UpdateUserRequest {
     private String userId;
     @NotBlank(message = "수정할 이메일을 적으세요")
     private String email;
+
+    private List<String> regions;
 }

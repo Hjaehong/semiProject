@@ -53,7 +53,7 @@
                     <input type="hidden" th:name="recordNo" th:value="${RecordOne.recordNo}"/>
                     <button type="submit"> 수정 </button>
                 </form>
-                <form class="delete" action="/record/deleteRecord" method="post">
+                <form class="delete" action="/record/deleteRecord" method="post" onsubmit="return confirm('정말로 삭제하시겠습니까?')">
                     <input type="hidden" th:name="recordNo" th:value="${RecordOne.recordNo}"/>
                     <button type="submit"> 삭제 </button>
                 </form>

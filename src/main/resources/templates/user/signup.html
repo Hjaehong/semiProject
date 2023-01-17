@@ -6,6 +6,8 @@
     <meta charset="UTF-8">
 </head>
 <body>
+<div th:replace="common/header.html"></div>
+
 <form method="post" action="" th:action th:object="${saveUserRequest}">
 
     <div th:if="${#fields.hasGlobalErrors()}">
@@ -46,16 +48,40 @@
         <div>
             <div>취향 선택</div>
             <div th:each="region : ${regions}" class="form-check form-check-inline">
-                <input type="checkbox" th:field="*{regions}" th:value="${region.key}" class="form-check-input">
+                <input onclick="count_check()" name="userTag" type="checkbox" th:field="*{regions}" th:value="${region.key}" class="form-check-input">
                 <label th:for="${#ids.prev('regions')}"
-                       th:text="${region.value}" class="form-check-label">국공립공원</label>
+                       th:text="${region.value}" class="form-check-label"></label>
             </div>
         </div>
 
-        <button type="submit" class="btn btn-primary">회원가입</button>
-            <button th:onclick="|location.href='@{/}'|" type="button">취소</button>
+        <button id="signButton" type="submit" class="btn btn-primary">회원가입</button>
+        <button th:onclick="|location.href='@{/}'|" type="button">취소</button>
 
     </div>
 </form>
 </body>
+<script>
+    function count_check(field){
+        let chkBox = document.getElementsByClassName("form-check-input");
+        const target = document.getElementById('signButton');
+        let maxChecked = 3;   //선택가능한 체크박스 갯수
+        let totalChecked = 0; // 설정 끝
+
+        for (let i = 0; i < chkBox.length; i++){
+            if(chkBox[i].checked) {
+                totalChecked++;
+            }
+        }
+
+        if (totalChecked > maxChecked) { // totalchecked 수가 maxchecked수보다 크다면
+            alert ("최대 3개 까지만 가능합니다."); // 팝업창 띄움
+            field.checked = false;
+        } else if (totalChecked < maxChecked) {
+            target.disabled = true;
+        } else {
+            target.disabled = false;
+        }
+
+    };
+</script>
 </html>

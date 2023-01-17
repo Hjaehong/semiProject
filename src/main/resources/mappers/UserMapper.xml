@@ -59,4 +59,24 @@
     </delete>
 
 
+    <select id="findUserNo" parameterType="String" resultType="_int">
+        SELECT USER_NO
+        FROM OH_USER
+        WHERE USER_ID = #{ userId }
+    </select>
+
+    <insert id="insertUserTag" parameterType="Map">
+        INSERT INTO USERTAG
+        (
+            USER_NO,
+            TAG_CODE
+        )
+        VALUES
+        (
+           #{userNo},
+           #{tagCode}
+        )
+    </insert>
+
+
 </mapper>

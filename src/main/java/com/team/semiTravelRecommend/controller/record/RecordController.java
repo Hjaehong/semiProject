@@ -1,8 +1,7 @@
 package com.team.semiTravelRecommend.controller.record;
 
-import com.team.semiTravelRecommend.model.dto.SessionConst;
-import com.team.semiTravelRecommend.model.dto.comment.CommentDTO;
-import com.team.semiTravelRecommend.model.dto.record.*;
+import com.team.semiTravelRecommend.model.dto.*;
+import com.team.semiTravelRecommend.model.dto.CommentDTO;
 import com.team.semiTravelRecommend.model.dto.response.LoginUserResponse;
 import com.team.semiTravelRecommend.paging.Pagenation;
 import com.team.semiTravelRecommend.paging.SelectCriteria;
@@ -45,6 +44,7 @@ public class RecordController {
         this.recordService = recordService;
         this.commentService = commentService;
     }
+
 
 
     @GetMapping("recordList")
@@ -90,9 +90,9 @@ public class RecordController {
     public ModelAndView recordOne(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember,
                                   ModelAndView mv, @PathVariable("recordNo") int recordNo){
 
-
         RecordDTO record = recordService.recordOne(recordNo);
-
+        // 댓글 정보를 가져오기 위한 list 선언
+        List<CommentDTO> comList = commentService.showComment(recordNo);
         // 게시글을 작성한 유저의 No
         int writerNo = record.getUserDTO().getUserNo();
 
@@ -127,6 +127,7 @@ public class RecordController {
         }
 
         /* ajax로 좋아요 기능을 구현하는데 그때 userNo이 필요하기 때문에 add해줌 */
+        mv.addObject("comList", comList);
         mv.addObject("userNo", userNo);
         mv.addObject("RecordOne", record);
         mv.setViewName("record/recordDetail");
@@ -136,7 +137,7 @@ public class RecordController {
 
     @RequestMapping(value="clickHeart", produces = "application/json; charset=UTF-8")
     @ResponseBody
-    public int clickHeart(int recordNo, int userNo /*, int heartCheck */){
+    public int clickHeart(int recordNo, int userNo){
 
         int heartCheck = recordService.heartCheck(recordNo, userNo);
 
@@ -157,6 +158,7 @@ public class RecordController {
 
         List<TagDTO> tagList = readTag();
 
+        mv.addObject("loginMember", 1);
         mv.addObject("Location", locationList);
         mv.addObject("Tag", tagList);
 
@@ -247,6 +249,7 @@ public class RecordController {
 
         List<TagDTO> tagList = readTag();
 
+        mv.addObject("loginMember", 1);
         mv.addObject("Location", locationList);
         mv.addObject("Tag", tagList);
         mv.addObject("RecordOne", record);
@@ -268,10 +271,6 @@ public class RecordController {
 		* 	  --> 서버에 업로드 후
 		* 	  --> originName : 새로첨부된파일원본명, changeName : 새로첨부된파일수정명
         */
-
-        System.out.println("값이 잘 넘어오는지 확인 : " + record.getRecordNo());
-        System.out.println("첨부파일 정보 확인 : " + record.getImgFileNo());
-        System.out.println("원본 첨부파일 정보 확인 : " + record.getFileDTO().getChangeName());
 
         String orgChangeName = record.getFileDTO().getChangeName();
 

@@ -5,67 +5,81 @@
     <meta charset="UTF-8">
     <title>옷홋</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link th:href="@{/css/travelDetail.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
-<div id="mainBox" th:replace="common/header.html"/>
-    <div id="detailBox">
-        <div>
-            <div>
-                <h1 th:text="${travelInfo.placeName}"/>
-            </div>
-            <div>
-                <span th:text="${travelInfo.address}"/>
-                <span th:text="${travelInfo.tel}"/>
+<div id="mainBox" th:replace="common/header.html"></div>
 
-                <div class="bookmark">
-                    <!-- 로그인 정보가 있을때만 버튼이 보이도록 함 -->
-                    <th:block th:if ="${loginMember == 1}">
-                        <th:block th:if ="${checkBookmark == 0}">
-                            <img th:id="btn_bookmark" th:src="@{/image/bookmark_before.png}" alt="빈북마크이미지" onclick="bookmarkChange()"/>
-                        </th:block>
-                        <th:block th:unless ="${checkBookmark == 0}">
-                            <img th:id="btn_bookmark" th:src="@{/image/bookmark_after.png}" alt="꽉찬북마크이미지" onclick="bookmarkChange()"/>
-                        </th:block>
+    <div class="detailMainBox">
+        <div class="titleBox">
+            <div class="place-name">
+                <div class="bookmark-img">
+                    <th:block th:if ="${checkBookmark == 1}">
+                        <img class="bookmarkImg" th:id="btn_bookmark" th:src="@{/image/bookmark_before.png}" alt="빈북마크이미지" onclick="bookmarkChange()"/>
+                    </th:block>
+                    <th:block th:unless ="${checkBookmark == 1}">
+                        <img class="bookmarkImg" th:id="btn_bookmark" th:src="@{/image/bookmark_after.png}" alt="꽉찬북마크이미지" onclick="bookmarkChange()"/>
                     </th:block>
                 </div>
+                <h1 th:text="${travelInfo.placeName}"></h1>
             </div>
+            <div class="loc-info" th:text="${travelInfo.cityDTO.locationDTO.locName} +' '+ ${travelInfo.cityDTO.cityName}"></div>
         </div>
-        <div>
-            <img id="mainImg" th:src="${travelInfo.plImgPath}"/>
+        <hr>
+        <div class="place-img" th:if="${travelInfo.plImgPath != null}">
+            <img class="mainImg" th:src="${travelInfo.plImgPath}" alt="여행지 이미지"/>
         </div>
-        <div>
-            <span th:text="${travelInfo.cityDTO.locationDTO.locName}"/>
-            <span>
-                <img id="tagImg" th:src="${travelInfo.cityDTO.badgeImg}"/>
-            </span>
+        <div class="place-img" th:unless="${travelInfo.plImgPath != null}">
+            <img class="mainImg" th:src="@{/image/noImg.png}" alt="여행지 이미지"/>
         </div>
-        <div>
-            <span th:utext="${travelInfo.contentDetail}"/>
+        <div class="detail-info">
+            <h2> 상세정보 </h2>
+            <hr>
+            <div class="place-detail">
+                <p th:utext="${travelInfo.contentDetail}"></p>
+            </div>
+            <hr>
+            <div class="address" th:text="'상세주소 : ' + ${travelInfo.address}"></div>
+            <th:block th:if ="${travelInfo.tel == null}">
+                <div th:text="'전화번호 : X'"></div>
+            </th:block>
+            <th:block th:unless ="${travelInfo.tel == null}">
+                <div th:text="'전화번호 : ' + ${travelInfo.tel}"></div>
+            </th:block>
         </div>
+
+<!--        <a class="back-list" href="javascript:history.back();"> <- 목록으로 </a>-->
+        <a class="back-list" th:href="@{/recommend/travelRecommend}"> <- 목록으로 </a>
     </div>
-</div>
 </body>
 <script th:inline="javascript">
     let placeId = [[${travelInfo.placeId}]];
     let userNo = [[${userNo}]]; // 임시 유저 번호
-    console.log(userNo, placeId)
+
     // 북마크 클릭 이벤트
     function bookmarkChange(){
+        let loginMember = [[${loginMember}]];
 
         $.ajax({
             type:"POST" ,
             url:"/recommend/checkingBookmark" ,
             data:{ 'placeId' : placeId,
-                    'userNo' : userNo},
+                'userNo' : userNo},
             dataType:"json" ,
             success: function (result){
-                if(result == 1){
-                    $("#btn_bookmark").attr("src", "/image/bookmark_before.png");
-                } else{
+                console.log("현재 result"+ result);
+                if(result == 2){
                     $("#btn_bookmark").attr("src", "/image/bookmark_after.png");
+
+                } else{
+                    $("#btn_bookmark").attr("src", "/image/bookmark_before.png");
                 }
             }
         });
+
+        if(loginMember == 0){
+            alert("로그인 후 이용해주세요!");
+        }
     }
 
 </script>

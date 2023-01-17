@@ -1,10 +1,11 @@
 package com.team.semiTravelRecommend.controller.myPage;
 
+import com.team.semiTravelRecommend.model.dto.BookmarkDTO;
 import com.team.semiTravelRecommend.model.dto.SessionConst;
-import com.team.semiTravelRecommend.model.dto.record.CityDTO;
-import com.team.semiTravelRecommend.model.dto.record.PlannerDTO;
-import com.team.semiTravelRecommend.model.dto.record.RecordDTO;
-import com.team.semiTravelRecommend.model.dto.record.UserTagDTO;
+import com.team.semiTravelRecommend.model.dto.CityDTO;
+import com.team.semiTravelRecommend.model.dto.PlannerDTO;
+import com.team.semiTravelRecommend.model.dto.RecordDTO;
+import com.team.semiTravelRecommend.model.dto.UserTagDTO;
 import com.team.semiTravelRecommend.model.dto.response.LoginUserResponse;
 import com.team.semiTravelRecommend.service.MyPageService;
 import org.springframework.stereotype.Controller;
@@ -13,10 +14,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
+ /**
+    * Version : 1.0
+   * 클래스명: MyPageController
+   * 작성일자 : 2023/01/17
+ * 작성자 : heojaehong
+   * 설명 : 마이페이지 컨트롤러
+   * 수정일자 :
+   * 수정자 :
+   * 수정내역 :
+ */
 @Controller
 @RequestMapping("/myPage")
 public class MyPageController {
@@ -27,44 +35,12 @@ public class MyPageController {
 
         this.myPageService = myPageService;
     }
-//    @GetMapping("myPage")
-//    public Model getSession (@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember,
-//                             Model loginUser){
-//
-//        int loginUserNo = loginMember.getUserNo().intValue();
-//
-////        Model userInfoModel = userInfo(model, loginUserNo);
-////
-////        List<CityDTO> myBadge = readMyBadge(loginUserNo);
-////
-////        userInfoModel.addAttribute("UserBadge", myBadge);
-//        loginUser.addAttribute("UserNo", loginUserNo);
-//
-//        return loginUser;
-//    }
-//
-//    public Model userInfo(Model model, int loginUserNo){ // 테스트해보고 정상적으로 돌아가면 이름 readUserInfo로 바꾸기
-//
-//        UserTagDTO userInfo = myPageService.readUserInfo(loginUserNo);
-//
-//        String tagName = userInfo.getTagDTO().getTagName();
-//        String[] tagList = tagName.split(",");
-//
-//        model.addAttribute("UserInfo", userInfo);
-//        model.addAttribute("UserTag", tagList);
-//
-//        return model;
-//    }
-//
-//    public List<CityDTO> readMyBadge(int loginUserNo){
-//
-//        return myPageService.readMyBadge(loginUserNo);
-//    }
 
+    // 마이페이지로 이동하는 메소드
     @GetMapping("myPage")
     public Model myPage (@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember,
                          Model model){ // 마이페이지에 들어오면 이 메소드가 실행됨
-
+        // 세션 유저 정보
         int loginUserNo = loginMember.getUserNo().intValue();
 
         Model userInfoModel = readUserInfo(model, loginUserNo);
@@ -76,10 +52,11 @@ public class MyPageController {
         List<CityDTO> myBadge = myPageService.readMyBadge(loginUserNo);
 
         model.addAttribute("UserBadge", myBadge);
+        model.addAttribute("loginMember", 1);
 
         return model;
     }
-
+    // 마이페이지에서 내가 작성한 여행 기록 리스트 페이지로 이동하는 메소드
     @GetMapping("myRecord")
     public Model myRecord(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember,
                           Model model){
@@ -94,6 +71,7 @@ public class MyPageController {
         List<RecordDTO> myRecord = myPageService.readMyRecord(loginUserNo);
 
         model.addAttribute("MyRecord", myRecord);
+        model.addAttribute("loginMember", 1);
 
         return model;
     }
@@ -111,6 +89,7 @@ public class MyPageController {
         List<RecordDTO> myHeart = myPageService.readMyHeart(loginUserNo);
 
         model.addAttribute("MyHeart", myHeart);
+        model.addAttribute("loginMember", 1);
 
         return model;
     }
@@ -127,6 +106,24 @@ public class MyPageController {
 
         List<PlannerDTO> myPlanner = myPageService.readMyPlanner(loginUserNo);
         model.addAttribute("MyPlanner", myPlanner);
+        model.addAttribute("loginMember", 1);
+
+        return model;
+    }
+
+    @GetMapping("myBookmark")
+    public Model readMyBookmark(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember,
+                                Model model){
+        int loginUserNo = loginMember.getUserNo().intValue();
+        Model userInfoModel = readUserInfo(model, loginUserNo);
+
+        model.addAttribute("UserInfo", userInfoModel.getAttribute("UserInfo"));
+        model.addAttribute("UserTag", userInfoModel.getAttribute("UserTag"));
+
+        List<BookmarkDTO> myBookmark = myPageService.readMyBookmark(loginUserNo);
+
+        model.addAttribute("myBookmark", myBookmark);
+        model.addAttribute("loginMember", 1);
 
         return model;
     }

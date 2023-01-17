@@ -1,8 +1,8 @@
 package com.team.semiTravelRecommend.controller.recommend;
 
 import com.team.semiTravelRecommend.model.dto.SessionConst;
-import com.team.semiTravelRecommend.model.dto.recommend.PlaceDTO;
-import com.team.semiTravelRecommend.model.dto.recommend.TagDTO;
+import com.team.semiTravelRecommend.model.dto.PlaceDTO;
+import com.team.semiTravelRecommend.model.dto.TagDTO;
 import com.team.semiTravelRecommend.model.dto.response.LoginUserResponse;
 import com.team.semiTravelRecommend.paging.Pagenation;
 import com.team.semiTravelRecommend.paging.SelectCriteria;
@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -62,29 +63,47 @@ public class RecommendController {
         // 여행지 총 개수 카운트
         int totalCount = recommendService.findAllCnt();
         // 한페이지에 보여줄 게시물 수
-        int limit = 8;
+        int limit = 16;
         // 한페이지에 보여줄 버튼 개수
         int buttonAmount = 5;
         // 페이징 처리를 위한 로직 호출
         SelectCriteria selectCriteria = null;
-        // 페이징 처리에 관한 정보를 담고 있는 인스턴스를 반환
-        selectCriteria = Pagenation.getSelectCriteria(pageNo,totalCount, limit, buttonAmount);
 
-        // 조회
-        List<PlaceDTO> travelList = recommendService.listPaging(selectCriteria);
-        // 여행지 태그 조회
-        List<TagDTO> tagList = recommendService.showTag();
-        // 선택한 태그 여행지 조회
-        List<PlaceDTO> tagchooselList = recommendService.tagRecommendTravel(tagCode);
-
-        model.addAttribute("selectCriteria", selectCriteria);
-        model.addAttribute("tagList", tagList);
-        if( tagCode != null){
-            model.addAttribute("travelList", tagchooselList);
-        } else {
+        // tagCode가 있는지 없는지에 따라 구분
+        if(tagCode != null && !"".equals(tagCode)) {
+            selectCriteria = Pagenation.getSelectCriteria(pageNo,totalCount, limit, buttonAmount, tagCode);
+            List<PlaceDTO> travelList = recommendService.listPaging(selectCriteria);
+            model.addAttribute("travelList", travelList);
+        }
+        else {
+            selectCriteria = Pagenation.getSelectCriteria(pageNo,totalCount, limit, buttonAmount);
+            List<PlaceDTO> travelList = recommendService.listPaging(selectCriteria);
             model.addAttribute("travelList", travelList);
         }
 
+        // 여행지 태그 조회
+        List<TagDTO> tagList = recommendService.showTag();
+
+        List<TagDTO> tagGroup1 = new ArrayList<>();
+        List<TagDTO> tagGroup2 = new ArrayList<>();
+        List<TagDTO> tagGroup3 = new ArrayList<>();
+
+        for (int i = 0; i < 10; i++) {
+            tagGroup1.add(tagList.get(i));
+        }
+
+        for (int i = 10; i < 20; i++) {
+            tagGroup2.add(tagList.get(i));
+        }
+
+        for (int i = 20; i < tagList.size(); i++) {
+            tagGroup3.add(tagList.get(i));
+        }
+        model.addAttribute("TagGroup1", tagGroup1);
+        model.addAttribute("TagGroup2", tagGroup2);
+        model.addAttribute("TagGroup3", tagGroup3);
+
+        model.addAttribute("selectCriteria", selectCriteria);
 
         return model;
     }
@@ -98,7 +117,6 @@ public class RecommendController {
                                Model model, @PathVariable(value = "placeId")int travelInfo){
         // 디테일 정보를 placeId로 찾는다.
         PlaceDTO travelDetail = recommendService.detailTravelInfo(travelInfo);
-        System.out.println("travelInfo = " + travelInfo);
 
         int userNo;
 
@@ -111,12 +129,11 @@ public class RecommendController {
         }
 
         int checkBookmark = recommendService.checkBookmark(userNo, travelInfo);
-        System.out.println("checkBookmark = " + checkBookmark);
 
-        if(checkBookmark == 1){
-            model.addAttribute("checkBookmark", 1);
+        if(checkBookmark == 2){
+            model.addAttribute("checkBookmark", 2);
         }else{
-            model.addAttribute("checkBookmark", 0);
+            model.addAttribute("checkBookmark", 1);
         }
         System.out.println("travelDetail = " + travelDetail);
         // 찾은 정보를 모델에 저장하여 뷰에 전달
@@ -132,8 +149,10 @@ public class RecommendController {
         int checkBookmark = recommendService.checkBookmark(userNo, placeId);
 
         if(checkBookmark == 1){
+            System.out.println("delete 발생");
             return recommendService.deleteBookmark(userNo, placeId);
         }else {
+            System.out.println("insert 발생");
             return recommendService.insertBookmark(userNo, placeId);
 
         }

@@ -5,12 +5,12 @@
 
 <mapper namespace="com.team.semiTravelRecommend.model.dao.MyPageMapper"><!-- 메퍼위치하고  동일하게 네임스페이스 작성-->
 
-    <resultMap id="userInfoResultMap" type="com.team.semiTravelRecommend.model.dto.record.UserTagDTO">
+    <resultMap id="userInfoResultMap" type="com.team.semiTravelRecommend.model.dto.UserTagDTO">
         <association property="userDTO" column="USER_NO" resultMap="userResultMap"/>
         <association property="tagDTO" column="RECORD_TAG" resultMap="tagResultMap"/>
     </resultMap>
 
-    <resultMap id="recordResultMap" type="com.team.semiTravelRecommend.model.dto.record.RecordDTO">
+    <resultMap id="recordResultMap" type="com.team.semiTravelRecommend.model.dto.RecordDTO">
         <id property="recordNo" column="RECORD_NO"/>
         <result property="rowNum" column="ROWNUM"/>
         <result property="rcTitle" column="RC_TITLE"/>
@@ -23,19 +23,19 @@
         <association property="fileDTO" column="IMG_FILE_NO" resultMap="fileResultMap"/>
     </resultMap>
 
-    <resultMap id="cityResultMap" type="com.team.semiTravelRecommend.model.dto.record.CityDTO">
+    <resultMap id="cityResultMap" type="com.team.semiTravelRecommend.model.dto.CityDTO">
         <id property="cityCode" column="CITY_CODE"/>
         <result property="cityName" column="CITY_NAME"/>
         <result property="badgeImg" column="BADGE_IMG"/>
         <association property="locationDTO" column="LOC_CODE" resultMap="locationResultMap"/>
     </resultMap>
 
-    <resultMap id="locationResultMap" type="com.team.semiTravelRecommend.model.dto.record.LocationDTO" >
+    <resultMap id="locationResultMap" type="com.team.semiTravelRecommend.model.dto.LocationDTO" >
         <id property="locCode" column="LOC_CODE"/>
         <result property="locName" column="LOC_NAME"/>
     </resultMap>
 
-    <resultMap id="userResultMap" type="com.team.semiTravelRecommend.model.dto.record.UserDTO">
+    <resultMap id="userResultMap" type="com.team.semiTravelRecommend.model.dto.UserDTO">
         <id property="userNo" column="USER_NO"/>
         <result property="userId" column="USER_ID"/>
         <result property="userPwd" column="USER_PWD"/>
@@ -46,12 +46,12 @@
         <result property="intro" column="INTRO"/>
     </resultMap>
 
-    <resultMap id="tagResultMap" type="com.team.semiTravelRecommend.model.dto.record.TagDTO">
+    <resultMap id="tagResultMap" type="com.team.semiTravelRecommend.model.dto.TagDTO">
         <id property="tagCode" column="TAG_CODE"/>
         <result property="tagName" column="TAG_NAME"/>
     </resultMap>
 
-    <resultMap id="fileResultMap" type="com.team.semiTravelRecommend.model.dto.record.FileDTO">
+    <resultMap id="fileResultMap" type="com.team.semiTravelRecommend.model.dto.FileDTO">
         <id property="fileNo" column="FILE_NO"/>
         <result property="fileSize" column="FILE_SIZE"/>
         <result property="originName" column="ORIGINNAME"/>
@@ -59,7 +59,7 @@
         <result property="imgPath" column="OH_PATH"/>
     </resultMap>
 
-    <resultMap id="plannerResultMap" type="com.team.semiTravelRecommend.model.dto.record.PlannerDTO">
+    <resultMap id="plannerResultMap" type="com.team.semiTravelRecommend.model.dto.PlannerDTO">
         <id property="planNo" column="PLAN_NO"/>
         <result property="rowNum" column="ROWNUM"/>
         <result property="userNo" column="USER_NO"/>
@@ -71,6 +71,25 @@
         <result property="checkList" column="CHECKLIST"/>
         <result property="plDetail" column="PL_DETAIL"/>
         <!--        <association property="userDTO" column="USER_NO" resultMap="userResultMap"/>-->
+    </resultMap>
+
+    <resultMap type="com.team.semiTravelRecommend.model.dto.BookmarkDTO" id="bookmarkResultMap">
+        <association property="userDTO" column="USER_NO" resultMap="userResultMap"/>
+        <association property="placeDTO" column="PLACE_ID" resultMap="placeResultMap"/>
+    </resultMap>
+
+    <resultMap type="com.team.semiTravelRecommend.model.dto.PlaceDTO" id="placeResultMap">
+        <id property="placeId" column="PLACE_ID"/>
+        <result property="rowNum" column="ROWNUM"/>
+        <result property="placeName" column="PLACE_NAME"/>
+        <result property="address" column="ADDRESS"/>
+        <result property="tel" column="TEL"/>
+        <result property="plImgPath" column="PL_IMG_PATH"/>
+        <result property="contentType" column="CONTENT_TYPE"/>
+        <result property="tagCode" column="TAG_CODE"/>
+        <result property="contentDetail" column="CONTENT_DETAIL"/>
+
+        <collection property="cityDTO" column="CITY_CODE" resultMap="cityResultMap"/>
     </resultMap>
 
     <select id="readUserInfo" resultMap="userInfoResultMap">
@@ -164,6 +183,17 @@
                 WHERE A.USER_NO = #{loginUserNo}
                 ORDER BY PLAN_NO
             )A
+    </select>
+
+    <select id="readMyBookMark" resultMap="bookmarkResultMap">
+        select ROWNUM,
+               a.*
+        from(select *
+             from BOOKMARK a
+                      join OH_USER b on a.USER_NO = b.USER_NO
+                      join PLACE c on a.PLACE_ID = c.PLACE_ID
+             WHERE a.user_no = #{loginUserNo})a
+
     </select>
 
 </mapper>

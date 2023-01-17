@@ -29,15 +29,13 @@
             </li>
         </ul>
         <ul class = "enter">
-            <th:block th:if="${loginMember == 0}">
-                <li><a th:href="@{/user-signup}"> 회원가입 </a></li>
-                <li><a th:href="@{/login}"> 로그인 </a></li>
-                <li th:text="${loginMember}"><li>
-            </th:block>
-            <th:block th:unless="${loginMember == 0}">
+            <th:block th:if="${loginMember == 1}">
                 <li><a th:href="@{/myPage/myPage}"> 마이페이지 </a></li>
                 <li><a th:href="@{/logout}"> 로그아웃 </a></li> <!-- 로그아웃 처리 필요-->
-                <li th:text="${loginMember}"><li>
+            </th:block>
+            <th:block th:unless="${loginMember == 1}">
+                <li><a th:href="@{/user-signup}"> 회원가입 </a></li>
+                <li><a th:href="@{/login}"> 로그인 </a></li>
             </th:block>
         </ul>
     </div>

@@ -25,15 +25,15 @@
         <ul> 여행정보
           <a th:href="@{/myPage/myPage}"> <li> 내 뱃지 </li> </a>
           <a th:href="@{/myPage/myPlanner}"> <li> 플래너 </li> </a>
-          <a href="#"> <li> 북마크 </li> </a>
+          <a th:href="@{/myPage/myBookmark}"> <li> 북마크 </li> </a>
           <a th:href="@{/myPage/myRecord}"> <li> 내 여행기록 </li> </a>
           <a th:href="@{/myPage/myHeart}"> <li> 좋아요한 여행기록 </li> </a>
         </ul>
       </div>
       <div class="myInfoMenu">
         <ul> 내 정보
-          <a href="#"> <li> 회원 정보 수정 </li> </a>
-          <a href="#"> <li> 회원 탈퇴 </li> </a>
+          <a th:href="@{/update}"> <li> 회원 정보 수정 </li> </a>
+          <a th:href="@{/delete}"> <li> 회원 탈퇴 </li> </a>
         </ul>
       </div>
     </div>

@@ -3,7 +3,7 @@ package com.team.semiTravelRecommend.controller;
 import com.team.semiTravelRecommend.model.dto.SessionConst;
 import com.team.semiTravelRecommend.model.dto.PlaceDTO;
 import com.team.semiTravelRecommend.model.dto.TagDTO;
-import com.team.semiTravelRecommend.model.dto.response.LoginUserResponse;
+import com.team.semiTravelRecommend.model.dto.UserResponse;
 import com.team.semiTravelRecommend.service.MainPageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;

@@ -99,7 +99,6 @@ public class RecordController {
         // 로그인 정보에 따라 userNo 값이 달라짐
         int userNo;
 
-
         if (loginMember != null) { // 로그인 정보가 null이 아닌경우 userNo을 받아옴
             userNo = loginMember.getUserNo().intValue();
             mv.addObject("loginMember", 1);

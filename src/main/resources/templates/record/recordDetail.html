@@ -183,7 +183,17 @@
     // 댓글리스트를 출력
     function commentList() {
         let recordNo = [[${RecordOne.recordNo}]];
-        let currUserNo = [[${session.loginUser.getUserNo()}]]; // 현재 세션에 저장된 유저번호
+        // let currUserNo = [[${session.loginUser.getUserNo()}]]; // 현재 세션에 저장된 유저번호
+        let currUserNo;
+
+        console.log([[${session.loginUser.getUserNo()}]]);
+
+        if( [[${session.loginUser.getUserNo()}]] == null){
+            currUserNo = 0;
+        } else {
+            currUserNo = [[${session.loginUser.getUserNo()}]]
+        }
+
         // 유저의 정보를 배열에 저장
         let userNo = document.querySelectorAll('.userNo');
         let userNoList = [];

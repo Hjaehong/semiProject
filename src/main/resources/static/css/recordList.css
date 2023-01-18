@@ -1,0 +1,137 @@
+#top-button{
+    position: fixed;
+    bottom: 50px;
+    right: 150px;
+    text-decoration: none;
+    background-color: #103B73;
+    color: white;
+    padding: 5px;
+    border-radius: 10%;
+    font-size: 12px;
+}
+
+#top-button:hover{
+    background-color: #BF214B;
+}
+
+.record {
+    margin: 5rem 4rem 0 4rem;
+}
+
+.wrapper {
+    list-style-type: none;
+    margin: 0 18rem;
+    padding: 20px;
+    border-bottom: 1px dashed black;
+}
+
+.wrapper a {
+    color: black;
+    text-decoration: none;
+    cursor:pointer;
+}
+
+.list-item {
+    display: flex;
+}
+
+.record-img {
+    border: 1px solid black;
+    width: 150px;
+    height: 150px;
+    border-radius: 16px;
+}
+
+.right-container {
+    margin-top: 4px;
+    margin-left: 50px;
+}
+
+.img-text-container {
+    display: flex;
+    align-items: center;
+}
+
+.img-text-container span{
+    font-size: 14px;
+}
+
+.profile-img {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 12px;
+}
+
+.text-container {
+    margin-top: 4px;
+}
+
+.text-container h2 {
+    padding: 8px 0;
+    margin: 0;
+}
+
+.tag {
+    display: inline-block;
+    margin-top: 30px;
+    background: #103B73;
+    color: white;
+    padding: 6px 8px;
+    margin-right: 10px;
+    font-size: 12px;
+    border-radius: 6px;
+    text-align: center;
+}
+
+#move-write-page{
+    position: fixed;
+    bottom: 100px;
+    right: 150px;
+    text-decoration: none;
+    background: #103B73;
+    color: white;
+    padding: 6px;
+    border-radius: 10%;
+    font-size: 10px;
+}
+
+#move-write-page:hover{
+    background-color: #BF214B;
+}
+
+/* 페이징 버튼 css */
+.paging-area{
+    margin: 5rem 4rem;
+}
+
+.paging ul{
+    list-style: none;
+    margin-left: 40%;
+}
+
+.paging li{
+    margin: 32px 4px 60px;
+    float: left;
+}
+
+.paging button{
+    border: 1px solid gray;
+    border-radius: 10%;
+    background-color: white;
+    color: gray;
+    padding: 2px 6px;
+}
+
+.paging button:disabled{
+    border: 1px solid #103B73;
+    background-color: #103B73;
+    color: white;
+    pointer-events: none; /* hover 효과 적용 안되게 설정 */
+}
+
+.paging button:hover{
+    cursor: pointer;
+    color: #BF214B;
+    border: 1px solid #BF214B;
+}

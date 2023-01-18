@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+<form th:action="@{/delete}" th:object="${deleteUserRequest}" method="post">
+
+    <div th:if="${#fields.hasGlobalErrors()}">
+        <p class="field-error" th:each="err : ${#fields.globalErrors()}"
+           th:text="${err}">전체 오류 메시지</p>
+    </div>
+
+    <div class="container">
+    <h1>회원 탈퇴</h1>
+
+        <p th:text="|${loginMember}님 탈퇴하시려면 이메일을 입력하세요.|"></p>
+
+    <h4>회원탈퇴를 위해 이메일을 입력해주세요</h4>
+
+        <div class="form-group">
+            <label for="email">email</label>
+            <input type="text" class="form-control" id="email" th:field="*{email}" th:errorclass="field-error" placeholder="사용자 이메일">
+            <div class="field-error" th:errors="*{email}" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">탈퇴하기</button>
+        <button th:onclick="|location.href='@{/}'|" type="button">취소</button>
+    </div>
+</form>
+</body>
+</html>

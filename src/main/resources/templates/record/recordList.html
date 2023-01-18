@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>옷홋</title>
+    <link th:href="@{/css/recordList.css}" rel="stylesheet" type="text/css">
+    <script>
+        const successMessage = "[[${ successMessage}]]";
+        if (successMessage){
+            alert(successMessage);
+        }
+    </script>
+</head>
+<body>
+  <a name="Top"></a>
+  <a href="#Top" id="top-button"> ▲ TOP </a>
+  <div th:replace="common/header.html"></div>
+    <div class="record">
+      <ul class="wrapper" th:each="recordList : ${ RecordList }">
+          <a href="recordDetail/" th:attrappend="href=${recordList.recordNo}">
+              <li class="list-item">
+                  <!-- 여행기록물 이미지 영역 -->
+                  <div>
+                      <img class="record-img" th:src="@{${recordList.fileDTO.imgPath}}" alt="여행기록사진"/>
+                  </div>
+                  <div class="right-container">
+                      <!-- 유저 정보 영역 -->
+                      <div class="img-text-container">
+                          <div class="profile-img">
+                              <img class="profile-img" th:src="@{/image/profile.png}" alt="프로필이미지">
+                          </div>
+                          <span th:text="${recordList.userDTO.nickname}"></span>
+                      </div>
+                      <!-- 지역 정보 영역 -->
+                      <div class="text-container">
+                          <h2 th:text="${recordList.rcTitle}"></h2>
+                          <span th:text="${recordList.cityDTO.locationDTO.locName}"></span>
+                          <span th:text="${recordList.cityDTO.cityName}"></span>
+                      </div>
+                      <div class="tag" th:text="${recordList.tagDTO.tagName}"/>
+                  </div>
+              </li>
+          </a>
+      </ul>
+    </div>
+
+  <div class="paging">
+          <div align="center" >
+              <ul id="page" th:each="page : ${ selectCriteria }">
+                  <li th:if="${page.pageNo <= 1}">
+                      <button disabled><</button>
+                  </li>
+                  <li th:if="${page.pageNo > 1}">
+                      <button th:onclick="|location.href='@{/reocrd/recordList(currentPage=${page.pageNo-1})}'|"><</button>
+                  <li th:each="num : ${#numbers.sequence(page.startPage,page.endPage)}">
+                      <th:block th:if="${page.pageNo eq num}">
+                          <button disabled th:text="${num}"></button>
+                      </th:block>
+                      <th:block th:if="${page.pageNo ne num}">
+                          <button id="bc" onclick="nextPage(this.innerText)"  th:text="${num}"></button>
+                      </th:block>
+                  </li>
+                  </li>
+                  <li th:if="${page.pageNo >= page.maxPage}">
+                      <button disabled>></button>
+                  </li>
+                  <li th:if="${page.pageNo < page.maxPage}">
+                      <button th:onclick="|location.href='@{/reocrd/recordList(currentPage=${page.pageNo+1})}'|">></button>
+                  </li>
+              </ul>
+          </div>
+  </div>
+
+    <!-- 로그인한 유저에게만 버튼이 보이도록 설정 -->
+    <th:block th:if="${loginMember == 1}">
+        <a id="move-write-page" th:href="@{/record/travelRecordWrite}"> 여행기록<br>작성하기 </a>
+    </th:block>
+
+  <script type="text/javascript" th:src="@{/js/travelRecord.js}"></script>
+</body>
+</html>

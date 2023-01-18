@@ -1,0 +1,46 @@
+.myPage {
+    display: flex;
+    margin: 5rem 14rem;
+    padding: 2rem 0;
+    justify-content: center;
+}
+
+.content-area{
+    width: 600px;
+}
+
+.content-area h3{
+    margin: 1rem 0 0.5rem;
+}
+
+.myActivity{
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.myActivity thead tr{
+    border-bottom: 1px solid black;
+}
+
+.myActivity tr{
+    text-align: center;
+}
+
+.myActivity th, td {
+    border-bottom: 1px solid #444444;
+    border-left: 1px solid #444444;
+    padding: 10px;
+}
+
+.myActivity th:first-child, td:first-child {
+    border-left: none;
+}
+
+.myActivity tbody td a{
+    text-decoration: none;
+    color: #103B73;
+}
+
+.myActivity tbody td a:hover{
+    color: #BF214B;
+}

@@ -1,0 +1,107 @@
+.planner-detail{
+    margin: 4rem 18rem 2rem;
+}
+
+.travel-place{
+    display: flex;
+}
+
+.travel-place label{
+    margin: 0 10px;
+    padding-top: 8px;
+}
+
+.travel-place div{
+    margin: 4px;
+    padding: 4px;
+    font-weight: 700;
+}
+
+.planner-detail hr{
+    margin: 0;
+    border: 1px solid gray;
+}
+
+.plan-info label{
+    border-right: 1px solid gray;
+    margin: 16px 0;
+    padding: 0 16px;
+}
+
+.travel-date{
+    display: flex;
+    margin: 8px 0;
+}
+
+.travel-date div{
+    margin: 8px;
+    padding: 8px;
+}
+
+.lodging-info{
+    display: flex;
+    margin: 8px 0;
+}
+
+.lodging-info div{
+    margin: 8px;
+    padding: 8px;
+}
+
+.transportation-info{
+    display: flex;
+    margin: 8px 0;
+}
+
+.transportation-info div{
+    margin: 8px;
+    padding: 8px;
+}
+
+.plan-content{
+    display: flex;
+    margin: 8px 0;
+}
+
+.plan-content label{
+    border: none;
+    margin: auto 0;
+}
+
+.plan-content pre{
+    border: 1px solid rgb(180, 180, 180);
+    border-radius: 1%;
+    width: 80%;
+    margin: 8px;
+    padding: 8px;
+    white-space: pre-wrap;
+}
+
+.edit-delete {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.edit-delete button {
+    border: none;
+    background: #656565;
+    border-radius: 8px;
+    color: #fff;
+    display: block;
+    padding: 8px 12px;
+    transform: translateX(8px);
+}
+
+.edit-delete button:hover {
+    background-color: #BF214B;
+    cursor: pointer;
+}
+
+.edit {
+    margin-right: 16px;
+}
+
+.back-list {
+    margin-right: 16px;
+}

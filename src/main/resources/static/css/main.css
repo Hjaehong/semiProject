@@ -1,0 +1,142 @@
+#top-button{
+    position: fixed;
+    bottom: 50px;
+    right: 150px;
+    text-decoration: none;
+    background-color: #103B73;
+    color: white;
+    padding: 5px;
+    border-radius: 10%;
+    font-size: 12px;
+}
+
+#top-button:hover{
+    background-color: #BF214B;
+}
+
+.main-img img{
+    width: 100%;
+    height: 500px;
+}
+
+.recommend{
+    /* display: flex; */
+    margin: 4rem 18rem;
+}
+
+.hot{
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.top-3{
+    justify-content: center;
+    display: flex;
+}
+
+.recommend-one{
+    border: 1px solid gray;
+    padding-bottom: 0.5rem;
+    margin: 0 2rem;
+}
+
+.recommend-one a{
+    text-decoration: none;
+    color: black;
+}
+
+.recommend-one a:hover{
+    text-decoration: none;
+    color: #BF214B;
+}
+
+.recommend-one img{
+    width: 250px;
+    height: 250px;
+}
+
+.place-info{
+    margin-left: 4px;
+}
+.place-info h3{
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+.place-info span{
+    font-size: 14px;
+}
+
+
+
+
+/* 키워드로 여행지 찾기 */
+.keyword{
+    margin: 8rem 18rem;
+    text-align: center;
+}
+
+.keyword h1{
+    margin-bottom: 24px;
+}
+
+.button-list{
+    display: flex;
+    margin: 0 8px;
+    justify-content: center;
+}
+
+.button-list button{
+    background-color: white;
+    border-style: none;
+    height: 20px;
+    margin: 2rem 0;
+    font-size: 16px;
+}
+
+.button-list button:hover{
+    background-color: #BF214B;
+    color: white;
+}
+
+.tag{
+    height: 100px;
+    width: 750px;
+    margin: 0 8px;
+    overflow-x: hidden;
+}
+
+.tag-list{
+    display: flex;
+    transition: .3s ease-out;
+    height: 100%;
+}
+
+.tagGroup{
+    justify-content: center;
+    /*border: 2px solid black;*/
+    display: flex;
+}
+
+.keyword-one{
+    /*border: 1px solid pink;*/
+    padding: 0 4px;
+    margin: 0 4px;
+    font-size: 14px;
+}
+
+.keyword-one a{
+    text-decoration: none;
+    color: black;
+}
+
+.keyword-one a:hover{
+    text-decoration: none;
+    color: #BF214B;
+}
+
+.keyword-one img{
+    width: 55px;
+    height: 55px;
+    margin-bottom: 4px;
+}

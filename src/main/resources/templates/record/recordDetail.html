@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>옷홋</title>
+    <link th:href="@{/css/recordDetail.css}" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        const successMessage = "[[${ successMessage}]]";
+        if (successMessage){
+            alert(successMessage);
+        }
+    </script>
+</head>
+<body>
+<div th:replace="common/header.html"></div>
+    <div class="posting">
+        <div class="head">
+            <div class="mascot">
+                <div class="mascot-img">
+                    <img th:src="@{${RecordOne.cityDTO.badgeImg}}" alt="마스코트이미지"/>
+                </div>
+                <h6 th:text="${RecordOne.cityDTO.locationDTO.locName}" class="localName"></h6>
+                <h6 th:text="${RecordOne.cityDTO.cityName}"></h6>
+            </div>
+
+            <h2 class="title" th:text="${RecordOne.rcTitle}"></h2>
+
+            <div class="writer">
+                <span> 작성자 : </span>
+                <span th:text="${RecordOne.userDTO.nickname}"></span>
+            </div>
+
+            <div class="travelDate">
+                <span> 여행일자 : </span>
+                <span class="date" th:text="${RecordOne.travelStartDate}"></span>
+                <span> ~ </span>
+                <span class="date" th:text="${RecordOne.travelEndDate}" ></span>
+            </div>
+        </div>
+
+        <img  th:src="@{${RecordOne.fileDTO.imgPath}}" alt="여행지사진" class="travelImg" th:name="imgFile"/>
+
+        <div class="content">
+            <pre th:text="${RecordOne.rcDetail}"></pre>
+            <div class="tag" th:text="${RecordOne.tagDTO.tagName}"/>
+        </div>
+
+        <div class="edit-delete">
+            <!-- 작성자에게만 버튼이 보이도록 설정 -->
+            <th:block th:if ="${samePerson == 0}">
+                <form class="edit" action="/record/editRecord" method="post" enctype="multipart/form-data">
+                    <input type="hidden" th:name="recordNo" th:value="${RecordOne.recordNo}"/>
+                    <button type="submit"> 수정 </button>
+                </form>
+                <form class="delete" action="/record/deleteRecord" method="post" onsubmit="return confirm('정말로 삭제하시겠습니까?')">
+                    <input type="hidden" th:name="recordNo" th:value="${RecordOne.recordNo}"/>
+                    <button type="submit"> 삭제 </button>
+                </form>
+            </th:block>
+        </div>
+
+        <div class="heart">
+            <th:block th:if ="${heartCheck == 0}">
+                <img th:id="btn_heart" th:src="@{/image/heart_before.png}" alt="빈하트이미지" onclick="changeHeart()"/>
+                <span>게시글 저장하기</span>
+            </th:block>
+            <th:block th:if ="${heartCheck == 1}">
+                <img th:id="btn_heart" th:src="@{/image/heart_after.png}" alt="꽉찬하트이미지" onclick="changeHeart()"/>
+                <span>게시글 저장하기</span>
+            </th:block>
+            <th:block th:if ="${heartCheck == 2}">
+<!--                <img th:id="btn_heart" th:src="@{/image/heart_before.png}" alt="빈하트이미지" onclick="changeHeart()"/>-->
+            </th:block>
+            <th:block th:if="${heartCheck == 3}">
+                <img th:id="btn_heart" th:src="@{/image/heart_before.png}" alt="빈하트이미지" onclick="changeHeart()"/>
+                <span>게시글 저장하기</span>
+            </th:block>
+        </div>
+
+        <div>댓글 : <span id="comCount">0</span></div>
+        <!-- 댓글리스트 -->
+        <div>
+            <div>
+                <div>
+                    <table id="commentListView">
+                        <!-- 댓글 리스트 -->
+                    </table>
+                </div>
+                <div class="commentList">
+                    <textarea name="comContain" id="updateContain" placeholder="수정할 내용을 입력하세요"></textarea>
+                    <button id="commentUpdate">수정</button>
+                </div>
+            </div>
+        </div>
+        <div class="comment-form"  id="commentArea">
+
+            <div class="commentInfo" th:each="comList : ${comList}">
+                <input type="hidden" id="nicknameList" th:value="${comList.userDTO.nickname}">
+                <input type="hidden" class="userNo" th:value="${comList.userDTO.userNo}">
+                <input type="hidden" class="comNo" th:value="${comList.comNo}">
+            </div>
+            <textarea id="commentContain"></textarea>
+            <button id="commentSubmit">등록</button>
+        </div>
+
+
+        <a class="back-list" th:href="@{/record/recordList}"> <- 목록으로 </a>
+    </div>
+</body>
+<!-- 하트 관련 ajax -->
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+
+        function changeHeart(){
+            let recordNo = [[${RecordOne.recordNo}]];
+            let userNo = [[${userNo}]];
+            let heartCheck = [[${heartCheck}]];
+            console.log(heartCheck);
+
+            let loginMember = [[${loginMember}]];
+
+            if(heartCheck == 0 || heartCheck == 1){
+                $.ajax({
+                    type:"POST",
+                    url:"/record/clickHeart",
+                    data: { 'recordNo' : recordNo,
+                        'userNo' : userNo},
+                    dataType: "json",
+                    success: function(result){
+                        console.log("하트의 값 : " + result)
+                        if (result == 2) {
+                            $("#btn_heart").attr("src", "/image/heart_after.png");
+                        }
+                        else {
+                            $("#btn_heart").attr("src", "/image/heart_before.png");
+                        }
+                    }
+                });
+            }
+            else {
+                alert("로그인 후 이용해주세요!");
+            }
+        }
+        /*]]>*/
+
+    </script>
+<!-- 댓글 입력 ajax -->
+<script th:inline="javascript">
+    $(function (){
+        commentList(); // selectReplyList
+        // 댓글 등록 버튼 클릭시
+        $("#commentSubmit").click(function (){
+
+            let userNo = [[${userNo}]];
+            let recordNo = [[${RecordOne.recordNo}]];
+            // 댓글을 작성하지 않고 버튼 클릭시 작성 안되게
+            if($("#commentContain").val().trim().length != 0){
+                $.ajax({
+                    url : "/record/insertComment" ,
+                    type : "post" ,
+                    data:{comContain:$("#commentContain").val() ,
+                        recordNo: recordNo ,
+                        userNo : userNo},
+                    success:function (result){
+                        if(result > 0){
+                            $("#commentContain").val("");
+                            location.href = "/record/recordDetail/" + recordNo;
+                            commentList();
+                        }else{
+                            alert("댓글을 등록할 수 없습니다.");
+                        }
+                    },error:function (){
+                        console.log("ajax 실패");
+                    }
+                });
+            }else{
+                alert("댓글을 작성하고 눌러주세요");
+            }
+        });
+    });
+
+    // 댓글리스트를 출력
+    function commentList() {
+        let recordNo = [[${RecordOne.recordNo}]];
+        let currUserNo = [[${session.loginUser.getUserNo()}]]; // 현재 세션에 저장된 유저번호
+        // 유저의 정보를 배열에 저장
+        let userNo = document.querySelectorAll('.userNo');
+        let userNoList = [];
+        for(let i = 0; i < userNo.length; i++){
+            userNoList[i] = userNo[i].value;
+            console.log()
+        }
+        // 닉네임을 배열에 저장
+        let nickname = document.querySelectorAll('#nicknameList');
+        let nicknameList =[];
+        for(let i=0; i<nickname.length;i++){
+            nicknameList[i] = nickname[i].value;
+        }
+        // 댓글번호를 배열에 저장
+        let comNo = document.getElementsByClassName('comNo');
+        let comNoList =[];
+        for(let i = 0; i < comNo.length; i++){
+            comNoList[i] = comNo[i].value;
+        }
+        $.ajax({
+            url: "/record/listComment",
+            data: {
+                'recordNo': recordNo},
+            type: "post",
+            dataType: "json",
+            success: function (list) {
+                $("#comCount").text(list.length);// 총 댓글수
+                let valueTag = "";
+                let a= 0;
+                $.each(list, function (i, obj) {
+                    // console.log("닉네임리스트 =" + nicknameList[i] + ", 댓글리스트[i]" + comNoList[i])
+                    valueTag += "<tr>"
+                        + "<th>"+ nicknameList[i] + "</th>"
+                        + "<td style='text-align: left'>" + obj.comContain + "</td>";
+                    //  현재 접속한 유저와 작성한 유저가 같을때 댓글 수정 삭제
+                    if(userNoList[i] == currUserNo){
+                        valueTag +=  "<td>" + "<a href='#' class='btnComment' onclick='updateComment("+comNoList[i] +")'>수정</a>"
+                            + "|" + "<a href='#' class='btnComment' onclick='deleteComment("+ comNoList[i] +")'>삭제</a>" + "</td>"
+                            + "</tr>";
+                    } else {
+                        valueTag += "</tr>";
+                    }
+
+                });
+                $("#commentListView").html(valueTag);
+            }, error: function () {
+                console.log("댓글 리스트 ajax 실패");
+            }
+        });
+    }
+
+    let comNobox;
+    // 수정 버튼 클릭시 수정텍스트 에어리어 팝업
+    function updateComment(comNo) {
+        document.querySelector('.commentList').classList.toggle('show');
+        document.getElementById('updateContain').focus();
+        comNobox = comNo;
+    }
+    // 수정할 댓글을 입력하고 제출하면 비동기식으로 바뀐다.
+    $("#commentUpdate").click(function (){
+        document.querySelector('.commentList').classList.toggle('show');
+        $.ajax({
+            url: "/record/updateComment",
+            type: "post",
+            data: {
+                comContain: $("#updateContain").val(),
+                comNo: comNobox},
+            success:function (result){
+                if(result > 0){
+                    $("#updateContain").val("");
+                    commentList();
+                }else{
+                    alert("댓글을 수정할 수 없습니다.");
+                }
+            },error:function (){
+                console.log("ajax 실패");
+            }
+        });
+    });
+    // 댓글삭제
+    function deleteComment(comNo) {
+
+        if (confirm("정말로 삭제하시겠습니까?")) {
+            $.ajax({
+                url: "/record/deleteComment",
+                type: "post",
+                data: {comNo: comNo},
+                success: function (result) {
+                    if (result > 0) {
+                        alert("댓글이 삭제되었습니다.")
+                        commentList();
+                    } else {
+                        alert("해당 댓글을 삭제할 수 없습니다.");
+                    }
+                }, error: function () {
+                    console.log("ajax실패");
+                }
+            });
+        }
+    }
+</script>
+</html>

@@ -1,0 +1,164 @@
+.posting {
+    /*전체 너비*/
+    margin: 5rem 18rem 0 18rem;
+}
+
+.mascot{
+    /* 마스코트 이미지와 도시이름 중앙 정렬 */
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.mascot-img {
+    /* 마스코트 이미지를 담을 공간 */
+    border-radius: 70%;
+    width: 30px;
+    height: 30px;
+    overflow: hidden;
+    margin-right: 12px;
+    border: 1px solid gray;
+}
+
+.mascot img{
+    /* 마스코트 이미지 */
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+}
+
+.mascot h6{
+    display: inline-block;
+    font-weight: 400;
+    font-size: 20px;
+    margin: 0;
+    padding-right: 0.3rem;
+}
+
+.title{
+    font-weight: 700;
+    font-size: 36px;
+    margin: 8px 0;
+}
+
+.writer{
+    font-weight: 400;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.travelDate{
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.travelImg{
+    width: 100%;
+    height: 650px;
+    margin-top: 20px;
+}
+
+.content pre{
+    margin-top: 12px;
+    white-space: pre-wrap;
+    font-size: 14px;
+}
+
+.tag {
+    /*본문과 태그의 간격*/
+    margin: 8px 0;
+    display: inline-block;
+    background: #103B73;
+    padding: 8px 10px;
+    border-radius: 4px;
+    color: white;
+    text-align: center;
+}
+
+.edit-delete{
+    display: flex;
+    margin: 0 auto;
+    justify-content: right;
+}
+
+.edit-delete button{
+    border: none;
+    background: lightgray;
+    border-radius: 4px;
+    color: #fff;
+    display: block;
+    transform: translateX(8px);
+    margin: 0 4px;
+    padding: 4px 12px;
+}
+
+.edit-delete button:hover {
+    background-color: #BF214B;
+    cursor: pointer;
+}
+
+.heart{
+    /* 하트 이미지와 '게시글 저장하기' 텍스트 중앙 정렬 */
+    display: flex;
+    align-items: center;
+    margin: 32px 0 8px;
+}
+
+.heart img{
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+    cursor:pointer;
+}
+
+.comment-form{
+    border: 2px solid black;
+    border-radius: 6px;
+    margin-top:11px;
+    padding: 10px 24px;
+}
+
+.comment-form textarea{
+    margin-top: 4px;
+    width:100%;
+    height: 100px;
+}
+
+.back-list{
+    display: inline-block;
+    margin: 20px 0 60px;
+    padding: 4px;
+    text-decoration: none;
+    color: #103B73;
+    cursor:pointer;
+}
+
+.back-list:hover{
+    color: #BF214B;
+}
+
+.commentList {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
+#commentListView {
+    width: 100%;
+
+
+}
+
+#commentListView>tr>th{
+}
+
+#commentListView>tr>td:last-child{
+    text-align: right;
+}
+
+#commentListView>tr{
+    border-top: rgb(233,233,233) solid 1px;
+}
+

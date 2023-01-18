@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>옷홋</title>
+    <link th:href="@{/css/myPage.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div th:replace="common/header.html"></div>
+    <div class="myPage">
+        <div th:replace="common/userProfile.html"></div>
+
+        <div class="content-area">
+            <h3> 내 뱃지</h3>
+            <hr>
+            <div class="myBadge">
+                <div class="city" th:each=" userBadge : ${UserBadge}">
+                    <div class="city-mascot">
+                        <img th:src="@{${userBadge.badgeImg}}" alt="마스코트이미지"/>
+                    </div>
+                    <div class="local-info">
+                        <div class="local-name" th:text="${userBadge.locationDTO.locName}"></div>
+                        <div class="city-name" th:text="${userBadge.cityName}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

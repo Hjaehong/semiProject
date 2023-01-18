@@ -6,5 +6,17 @@ spring:
     url: jdbc:log4jdbc:oracle:thin:@localhost:1521:xe
     # db_log
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-    username:
-    password:
+    username: semi
+    password: semi
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  thymeleaf:
+    cache: false
+
+mybatis:
+  mapper-locations: classpath:mapper/**.xml
+  configuration:
+    map-underscore-to-camel-case: true
+  type-aliases-package: com.team.semiTravelRecomend.model.dto

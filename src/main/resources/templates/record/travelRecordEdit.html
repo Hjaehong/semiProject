@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>옷홋</title>
+    <link th:href="@{/css/travelRecordWrite.css}" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<body>
+  <div th:replace="common/header.html"></div>
+  <div class="recordWriteForm">
+    <h2> 여행기록하기 </h2>
+    <form action="/record/travelRecordEdit" method="post" enctype="multipart/form-data">
+      <div class="title">
+        <label for="title-name"> 제목 </label>
+        <input type="text" id="title-name" name="rcTitle" th:field="${RecordOne.rcTitle}">
+      </div>
+
+      <div class="local">
+        <label> 여행지 </label>
+        <select id="location" name="locCode" onchange="readCity(this.value)">
+            <option th:each="location : ${ Location }"
+                    th:value="${ location.locCode}"
+                    th:text="${location.locName}">
+            </option>
+          <option selected th:utext="${RecordOne.cityDTO.locationDTO.locName}"
+                           th:value="${RecordOne.cityDTO.locationDTO.locCode}"> </option>
+          <!-- selected : 초기에 선택되어있는 값 -->
+        </select>
+
+        <select id="city-code" name="cityCode">
+            <option th:each="city : ${ City }"
+                    th:value="${ city.cityCode}"
+                    th:text="${city.cityName}">
+            </option>
+          <option selected th:utext="${RecordOne.cityDTO.cityName}"
+                           th:value="${RecordOne.cityDTO.cityCode}">
+          </option>
+        </select>
+      </div>
+
+      <div class="date">
+        <label for = "dateIn"> 여행 날짜 (시작일 - 종료일) </label>
+        <span>
+          시작일 : <input type = "date" name="travelStartDate" id="dateIn" th:field ="${RecordOne.travelStartDate}">
+          종료일 : <input type = "date" name="travelEndDate" th:field ="${RecordOne.travelEndDate}">
+        </span>
+      </div>
+
+      <div class="tag">
+        <label> 태그 </label>
+        <select name="recordTag">
+          <option th:each="tag : ${ Tag }"
+                  th:value="${ tag.tagCode}"
+                  th:text="${tag.tagName}">
+          </option>
+          <option selected th:utext="${RecordOne.tagDTO.tagName}"
+                           th:value="${RecordOne.tagDTO.tagCode}">
+          </option>
+        </select>
+      </div>
+
+      <div class="content">
+        <label> 내용 </label>
+        <textarea name="rcDetail" th:text="${RecordOne.rcDetail}"></textarea>
+      </div>
+
+      <div class="imgFile">
+        <input type="file" name="file" class="imgFile"/>
+        <img class="record-img" th:src="@{${RecordOne.fileDTO.imgPath}}" alt="기존첨부사진"/>
+        <input type="hidden" th:name="imgFileNo" th:value="${RecordOne.fileDTO.fileNo}">
+        <input type="hidden" th:name="fileDTO.changeName" th:value="${RecordOne.fileDTO.changeName}">
+      </div>
+
+      <input type="hidden" th:name="recordNo" th:value="${RecordOne.recordNo}"/>
+      <!--RecordNo을 보내주기 위해서 hidden으로 값을 담아줌-->
+      <button type="submit"> 수정하기 </button>
+    </form>
+  </div>
+
+
+
+ <script>
+     function readCity(locCode) {
+         // console.log(locCode);
+
+         // let location = document.getElementById("location");
+         let city = document.getElementById("city-code");
+         city.options.length = null;
+
+         $.ajax({
+             type: "POST",
+             url: "/record/city",
+             data: {'locCode': locCode},
+             dataType: "json",
+             success: function (cityDTO) {
+                 console.log(cityDTO[0]);
+
+                 // let city = document.getElementById("city-code");
+
+                 for (let i = 0; i < cityDTO.length; i++) {
+                     city.options[i] = new Option(cityDTO[i].cityName, cityDTO[i].cityCode);
+                 }
+
+                 city.innerHTML += '<option selected>--- 도시선택 ---</option>';
+
+             }, error: function (e) {
+                 alert("발생한 에러 확인" + e);
+             }
+         })
+     };
+ </script>
+
+</body>
+</html>

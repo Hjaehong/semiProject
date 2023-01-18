@@ -1,0 +1,60 @@
+.myPage {
+    display: flex;
+    /*border: 1px solid red;*/
+    margin: 5rem 14rem;
+    padding: 2rem 0;
+    justify-content: center;
+}
+
+.content-area{
+    width: 600px;
+}
+
+.content-area h3{
+    margin: 1rem 0 0.5rem;
+}
+
+.content-area hr{
+    border: 0;
+    height: 2px;
+    background-color: gray;
+}
+
+.myBadge{
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    column-gap: 20px;
+    row-gap: 20px;
+    padding: 1rem 2rem;
+}
+
+.city { /* 마스코트 이미지와 도시명을 담고 있는 div */
+    margin: 0 0.5rem;
+}
+
+.city-mascot{ /* 이미지가 담길 공간 (테두리영역) */
+    position: relative;
+    border: 1px solid black;
+    border-radius: 70%;
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    margin-bottom : 0.5rem;
+    margin-right: 0;
+}
+
+.city-mascot img{ /* 마스코트 이미지 */
+    position: absolute;
+    /*object-fit:fill;*/
+    object-fit: cover;
+    width: 30px;
+    height: 30px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.local-info{
+    font-size: 12px;
+    text-align: center;
+}

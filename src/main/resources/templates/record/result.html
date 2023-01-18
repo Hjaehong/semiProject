@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>옷홋</title>
+</head>
+<body>
+  <p>댓글 구현 성공</p>
+  <div th:each="com : ${commentList}">
+      <span th:text="${com.com_no}">댓글번호</span>
+      <span th:text="${com.user_no}">유저번호</span>
+      <span th:text="${com.record_no}">기록물번호</span>
+      <span th:text="${com.com_contain}">내용</span>
+  </div>
+</body>
+</html>

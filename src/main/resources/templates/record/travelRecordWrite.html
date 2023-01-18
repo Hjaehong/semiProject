@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>옷홋</title>
+    <link th:href="@{/css/travelRecordWrite.css}" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<body>
+  <div th:replace="common/header.html"></div>
+  <div class="recordWriteForm">
+    <h2> 여행기록하기 </h2>
+    <form action="/record/travelRecordWrite" method="post" enctype="multipart/form-data" onsubmit="return registerRecord()">
+      <div class="title">
+        <label for="title-name"> 제목 </label>
+        <input type="text" id="title-name" name="rcTitle" required>
+      </div>
+
+      <div class="local">
+        <label> 여행지 </label>
+        <select id="locationList" name="locCode" onchange="readCity(this.value)">
+          <option th:each="location : ${ Location }"
+                  th:value="${ location.locCode}"
+                  th:text="${location.locName}">
+          </option>
+          <option value="" disabled selected>--- 지역선택 ---</option>
+          <!-- selected : 초기에 선택되어있는 값 -->
+        </select>
+
+        <select id="cityList" name="cityCode">
+          <option th:each="city : ${ City }"
+                  th:value="${city.cityCode}"
+                  th:text="${city.cityName}">
+          </option>
+          <option value="" disabled selected>--- 도시선택 ---</option>
+        </select>
+      </div>
+
+      <div class="date">
+        <label for = "dateIn"> 여행 날짜 </label>
+        <span>
+          시작일 : <input type = "date" name="travelStartDate" id="dateIn"required>
+          종료일 : <input type = "date" name="travelEndDate" id="dateOut" required>
+        </span>
+      </div>
+
+      <div class="tag">
+        <label> 태그 </label>
+        <select id="tagList" name="recordTag">
+          <option th:each="tag : ${ Tag }"
+                  th:value="${ tag.tagCode}"
+                  th:text="${tag.tagName}">
+          </option>
+          <option value="" disabled selected>--- 태그선택 ---</option>
+        </select>
+      </div>
+
+      <div class="content">
+        <label> 내용 </label>
+        <textarea name="rcDetail" required></textarea>
+      </div>
+
+      <div class="imgFile">
+        <input type="file" name="file" class="imgFile" onchange="checkFileSize(this.files)" required/>
+      </div>
+
+      <button type="submit"> 작성하기 </button>
+    </form>
+  </div>
+  <script type="text/javascript" th:src="@{/js/travelRecordWirte.js}"></script>
+</body>
+    <script th:inline="javascript">
+      <!-- 날짜 관련 예외처리 함수 -->
+      let startDay = document.getElementById("dateIn");
+      let endDay = document.getElementById("dateOut");
+
+      let now_utc = Date.now();
+      let timeOff = new Date().getTimezoneOffset()*60000;
+      let today = new Date(now_utc - timeOff).toISOString().split("T")[0];
+
+      startDay.setAttribute("max", today);
+      endDay.setAttribute("max", today);
+
+      startDay.addEventListener('change', function(){
+        if(startDay.value)
+          endDay.min = startDay.value;
+      }, false);
+
+      endDay.addEventListener('change', function (){
+        if(endDay.value)
+          startDay.max = endDay.value;
+      })
+
+        // 선택한 지역에 따라 도시를 가져오는 함수
+        function readCity(locCode) {
+
+            let city = document.getElementById("cityList");
+            // let location = document.getElementById("locationList");
+            // location.attr("required", true);
+            city.options.length = null;
+
+            $.ajax({
+                type: "POST",
+                url: "/record/city",
+                data: {'locCode': locCode},
+                dataType: "json",
+                success: function (cityDTO) {
+                    // console.log(cityDTO[0]);
+
+                    // let city = document.getElementById("city-code");
+
+                    for (let i = 0; i < cityDTO.length; i++) {
+                        city.options[i] = new Option(cityDTO[i].cityName, cityDTO[i].cityCode);
+                    }
+
+                    city.innerHTML += '<option value="" disabled selected>--- 도시선택 ---</option>';
+                    // city.attr("required", true);
+
+                }, error: function (e) {
+                    alert("발생한 에러 확인" + e);
+                }
+            })
+        };
+
+      // 업로드된 파일 용량 확인하는 함수
+      function checkFileSize(uploadFile){
+
+          if (uploadFile && uploadFile[0]) {
+
+              let maxSize = 10 * 1024 * 1024;
+              let fileSize = uploadFile[0].size;
+
+              if(fileSize > maxSize){
+                  alert("첨부파일 사이즈는 10MB 이내로 등록 가능합니다.");
+                  $(this).val('');
+                  return false
+              }
+          }
+      };
+
+      // input이 모두 채워졌는지 확인하는 함수
+      function registerRecord(){
+        let selectLoc = $("#locationList option:selected").val();
+        let selectCity = $("#cityList option:selected").val();
+        let selectTag = $("#tagList option:selected").val();
+
+        console.log(selectLoc);
+        console.log(selectCity);
+        console.log(selectTag);
+
+        if (selectLoc == ""){
+          alert("지역을 선택해주세요");
+          $("#locationList").focus();
+          event.preventDefault();
+          return false
+        } else if (selectCity == ""){
+          alert("도시를 선택해주세요");
+          $("#cityList").focus();
+          event.preventDefault();
+          return false
+        } else if (selectTag == ""){
+          alert("태그를 선택해주세요");
+          $("#tagList").focus();
+          event.preventDefault();
+          return false
+        }
+        else { return true }
+      };
+    </script>
+
+</html>

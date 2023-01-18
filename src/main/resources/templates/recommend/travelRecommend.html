@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>옷홋</title>
+    <link th:href="@{/css/travelRecommend.css}" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <div th:replace="common/header.html"></div>
+ <div class="recommend-all">
+    <div class="button-list">
+        <button class="button-left"> < </button>
+        <div class="tag">
+            <div class="tag-list">
+                <div class="tagGroup">
+                    <div class="keyword-one" th:each="tagGroup1 : ${TagGroup1}">
+                        <a th:href="@{/recommend/travelRecommend(tag=${tagGroup1.tagCode})}">
+                            <img th:src="@{${tagGroup1.iconImg}}" alt="키워드이미지"/>
+                            <div th:text="${tagGroup1.tagName}"></div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="tagGroup">
+                    <div class="keyword-one" th:each="tagGroup2 : ${TagGroup2}">
+                        <a th:href="@{/recommend/travelRecommend(tag=${tagGroup2.tagCode})}">
+                            <img th:src="@{${tagGroup2.iconImg}}" alt="키워드이미지"/>
+                            <div th:text="${tagGroup2.tagName}"></div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="tagGroup">
+                    <div class="keyword-one" th:each="tagGroup3 : ${TagGroup3}">
+                        <a th:href="@{/recommend/travelRecommend(tag=${tagGroup3.tagCode})}">
+                            <img th:src="@{${tagGroup3.iconImg}}" alt="키워드이미지"/>
+                            <div th:text="${tagGroup3.tagName}"></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="button-right"> > </button>
+    </div>
+
+    <div class="recommend">
+        <div class="recommend-One" th:each="travelList : ${ travelList }">
+<!--            <form>-->
+            <a class="place-img" href="recommendDetail/"  th:attrappend="href=${travelList.placeId}">
+                <th:block th:if = "${travelList.plImgPath != null}">
+                    <img class="travelImg" th:src="${travelList.plImgPath}" alt="여행지사진"/>
+                </th:block>
+                <th:block th:unless = "${travelList.plImgPath != null}">
+                    <img class="travelImg" th:src="@{/image/noImg.png}" alt="이미지없음"/>
+                </th:block>
+
+                <div class="info">
+                    <div class="text-info">
+                        <div class="placeName" th:text="${travelList.placeName}"></div>
+                        <div class="local" th:text="${travelList.cityDTO.locationDTO?.locName} + ' ' + ${travelList.cityDTO.cityName}"></div>
+                    </div>
+                    <div class="mascot">
+                        <div class="mascot-img" th:if="${travelList.cityDTO.badgeImg != null}">
+                            <img th:src="@{${travelList.cityDTO.badgeImg}}" alt="마스코트사진"/>
+                        </div>
+                        <div class="mascot-img" th:unless="${travelList.cityDTO.badgeImg != null}">
+                            <img th:src="@{/image/noImg.png}" alt="마스코트사진"/>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+ </div>
+        <div class="paging">
+            <div align="center" >
+                <ul id="page" th:each="page : ${ selectCriteria }">
+                    <li th:if="${page.pageNo <= 1}">
+                        <button disabled><</button>
+                    </li>
+                    <li th:if="${page.pageNo > 1}">
+                        <button th:onclick="|location.href='@{/recommend/travelRecommend(currentPage=${page.pageNo-1})}'|"><</button>
+                    <li th:each="num : ${#numbers.sequence(page.startPage,page.endPage)}">
+                        <th:block th:if="${page.pageNo eq num}">
+                            <button disabled th:text="${num}"></button>
+                        </th:block>
+                        <th:block th:if="${page.pageNo ne num}">
+                            <button id="bc" onclick="nextPage(this.innerText)"  th:text="${num}"></button>
+                        </th:block>
+                    </li>
+                    </li>
+                    <li th:if="${page.pageNo >= page.maxPage}">
+                        <button disabled>></button>
+                    </li>
+                    <li th:if="${page.pageNo < page.maxPage}">
+                        <button th:onclick="|location.href='@{/recommend/travelRecommend(currentPage=${page.pageNo+1})}'|">></button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    <script th:inline="javascript">
+        const tag = document.querySelector('.tag');
+        const tagList = document.querySelector('.tag-list');
+        const tagGroups = document.querySelectorAll('.tagGroup');
+        let currentIndex = 0; // 현재 슬라이드 화면 인덱스
+
+        console.log(tag);
+        console.log(tagList);
+        console.log(tagGroups);
+
+        tagGroups.forEach((tagGroup) => {
+            tagGroup.style.width = `${tag.clientWidth}px`; // inner의 width를 모두 outer의 width로 만들기
+        })
+
+        tagList.style.width = `${tag.clientWidth * tagGroups.length}px`; // innerList의 width를 inner의 width * inner의 개수로 만들기
+
+        /* 버튼에 이벤트 등록하기 */
+        const buttonLeft = document.querySelector('.button-left');
+        const buttonRight = document.querySelector('.button-right');
+        buttonLeft.addEventListener('click', () => {
+            currentIndex--;
+            currentIndex = currentIndex < 0 ? 0 : currentIndex; // index값이 0보다 작아질 경우 0으로 변경
+            tagList.style.marginLeft = `-${tag.clientWidth * currentIndex}px`; // index만큼 margin을 주어 옆으로 밀기
+        });
+
+        buttonRight.addEventListener('click', () => {
+            currentIndex++;
+            currentIndex = currentIndex >= tagGroups.length ? tagGroups.length - 1 : currentIndex; // index값이 inner의 총 개수보다 많아질 경우 마지막 인덱스값으로 변경
+            tagList.style.marginLeft = `-${tag.clientWidth * currentIndex}px`; // index만큼 margin을 주어 옆으로 밀기
+        });
+    </script>
+    <script type="text/javascript" th:src="@{/js/travelRecommend.js}"></script>
+
+</body>
+</html>

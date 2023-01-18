@@ -1,0 +1,74 @@
+.detailMainBox {
+    padding: 4rem 18rem;
+}
+
+.titleBox{
+    align-content: center;
+}
+
+.place-name{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bookmark-img{
+    margin-right: 8px;
+}
+
+.bookmark-img img{
+    width: 24px;
+    height: 24px;
+    cursor:pointer;
+}
+
+.place-name h1{
+    margin: 8px 0;
+}
+
+.loc-info{
+    text-align: center;
+}
+
+hr{
+    margin: 12px 0;
+}
+
+.place-img{
+    text-align: center;
+    margin: 30px 0;
+}
+
+.place-img img{
+    width: 100%;
+    /*height: ;*/
+}
+
+.detail-info h2{
+    margin: 20px 0 8px;
+}
+
+.place-detail{
+    margin-bottom: 20px;
+}
+
+.place-detail p{
+    font-size: 16px;
+}
+
+.address{
+    margin-bottom: 4px;
+}
+
+.back-list{
+    display: inline-block;
+    margin: 20px 0 60px;
+    padding: 4px;
+    text-decoration: none;
+    color: #103B73;
+    cursor:pointer;
+}
+
+.back-list:hover{
+    color: #BF214B;
+}

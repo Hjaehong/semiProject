@@ -19,7 +19,7 @@
     <div class="plan-info">
       <div class="travel-date">
         <label> 여행일자 </label>
-        <div class="date" th:text="${Planner.startDueDate}+ ' ' + ${Planner.endDueDate}"></div>
+        <div class="date" th:text="${Planner.startDueDate}+ ' ~ ' + ${Planner.endDueDate}"></div>
       </div>
 
       <div class="lodging-info">
@@ -34,47 +34,11 @@
 
       <div class="plan-content">
         <label> 세부일정 </label>
-        <div class="content" th:text="${Planner.plDetail}"></div>
+        <pre class="content" th:text="${Planner.plDetail}"></pre>
       </div>
 
     </div>
   </div>
-
-
-<!--  <div class="plannerDetailForm">-->
-<!--    <h2> 플래너 </h2>-->
-<!--    <div class="number"> &lt;!&ndash; rowNum으로 받아줘야함 (planNo은 모든 유저가 공통으로 쓰니까) &ndash;&gt;-->
-<!--      <span> 게시글 번호 : </span>-->
-<!--      <span th:text="${Planner.rowNum}"></span>-->
-<!--    </div>-->
-
-<!--    <div class="title">-->
-<!--      <span> 여행지 : </span>-->
-<!--      <span th:text="${Planner.travelPlace}"></span>-->
-<!--    </div>-->
-
-<!--    <div class="travelDate">-->
-<!--      <span> 여행일자 : </span>-->
-<!--      <span th:text="${Planner.startDueDate}"></span>-->
-<!--      <span> ~ </span>-->
-<!--      <span th:text="${Planner.endDueDate}"></span>-->
-<!--    </div>-->
-
-<!--    <div class="lodging">-->
-<!--      <span> 숙소정보 : </span>-->
-<!--      <span th:text="${Planner.lodgingInfo}"></span>-->
-<!--    </div>-->
-
-<!--    <div class="transportation">-->
-<!--      <span> 교통수단 : </span>-->
-<!--      <span th:text="${Planner.transportation}"></span>-->
-<!--    </div>-->
-
-<!--    <div class="content">-->
-<!--      <span> 세부일정 </span>-->
-<!--      <pre th:text="${Planner.plDetail}"></pre> &lt;!&ndash; textarea 처리를 일단 text로 함 &ndash;&gt;-->
-<!--    </div>-->
-<!--  </div>-->
 
   <div class="edit-delete">
     <button type="button" class="back-list" onclick="location.href='javascript:history.back();'"> <- 목록으로 </button>

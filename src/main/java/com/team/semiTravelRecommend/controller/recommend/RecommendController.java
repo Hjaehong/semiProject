@@ -83,34 +83,24 @@ public class RecommendController {
 
         // 여행지 태그 조회
         List<TagDTO> tagList = recommendService.showTag();
-
+        // 태그 슬라이딩
         List<TagDTO> tagGroup1 = new ArrayList<>();
         List<TagDTO> tagGroup2 = new ArrayList<>();
         List<TagDTO> tagGroup3 = new ArrayList<>();
 
-        for (int i = 0; i < 10; i++) {
-            tagGroup1.add(tagList.get(i));
-        }
+        for (int i = 0; i < 10; i++) {tagGroup1.add(tagList.get(i));}
+        for (int i = 10; i < 20; i++) {tagGroup2.add(tagList.get(i));}
+        for (int i = 20; i < tagList.size(); i++) {tagGroup3.add(tagList.get(i));}
 
-        for (int i = 10; i < 20; i++) {
-            tagGroup2.add(tagList.get(i));
-        }
 
-        for (int i = 20; i < tagList.size(); i++) {
-            tagGroup3.add(tagList.get(i));
-        }
         model.addAttribute("TagGroup1", tagGroup1);
         model.addAttribute("TagGroup2", tagGroup2);
         model.addAttribute("TagGroup3", tagGroup3);
-
         model.addAttribute("selectCriteria", selectCriteria);
 
         return model;
     }
-//    @GetMapping("/paging")
-//    public void page(HttpServletRequest request, Model model){
-//
-//    }
+
     // 태그선택시 호출
     @GetMapping("recommendDetail/{placeId}")
     public String travelDetail(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember,
@@ -119,7 +109,6 @@ public class RecommendController {
         PlaceDTO travelDetail = recommendService.detailTravelInfo(travelInfo);
 
         int userNo;
-
         if (loginMember != null) { // 로그인 정보가 null이 아닌경우 userNo을 받아옴
             userNo = loginMember.getUserNo().intValue();
             model.addAttribute("loginMember", 1);
@@ -127,35 +116,27 @@ public class RecommendController {
             userNo = 0;
             model.addAttribute("loginMember", 0);
         }
-
+        // 북마크가 체크 되어있는지 -> 비어있는 북마크를 보여줄지 채워진 북마크를 보여줄지
         int checkBookmark = recommendService.checkBookmark(userNo, travelInfo);
-
-        if(checkBookmark == 2){
+        if(checkBookmark == 1){ // 이미 북마크가 되어있는 상태
             model.addAttribute("checkBookmark", 2);
-        }else{
+        }else{ // 북마크가 되어있지 않은 상태
             model.addAttribute("checkBookmark", 1);
         }
-        System.out.println("travelDetail = " + travelDetail);
         // 찾은 정보를 모델에 저장하여 뷰에 전달
         model.addAttribute("travelInfo", travelDetail);
         model.addAttribute("userNo", userNo);
 
         return "recommend/recommendDetail";
     }
-
+    // 북마크상태 반환 하는 메소드
     @RequestMapping(value = "/checkingBookmark", produces = "application/json; charset=UTF-8")
     @ResponseBody
     public int checkingBookmark(int userNo,int placeId){
         int checkBookmark = recommendService.checkBookmark(userNo, placeId);
 
-        if(checkBookmark == 1){
-            System.out.println("delete 발생");
-            return recommendService.deleteBookmark(userNo, placeId);
-        }else {
-            System.out.println("insert 발생");
-            return recommendService.insertBookmark(userNo, placeId);
-
-        }
+        if(checkBookmark == 1){return recommendService.deleteBookmark(userNo, placeId);}
+        else {return recommendService.insertBookmark(userNo, placeId);}
 
     }
 }

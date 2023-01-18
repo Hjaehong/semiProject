@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>recordDetail</title>
+    <title>옷홋</title>
     <link th:href="@{/css/recordDetail.css}" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
@@ -108,6 +108,7 @@
         <a class="back-list" th:href="@{/record/recordList}"> <- 목록으로 </a>
     </div>
 </body>
+<!-- 하트 관련 ajax -->
     <script th:inline="javascript">
         /*<![CDATA[*/
 
@@ -144,7 +145,7 @@
         /*]]>*/
 
     </script>
-
+<!-- 댓글 입력 ajax -->
 <script th:inline="javascript">
     $(function (){
         commentList(); // selectReplyList
@@ -180,7 +181,6 @@
     });
 
     // 댓글리스트를 출력
-
     function commentList() {
         let recordNo = [[${RecordOne.recordNo}]];
         let currUserNo = [[${session.loginUser.getUserNo()}]]; // 현재 세션에 저장된 유저번호
@@ -190,15 +190,12 @@
         for(let i = 0; i < userNo.length; i++){
             userNoList[i] = userNo[i].value;
             console.log()
-
         }
         // 닉네임을 배열에 저장
         let nickname = document.querySelectorAll('#nicknameList');
-
         let nicknameList =[];
         for(let i=0; i<nickname.length;i++){
             nicknameList[i] = nickname[i].value;
-
         }
         // 댓글번호를 배열에 저장
         let comNo = document.getElementsByClassName('comNo');

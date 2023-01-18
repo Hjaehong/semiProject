@@ -118,9 +118,9 @@ public class RecommendController {
         }
         // 북마크가 체크 되어있는지 -> 비어있는 북마크를 보여줄지 채워진 북마크를 보여줄지
         int checkBookmark = recommendService.checkBookmark(userNo, travelInfo);
-        if(checkBookmark == 2){
+        if(checkBookmark == 1){ // 이미 북마크가 되어있는 상태
             model.addAttribute("checkBookmark", 2);
-        }else{
+        }else{ // 북마크가 되어있지 않은 상태
             model.addAttribute("checkBookmark", 1);
         }
         // 찾은 정보를 모델에 저장하여 뷰에 전달

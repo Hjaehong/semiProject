@@ -61,7 +61,7 @@ public class RecommendController {
             pageNo = 1;
         }
         // 여행지 총 개수 카운트
-        int totalCount = recommendService.findAllCnt();
+        int totalCount = recommendService.findAllCnt(tagCode);
         // 한페이지에 보여줄 게시물 수
         int limit = 16;
         // 한페이지에 보여줄 버튼 개수
@@ -71,7 +71,7 @@ public class RecommendController {
 
         // tagCode가 있는지 없는지에 따라 구분
         if(tagCode != null && !"".equals(tagCode)) {
-            selectCriteria = Pagenation.getSelectCriteria(pageNo,totalCount, limit, buttonAmount, tagCode);
+            selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount, tagCode);
             List<PlaceDTO> travelList = recommendService.listPaging(selectCriteria);
             model.addAttribute("travelList", travelList);
         }
@@ -118,9 +118,9 @@ public class RecommendController {
         }
         // 북마크가 체크 되어있는지 -> 비어있는 북마크를 보여줄지 채워진 북마크를 보여줄지
         int checkBookmark = recommendService.checkBookmark(userNo, travelInfo);
-        if(checkBookmark == 2){
+        if(checkBookmark == 1){ // 이미 북마크가 되어있는 상태
             model.addAttribute("checkBookmark", 2);
-        }else{
+        }else{ // 북마크가 되어있지 않은 상태
             model.addAttribute("checkBookmark", 1);
         }
         // 찾은 정보를 모델에 저장하여 뷰에 전달

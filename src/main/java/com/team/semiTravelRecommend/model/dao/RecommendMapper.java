@@ -32,7 +32,7 @@ public interface RecommendMapper {
     List<PlaceDTO> tagRecommendTravel(String tagCode);
     List<TagDTO> showTag();
     // 총 개시물 수
-    int countTravel();
+    int countTravel(String tagCode);
     // 페이징 리스트
     List<PlaceDTO> listPaging(SelectCriteria selectCriteria);
     // 여행지의 자세한 내용

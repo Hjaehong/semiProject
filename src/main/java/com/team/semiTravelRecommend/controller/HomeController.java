@@ -3,7 +3,7 @@ package com.team.semiTravelRecommend.controller;
 import com.team.semiTravelRecommend.model.dto.SessionConst;
 import com.team.semiTravelRecommend.model.dto.PlaceDTO;
 import com.team.semiTravelRecommend.model.dto.TagDTO;
-import com.team.semiTravelRecommend.model.dto.response.LoginUserResponse;
+import com.team.semiTravelRecommend.model.dto.UserResponse;
 import com.team.semiTravelRecommend.service.MainPageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -35,17 +35,18 @@ public class HomeController {
     }
 
     @GetMapping("/")
-    public ModelAndView homeLogin(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember,
+    public ModelAndView homeLogin(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) UserResponse loginMember,
                                   ModelAndView mv, HttpServletRequest request) {
         HttpSession session = request.getSession();
 
-        Object attribute = session.getAttribute(SessionConst.LOGIN_USER);
 
         if (loginMember == null) { // 로그인 정보가 없으면 0을
             mv.addObject("loginMember", 0);
+            log.info("login fail={}", loginMember);
         }
         else { // 로그인 정보가 있으면 1을
             mv.addObject("loginMember", 1);
+            log.info("login success={}", loginMember);
         }
 
         // 북마크 많이 된 순으로 출력 (가장 핫한 여행지 부분을 위한 코드)

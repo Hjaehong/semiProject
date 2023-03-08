@@ -6,6 +6,7 @@ import com.team.semiTravelRecommend.model.dto.CityDTO;
 import com.team.semiTravelRecommend.model.dto.PlannerDTO;
 import com.team.semiTravelRecommend.model.dto.RecordDTO;
 import com.team.semiTravelRecommend.model.dto.UserTagDTO;
+import com.team.semiTravelRecommend.model.dto.UserResponse;
 import com.team.semiTravelRecommend.model.dto.response.LoginUserResponse;
 import com.team.semiTravelRecommend.service.MyPageService;
 import org.springframework.stereotype.Controller;
@@ -38,7 +39,7 @@ public class MyPageController {
 
     // 마이페이지로 이동하는 메소드
     @GetMapping("myPage")
-    public Model myPage (@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) LoginUserResponse loginMember,
+    public Model myPage (@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) UserResponse loginMember,
                          Model model){ // 마이페이지에 들어오면 이 메소드가 실행됨
         // 세션 유저 정보
         int loginUserNo = loginMember.getUserNo().intValue();
@@ -51,6 +52,13 @@ public class MyPageController {
         model.addAttribute("UserTag", userInfoModel.getAttribute("UserTag"));
         model.addAttribute("UserBadge", myBadge);
         model.addAttribute("loginMember", 1);
+
+        if (loginMember == null) { // 로그인 정보가 없으면 0을
+            model.addAttribute("loginMember", 0);
+        }
+        else { // 로그인 정보가 있으면 1을
+            model.addAttribute("loginMember", 1);
+        }
 
         return model;
     }

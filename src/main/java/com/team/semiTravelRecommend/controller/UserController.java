@@ -88,6 +88,11 @@ public class UserController {
             return "user/signup";
         }
         log.info("홈 화면 데이터 = {}", saveUserRequest);
+
+        if (saveUserRequest == null) {
+            bindingResult.reject("loginFail", "회원가입할 정보를 입력해주세요.");
+            return "user/signup";
+        }
         userService.save(saveUserRequest); //User 테이블에 user 정보를 저장
         log.info("saveUserRequest.regions={}", saveUserRequest.getRegions());
 
@@ -99,18 +104,15 @@ public class UserController {
         HashMap<String, Object> userTag = new HashMap<>();
         userTag.put("userNo", userNo);
 
-        for (int i = 0; i < userChoiceTag.size(); i++){
-            userTag.put("tagCode", userChoiceTag.get(i));
+        for (String s : userChoiceTag) {
+            userTag.put("tagCode", s);
             userService.insertUserTag(userTag);
-        }
-
-        if (saveUserRequest == null) {
-            bindingResult.reject("loginFail", "회원가입할 정보를 입력해주세요.");
-            return "user/signup";
         }
         log.info("save 메서드 종료");
         return "redirect:/";
     }
+
+
 
     /*
         로그인
@@ -134,9 +136,10 @@ public class UserController {
         }
 
         log.info("로그인 성공 ! = {}", loginUser);
+        UserResponse userSession = new UserResponse(loginUser);
 
         HttpSession session = request.getSession();
-        session.setAttribute(SessionConst.LOGIN_USER, loginUser);
+        session.setAttribute(SessionConst.LOGIN_USER, userSession);
 
         return "redirect:/";
     }
@@ -154,7 +157,7 @@ public class UserController {
     }
 
     @GetMapping("/update")
-    public String updateForm(HttpServletRequest request, UpdateUserRequest updateUserRequest, Model model) {
+    public String updateForm(HttpServletRequest request, Model model) {
         HttpSession session = request.getSession();
         UserResponse attribute = (UserResponse) session.getAttribute(SessionConst.LOGIN_USER);
         UserResponse user = userService.getUser(attribute.getUserId());
@@ -187,8 +190,6 @@ public class UserController {
         UserResponse user = userService.getUser(updateUserRequest.getUserId());
         session.setAttribute(SessionConst.LOGIN_USER, user);
 
-        UserResponse updatedSession = (UserResponse)session.getAttribute(SessionConst.LOGIN_USER);
-        log.info("after session={}", updatedSession);
 
         return "redirect:/";
     }
@@ -214,19 +215,22 @@ public class UserController {
             log.info("error = {}", bindingResult.getFieldError().getDefaultMessage());
             return "user/delete";
         }
-
         log.info(">>>>>>>>>>> request = {}", deleteUserRequest.getEmail());//여기 왜 안담길까
 
+
         HttpSession session = request.getSession();
+
+        if (session == null) {
+            return "home";
+        }
         UserResponse attribute = (UserResponse) session.getAttribute(SessionConst.LOGIN_USER);
 
         log.info("before session={}", attribute);
 
         userService.delete(attribute);
 
-        if (session != null) {
-            session.invalidate();
-        }
+        session.invalidate();
+
         return "redirect:/";
     }
 }
